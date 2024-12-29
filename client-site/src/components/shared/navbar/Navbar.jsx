@@ -1,4 +1,4 @@
-import { IoMdMenu } from "react-icons/io";
+import { IoIosEye, IoIosEyeOff, IoMdMenu } from "react-icons/io";
 import { Link } from "react-router-dom";
 import AccoundModal from "../modal/AccoundModal";
 import { useState } from "react";
@@ -6,6 +6,8 @@ import { IoClose } from "react-icons/io5";
 import { HiOutlineLogin } from "react-icons/hi";
 import { BiUserPlus } from "react-icons/bi";
 import { MdHome } from "react-icons/md";
+import { FaSync } from "react-icons/fa";
+import { TbCurrencyTaka } from "react-icons/tb";
 
 const Navbar = ({ open }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,11 +23,39 @@ const Navbar = ({ open }) => {
   const openModal = (id) => {
     document.getElementById(id).showModal();
   };
+  const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
+  const toggleLanguageModal = () => {
+    setIsLanguageModalOpen(!isLanguageModalOpen);
+  };
+
+  // পাসওয়ার্ড শো/হাইড করার জন্য টাইপ পরিবর্তন
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  // Phone Number শুধুমাত্র সংখ্যা গ্রহণ করতে হবে
+  const [phone, setPhone] = useState("");
+  const handleInputChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setPhone(value);
+  };
+  // ভেরিফিকেশন কোড
+  const [verificationCode, setVerificationCode] = useState(generateCode());
+  // ভেরিফিকেশন কোড জেনারেট করার ফাংশন
+  function generateCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString(); // ৬-সংখ্যার কোড
+  }
+  // রিফ্রেশ ফাংশন
+  const handleRefresh = () => {
+    const newCode = generateCode();
+    setVerificationCode(newCode);
+  };
 
   return (
     <div>
       <div
-        className={`bg-[#333333] p-4 fixed left-0 right-0 z-20 duration-300 ${
+        className={`bg-[#222222] p-4 fixed left-0 right-0 z-20 duration-300 ${
           !open ? "md:ml-16" : "md:ml-64"
         }`}
       >
@@ -37,7 +67,7 @@ const Navbar = ({ open }) => {
             <Link to={"/"}>
               <img
                 className="w-24 sm:w-28 md:w-36"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/logo.png?v=1727771384153"
+                src="https://img.d4040p.com/dp/h5/assets/images/logo.png?v=1735034317574"
                 alt=""
               />
             </Link>
@@ -45,24 +75,25 @@ const Navbar = ({ open }) => {
           <div className="flex gap-1 sm:gap-2 md:gap-3">
             <div className="flex gap-1 sm:gap-2">
               <button
-                className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 bg-yellow-300 hover:bg-yellow-400 transition-all duration-300 rounded-md"
+                className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-white loginButtonBgColor transition-all duration-300 rounded-md"
                 onClick={() => openModal("login_modal")}
               >
-                লগ ইন
+                Login
               </button>
               <button
-                className="text-xs sm:text-sm font-medium px-2 sm:px-3 md:px-6 py-1 md:py-2 bg-slate-100 hover:bg-slate-200 transition-all duration-300 rounded-md"
+                className="text-xs sm:text-sm font-medium px-2 sm:px-3 md:px-6 py-1 md:py-2 text-white signinButtonBgColor transition-all duration-300 rounded-md"
                 onClick={() => openModal("signup_modal")}
               >
-                সাইন আপ
+                Sign Up
               </button>
             </div>
             <div className="flex items-center">
-              <div className="w-6 md:w-7">
+              <div
+                className="w-6 md:w-7 cursor-pointer"
+                onClick={toggleLanguageModal}
+              >
                 <img
-                  src={
-                    "https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
-                  }
+                  src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
                   alt="BD flag"
                 />
               </div>
@@ -83,7 +114,7 @@ const Navbar = ({ open }) => {
               <div className="flex items-center bg-[#242424] rounded-tl-lg rounded-tr-lg">
                 <img
                   className="w-24"
-                  src="https://img.m156b.com/mb/h5/assets/images/dark/animation/head-coin.png?v=1730260800861"
+                  src="https://img.d4040p.com/dp/h5/assets/images/member-logo.png?v=1735034317574"
                   alt=""
                 />
                 <p className="text-sm font-semibold text-yellow-300">
@@ -350,82 +381,166 @@ const Navbar = ({ open }) => {
       </div>
 
       {/* Login Modal */}
-      <AccoundModal id="login_modal" title="লগ ইন" buttonText="লগ ইন">
-        <form className="py-4 px-4">
-          <div className="bg-[#45434360] p-3 rounded-lg">
-            <div className="mb-3">
-              <label className="text-white text-sm" htmlFor="name">
-                ব্যবহারকারীর নাম
-              </label>
+      <AccoundModal id="login_modal" title="Login" buttonText="Login">
+        <form className="py-4 px-6">
+          <div className="space-y-1 mb-2">
+            <label className="text-white text-sm" htmlFor="name">
+              Username
+            </label>
+            <input
+              type="name"
+              placeholder="4-15 char, allow number"
+              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+              required
+            />
+          </div>
+          <div className="space-y-1 relative">
+            <label className="text-white text-sm" htmlFor="password">
+              Password
+            </label>
+            <input
+              type={showPassword ? "text" : "password"} // পাসওয়ার্ড শো/হাইড করার জন্য টাইপ পরিবর্তন
+              placeholder="6-20 Characters and Numbers"
+              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+              required
+            />
+            <button
+              type="button"
+              className="absolute top-8 right-3 text-white"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
+            </button>
+          </div>
+
+          <div className="text-right text-sm font-semibold text-red-600">
+            <div className="inline-block cursor-pointer">Forgot password?</div>
+          </div>
+        </form>
+      </AccoundModal>
+
+      {/* Signup Modal */}
+      <AccoundModal id="signup_modal" title="Sign Up" buttonText="Submit">
+        <form className="py-4 px-6">
+          <div className="space-y-1 mb-2">
+            <label className="text-white text-sm" htmlFor="name">
+              Username
+            </label>
+            <input
+              type="name"
+              placeholder="4-15 char, allow number"
+              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+              required
+            />
+          </div>
+          <div className="space-y-1 relative mb-2">
+            <label className="text-white text-sm" htmlFor="password">
+              Password
+            </label>
+            <input
+              type={showPassword ? "text" : "password"} // পাসওয়ার্ড শো/হাইড করার জন্য টাইপ পরিবর্তন
+              placeholder="6-20 Characters and Numbers"
+              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+              required
+            />
+            <button
+              type="button"
+              className="absolute top-8 right-3 text-white"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
+            </button>
+          </div>
+          <div className="space-y-1 relative w-full mb-2">
+            <label className="text-white text-sm" htmlFor="phone">
+              Phone Number
+            </label>
+            <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
+              <div className="flex items-center px-3 border-r border-[#767575]">
+                <img
+                  src="https://flagcdn.com/w40/bd.png"
+                  alt="Bangladesh Flag"
+                  className="w-6 h-4"
+                />
+                <span className="ml-2">+880</span>
+              </div>
               <input
-                type="name"
-                placeholder="৪-১৫ অক্ষর নাম্বার এলাউ"
-                className="text-white bg-[#5a5959] border-none outline-none w-full p-2 rounded-md"
+                type="text"
+                value={phone}
+                onChange={handleInputChange}
+                placeholder="1XXXXXXXXX"
+                className="flex-1 bg-transparent border-none outline-none py-1.5 px-4 text-white"
+                maxLength="10"
                 required
               />
             </div>
-            <div className="mb-3">
-              <label className="text-white text-sm" htmlFor="password">
-                পাসওয়ার্ড
-              </label>
-              <input
-                type="password"
-                placeholder="৬-২০ অক্ষর বা সংখ্যা"
-                className="text-white bg-[#5a5959] border-none outline-none w-full p-2 rounded-md"
-                required
-              />
-            </div>
-            <div className="text-right text-xs text-yellow-300">
-              <div className="p-0.5 inline-block border border-yellow-300 rounded-md cursor-pointer">
-                পাসওয়ার্ড ভুলে গেছেন?
+          </div>
+          <div className="space-y-1 w-full">
+            <label className="text-white text-sm" htmlFor="verificationCode">
+              Verification Code
+            </label>
+            <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
+              <div className="w-1/2">
+                <input
+                  type="text"
+                  placeholder="Enter Code"
+                  className="w-full bg-transparent text-white py-2 px-4 outline-none"
+                  maxLength={6}
+                />
+              </div>
+              <div className="w-1/2 flex items-center justify-between border-l border-[#767575] px-3 gap-3">
+                <span className="text-lg">{verificationCode}</span>
+                <button
+                  type="button"
+                  onClick={handleRefresh}
+                  className="hover:text-red-600"
+                >
+                  <FaSync size={18} />
+                </button>
               </div>
             </div>
           </div>
         </form>
       </AccoundModal>
 
-      {/* Signup Modal */}
-      <AccoundModal id="signup_modal" title="সাইন আপ" buttonText="নিশ্চিত করুন">
-        <form className="py-4 px-4">
-          <div className="bg-[#45434360] p-3 rounded-lg">
-            <div className="mb-3">
-              <label className="text-white text-sm" htmlFor="name">
-                ব্যবহারকারীর নাম
-              </label>
-              <input
-                type="name"
-                placeholder="৪-১৫ অক্ষর নাম্বার এলাউ"
-                className="text-white bg-[#5a5959] border-none outline-none w-full p-2 rounded-md"
-                required
-              />
+      {/* Language Modal */}
+      {isLanguageModalOpen && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-10 z-40 backdrop-filter backdrop-blur">
+          <div className="relative bg-black rounded-lg ">
+            <div className="flex justify-between items-center gap-4 p-4 bg-[#333] rounded-t-lg">
+              <p className="text-white text-lg font-bold">
+                Currency and Language
+              </p>
+              <button
+                className="absolute top-2 right-2 text-white"
+                onClick={toggleLanguageModal}
+              >
+                <IoClose size={24} />
+              </button>
             </div>
-            <div className="mb-3">
-              <label className="text-white text-sm" htmlFor="password">
-                পাসওয়ার্ড
-              </label>
-              <input
-                type="password"
-                placeholder="৬-২০ অক্ষর বা সংখ্যা"
-                className="text-white bg-[#5a5959] border-none outline-none w-full p-2 rounded-md"
-                required
-              />
-            </div>
-          </div>
-          <div className="bg-[#45434360] p-3 mt-2 rounded-lg">
-            <div className="mb-3">
-              <label className="text-white text-sm" htmlFor="password">
-                ফোন নাম্বার
-              </label>
-              <input
-                type="password"
-                placeholder="ফোন নাম্বার"
-                className="text-white bg-[#5a5959] border-none outline-none w-full p-2 rounded-md"
-                required
-              />
+            <div className="py-6 px-4">
+              <div className="flex justify-between items-center gap-2">
+                <div className="flex items-center">
+                  <img
+                    className="w-8 sm:w-10"
+                    src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
+                    alt="BD flag"
+                  />
+                  <div className="flex items-center text-sm sm:text-base font-semibold text-gray-400">
+                    <TbCurrencyTaka /> BDT
+                  </div>
+                </div>
+                <button className="text-white p-1.5 w-24 sm:w-32 border border-gray-500">
+                  বাংলা
+                </button>
+                <button className="text-red-600 p-1.5 w-24 sm:w-32 border border-red-600">
+                  English
+                </button>
+              </div>
             </div>
           </div>
-        </form>
-      </AccoundModal>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,29 +2,29 @@ import { IoCloseOutline } from "react-icons/io5";
 
 const AccoundModal = ({ id, title, children, buttonText }) => {
   return (
-    <dialog id={id} className="modal bg-[#171818] rounded-2xl">
+    <dialog id={id} className="modal bg-black rounded-2xl scrollbar-hide">
       <div className="pb-8 modal-box relative">
-        <h3 className="py-3 font-bold text-lg text-center text-white bg-[#1a1b22]">
+        <h3 className="py-3 font-bold text-lg text-center text-white bg-[#333]">
           {title}
         </h3>
         <img
-          className="py-8 w-24 sm:w-28 md:w-52 m-auto"
-          src="https://img.m156b.com/mb/h5/assets/images/dark/logo.png?v=1727771384153"
+          className="py-7 w-32 md:w-44 m-auto"
+          src="https://img.d4040p.com/dp/h5/assets/images/member-logo.png?v=1735034317574"
           alt=""
         />
         {children}
-        <div className="px-4">
-          <button className="p-2 w-full text-lg text-[#aaa9a9] bg-[#5a5959] hover:bg-yellow-300 duration-300 hover:text-black rounded-md">
+        <div className="px-6">
+          <button className="p-1.5 w-full text-lg text-[#aaa9a9] hover:text-white bg-[#363636] hover:bg-red-600 duration-300 rounded-md">
             {buttonText}
           </button>
         </div>
         <p className="mt-2 px-4 text-xs text-center text-[#aaa9a9]">
-          একটি একাউন্ট আছে কি না?
-          <span className="text-yellow-300"> সাইন আপ</span>
+          Do not have an account?
+          <span className="text-red-600 font-semibold"> Login</span>
         </p>
       </div>
       <form method="dialog" className="modal-backdrop absolute top-3 right-3">
-        <button className="text-[#5a5959]">
+        <button className="text-[#8f8e8e]">
           <IoCloseOutline size={26} />
         </button>
       </form>
