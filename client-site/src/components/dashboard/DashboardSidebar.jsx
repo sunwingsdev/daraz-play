@@ -111,7 +111,7 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
                   <p className={`${!open && "hidden"}`}>{item?.name}</p>
                 </div>
                 {/* Show arrow for submenu toggle */}
-                {item?.submenu && open && (
+                {item?.submenu && item?.submenu?.length !== 0 && open && (
                   <FaAngleDown className={`text-white ${!open && "hidden"}`} />
                 )}
               </div>

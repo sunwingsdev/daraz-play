@@ -63,14 +63,7 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
             <div className="rounded-lg">
               <div className="flex items-center rounded-tl-lg rounded-tr-lg">
                 <Link to={"/"}>
-                  <img className="w-44" src={logo} alt="" />
-                </Link>
-                <Link to={"/"}>
-                  <img
-                    className="w-7 rounded-md object-cover"
-                    src="https://ifrd.4rabetsite25.com/img/svgflags/BN.svg"
-                    alt=""
-                  />
+                  <img className="w-44" src={logo} alt="logo" />
                 </Link>
               </div>
             </div>
