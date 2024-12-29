@@ -11,7 +11,7 @@ const SidebarMenu = ({ open, setOpen }) => {
       } hidden md:block duration-300 h-screen fixed`}
     >
       {/* Start Top collapse */}
-      <div className={`bg-zinc-800 py-3 ${!open && "py-5"}`}>
+      <div className={`bg-black py-3 ${!open && "py-5"}`}>
         <div className="flex gap-x-3 items-center justify-center">
           <div className={`flex gap-1 ${!open && "hidden"}`}>
             <button className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-slate-200 hover:bg-slate-300 duration-300">
@@ -35,7 +35,7 @@ const SidebarMenu = ({ open, setOpen }) => {
           </div>
           <div>
             <IoIosArrowBack
-              className={`m-auto text-center w-10 h-7 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-full cursor-pointer ${
+              className={`m-auto text-center w-10 h-7 p-1 text-[#cacaca] bg-[#666666] hover:bg-[#575757] rounded-full cursor-pointer ${
                 !open && "rotate-180"
               } `}
               onClick={() => setOpen(!open)}

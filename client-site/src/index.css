@@ -77,3 +77,19 @@ input[type="number"] {
 .text-yellow {
   color: #ffd700; /* অথবা আপনার পছন্দের ইয়েলো রঙ */
 }
+
+/* Login button bg color */
+.loginButtonBgColor {
+  background: linear-gradient(0deg, #700402 0%, #e31210 100%);
+  transition: all 360ms ease;
+}
+.loginButtonBgColor:hover {
+  background: linear-gradient(0deg, #e31210 0%, #e31210 100%);
+}
+.signinButtonBgColor {
+  background: linear-gradient(180deg, #444 0%, #222 100%);
+  transition: all 360ms ease;
+}
+.signinButtonBgColor:hover {
+  background: linear-gradient(180deg, #444 0%, #444 20%);
+}
