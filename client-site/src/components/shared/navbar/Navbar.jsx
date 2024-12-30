@@ -1,13 +1,13 @@
-import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { Link } from "react-router-dom";
 import AccoundModal from "../modal/AccoundModal";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { FaSync } from "react-icons/fa";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { LuHardDriveDownload } from "react-icons/lu";
 import { MdOutlineMessage } from "react-icons/md";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
 const Navbar = ({ open }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,30 +24,6 @@ const Navbar = ({ open }) => {
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const toggleLanguageModal = () => {
     setIsLanguageModalOpen(!isLanguageModalOpen);
-  };
-
-  // পাসওয়ার্ড শো/হাইড করার জন্য টাইপ পরিবর্তন
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  // Phone Number শুধুমাত্র সংখ্যা গ্রহণ করতে হবে
-  const [phone, setPhone] = useState("");
-  const handleInputChange = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    setPhone(value);
-  };
-  // ভেরিফিকেশন কোড
-  const [verificationCode, setVerificationCode] = useState(generateCode());
-  // ভেরিফিকেশন কোড জেনারেট করার ফাংশন
-  function generateCode() {
-    return Math.floor(100000 + Math.random() * 900000).toString(); // ৬-সংখ্যার কোড
-  }
-  // রিফ্রেশ ফাংশন
-  const handleRefresh = () => {
-    const newCode = generateCode();
-    setVerificationCode(newCode);
   };
 
   return (
@@ -143,126 +119,13 @@ const Navbar = ({ open }) => {
       </div>
 
       {/* Login Modal */}
-      <AccoundModal id="login_modal" title="Login" buttonText="Login">
-        <form className="py-4 px-6">
-          <div className="space-y-1 mb-2">
-            <label className="text-white text-sm" htmlFor="name">
-              Username
-            </label>
-            <input
-              type="name"
-              placeholder="4-15 char, allow number"
-              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-              required
-            />
-          </div>
-          <div className="space-y-1 relative">
-            <label className="text-white text-sm" htmlFor="password">
-              Password
-            </label>
-            <input
-              type={showPassword ? "text" : "password"} // পাসওয়ার্ড শো/হাইড করার জন্য টাইপ পরিবর্তন
-              placeholder="6-20 Characters and Numbers"
-              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-              required
-            />
-            <button
-              type="button"
-              className="absolute top-8 right-3 text-white"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
-            </button>
-          </div>
-
-          <div className="text-right text-sm font-semibold text-red-600">
-            <div className="inline-block cursor-pointer">Forgot password?</div>
-          </div>
-        </form>
+      <AccoundModal id="login_modal" title="Login">
+        <LoginForm />
       </AccoundModal>
 
       {/* Signup Modal */}
-      <AccoundModal id="signup_modal" title="Sign Up" buttonText="Submit">
-        <form className="py-4 px-6">
-          <div className="space-y-1 mb-2">
-            <label className="text-white text-sm" htmlFor="name">
-              Username
-            </label>
-            <input
-              type="name"
-              placeholder="4-15 char, allow number"
-              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-              required
-            />
-          </div>
-          <div className="space-y-1 relative mb-2">
-            <label className="text-white text-sm" htmlFor="password">
-              Password
-            </label>
-            <input
-              type={showPassword ? "text" : "password"} // পাসওয়ার্ড শো/হাইড করার জন্য টাইপ পরিবর্তন
-              placeholder="6-20 Characters and Numbers"
-              className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-              required
-            />
-            <button
-              type="button"
-              className="absolute top-8 right-3 text-white"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
-            </button>
-          </div>
-          <div className="space-y-1 relative w-full mb-2">
-            <label className="text-white text-sm" htmlFor="phone">
-              Phone Number
-            </label>
-            <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
-              <div className="flex items-center px-3 border-r border-[#767575]">
-                <img
-                  src="https://flagcdn.com/w40/bd.png"
-                  alt="Bangladesh Flag"
-                  className="w-6 h-4"
-                />
-                <span className="ml-2">+880</span>
-              </div>
-              <input
-                type="text"
-                value={phone}
-                onChange={handleInputChange}
-                placeholder="1XXXXXXXXX"
-                className="flex-1 bg-transparent border-none outline-none py-1.5 px-4 text-white"
-                maxLength="10"
-                required
-              />
-            </div>
-          </div>
-          <div className="space-y-1 w-full">
-            <label className="text-white text-sm" htmlFor="verificationCode">
-              Verification Code
-            </label>
-            <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
-              <div className="w-1/2">
-                <input
-                  type="text"
-                  placeholder="Enter Code"
-                  className="w-full bg-transparent text-white py-2 px-4 outline-none"
-                  maxLength={6}
-                />
-              </div>
-              <div className="w-1/2 flex items-center justify-between border-l border-[#767575] px-3 gap-3">
-                <span className="text-lg">{verificationCode}</span>
-                <button
-                  type="button"
-                  onClick={handleRefresh}
-                  className="hover:text-red-600"
-                >
-                  <FaSync size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+      <AccoundModal id="signup_modal" title="Sign Up">
+        <SignupForm />
       </AccoundModal>
 
       {/* Language Modal */}
