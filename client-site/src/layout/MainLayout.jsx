@@ -18,7 +18,7 @@ const MainLayout = () => {
         }`}
       >
         <Navbar open={open} />
-        <div className="mt-[62px] md:mt-16">
+        <div className="mt-[62px] md:mt-16 bg-gray-700">
           <Outlet />
         </div>
         <Footer />

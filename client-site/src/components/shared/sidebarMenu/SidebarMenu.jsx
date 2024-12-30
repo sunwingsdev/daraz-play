@@ -1,6 +1,8 @@
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaAngleDown } from "react-icons/fa";
-import { IoIosArrowBack, IoMdFootball, IoMdHome } from "react-icons/io";
+import { IoIosArrowBack, IoMdFootball } from "react-icons/io";
+import { LuFlame } from "react-icons/lu";
+import { MdOutlineHome } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const SidebarMenu = ({ open, setOpen }) => {
@@ -48,27 +50,27 @@ const SidebarMenu = ({ open, setOpen }) => {
       <div className="bg-[#333] overflow-y-auto pb-20 h-full scrollbar-hide">
         <Link to={"/"}>
           <div
-            className={`px-4 py-3 text-yellow-300 flex gap-2 border-b border-gray-700 duration-300 ${
+            className={`px-4 py-3 text-white flex gap-2 hover:bg-red-600 border-b border-gray-700 duration-300 ${
               !open && "justify-center"
             }`}
           >
-            <IoMdHome size={24} />
+            <MdOutlineHome size={24} />
             <p className={`text-white font-semibold ${!open && "hidden"}`}>
-              হোম
+              Home
             </p>
           </div>
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex items-center ${
+            className={`px-4 py-3 text-white flex items-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
             <div className="flex gap-2">
-              <IoMdFootball size={24} />
+              <LuFlame size={24} />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
                 {" "}
-                স্পোর্ট{" "}
+                Hot Games{" "}
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -76,7 +78,23 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex items-center hover:bg-red-600 duration-300 ${
+              !open ? "justify-center" : "justify-between"
+            }`}
+          >
+            <div className="flex gap-2">
+              <IoMdFootball size={24} />
+              <p className={`text-white font-semibold ${!open && "hidden"}`}>
+                {" "}
+                Sports{" "}
+              </p>
+            </div>
+            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
+          </div>
+        </Link>
+        <Link>
+          <div
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -96,7 +114,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -107,7 +125,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                স্লট
+                Slots
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -115,7 +133,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -126,7 +144,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                টেবিল
+                Table
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -134,7 +152,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -145,7 +163,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                ক্রাশ
+                Crash
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -153,7 +171,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -164,7 +182,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                লটারি
+                Lottery
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -172,7 +190,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -183,7 +201,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                ফিশিং
+                Fishing
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -191,7 +209,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -202,7 +220,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                আর্কেড
+                Arcade
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -210,7 +228,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -229,7 +247,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -240,14 +258,14 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                প্রমোশন
+                Promotions
               </p>
             </div>
           </div>
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -258,14 +276,14 @@ const SidebarMenu = ({ open, setOpen }) => {
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                ডাউনলোড
+                Download
               </p>
             </div>
           </div>
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
@@ -283,32 +301,14 @@ const SidebarMenu = ({ open, setOpen }) => {
         </Link>
         <Link>
           <div
-            className={`px-4 py-3 text-yellow-300 flex justify-center ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-ambassador.svg?v=1727771384153"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                অ্যাম্বাসেডর
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-yellow-300 flex items-center ${
+            className={`px-4 py-3 text-white flex items-center hover:bg-red-600 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
             <div className="flex gap-2">
               <BiSolidPhoneCall size={24} />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                যোগাযোগ করুন
+                Contact Us
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
