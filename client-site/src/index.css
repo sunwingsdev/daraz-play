@@ -93,3 +93,6 @@ input[type="number"] {
 .signinButtonBgColor:hover {
   background: linear-gradient(180deg, #444 0%, #444 20%);
 }
+.languageBgColor {
+  background: linear-gradient(180deg, #7f7f7f, #3b3b3b);
+}
