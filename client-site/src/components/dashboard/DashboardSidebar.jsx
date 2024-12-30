@@ -91,7 +91,7 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
 
       {/* Start Menu bar */}
       <div
-        className={`bg-[#172437] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
+        className={`bg-[#222222] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
           open ? "w-64" : "w-16"
         } text-sm text-white duration-300 font-semibold h-full scrollbar-hide`}
       >

@@ -39,7 +39,7 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
   return (
     <div>
       <div
-        className={`bg-[#172437] p-4 fixed left-0 right-0 z-20 duration-300 ${
+        className={`bg-[#222222] p-4 fixed left-0 right-0 z-20 duration-300 ${
           !open ? "md:ml-16" : "md:ml-64"
         }`}
       >
