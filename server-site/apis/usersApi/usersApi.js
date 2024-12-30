@@ -33,10 +33,12 @@ const usersApi = (usersCollection) => {
   // Register a new user
   router.post("/register", async (req, res) => {
     const userInfo = req.body;
-    if (!userInfo?.username || !userInfo?.email || !userInfo?.password) {
+
+    console.log(req.body);
+    if (!userInfo?.username || !userInfo?.password) {
       return res
         .status(400)
-        .json({ error: "Username, Email and password are required" });
+        .send({ message: "Username and password are required" });
     }
     try {
       const existingUser = await usersCollection.findOne({
@@ -50,7 +52,7 @@ const usersApi = (usersCollection) => {
       const result = await usersCollection.insertOne(newUser);
       res.status(201).send(result);
     } catch (error) {
-      res.status(500).json({ error: "Registration failed" });
+      res.status(500).send({ message: "Registration failed" });
     }
   });
 

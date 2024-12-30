@@ -13,10 +13,7 @@ const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
 
 const corsConfig = {
-  origin: [
-    "http://localhost:5173",
-    "*",
-  ],
+  origin: ["http://localhost:5173", "http://localhost:5174", "*"],
   credential: true,
   optionSuccessStatus: 200,
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
