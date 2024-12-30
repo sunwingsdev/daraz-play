@@ -57,7 +57,6 @@ const usersApi = (usersCollection) => {
   // Login a user and validate JWT issuance
   router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password);
     if (!username || !password) {
       return res
         .status(400)
