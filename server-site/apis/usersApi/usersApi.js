@@ -33,8 +33,6 @@ const usersApi = (usersCollection) => {
   // Register a new user
   router.post("/register", async (req, res) => {
     const userInfo = req.body;
-
-    console.log(req.body);
     if (!userInfo?.username || !userInfo?.password) {
       return res
         .status(400)
