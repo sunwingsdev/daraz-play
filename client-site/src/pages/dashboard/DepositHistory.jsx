@@ -1,12 +1,73 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import ReasonModal from "../../components/dashboard/ReasonModal";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const DepositHistory = () => {
   // const { data: allDeposits, isLoading, isError } = useGetDepositsQuery();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDeposit, setSelectedDeposit] = useState(null);
   const [status, setStatus] = useState("");
+
+  // fake data
+  const allDeposits = [
+    {
+      _id: "deposit1",
+      userInfo: {
+        name: "John Doe",
+      },
+      method: "Bank Transfer",
+      paymentInputs: [
+        {
+          accountNumber: "123456789",
+          transactionId: "TXN12345",
+          slip: "deposit1-slip.jpg",
+        },
+      ],
+      amount: 5000,
+      createdAt: "2024-12-01T10:30:00.000Z",
+      status: "pending",
+    },
+    {
+      _id: "deposit2",
+      userInfo: {
+        name: "Jane Smith",
+      },
+      method: "Mobile Banking",
+      paymentInputs: [
+        {
+          accountNumber: "987654321",
+          transactionId: "TXN67890",
+          slip: "deposit2-slip.jpg",
+        },
+        {
+          accountNumber: "987654322",
+          transactionId: "TXN67891",
+          slip: "deposit2-slip2.jpg",
+        },
+      ],
+      amount: 10000,
+      createdAt: "2024-12-02T12:45:00.000Z",
+      status: "completed",
+    },
+    {
+      _id: "deposit3",
+      userInfo: {
+        name: "Alice Johnson",
+      },
+      method: "Credit Card",
+      paymentInputs: [
+        {
+          cardNumber: "4111111111111111",
+          authorizationCode: "AUTH12345",
+        },
+      ],
+      amount: 2000,
+      createdAt: "2024-12-03T08:20:00.000Z",
+      status: "reject",
+    },
+  ];
 
   // if (isLoading) return <div>Loading...</div>;
   // if (isError) return <div>Error loading deposits.</div>;
@@ -56,146 +117,146 @@ const DepositHistory = () => {
               <th className="px-4 py-2">Status</th>
             </tr>
           </thead>
-          {/* <tbody>
-              {allDeposits?.map((deposit, index) =>
-                deposit?.paymentInputs?.map((input, inputIndex) => (
-                  <tr
-                    key={`${deposit?._id}-${inputIndex}`}
-                    className={`${
-                      index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
-                    } text-black`}
-                  >
-                    {inputIndex === 0 && (
-                      <>
-                        <td
-                          rowSpan={deposit?.paymentInputs?.length || 1}
-                          className="px-4 py-2 font-medium"
-                        >
-                          {deposit?.userInfo?.name || "N/A"}
-                        </td>
-                        <td
-                          rowSpan={deposit?.paymentInputs?.length || 1}
-                          className="px-4 py-2"
-                        >
-                          {deposit?.method || "N/A"}
-                        </td>
-                      </>
-                    )}
-                    <td className="px-4 py-4 inline-flex">
-                      {Object.entries(input || {}).map(([key, value]) => {
-                        const isImage =
-                          typeof value === "string" &&
-                          /\.(jpg|jpeg|png|gif)$/i.test(value);
-  
-                        if (isImage) {
-                          return (
-                            <Link
-                              target="_blank"
-                              rel="noreferrer noopener"
-                              to={`${import.meta.env.VITE_BASE_API_URL}${value}`}
-                              key={key}
-                            >
-                              <img
-                                src={`${
-                                  import.meta.env.VITE_BASE_API_URL
-                                }${value}`}
-                                alt="Deposit Screenshot"
-                                className="w-full h-24 object-cover rounded"
-                              />
-                            </Link>
-                          );
-                        }
+          <tbody>
+            {allDeposits?.map((deposit, index) =>
+              deposit?.paymentInputs?.map((input, inputIndex) => (
+                <tr
+                  key={`${deposit?._id}-${inputIndex}`}
+                  className={`${
+                    index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
+                  } text-black`}
+                >
+                  {inputIndex === 0 && (
+                    <>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2 font-medium"
+                      >
+                        {deposit?.userInfo?.name || "N/A"}
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2"
+                      >
+                        {deposit?.method || "N/A"}
+                      </td>
+                    </>
+                  )}
+                  <td className="px-4 py-4 inline-flex">
+                    {Object.entries(input || {}).map(([key, value]) => {
+                      const isImage =
+                        typeof value === "string" &&
+                        /\.(jpg|jpeg|png|gif)$/i.test(value);
+
+                      if (isImage) {
                         return (
-                          <span
+                          <Link
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            to={`${import.meta.env.VITE_BASE_API_URL}${value}`}
                             key={key}
-                            className="font-bold capitalize inline-flex"
                           >
-                            {key}: {value || "N/A"}
-                          </span>
+                            <img
+                              src={`${
+                                import.meta.env.VITE_BASE_API_URL
+                              }${value}`}
+                              alt="Deposit Screenshot"
+                              className="w-full h-24 object-cover rounded"
+                            />
+                          </Link>
                         );
-                      })}
-                    </td>
-  
-                    {inputIndex === 0 && (
-                      <>
-                        <td
-                          rowSpan={deposit?.paymentInputs?.length || 1}
-                          className="px-4 py-2"
+                      }
+                      return (
+                        <span
+                          key={key}
+                          className="font-bold capitalize inline-flex"
                         >
-                          {deposit?.amount || "N/A"}
-                        </td>
-                        <td
-                          rowSpan={deposit?.paymentInputs?.length || 1}
-                          className="px-4 py-2 text-center"
-                        >
-                          <IoCloudUploadOutline className="text-2xl cursor-pointer" />
-                        </td>
-                        <td
-                          rowSpan={deposit?.paymentInputs?.length || 1}
-                          className="px-4 py-2"
-                        >
-                          {deposit?.createdAt
-                            ? new Date(deposit.createdAt).toLocaleString(
-                                "en-GB",
-                                {
-                                  day: "2-digit",
-                                  month: "2-digit",
-                                  year: "2-digit",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true,
-                                }
-                              )
-                            : "N/A"}
-                        </td>
-                        <td
-                          rowSpan={deposit?.paymentInputs?.length || 1}
-                          className="px-4 py-2 text-center"
-                        >
-                          {deposit?.status === "pending" ? (
-                            <div className="flex flex-col gap-2">
-                              <button
-                                className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
-                                onClick={() =>
-                                  handleStatusClick(deposit, "completed")
-                                }
-                              >
-                                Complete
-                              </button>
-                              <button
-                                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                                onClick={() =>
-                                  handleStatusClick(deposit, "reject")
-                                }
-                              >
-                                Reject
-                              </button>
-                            </div>
-                          ) : (
-                            <span
-                              className={`rounded-full px-3 py-1 text-white capitalize ${
-                                deposit?.status === "completed"
-                                  ? "bg-green-500"
-                                  : "bg-red-500"
-                              }`}
-                            >
-                              {deposit?.status}
-                            </span>
-                          )}
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ))
-              )}
-              {allDeposits?.length === 0 && (
-                <tr>
-                  <td colSpan="7" className="text-center py-4 text-gray-500">
-                    No deposits found.
+                          {key}: {value || "N/A"}
+                        </span>
+                      );
+                    })}
                   </td>
+
+                  {inputIndex === 0 && (
+                    <>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2"
+                      >
+                        {deposit?.amount || "N/A"}
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2 text-center"
+                      >
+                        <IoCloudUploadOutline className="text-2xl cursor-pointer" />
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2"
+                      >
+                        {deposit?.createdAt
+                          ? new Date(deposit.createdAt).toLocaleString(
+                              "en-GB",
+                              {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              }
+                            )
+                          : "N/A"}
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2 text-center"
+                      >
+                        {deposit?.status === "pending" ? (
+                          <div className="flex flex-col gap-2">
+                            <button
+                              className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
+                              onClick={() =>
+                                handleStatusClick(deposit, "completed")
+                              }
+                            >
+                              Complete
+                            </button>
+                            <button
+                              className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                              onClick={() =>
+                                handleStatusClick(deposit, "reject")
+                              }
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        ) : (
+                          <span
+                            className={`rounded-full px-3 py-1 text-white capitalize ${
+                              deposit?.status === "completed"
+                                ? "bg-green-500"
+                                : "bg-red-500"
+                            }`}
+                          >
+                            {deposit?.status}
+                          </span>
+                        )}
+                      </td>
+                    </>
+                  )}
                 </tr>
-              )}
-            </tbody> */}
+              ))
+            )}
+            {allDeposits?.length === 0 && (
+              <tr>
+                <td colSpan="7" className="text-center py-4 text-gray-500">
+                  No deposits found.
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
       <ReasonModal
