@@ -16,6 +16,8 @@ import PromotionOffer from "../pages/dashboard/PromotionOffer";
 import DepositHistory from "../pages/dashboard/DepositHistory";
 import WithdrawHistory from "../pages/dashboard/WithdrawHistory";
 import AdminLogin from "../pages/admin-login/AdminLogin";
+import ActiveGames from "../pages/dashboard/ActiveGames";
+import InActiveGames from "../pages/dashboard/InActiveGames";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,9 @@ const router = createBrowserRouter([
       { path: "agent-tree", element: <CashAgent /> },
       { path: "affiliators", element: <Affiliators /> },
       { path: "game-categories", element: <GameCategories /> },
+      { path: "active-games", element: <ActiveGames /> },
+      { path: "inactive-games", element: <InActiveGames /> },
+      { path: "games-api/:id", element: <GamesApi /> },
       { path: "user-profile", element: <UserProfile /> },
       { path: "agent-profile", element: <AgentProfile /> },
       { path: "games-api", element: <GamesApi /> },

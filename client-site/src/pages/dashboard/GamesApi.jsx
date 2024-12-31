@@ -1,43 +1,87 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
+const submenus = [
+  { name: "Sprots Live TV", path: "/dashboard/games-api/sports-live-tv" },
+  { name: "BetFair API", path: "/dashboard/games-api/betfair-api" },
+  { name: "Sports Radar API", path: "/dashboard/games-api/sports-radar-api" },
+  { name: "Odds Jam API", path: "/dashboard/games-api/odds-jam-api" },
+  { name: "Bet Construct API", path: "/dashboard/games-api/bet-construct-api" },
+  { name: "Kambi API", path: "/dashboard/games-api/kambi-api" },
+  { name: "Pinnacle API", path: "/dashboard/games-api/pinnacle-api" },
+  { name: "SoftSwiss API", path: "/dashboard/games-api/softswiss-api" },
+  { name: "Betradar API", path: "/dashboard/games-api/betradar-api" },
+  { name: "Evolution API", path: "/dashboard/games-api/evolution-api" },
+  {
+    name: "Pragmatic Play API",
+    path: "/dashboard/games-api/pragmatic-play-api",
+  },
+  { name: "Playtech API", path: "/dashboard/games-api/playtech-api" },
+  { name: "NetEnt API", path: "/dashboard/games-api/netent-api" },
+  {
+    name: "Betsoft Gaming API",
+    path: "/dashboard/games-api/betsoft-gaming-api",
+  },
+];
 
 const GamesApi = () => {
-  const [selectedButton, setSelectedButton] = useState(true);
+  const [selectedApi, setSelectedApi] = useState(null);
+  const location = useLocation();
+  const [formData, setFormData] = useState({
+    apiKey: "",
+    licenseKey: "",
+    gameProviderKey: "",
+    providerIp: "",
+    secretPin: "",
+    gameFile: null,
+  });
+  // const { addToast } = useToasts();
+
+  useEffect(() => {
+    const selected = submenus.find((menu) => menu.path === location.pathname);
+    setSelectedApi(selected);
+  }, [location.pathname]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleFileChange = (e) => {
+    const { files } = e.target;
+    setFormData({ ...formData, gameFile: files[0] });
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   // Prepare data for console log
+  //   const dataToLog = { ...formData };
+  //   if (formData.gameFile) {
+  //     dataToLog.gameFile = formData.gameFile.name;
+  //   }
+
+  //   addToast("Invalid api key", {
+  //     appearance: "error",
+  //     autoDismiss: true,
+  //   });
+  // };
 
   return (
-    <div className="bg-gradient-to-r from-gray-300 via-gray-500 to-slate-400 p-2 rounded-md shadow-lg  mx-auto">
-      <h1 className="text-center text-lg lg:text-3xl font-semibold  mb-4">
+    <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-500 p-2 rounded-md shadow-lg mx-auto">
+      <h1 className="text-center text-lg lg:text-3xl font-semibold mb-4">
         Games API Key
       </h1>
 
       <div className="bg-white rounded-lg p-6 shadow-xl">
-        <h2 className="text-center text-2xl font-semibold  mb-6">
-          Sports Live TV
+        <h2 className="text-center text-2xl font-semibold text-[#14815f] mb-6">
+          {selectedApi?.name}
         </h2>
 
-        <div className="flex justify-center gap-6 mb-4 flex-wrap">
-          <button
-            onClick={() => setSelectedButton("apiSetup")}
-            className={`px-6 py-2 rounded-full text-lg lg:text-xl font-semibold transition duration-300 ease-in-out ${
-              selectedButton === "apiSetup"
-                ? "bg-[#6b7699f1] text-white shadow-lg transform scale-105"
-                : "bg-white  border border-[#14815f] hover:bg-[#686e6c] hover:text-white"
-            }`}
-          >
-            API Setup
-          </button>
-          <button
-            onClick={() => setSelectedButton("generateGame")}
-            className={`px-2 py-2 rounded-full text-lg lg:text-xl font-semibold transition duration-300 ease-in-out ${
-              selectedButton === "generateGame"
-                ? "bg-[#6b7699f1] text-white shadow-lg transform scale-105"
-                : "bg-white border border-[#14815f] hover:bg-[#5f6664] hover:text-white"
-            }`}
-          >
-            Generate Game
-          </button>
-        </div>
-
-        <form className="space-y-4">
+        <form
+          className="space-y-4"
+          // onSubmit={handleSubmit}
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-4">
               <label
@@ -50,6 +94,8 @@ const GamesApi = () => {
                 type="text"
                 id="apiKey"
                 placeholder="Enter API Key"
+                value={formData.apiKey}
+                onChange={handleChange}
                 className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#14815f] focus:outline-none"
               />
 
@@ -63,6 +109,8 @@ const GamesApi = () => {
                 type="text"
                 id="licenseKey"
                 placeholder="Enter License Key"
+                value={formData.licenseKey}
+                onChange={handleChange}
                 className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#14815f] focus:outline-none"
               />
 
@@ -76,6 +124,8 @@ const GamesApi = () => {
                 type="text"
                 id="gameProviderKey"
                 placeholder="Enter Game Provider Key"
+                value={formData.gameProviderKey}
+                onChange={handleChange}
                 className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#14815f] focus:outline-none"
               />
             </div>
@@ -91,18 +141,20 @@ const GamesApi = () => {
                 type="text"
                 id="providerIp"
                 placeholder="Enter Provider IP"
-                className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#434e4b] focus:outline-none"
+                value={formData.providerIp}
+                onChange={handleChange}
+                className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#14815f] focus:outline-none"
               />
 
-              <label htmlFor="download" className="text-gray-700 font-semibold">
+              <label htmlFor="gameFile" className="text-gray-700 font-semibold">
                 Game file
               </label>
-              <button
-                type="button"
-                className="w-full bg-[#6b7699f1] text-white px-6 py-3 rounded-md hover:bg-[#3c4240] transition duration-300"
-              >
-                Game file upload
-              </button>
+              <input
+                type="file"
+                id="gameFile"
+                onChange={handleFileChange}
+                className="w-full"
+              />
 
               <label
                 htmlFor="secretPin"
@@ -114,14 +166,16 @@ const GamesApi = () => {
                 type="text"
                 id="secretPin"
                 placeholder="Enter Secret Pin"
-                className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#627a73] focus:outline-none"
+                value={formData.secretPin}
+                onChange={handleChange}
+                className="w-full border-2 border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-[#14815f] focus:outline-none"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#6b7699f1] text-white py-3 rounded-md hover:bg-[#444b57] transition duration-300"
+            className="w-full bg-[#59be7b] text-white py-3 rounded-md hover:bg-[#d3562a] transition duration-300"
           >
             Save API
           </button>

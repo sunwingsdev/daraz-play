@@ -1,10 +1,9 @@
 import { useState } from "react";
 import logo from "../../assets/logo.png";
-
 import { IoIosArrowBack } from "react-icons/io";
-
 import { Link } from "react-router-dom";
 import { FaAngleDown, FaRegCircle } from "react-icons/fa";
+import OppsModal from "../shared/modal/OppsModal";
 
 const DashboardSidebar = ({ open, setOpen, menuItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,7 +97,10 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
         {/* Dynamic Menu Rendering */}
         {menuItems?.map((item, index) => (
           <div key={index}>
-            <Link to={item?.path || "#"}>
+            <Link
+              onClick={!item?.path && !item?.submenu && handleModalOpen}
+              to={item?.path || "#"}
+            >
               <div
                 className={`px-4 py-3 flex flex-row items-center justify-between gap-2 border-b border-gray-700 duration-300 hover:bg-[#114d3a] hover:border-l-4 hover:border-l-slate-400 ${
                   !open && "justify-center"
@@ -122,6 +124,9 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
               <div className="pl-8 text-white text-sm font-semibold bg-[#114d3a] duration-300">
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
+                    onClick={
+                      !subItem.path && !subItem.submenu && handleModalOpen
+                    }
                     key={subIndex}
                     to={subItem?.path}
                     className="py-2.5 flex gap-2"
@@ -137,12 +142,13 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
       </div>
 
       {/* Modal */}
-      {/* <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-        <h2>Dynamic Modal Content</h2>
-        <p>
-          Here you can show dynamic content based on the selected menu item.
-        </p>
-      </Modal> */}
+      <OppsModal
+        title="Opps!!"
+        isOpen={isModalOpen}
+        onOpenChange={handleModalClose}
+      >
+        <p>Please contact your developer team to connect API!!!</p>
+      </OppsModal>
     </div>
   );
 };

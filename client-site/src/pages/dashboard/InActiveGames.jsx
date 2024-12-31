@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 
-const GameCategories = () => {
+const InActiveGames = () => {
   const [data, setData] = useState([
     {
       gamename: "game01",
@@ -17,7 +17,7 @@ const GameCategories = () => {
       href: 5300,
       countusers: 2300,
       create: 14,
-      status: "active",
+      status: "inactive",
     },
     {
       gamename: "game03",
@@ -35,29 +35,28 @@ const GameCategories = () => {
     item.gamename.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleAddCategory = () => {
-    const newCategory = {
+  const handleAddGames = () => {
+    const newGames = {
       gamename: "New Game",
       position: 0,
       href: 0,
       countusers: 0,
       create: new Date().getDate(),
-      status: "inactive",
+      status: "active",
     };
-    setData([newCategory, ...data]);
+    setData([newGames, ...data]);
   };
-
   return (
     <div>
       {/* Header */}
       <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
         <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
-          <h1 className="text-2xl text-white font-bold">Game Categories</h1>
+          <h1 className="text-2xl text-white font-bold">Inactive Games</h1>
           <button
             className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-2/5 block md:hidden whitespace-nowrap"
-            onClick={handleAddCategory}
+            onClick={handleAddGames}
           >
-            Add Category
+            Add Games
           </button>
         </div>
 
@@ -76,9 +75,9 @@ const GameCategories = () => {
           </form>
           <button
             className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-2/5 hidden md:block whitespace-nowrap"
-            onClick={handleAddCategory}
+            onClick={handleAddGames}
           >
-            Add Category
+            Add Games
           </button>
         </div>
         <form className="w-full flex flex-row items-center md:hidden">
@@ -152,4 +151,4 @@ const GameCategories = () => {
   );
 };
 
-export default GameCategories;
+export default InActiveGames;

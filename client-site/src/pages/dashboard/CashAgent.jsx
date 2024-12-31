@@ -1,7 +1,9 @@
-import DynamicTable from "../../components/shared/table/DynamicTable";
+import { useState } from "react";
+import { IoIosSearch } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const CashAgent = () => {
-  const data = [
+  const [agentsData, setAgentsData] = useState([
     {
       agent_name: "Agent001",
       login: "Login",
@@ -22,136 +24,126 @@ const CashAgent = () => {
       balance: 3200,
       status: "inactive",
     },
-    {
-      agent_name: "Agent003",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2100,
-      status: "active",
-    },
-    {
-      agent_name: "Agent004",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 4000,
-      status: "active",
-    },
-    {
-      agent_name: "Agent005",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2800,
-      status: "inactive",
-    },
-    {
-      agent_name: "Agent006",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2400,
-      status: "active",
-    },
-    {
-      agent_name: "Agent007",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2600,
-      status: "active",
-    },
-    {
-      agent_name: "Agent008",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2500,
-      status: "inactive",
-    },
-    {
-      agent_name: "Agent009",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 3500,
-      status: "ACTIVE",
-    },
-    {
-      agent_name: "Agent010",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2800,
-      status: "inactive",
-    },
-  ];
+    // Add more agents as needed
+  ]);
 
-  const columns = [
-    { headerName: "Agent name", field: "agent_name" },
-    {
-      headerName: "Login",
-      customRender: (row) => (
-        <span className=" px-1 lg:px-4 py-1 rounded text-white bg-green-500">
-          {row.login}
-        </span>
-      ),
-    },
+  const [searchQuery, setSearchQuery] = useState("");
 
-    { headerName: "D-B", field: "D_B" },
-    { headerName: "W-B", field: "W_B" },
-    { headerName: "D-C-B", field: "A_U_C" },
-    { headerName: "W-C-B", field: "A_D_C" },
-    { headerName: "Balance", field: "balance" },
-    // { headerName: "status", field: "status" },
-    {
-      headerName: "Status",
-      customRender: (row) => (
-        <span
-          className={` sm:px-1 lg:px-2 py-1 rounded text-white ${
-            row.status.toLowerCase() === "active"
-              ? "bg-green-500 "
-              : "bg-red-500"
-          }`}
-        >
-          {row.status.toUpperCase()}
-        </span>
-      ),
-    },
-  ];
+  // Filtered agents based on search query
+  const filteredAgents = agentsData.filter((agent) =>
+    agent.agent_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Add a new agent (dummy function)
+  const handleAddAgent = () => {
+    const newAgent = {
+      agent_name: "New_Agent",
+      login: "Login",
+      W_B: 0,
+      D_B: 0,
+      A_U_C: 0,
+      A_D_C: 0,
+      balance: 0,
+      status: "active",
+    };
+    setAgentsData([newAgent, ...agentsData]);
+  };
   return (
-    <div className="p-2 ">
-      <h1 className="text-center md:text-xl lg:text-2xl  bg-[#6b7699f1] text-white p-2 lg:font-semibold rounded-md">
-        Agent Tree
-      </h1>
-      <div className="flex justify-between p-2">
-        <input
-          className="border-2 border-zinc-500 rounded-md w-4/6 bg-slate-200 p-1"
-          placeholder="search here"
-          type="text"
-        />
-        <button className="text-base lg:text-xl lg:font-bold bg-[#6b7699f1] p-1 lg:p-2  rounded-md">
-          +Add
-        </button>
+    <div>
+      {/* Header */}
+      <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
+        <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
+          <h1 className="text-2xl text-white font-bold">Cash Agent</h1>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 block md:hidden whitespace-nowrap"
+            onClick={handleAddAgent}
+          >
+            Add Agent
+          </button>
+        </div>
+
+        <div className="flex w-1/2 gap-4">
+          <form className="md:w-3/4 hidden md:flex flex-row items-center">
+            <input
+              type="text"
+              placeholder="Search Agent Name..."
+              className="py-2 px-1 w-full outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="bg-white p-3">
+              <IoIosSearch />
+            </button>
+          </form>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 hidden md:block whitespace-nowrap"
+            onClick={handleAddAgent}
+          >
+            Add Agent
+          </button>
+        </div>
+        <form className="w-full flex flex-row items-center md:hidden">
+          <input
+            type="text"
+            placeholder="Search Agent Name..."
+            className="py-2 px-1 w-full outline-none"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button className="bg-white p-3">
+            <IoIosSearch />
+          </button>
+        </form>
       </div>
-      <DynamicTable columns={columns} data={data} />
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse border border-[#3b3b3b]">
+          <thead>
+            <tr className="bg-[#3b3b3b] text-white">
+              <th className="px-4 py-2 whitespace-nowrap">Agent Name</th>
+              <th className="px-4 py-2 whitespace-nowrap">Login</th>
+              <th className="px-4 py-2 whitespace-nowrap">W-B</th>
+              <th className="px-4 py-2 whitespace-nowrap">D-B</th>
+              <th className="px-4 py-2 whitespace-nowrap">A-U-C</th>
+              <th className="px-4 py-2 whitespace-nowrap">A-D-C</th>
+              <th className="px-4 py-2 whitespace-nowrap">Balance</th>
+              <th className="px-4 py-2 whitespace-nowrap">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredAgents.map((agent, index) => (
+              <tr
+                key={index}
+                className={`text-center border-b border-[#3b3b3b] ${
+                  index % 2 === 0 ? "bg-gray-100" : "bg-[#cacaca]"
+                } text-black`}
+              >
+                <td className="px-4 py-2 text-blue-500 hover:text-blue-600">
+                  <Link to="/dashboard/agent-profile">{agent.agent_name}</Link>
+                </td>
+                <td className="px-4 py-2">{agent.login}</td>
+                <td className="px-4 py-2">{agent.W_B}</td>
+                <td className="px-4 py-2">{agent.D_B}</td>
+                <td className="px-4 py-2">{agent.A_U_C}</td>
+                <td className="px-4 py-2">{agent.A_D_C}</td>
+                <td className="px-4 py-2">{agent.balance}</td>
+                <td className="px-4 py-2">
+                  <span
+                    className={`px-4 py-1 text-white size-20 ${
+                      agent.status.toLowerCase() === "active"
+                        ? "bg-green-500"
+                        : "bg-red-500"
+                    }`}
+                  >
+                    {agent.status.toUpperCase()}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
