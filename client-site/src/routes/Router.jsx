@@ -18,6 +18,7 @@ import WithdrawHistory from "../pages/dashboard/WithdrawHistory";
 import AdminLogin from "../pages/admin-login/AdminLogin";
 import ActiveGames from "../pages/dashboard/ActiveGames";
 import InActiveGames from "../pages/dashboard/InActiveGames";
+import HomeControl from "../pages/dashboard/HomeControl";
 
 const router = createBrowserRouter([
   {
@@ -44,8 +45,8 @@ const router = createBrowserRouter([
       { path: "games-api/:id", element: <GamesApi /> },
       { path: "user-profile", element: <UserProfile /> },
       { path: "agent-profile", element: <AgentProfile /> },
-      { path: "games-api", element: <GamesApi /> },
       { path: "add-games-categories", element: <AddGamesCategories /> },
+      { path: "home-control", element: <HomeControl /> },
       { path: "frontend-slider", element: <FrontendSlider /> },
       { path: "promotion-offer", element: <PromotionOffer /> },
       { path: "deposits", element: <DepositHistory /> },
