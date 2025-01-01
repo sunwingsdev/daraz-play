@@ -14,7 +14,7 @@ const BannerSlider = () => {
   const nextRef = useRef(null);
 
   return (
-    <div className="banner-slider relative">
+    <div className="banner-slider relative md:px-4 md:pt-4 bg-zinc-800">
       <Swiper
         slidesPerView={1}
         spaceBetween={1}
@@ -43,7 +43,7 @@ const BannerSlider = () => {
         <SwiperSlide>
           <div className="h-auto">
             <img
-              className="w-full h-20 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-auto"
+              className="w-full object-fill h-20 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-auto"
               src={sliderImage_1}
               alt=""
             />
