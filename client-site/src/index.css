@@ -70,12 +70,11 @@ input[type="number"] {
   border: none;
 }
 
-.filter-yellow {
-  filter: brightness(0) saturate(100%) invert(73%) sepia(93%) saturate(737%)
-    hue-rotate(1deg) brightness(107%) contrast(104%);
+.filter-white {
+  filter: brightness(0) saturate(100%) invert(100%);
 }
-.text-yellow {
-  color: #ffd700; /* অথবা আপনার পছন্দের ইয়েলো রঙ */
+.text-white {
+  color: #ffffff; /* অথবা আপনার পছন্দের ইয়েলো রঙ */
 }
 
 /* Login button bg color */
@@ -95,4 +94,12 @@ input[type="number"] {
 }
 .languageBgColor {
   background: linear-gradient(180deg, #7f7f7f, #3b3b3b);
+}
+
+/* menubar css */
+.menubarBg {
+  background: linear-gradient(0deg, #fd1111, #0e0e0e);
+}
+.menubarBgAct {
+  background: linear-gradient(0deg, #700402 0%, #e31210 100%);
 }

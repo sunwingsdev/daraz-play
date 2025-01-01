@@ -8,6 +8,10 @@ import { LuHardDriveDownload } from "react-icons/lu";
 import { MdOutlineMessage } from "react-icons/md";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+// import { IoHomeOutline } from "react-icons/io5";
+// import { RiLuggageDepositFill } from "react-icons/ri";
+// import { BsProjector } from "react-icons/bs";
+// import { FaRegUserCircle, FaSyncAlt } from "react-icons/fa";
 
 const Navbar = ({ open }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -26,6 +30,14 @@ const Navbar = ({ open }) => {
     setIsLanguageModalOpen(!isLanguageModalOpen);
   };
 
+  // Main Wallet functionality
+  // const [isRefreshing, setIsRefreshing] = useState(false);
+  // const handleRefresh = () => {
+  //   setIsRefreshing(true);
+  //   setTimeout(() => {
+  //     setIsRefreshing(false);
+  //   }, 1000);
+  // };
   return (
     <div>
       <div
@@ -71,6 +83,28 @@ const Navbar = ({ open }) => {
                 Sign Up
               </button>
             </div>
+            {/* <div className="flex gap-3">
+              <button className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white loginButtonBgColor">
+                {" "}
+                <RiLuggageDepositFill size={18} />
+                Deposit
+              </button>
+              <button
+                onClick={handleRefresh}
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
+              >
+                <FaSyncAlt
+                  className={`mr-2 ${
+                    isRefreshing ? "animate-spin" : ""
+                  } transition duration-300`}
+                />
+                <span className="mr-2">Main Wallet</span>
+                <span className="font-semibold">$100</span>
+              </button>
+              <button>
+                <FaRegUserCircle size={24} className="text-white" />
+              </button>
+            </div> */}
             <div className="flex items-center">
               <div
                 className="w-6 md:w-7 cursor-pointer"
@@ -87,35 +121,55 @@ const Navbar = ({ open }) => {
       </div>
 
       {/* Mobile Menu login and sign up*/}
-      <div className="fixed bottom-0 left-0 z-50 w-full text-white flex justify-between md:hidden">
-        {/* Bangladesh Flag Section */}
-        <button
-          className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
-          onClick={toggleLanguageModal}
-        >
-          <img
-            className="w-8 h-8"
-            src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
-            alt="BD flag"
-          />
-          <span className="text-sm text-start font-semibold leading-none">
-            BDT <br /> English
-          </span>
-        </button>
-        {/* Sign In Button */}
-        <button
-          className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
-          onClick={() => openModal("signup_modal")}
-        >
-          Sign up
-        </button>
-        {/* Login Button */}
-        <button
-          className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
-          onClick={() => openModal("login_modal")}
-        >
-          Login
-        </button>
+      <div className="fixed bottom-0 left-0 z-50 w-full text-white md:hidden">
+        <div className="md:flex justify-between hidden">
+          {/* Bangladesh Flag Section */}
+          <button
+            className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
+            onClick={toggleLanguageModal}
+          >
+            <img
+              className="w-8 h-8"
+              src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
+              alt="BD flag"
+            />
+            <span className="text-sm text-start font-semibold leading-none">
+              BDT <br /> English
+            </span>
+          </button>
+          {/* Sign In Button */}
+          <button
+            className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
+            onClick={() => openModal("signup_modal")}
+          >
+            Sign up
+          </button>
+          {/* Login Button */}
+          <button
+            className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
+            onClick={() => openModal("login_modal")}
+          >
+            Login
+          </button>
+        </div>
+        {/* <div className="flex justify-between items-center text-sm menubarBg">
+          <button className="py-1.5 px-1 w-full flex flex-col justify-center items-center">
+            <IoHomeOutline size={18} />
+            Home
+          </button>
+          <button className="py-1.5 px-1 w-full flex flex-col justify-center items-center">
+            <BsProjector size={18} />
+            Promotions
+          </button>
+          <button className="py-1.5 px-1 w-full flex flex-col justify-center items-center">
+            <RiLuggageDepositFill size={20} />
+            Deposit
+          </button>
+          <button className="py-1.5 px-1 w-full flex flex-col justify-center items-center">
+            <FaRegUserCircle size={18} />
+            My Account
+          </button>
+        </div> */}
       </div>
 
       {/* Login Modal */}
