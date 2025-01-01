@@ -1,8 +1,5 @@
-import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaAngleDown } from "react-icons/fa";
-import { IoIosArrowBack, IoMdFootball } from "react-icons/io";
-import { LuFlame } from "react-icons/lu";
-import { MdOutlineHome } from "react-icons/md";
+import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const SidebarMenu = ({ open, setOpen }) => {
@@ -50,63 +47,18 @@ const SidebarMenu = ({ open, setOpen }) => {
       <div className="bg-[#333] overflow-y-auto pb-20 h-full scrollbar-hide">
         <Link to={"/"}>
           <div
-            className={`px-4 py-3 text-white flex gap-2 hover:bg-red-600 border-b border-gray-700 duration-300 ${
-              !open && "justify-center"
-            }`}
-          >
-            <MdOutlineHome size={24} />
-            <p className={`text-white font-semibold ${!open && "hidden"}`}>
-              Home
-            </p>
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex items-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <LuFlame size={24} />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                {" "}
-                Hot Games{" "}
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex items-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <IoMdFootball size={24} />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                {" "}
-                Sports{" "}
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 border-b border-gray-700 duration-300 ${
               !open ? "justify-center" : "justify-between"
             }`}
           >
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-casino.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-home.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                {" "}
-                লাইভ ক্যাসিনো{" "}
+                Home
               </p>
             </div>
             <FaAngleDown className={`text-white ${!open && "hidden"}`} />
@@ -121,7 +73,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-slot.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -140,7 +92,26 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-table.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625"
+                alt=""
+              />
+              <p className={`text-white font-semibold ${!open && "hidden"}`}>
+                Sports
+              </p>
+            </div>
+            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
+          </div>
+        </Link>
+        <Link>
+          <div
+            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
+              !open ? "justify-center" : "justify-between"
+            }`}
+          >
+            <div className="flex gap-2">
+              <img
+                className="w-6"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -159,7 +130,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-crash.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -178,7 +149,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-lottery.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -197,7 +168,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-fish.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -216,7 +187,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-arcade.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -235,26 +206,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-cockfighting.svg?v=1727771384153"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Cock Fighting
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-promotion.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-promotion.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -272,7 +224,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-download.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-download.png?v=1735554286625"
                 alt=""
               />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
@@ -290,28 +242,13 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className="flex gap-2">
               <img
                 className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-affiliate.svg?v=1727771384153"
+                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-talk.png?v=1735554286625"
                 alt=""
               />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                অ্যাফিলিয়েট
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex items-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <BiSolidPhoneCall size={24} />
               <p className={`text-white font-semibold ${!open && "hidden"}`}>
                 Contact Us
               </p>
             </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
           </div>
         </Link>
       </div>
