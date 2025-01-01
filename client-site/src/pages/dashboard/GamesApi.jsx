@@ -68,13 +68,13 @@ const GamesApi = () => {
   // };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-500 p-2 rounded-md shadow-lg mx-auto">
-      <h1 className="text-center text-lg lg:text-3xl font-semibold mb-4">
+    <div className="bg-[#222222] p-2 rounded-md shadow-lg mx-auto">
+      <h1 className="text-center text-lg lg:text-3xl font-semibold mb-4 text-white">
         Games API Key
       </h1>
 
       <div className="bg-white rounded-lg p-6 shadow-xl">
-        <h2 className="text-center text-2xl font-semibold text-[#14815f] mb-6">
+        <h2 className="text-center text-2xl font-semibold text-black mb-6">
           {selectedApi?.name}
         </h2>
 
@@ -175,7 +175,7 @@ const GamesApi = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#59be7b] text-white py-3 rounded-md hover:bg-[#d3562a] transition duration-300"
+            className="w-full bg-yellow-500 text-black py-3 rounded-md hover:bg-yellow-600 transition duration-300"
           >
             Save API
           </button>
