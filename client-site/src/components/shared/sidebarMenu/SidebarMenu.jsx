@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 import { FaAngleDown, FaRegCircle } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
 import { IoMdHome } from "react-icons/io";
-import { IoGameController } from "react-icons/io5";
-import { FaAffiliatetheme, FaUsers } from "react-icons/fa";
-import { PiCashRegister } from "react-icons/pi";
-import { SlGameController } from "react-icons/sl";
-import { BsFront, BsPiggyBank, BsShop } from "react-icons/bs";
 
 const SidebarMenu = ({ open, setOpen }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +29,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Hot Games",
-      icon: <IoMdHome />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
       submenu: [
         {
           name: "9WICKETS",
@@ -80,7 +75,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Sports",
-      icon: <IoMdHome />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625",
       submenu: [
         {
           name: "9WICKETS",
@@ -136,7 +131,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Slot",
-      icon: <PiCashRegister />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625",
       submenu: [
         {
           name: "JILI",
@@ -237,7 +232,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Crash",
-      icon: <FaUsers />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625",
       submenu: [
         {
           name: "AVIATOR",
@@ -263,7 +258,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Casino",
-      icon: <FaUsers />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-casino.png?v=1735554286625",
       submenu: [
         {
           name: "EVO",
@@ -299,7 +294,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Table",
-      icon: <FaAffiliatetheme />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625",
       submenu: [
         {
           name: "JILI",
@@ -360,7 +355,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Lottery",
-      icon: <IoGameController />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625",
       submenu: [
         {
           name: "JILI",
@@ -396,7 +391,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Fishing",
-      icon: <IoGameController />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625",
       submenu: [
         {
           name: "JILI",
@@ -432,7 +427,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Arcade",
-      icon: <SlGameController />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
       submenu: [
         {
           name: "JILI",
@@ -493,22 +488,17 @@ const SidebarMenu = ({ open, setOpen }) => {
     },
     {
       name: "Promotions",
-      icon: <BsShop />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-promotion.png?v=1735554286625",
       path: "/promotions",
     },
     {
-      name: "Refer Bonus",
-      icon: <BsFront />,
-      path: "/refer-bonus",
-    },
-    {
       name: "Download",
-      icon: <BsPiggyBank />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-download.png?v=1735554286625",
       path: "/download",
     },
     {
       name: "Contact Us",
-      icon: <BsPiggyBank />,
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-talk.png?v=1735554286625",
       submenu: [
         {
           name: "Telegram Support",
@@ -615,7 +605,7 @@ const SidebarMenu = ({ open, setOpen }) => {
               to={item?.path || "#"}
             >
               <div
-                className={`px-4 py-3 flex flex-row items-center gap-2 hover:bg-red-600 duration-300 ${
+                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-red-600 duration-300 ${
                   open ? "justify-between" : "justify-center"
                 }
                 }`}
