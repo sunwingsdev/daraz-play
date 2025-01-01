@@ -3,1726 +3,544 @@ import { useState } from "react";
 const MenuBar = () => {
   const [activeTab, setActiveTab] = useState(0);
 
+  const menuItems = [
+    {
+      id: 1,
+      name: "HOT GAME",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "9WICKETS",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-9w.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "AVIATOR",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-aviator.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "CRAZYTIME",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-crazytime.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "BACCARAT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-sexybacarratclassic.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "MONEY COMING",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-moneycoming.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "SUPERACE",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-superace.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "7UP7DOWN",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-7up7down2.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "ANDAR BAHAR",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-andarbahar.png?v=1735554256445&source=mcdsrc",
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: "SPORTS",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "9WICKETS",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-exchange.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "SBO",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sbov2.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "SABA",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-saba.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "CMD",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-cmd.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "BTI",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sbtech.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "HORSE",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-horsebook.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "SV388",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sv388.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "RWB",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-awcmrwb.png?v=1735554256445&source=mcdsrc",
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: "SLOTS",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "JILI",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "PG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-pg.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "JDB",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdb.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "FASTSPIN",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmfastspin.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "PLAY8",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmp8.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "REDTIGER",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmrt.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "SG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmsg.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "CQ9",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 9,
+          name: "FC",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmfc.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 10,
+          name: "KA",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-ka.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 11,
+          name: "PP",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 12,
+          name: "PT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpt.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 13,
+          name: "NETENT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-netent.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 14,
+          name: "JOKER",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-joker.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 15,
+          name: "PNG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-playngo.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 16,
+          name: "NEXTSPIN",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-nextspin.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 17,
+          name: "RICH88",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-rich88.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 18,
+          name: "WORLDMATCH",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-worldmatch.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 19,
+          name: "YELLOWBAT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmyesbingo.png?v=1735554256445&source=mcdsrc",
+        },
+        { id: 20, name: "", icon: "" },
+        { id: 21, name: "", icon: "" },
+        { id: 22, name: "", icon: "" },
+        { id: 23, name: "", icon: "" },
+        { id: 24, name: "", icon: "" },
+      ],
+    },
+    {
+      id: 4,
+      name: "CRASH",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "AVIATOR",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "JILI",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "KA",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-ka.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "PP",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735554256445&source=mcdsrc",
+        },
+        { id: 5, name: "", icon: "" },
+        { id: 6, name: "", icon: "" },
+        { id: 7, name: "", icon: "" },
+        { id: 8, name: "", icon: "" },
+      ],
+    },
+    {
+      id: 5,
+      name: "CASINO",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-casino.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "EVO",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-evo.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "SEXY",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmsexy.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "PP",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "PT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpt.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "HOTRORD",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmhotroad.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "DG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmdg.png?v=1735554256445&source=mcdsrc",
+        },
+        { id: 7, name: "", icon: "" },
+        { id: 8, name: "", icon: "" },
+      ],
+    },
+    {
+      id: 6,
+      name: "TABLE",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "JILI",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "kM",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmkm.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "RICH88",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-rich88.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "SPRIBE",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "PG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-pg.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "WORLDMATCH",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-worldmatch.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "KA",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-ka.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "CQ9",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 9,
+          name: "PNG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-playngo.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 10,
+          name: "MONOPOLY",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-monopoly.png?v=1735554256445&source=mcdsrc",
+        },
+        { id: 11, name: "", icon: "" },
+        { id: 12, name: "", icon: "" },
+        { id: 13, name: "", icon: "" },
+        { id: 14, name: "", icon: "" },
+        { id: 15, name: "", icon: "" },
+        { id: 16, name: "", icon: "" },
+      ],
+    },
+    {
+      id: 7,
+      name: "LOTTERY",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "9WICKETS",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-exchange.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "SBO",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sbov2.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "SABA",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-saba.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "CMD",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-cmd.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "BTI",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sbtech.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "HORSE",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-horsebook.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "SV388",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sv388.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "RWB",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-awcmrwb.png?v=1735554256445&source=mcdsrc",
+        },
+      ],
+    },
+    {
+      id: 8,
+      name: "FISHING",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "9WICKETS",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-9w.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "AVIATOR",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-aviator.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "CRAZYTIME",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-crazytime.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "BACCARAT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-sexybacarratclassic.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "MONEY COMING",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-moneycoming.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "SUPERACE",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-superace.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "7UP7DOWN",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-7up7down2.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "ANDAR BAHAR",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-andarbahar.png?v=1735554256445&source=mcdsrc",
+        },
+      ],
+    },
+    {
+      id: 9,
+      name: "ARCADE",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+      subItems: [
+        {
+          id: 1,
+          name: "JILI",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 2,
+          name: "PG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-pg.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 3,
+          name: "JDB",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdb.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 4,
+          name: "FASTSPIN",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmfastspin.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 5,
+          name: "PLAY8",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmp8.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 6,
+          name: "REDTIGER",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmrt.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 7,
+          name: "SG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmsg.png?v=1735554256445&source=mcdsrc",
+        },
+        {
+          id: 8,
+          name: "CQ9",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735554256445&source=mcdsrc",
+        },
+      ],
+    },
+  ];
+
   return (
     <div>
-      {/* Tab List */}
-      <div className="flex p-2 bg-yellow-400 overflow-x-auto">
-        {/* Single Tab List স্পোর্ট */}
-        <div
-          onClick={() => setActiveTab(0)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 0
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 0 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/theme-icon/active/icon-sport.svg?v=1730260800861"
-              alt="Sport Icon"
-            />
-            <p className={`mt-1 ${activeTab === 0 ? "text-yellow-300" : ""}`}>
-              স্পোর্ট
-            </p>
+      {/* Menu Bar */}
+      <div className="menu-container flex menubarBg overflow-x-auto">
+        {menuItems.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => setActiveTab(item.id)}
+            className={`w-[90px] text-center py-1 md:py-1.5 px-5 text-xs font-semibold cursor-pointer ${
+              activeTab === item.id ? "menubarBgAct" : "text-white"
+            }`}
+          >
+            <div className="tab-content">
+              <img
+                className={`w-8 m-auto tab-image ${
+                  activeTab === item.id ? "filter-white" : "filter-white"
+                }`}
+                src={item.icon}
+                alt={item.name}
+              />
+              <p className="text-white whitespace-nowrap">{item.name}</p>
+            </div>
           </div>
-        </div>
-        {/* Single Tab List ক্যাসিনো */}
-        <div
-          onClick={() => setActiveTab(1)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 1
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 1 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/normal/icon-casino.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 1 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              ক্যাসিনো
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List স্লট */}
-        <div
-          onClick={() => setActiveTab(2)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 2
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 2 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/theme-icon/active/icon-slot.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 2 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              স্লট
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List টেবিল */}
-        <div
-          onClick={() => setActiveTab(3)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 3
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 3 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/theme-icon/active/icon-table.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 3 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              টেবিল
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List ক্রাশ */}
-        <div
-          onClick={() => setActiveTab(4)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 4
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 4 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/normal/icon-crash.svg?v=1730799973372"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 4 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              ক্রাশ
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List লটারী */}
-        <div
-          onClick={() => setActiveTab(5)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 5
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 5 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/normal/icon-lottery.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 5 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              লটারী
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List ফিসিং */}
-        <div
-          onClick={() => setActiveTab(6)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 6
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 6 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/normal/icon-fish.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 6 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              ফিসিং
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List আর্কেড */}
-        <div
-          onClick={() => setActiveTab(7)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 7
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 7 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/normal/icon-arcade.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 7 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              আর্কেড
-            </p>
-          </div>
-        </div>
-        {/* Single Tab List মোরগ লড়াই */}
-        <div
-          onClick={() => setActiveTab(8)}
-          className={`w-[90px] text-center py-1 md:py-1.5 text-xs font-semibold cursor-pointer ${
-            activeTab === 8
-              ? "bg-[#333] text-yellow-300 rounded-md"
-              : "bg-yellow-400 text-black"
-          }`}
-        >
-          <div className="tab-content">
-            <img
-              className={`w-6 m-auto tab-image ${
-                activeTab === 8 ? "filter-yellow" : ""
-              }`}
-              src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/normal/icon-cockfighting.svg?v=1730799973372"
-              alt="Sport Icon"
-            />
-            <p
-              className={`mt-1 ${
-                activeTab === 8 ? "text-yellow-300" : "text-black"
-              }`}
-            >
-              মোরগ লড়াই
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Tab Panels স্পোর্ট */}
-      {activeTab === 0 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/icon-set/sports-icon/icon-exchange.svg?v=1730260800861"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">CRICKET</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/icon-set/sports-icon/icon-sbov2.svg?v=1730799973372"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SBO</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/icon-set/sports-icon/icon-sportbook.svg?v=1730799973372"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Sportsbook</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/icon-set/sports-icon/icon-horsebook.svg?v=1730799973372"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Horse</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-cmd.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">CMD</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-sbtech.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">BTi</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/icon-set/sports-icon/icon-kabaddi.svg"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Kabaddi</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels ক্যাসিনো */}
-      {activeTab === 1 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-evo.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">EVO</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmsexy.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SEXY</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmpp.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PP</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmhotroad.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">HotRoad</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmpt.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PT</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels স্লট */}
-      {activeTab === 2 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmjili.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">JILI</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-pg.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmpp.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PP</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmsg.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-cq9.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">CQ9</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-jdb.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">JDB</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmp8.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">P8</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmfc.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PC</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-rich88.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">RICH88</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmyesbingo.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Yellowbat</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-netent.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">NETENT</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-worldmatch.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">WorldMatch</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-ka.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KA</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-nextspin.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">NextSpin</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmrt.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">RT</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmpt.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PT</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-joker.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Joker</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-playngo.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PNG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmfastspin.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">FASTSPIN</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels টেবিল */}
-      {activeTab === 3 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SPRIBE</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-monopoly.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">MONOPOLY</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmjili.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">JILI</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-worldmatch.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">WorldMatch</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-pg.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmkm.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KM</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-ka.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KA</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-playngo.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PNG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-rich88.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">RICH88</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels ক্রাশ */}
-      {activeTab === 4 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SPRIBE</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmkm.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KM</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmjili.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">JILI</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmpp.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PP</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels */}
-      {activeTab === 5 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-monopoly.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">MONOPOLY</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmjili.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">JILI</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-saba.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SABA</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-joker.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Joker</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmkm.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KM</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmyesbingo.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Yellowbat</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels */}
-      {activeTab === 6 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SPRIBE</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-monopoly.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">MONOPOLY</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmjili.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">JILI</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-worldmatch.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">WorldMatch</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-pg.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmkm.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KM</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-ka.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KA</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-playngo.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">PNG</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-rich88.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">RICH88</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels */}
-      {activeTab === 7 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-monopoly.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">MONOPOLY</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmjili.png?v=1730799973372&source=mcdsrc"
-              />
-              <p className="md:mt-1">JILI</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-saba.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">SABA</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-joker.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Joker</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmkm.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">KM</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/brand/white/provider-awcmyesbingo.png?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">Yellowbat</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Panels */}
-      {activeTab === 8 && (
-        <div className="grid grid-cols-3 md:grid-cols-8 justify-between items-center gap-2 py-2">
-          {/* Single Card */}
-          <div className="relative w-full">
-            <div className="py-2 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg">
-              <img
-                className="w-6 md:w-7 m-auto"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-all-provider.svg?v=1730799973372&source=mcdsrc"
-                alt="Cricket Icon"
-              />
-              <p className="md:mt-1">অল প্রোভাইডার</p>
-            </div>
-            <div className="absolute top-0 -right-0.5 w-6 rounded-tr-lg">
-              <img
-                className="rounded-tr-lg"
-                src="https://img.m156b.com/mb/h5/assets/images/dark/icon-set/index-theme-icon/card-triangle.svg?v=1730260800861"
-                alt="Triangle Icon"
-              />
-            </div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-          {/* Single Card */}
-          <div className="w-full">
-            <div className="py-7 md:py-8 text-center text-xs font-semibold text-white bg-[#333333] rounded-lg"></div>
-          </div>
-        </div>
-      )}
+      {/* Content Section */}
+      {menuItems
+        .filter((item) => item.id === activeTab)
+        .map((item) => (
+          <div key={item.id}>
+            <div className="py-2 text-center text-white">
+              <p className="text-sm font-semibold text-start border-l-4 border-l-red-600 pl-2">
+                {item.name}
+              </p>
+            </div>
+            <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-1">
+              {item.subItems.map((subItem) => (
+                <div
+                  key={subItem.id}
+                  className="text-center py-2 px-1.5 bg-red-800"
+                >
+                  <img
+                    className="w-6 lg:w-10 h-6 lg:h-10 mx-auto"
+                    src={subItem.icon}
+                    alt={subItem.name}
+                  />
+                  <p className="mt-1 text-xs lg:text-sm font-semibold text-white whitespace-nowrap truncate">
+                    {subItem.name}
+                  </p>
+                </div>
+              ))}
+              {item.subItems.length === 0 && (
+                <p className="col-span-3 md:col-span-4 text-center text-gray-400">
+                  No additional items available.
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
     </div>
   );
 };
