@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import BrandAmbassador from "../brandAmbassador/BrandAmbassador";
 import Social from "../social/Social";
+import footerLogo from "../../../assets/footer_logo.png";
 
 const Footer = () => {
   // social
@@ -124,11 +125,9 @@ const Footer = () => {
           </Link>
         </div>
         <div className="pt-4 pb-12 md:pb-0 text-sm text-white flex gap-3 items-center">
-          <img
-            className="w-24 md:w-32 lg:w-40"
-            src="https://img.d4040p.com/dp/h5/assets/images/logo-02.png?v=1735554256445"
-            alt=""
-          />
+          <Link to={"/"}>
+            <img className="w-24 md:w-32 lg:w-40" src={footerLogo} alt="" />
+          </Link>
           <div className="">
             <h2 className="font-bold">Best Quality Platform</h2>
             <p>© 2025 DarazPlay Copyrights. All Rights Reserved</p>

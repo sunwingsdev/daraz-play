@@ -2,10 +2,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import favourites_1 from "../../../assets/Favourites/1.jpg";
-import favourites_2 from "../../../assets/Favourites/2.jpg";
-import favourites_3 from "../../../assets/Favourites/3.jpg";
-import favourites_4 from "../../../assets/Favourites/4.jpg";
+import favourites_1 from "../../../assets/Favourites/1.png";
+import favourites_2 from "../../../assets/Favourites/2.png";
+import favourites_3 from "../../../assets/Favourites/3.png";
+import favourites_4 from "../../../assets/Favourites/1.png";
 
 const Slider = () => {
   return (
