@@ -196,7 +196,7 @@ const DepositModal = ({ closeDepositModal }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="w-full max-w-md bg-[#02733c] rounded-lg shadow-md flex flex-col overflow-hidden relative">
+      <div className="w-full max-w-md bg-[#222222] rounded-lg shadow-md flex flex-col overflow-y-auto max-h-svh relative">
         {/* Close Button */}
         <button
           onClick={closeDepositModal}
@@ -343,7 +343,7 @@ const DepositModal = ({ closeDepositModal }) => {
 
         {/* Step 3: Enter Payment Details */}
         {step === 3 && (
-          <div className="space-y-2 p-4">
+          <div className="space-y-2 p-4 overflow-y-auto scrollbar-hide">
             <div className="flex items-center gap-3">
               <BsArrowLeftSquare
                 onClick={goPreviousStep}

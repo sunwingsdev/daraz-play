@@ -91,13 +91,15 @@ const Navbar = ({ open }) => {
               >
                 <BiMenuAltLeft size={36} />
               </button>
-              <Link to={"/"}>
-                <img
-                  className="w-36 sm:w-28 md:w-36"
-                  src="https://img.d4040p.com/dp/h5/assets/images/logo.png?v=1735034317574"
-                  alt=""
-                />
-              </Link>
+              {!open && (
+                <Link to={"/"}>
+                  <img
+                    className="w-36 sm:w-28 md:w-36"
+                    src="https://img.d4040p.com/dp/h5/assets/images/logo.png?v=1735034317574"
+                    alt=""
+                  />
+                </Link>
+              )}
               <div className="flex items-center gap-3 text-red-600 md:hidden">
                 <div className="flex flex-col items-center cursor-pointer">
                   <LuHardDriveDownload size={26} />
