@@ -1,3 +1,4 @@
+import FeaturedGames from "../../components/home/FeaturedGames/FeaturedGames";
 import MarqueeSlider from "../../components/home/marqueeSlider/MarqueeSlider";
 import MenuBar from "../../components/home/menuBar/MenuBar";
 import Slider from "../../components/home/slider/Slider";
@@ -17,6 +18,7 @@ const Home = () => {
         <MarqueeSlider messages={messages} />
         <MenuBar />
         <Slider />
+        <FeaturedGames />
       </div>
     </div>
   );

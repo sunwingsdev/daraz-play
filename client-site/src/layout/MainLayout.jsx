@@ -3,9 +3,22 @@ import Footer from "../components/shared/footer/footer";
 import Navbar from "../components/shared/navbar/Navbar";
 import SidebarMenu from "../components/shared/sidebarMenu/SidebarMenu";
 import { useState } from "react";
+// import MobileMenu from "../components/home/MobileMenu";
 
 const MainLayout = () => {
   const [open, setOpen] = useState(false);
+  // const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth < 768);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+
+  // const hideCommonComponents = isMobile && location.pathname === "/register";
+
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -18,10 +31,11 @@ const MainLayout = () => {
         }`}
       >
         <Navbar open={open} />
-        <div className="mt-[62px] md:mt-16">
+        <div className="mt-[62px] md:mt-16 bg-gray-700">
           <Outlet />
         </div>
         <Footer />
+        {/* {!hideCommonComponents && <MobileMenu />} */}
       </div>
     </div>
   );
