@@ -19,12 +19,19 @@ import { RiLuggageDepositFill } from "react-icons/ri";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import UserMenu from "./UserMenu";
+import { LuUser } from "react-icons/lu";
+import { PiWallet } from "react-icons/pi";
+import { RiIdCardLine } from "react-icons/ri";
+import { IoMdHome } from "react-icons/io";
+import AccountDetailsMobile from "../../home/AccountDetailsMobile";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { token, user, singleUser } = useSelector((state) => state.auth);
+  const { token, singleUser } = useSelector((state) => state.auth);
+  const user = true;
   const [getSingleUser] = useLazyGetUserByIdQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -74,6 +81,24 @@ const Navbar = ({ open }) => {
     });
     navigate("/");
   };
+
+  const authenticatedRoutes = [
+    { icon: IoMdHome, title: "Home", route: "/" },
+    { icon: RiIdCardLine, title: "Promotion", route: "" },
+    {
+      icon: PiWallet,
+      title: "Deposit",
+      route: "",
+      onClick: () => setIsDepositModalOpen(true),
+      state: { method: "deposit" },
+    },
+    {
+      icon: LuUser,
+      title: "My Account",
+      route: "",
+      onClick: () => setDrawerOpen(true),
+    },
+  ];
 
   return (
     <>
@@ -189,35 +214,65 @@ const Navbar = ({ open }) => {
           </div>
         </div>
         {/* Mobile Menu login and sign up*/}
-        <div className="fixed bottom-0 left-0 z-50 w-full text-white flex justify-between md:hidden">
-          {/* Bangladesh Flag Section */}
-          <button
-            className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
-            onClick={toggleLanguageModal}
-          >
-            <img
-              className="w-8 h-8"
-              src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
-              alt="BD flag"
-            />
-            <span className="text-sm text-start font-semibold leading-none">
-              BDT <br /> English
-            </span>
-          </button>
-          {/* Sign In Button */}
-          <button
-            className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
-            onClick={() => openModal("signup_modal")}
-          >
-            Sign up
-          </button>
-          {/* Login Button */}
-          <button
-            className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
-            onClick={() => openModal("login_modal")}
-          >
-            Login
-          </button>
+        <div className="fixed bottom-0 left-0 z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600">
+          {!user && !token ? (
+            <>
+              {/* Bangladesh Flag Section */}
+              <button
+                className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
+                onClick={toggleLanguageModal}
+              >
+                <img
+                  className="w-8 h-8"
+                  src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
+                  alt="BD flag"
+                />
+                <span className="text-sm text-start font-semibold leading-none">
+                  BDT <br /> English
+                </span>
+              </button>
+              {/* Sign In Button */}
+              <button
+                className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
+                onClick={() => openModal("signup_modal")}
+              >
+                Sign up
+              </button>
+              {/* Login Button */}
+              <button
+                className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
+                onClick={() => openModal("login_modal")}
+              >
+                Login
+              </button>
+            </>
+          ) : (
+            <>
+              {authenticatedRoutes.map(
+                ({ icon: Icon, title, route, onClick, state }) =>
+                  route ? (
+                    <Link
+                      state={state}
+                      to={route}
+                      key={title}
+                      className="flex flex-col items-center justify-center gap-1"
+                    >
+                      <Icon className="text-2xl" />
+                      <p className="text-sm">{title}</p>
+                    </Link>
+                  ) : (
+                    <button
+                      key={title}
+                      className="flex flex-col items-center justify-center gap-1"
+                      onClick={onClick}
+                    >
+                      <Icon className="text-2xl" />
+                      <p className="text-sm">{title}</p>
+                    </button>
+                  )
+              )}
+            </>
+          )}
         </div>
         {/* Login Modal */}
         <AccoundModal id="login_modal" title="Login">
@@ -273,6 +328,7 @@ const Navbar = ({ open }) => {
       {isDepositModalOpen && (
         <DepositModal closeDepositModal={() => setIsDepositModalOpen(false)} />
       )}
+      {isDrawerOpen && <AccountDetailsMobile setDrawerOpen={setDrawerOpen} />}
     </>
   );
 };
