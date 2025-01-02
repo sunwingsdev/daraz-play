@@ -20,17 +20,24 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import UserMenu from "./UserMenu";
 import WithdrawModal from "../../home/withdraw-modal/WithdrawModal";
+import { LuUser } from "react-icons/lu";
+import { PiWallet } from "react-icons/pi";
+import { RiIdCardLine } from "react-icons/ri";
+import { IoMdHome } from "react-icons/io";
+import AccountDetailsMobile from "../../home/AccountDetailsMobile";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { token, user, singleUser } = useSelector((state) => state.auth);
+  const { user, token, singleUser } = useSelector((state) => state.auth);
   const [getSingleUser] = useLazyGetUserByIdQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { addToast } = useToasts();
+  const { addToast } = useToasts(); 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -77,6 +84,24 @@ const Navbar = ({ open }) => {
     navigate("/");
   };
 
+  const authenticatedRoutes = [
+    { icon: IoMdHome, title: "Home", route: "/" },
+    { icon: RiIdCardLine, title: "Promotion", route: "" },
+    {
+      icon: PiWallet,
+      title: "Deposit",
+      route: "",
+      onClick: () => setIsDepositModalOpen(true),
+      state: { method: "deposit" },
+    },
+    {
+      icon: LuUser,
+      title: "My Account",
+      route: "",
+      onClick: () => setDrawerOpen(true),
+    },
+  ];
+
   return (
     <>
       <div>
@@ -115,7 +140,7 @@ const Navbar = ({ open }) => {
             </div>
             <div className="hidden md:flex gap-1 sm:gap-2 md:gap-3">
               <div className="flex gap-1 items-center sm:gap-2">
-                {!user && !token ? (
+                {!user || !token ? (
                   <>
                     <button
                       className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-white loginButtonBgColor transition-all duration-300 rounded-md"
@@ -142,14 +167,6 @@ const Navbar = ({ open }) => {
                         Deposit
                       </button>
                       <button
-                        onClick={() => setIsWithdrawModalOpen(true)}
-                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white loginButtonBgColor"
-                      >
-                        {" "}
-                        <RiLuggageDepositFill size={18} />
-                        Withdraw
-                      </button>
-                      <button
                         onClick={reloadBalance}
                         className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
                       >
@@ -165,7 +182,10 @@ const Navbar = ({ open }) => {
                         </span>
                       </button>
                       <Menu.Button>
-                        <FaRegUserCircle size={24} className="text-white" />
+                        <FaRegUserCircle
+                          size={24}
+                          className="text-white hover:text-[#f8f8f8dd] duration-300"
+                        />
                       </Menu.Button>
                       <Transition
                         as={Fragment}
@@ -177,7 +197,11 @@ const Navbar = ({ open }) => {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-2 top-10 bg-[#333] border border-gray-700 rounded-lg shadow-lg focus:outline-none">
-                          <UserMenu handleLogout={handleLogout} />
+                          <UserMenu
+                            handleLogout={handleLogout}
+                            openDeposit={() => setIsDepositModalOpen(true)}
+                            openWithdraw={() => setIsWithdrawModalOpen(true)}
+                          />
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -199,35 +223,65 @@ const Navbar = ({ open }) => {
           </div>
         </div>
         {/* Mobile Menu login and sign up*/}
-        <div className="fixed bottom-0 left-0 z-50 w-full text-white flex justify-between md:hidden">
-          {/* Bangladesh Flag Section */}
-          <button
-            className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
-            onClick={toggleLanguageModal}
-          >
-            <img
-              className="w-8 h-8"
-              src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
-              alt="BD flag"
-            />
-            <span className="text-sm text-start font-semibold leading-none">
-              BDT <br /> English
-            </span>
-          </button>
-          {/* Sign In Button */}
-          <button
-            className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
-            onClick={() => openModal("signup_modal")}
-          >
-            Sign up
-          </button>
-          {/* Login Button */}
-          <button
-            className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
-            onClick={() => openModal("login_modal")}
-          >
-            Login
-          </button>
+        <div className="fixed bottom-0 left-0 z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600">
+          {!user && !token ? (
+            <>
+              {/* Bangladesh Flag Section */}
+              <button
+                className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
+                onClick={toggleLanguageModal}
+              >
+                <img
+                  className="w-8 h-8"
+                  src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
+                  alt="BD flag"
+                />
+                <span className="text-sm text-start font-semibold leading-none">
+                  BDT <br /> English
+                </span>
+              </button>
+              {/* Sign In Button */}
+              <button
+                className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
+                onClick={() => openModal("signup_modal")}
+              >
+                Sign up
+              </button>
+              {/* Login Button */}
+              <button
+                className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
+                onClick={() => openModal("login_modal")}
+              >
+                Login
+              </button>
+            </>
+          ) : (
+            <>
+              {authenticatedRoutes.map(
+                ({ icon: Icon, title, route, onClick, state }) =>
+                  route ? (
+                    <Link
+                      state={state}
+                      to={route}
+                      key={title}
+                      className="flex flex-col items-center justify-center gap-1"
+                    >
+                      <Icon className="text-2xl" />
+                      <p className="text-sm">{title}</p>
+                    </Link>
+                  ) : (
+                    <button
+                      key={title}
+                      className="flex flex-col items-center justify-center gap-1"
+                      onClick={onClick}
+                    >
+                      <Icon className="text-2xl" />
+                      <p className="text-sm">{title}</p>
+                    </button>
+                  )
+              )}
+            </>
+          )}
         </div>
         {/* Login Modal */}
         <AccoundModal id="login_modal" title="Login">
@@ -288,6 +342,7 @@ const Navbar = ({ open }) => {
           closeWithdrawModal={() => setIsWithdrawModalOpen(false)}
         />
       )}
+      {isDrawerOpen && <AccountDetailsMobile setDrawerOpen={setDrawerOpen} />}
     </>
   );
 };

@@ -6,10 +6,25 @@ import { IoMdHome } from "react-icons/io";
 import AccountDetailsMobile from "./AccountDetailsMobile";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DepositModal from "./deposit-modal/DepositModal";
 
 const MobileMenu = () => {
   const { token, user } = useSelector((state) => state.auth);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [isLanguageModalOpen, setLanguageModalOpen] = useState(false);
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+
+  const openModal = (type) => {
+    if (type === "login_modal") {
+      console.log("Open login modal"); // Replace with actual login modal logic
+    } else if (type === "signup_modal") {
+      console.log("Open signup modal"); // Replace with actual signup modal logic
+    }
+  };
+
+  const toggleLanguageModal = () => {
+    setLanguageModalOpen(!isLanguageModalOpen);
+  };
 
   useEffect(() => {
     if (isDrawerOpen) {
@@ -47,15 +62,31 @@ const MobileMenu = () => {
     >
       {!user && !token ? (
         <>
-          <Link
-            className="w-1/2 bg-[#14805e] py-4 text-center text-white"
-            to="/login"
+          <button
+            className="py-1.5 px-1 w-full flex justify-center gap-1 languageBgColor"
+            onClick={toggleLanguageModal}
+          >
+            <img
+              className="w-8 h-8"
+              src="https://png.pngtree.com/png-vector/20220606/ourmid/pngtree-bangladesh-flag-icon-in-modern-neomorphism-style-png-image_4872074.png"
+              alt="BD flag"
+            />
+            <span className="text-sm text-start font-semibold leading-none">
+              BDT <br /> English
+            </span>
+          </button>
+          <button
+            className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
+            onClick={() => openModal("login_modal")}
           >
             Login
-          </Link>
-          <Link className="w-1/2 bg-[#ffdf1a] py-4 text-center" to="/register">
-            Sign Up
-          </Link>
+          </button>
+          <button
+            className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
+            onClick={() => openModal("signup_modal")}
+          >
+            Sign up
+          </button>
         </>
       ) : (
         <>
@@ -74,7 +105,6 @@ const MobileMenu = () => {
                 </Link>
               ) : (
                 <div
-                  to={route ? route : ""}
                   key={title}
                   className="flex flex-col items-center justify-center gap-1"
                   onClick={onClick}
@@ -89,6 +119,9 @@ const MobileMenu = () => {
 
       {/* Full-Height Drawer */}
       {isDrawerOpen && <AccountDetailsMobile setDrawerOpen={setDrawerOpen} />}
+      {isDepositModalOpen && (
+        <DepositModal closeDepositModal={() => setIsDepositModalOpen(false)} />
+      )}
     </div>
   );
 };
