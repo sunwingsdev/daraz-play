@@ -1,442 +1,660 @@
-import { FaAngleDown } from "react-icons/fa";
+import { useState } from "react";
+import logo from "../../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { FaAngleDown, FaRegCircle } from "react-icons/fa";
+import OppsModal from "../modal/OppsModal";
+import { IoMdHome } from "react-icons/io";
 
 const SidebarMenu = ({ open, setOpen }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState({
+    GamesControl: false,
+    GamesApikey: false,
+    OracleTechnology: false, // Track submenu state for Games Control
+    Bonuses: false, // Track submenu state for Games Control
+    gameHistory: false, // Track submenu state for Games Control
+    Fontend: false, // Track submenu state for Games Control
+    BankingDeposit: false, // Track submenu state for Games Control
+    BankingWithdrow: false, // Track submenu state for Games Control
+    Settings: false, // Track submenu state for Games Control
+  });
+
+  const menuItems = [
+    {
+      name: "Home",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-home.png?v=1735554286625",
+      path: "/",
+      submenu: [],
+    },
+    {
+      name: "Hot Games",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+      submenu: [
+        {
+          name: "9WICKETS",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "CRAZYTIME",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "AVIATOR",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SUPERACE",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "MONEY COMING",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "ANDAR BAHAR",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SEXY BACCARAT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "7UP7DOWN",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Sports",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625",
+      submenu: [
+        {
+          name: "9WICKETS",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SBO",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SABA",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "CMD",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "BTI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "HORSE",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SV388",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "RWB",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "INSPORTS",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PINNACLE",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Slot",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625",
+      submenu: [
+        {
+          name: "JILI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "JDB",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "FASTSPIN",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PLAY8",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "REDTIGER",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "CQ9",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "FC",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KA",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PP",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "NETENT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "JOKER",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PNG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "NEXTSPIN",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "RICH88",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "WORLDMATCH",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "YELLOWBAT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Crash",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625",
+      submenu: [
+        {
+          name: "AVIATOR",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "JILI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KM",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PP",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Casino",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-casino.png?v=1735554286625",
+      submenu: [
+        {
+          name: "EVO",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SEXY",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PP",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "HOTROAD",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "DG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Table",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625",
+      submenu: [
+        {
+          name: "JILI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KM",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "RICH88",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SPRIBE",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "WORLDMATCH",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KA",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "CQ9",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PNG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "BPOKER",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "MONOPOLY",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Lottery",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625",
+      submenu: [
+        {
+          name: "JILI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KM",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "JOKER",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "YELLOWBAT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SABA",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "MONOPOLY",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Fishing",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625",
+      submenu: [
+        {
+          name: "JILI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KM",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "JOKER",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "YELLOWBAT",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SABA",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "MONOPOLY",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Arcade",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+      submenu: [
+        {
+          name: "JILI",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KM",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "RICH88",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "SPRIBE",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "WORLDMATCH",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "KA",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "CQ9",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "PNG",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "BPOKER",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "MONOPOLY",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+    {
+      name: "Promotions",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-promotion.png?v=1735554286625",
+      path: "/promotions",
+    },
+    {
+      name: "Download",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-download.png?v=1735554286625",
+      path: "/download",
+    },
+    {
+      name: "Contact Us",
+      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-talk.png?v=1735554286625",
+      submenu: [
+        {
+          name: "Telegram Support",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "Live Chat",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "Messenger",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+        {
+          name: "Email",
+          icon: <IoMdHome />,
+          path: "#",
+        },
+      ],
+    },
+  ];
+  //   const logoHomeControl = homeControls?.find(
+  //       (control) => control.category === "logo" && control.isSelected === true
+  //      );
+
+  // Toggle submenu visibility
+  const toggleSubmenu = (menu) => {
+    setSubmenuOpen((prevState) => ({
+      ...prevState,
+      [menu]: !prevState[menu],
+    }));
+  };
+
+  // Handle toggle sidebar visibility
+  const handleToggleSidebar = () => {
+    setOpen((prev) => !prev);
+  };
+
+  // Open modal
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  // Close modal
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   return (
-    <div
-      className={`${
-        open ? "w-64" : "w-16"
-      } hidden md:block duration-300 h-screen fixed`}
-    >
-      {/* Start Top collapse */}
-      <div className={`bg-black py-3 ${!open && "py-5"}`}>
-        <div className="flex gap-x-3 items-center justify-center">
-          <div className={`flex gap-1 ${!open && "hidden"}`}>
-            <button className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-slate-200 hover:bg-slate-300 duration-300">
-              <img
-                className="w-6"
-                src="https://img.m156b.com/mb/h5/assets/images/desktop/leftmenu-head/icon-cricket.svg"
-                alt=""
+    <div>
+      <div
+        className={`${
+          open ? "w-64" : "w-16"
+        } hidden md:block duration-300 h-screen fixed`}
+      >
+        {/* Start Top collapse */}
+        <div className={`bg-zinc-800 py-3 ${!open && "py-5"}`}>
+          <div className="flex gap-x-3 items-center justify-center">
+            <div className={`flex gap-1 ${!open && "hidden"}`}>
+              <Link
+                to={"/"}
+                className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
+              >
+                {/* {logoHomeControl?.image ? (
+                  <img
+                    className="w-40"
+                    src={`${import.meta.env.VITE_BASE_API_URL}${
+                      logoHomeControl?.image
+                    }`}
+                    alt="Logo"
+                  />
+                ) : (
+                  <div className="h-10"></div>
+                )} */}
+                <img className="w-40" src={logo} alt="Logo" />
+              </Link>
+            </div>
+            <div>
+              <IoIosArrowBack
+                className={`m-auto text-center w-10 h-7 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-full cursor-pointer ${
+                  !open && "rotate-180"
+                } `}
+                onClick={handleToggleSidebar}
               />
-              <p className="text-sm font-semibold">CRICKET</p>
-            </button>
-            <button className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-yellow-400 hover:bg-yellow-600 duration-300">
-              <img
-                className="w-4"
-                src="https://img.m156b.com/mb/h5/assets/images/desktop/leftmenu-head/icon-casino.svg"
-                alt=""
-              />
-              <p className="w-16 text-start text-sm font-semibold">
-                লাইভ ক্যাসিনো{" "}
-              </p>
-            </button>
-          </div>
-          <div>
-            <IoIosArrowBack
-              className={`m-auto text-center w-10 h-7 p-1 text-[#cacaca] bg-[#666666] hover:bg-[#575757] rounded-full cursor-pointer ${
-                !open && "rotate-180"
-              } `}
-              onClick={() => setOpen(!open)}
-            />
+            </div>
           </div>
         </div>
+        {/* End Top collapse */}
       </div>
-      {/* End Top collapse */}
+
       {/* Start Menu bar */}
-      <div className="bg-[#333] overflow-y-auto pb-20 h-full scrollbar-hide">
-        <Link to={"/"}>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 border-b border-gray-700 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-home.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Home
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
+      <div
+        className={`bg-[#222222] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
+          open ? "w-64" : "w-16"
+        } text-sm text-white duration-300 font-semibold h-full scrollbar-hide`}
+      >
+        {/* Dynamic Menu Rendering */}
+        {menuItems?.map((item, index) => (
+          <div key={index}>
+            <Link
+              onClick={!item?.path && !item?.submenu && handleModalOpen}
+              to={item?.path || "#"}
+            >
+              <div
+                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-red-600 duration-300 ${
+                  open ? "justify-between" : "justify-center"
+                }
+                }`}
+                onClick={() => item?.submenu && toggleSubmenu(item?.name)}
+              >
+                {/* Only show icon for menu items with submenus */}
+                <div className="flex flex-row items-center gap-2">
+                  <img className="w-8" src={item?.icon} alt="" />
+                  <p className={`${!open && "hidden"}`}>{item?.name}</p>
+                </div>
+                {/* Show arrow for submenu toggle */}
+                {item?.submenu && item?.submenu?.length !== 0 && open && (
+                  <FaAngleDown className={`text-white ${!open && "hidden"}`} />
+                )}
+              </div>
+            </Link>
+
+            {/* Only show submenu when "Games Control" is clicked */}
+            {item?.submenu && submenuOpen[item?.name] && open && (
+              <div className="pl-8 text-white text-sm font-semibold bg-black duration-300">
+                {item?.submenu?.map((subItem, subIndex) => (
+                  <Link
+                    onClick={
+                      !subItem.path && !subItem.submenu && handleModalOpen
+                    }
+                    key={subIndex}
+                    to={subItem?.path}
+                    className="py-2.5 flex gap-2"
+                  >
+                    <FaRegCircle size={22} className="text-yellow-300" />
+                    {subItem?.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Slots
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Sports
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Table
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Crash
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Lottery
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Fishing
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Arcade
-              </p>
-            </div>
-            <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-promotion.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Promotions
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-download.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Download
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link>
-          <div
-            className={`px-4 py-3 text-white flex justify-center hover:bg-red-600 duration-300 ${
-              !open ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex gap-2">
-              <img
-                className="w-6"
-                src="https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-talk.png?v=1735554286625"
-                alt=""
-              />
-              <p className={`text-white font-semibold ${!open && "hidden"}`}>
-                Contact Us
-              </p>
-            </div>
-          </div>
-        </Link>
+        ))}
       </div>
-      {/* End Menu bar */}
+
+      {/* Modal */}
+      <OppsModal
+        title="Opps!!"
+        isOpen={isModalOpen}
+        onOpenChange={handleModalClose}
+      >
+        <p>Please contact your developer team to connect API!!!</p>
+      </OppsModal>
     </div>
   );
 };
 
 export default SidebarMenu;
-
-// import { useState } from "react";
-// import { BiSolidPhoneCall } from "react-icons/bi";
-// import { IoIosArrowBack, IoMdFootball, IoMdHome } from "react-icons/io";
-// import { Link } from "react-router-dom";
-
-// const SidebarMenu = () => {
-//   const [open, setOpen] = useState(false);
-
-//   return (
-//     <div
-//       className={`${
-//         open ? "w-64" : "w-16"
-//       } duration-300 h-screen fixed top-0 left-0 bg-[#333]`}
-//     >
-//       {/* Sidebar Collapse Toggle */}
-//       <div className={`bg-zinc-800 py-3 ${!open && "py-5"}`}>
-//         <div className="flex items-center justify-center gap-x-3">
-//           <div className={`flex gap-1 ${!open && "hidden"}`}>
-//             <button className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-slate-200 hover:bg-slate-100">
-//               <img
-//                 className="w-6"
-//                 src="https://img.m156b.com/mb/h5/assets/images/desktop/leftmenu-head/icon-cricket.svg"
-//                 alt=""
-//               />
-//               <p className="text-sm font-semibold">CRICKET</p>
-//             </button>
-//             <button className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-yellow-300 hover:bg-yellow-400">
-//               <img
-//                 className="w-4"
-//                 src="https://img.m156b.com/mb/h5/assets/images/desktop/leftmenu-head/icon-casino.svg"
-//                 alt=""
-//               />
-//               <p className="w-16 text-sm font-semibold">লাইভ ক্যাসিনো</p>
-//             </button>
-//           </div>
-//           <IoIosArrowBack
-//             className={`m-auto w-10 h-7 p-1 bg-yellow-300 rounded-full cursor-pointer ${
-//               !open && "rotate-180"
-//             }`}
-//             onClick={() => setOpen(!open)}
-//           />
-//         </div>
-//       </div>
-
-//       {/* Menu Items */}
-//       <div className="bg-[#333] overflow-y-auto pb-20 h-full scrollbar-hide">
-//         <Link to={"/"}>
-//           <div
-//             className={`pl-3 py-3 pr-2 text-yellow-300 flex gap-2 border-b border-gray-700 ${
-//               !open && "justify-center"
-//             }`}
-//           >
-//             <IoMdHome size={24} />
-//             <p className={`${!open && "hidden"}`}>Home</p>
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <IoMdFootball size={24} />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-casino.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-slot.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-table.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-crash.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-lottery.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-fish.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-arcade.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-cockfighting.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-promotion.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-download.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-affiliate.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <img
-//               className="w-6"
-//               src="https://img.m156b.com/mb/h5/assets/images/dark/menu/icon-ambassador.svg?v=1727771384153"
-//               alt=""
-//             />
-//           </div>
-//         </Link>
-//         <Link>
-//           <div className="py-3 text-yellow-300 flex justify-center">
-//             <BiSolidPhoneCall size={24} />
-//           </div>
-//         </Link>
-//         {/* Repeat similar structure for other menu items */}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SidebarMenu;

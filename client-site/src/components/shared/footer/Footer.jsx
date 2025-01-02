@@ -3,33 +3,6 @@ import BrandAmbassador from "../brandAmbassador/BrandAmbassador";
 import Social from "../social/Social";
 
 const Footer = () => {
-  // ব্র্যান্ড অ্যাম্বাসেডর
-  const signatures = [
-    {
-      image:
-        "https://img.m156b.com/mb/h5/assets/images/dark/footer/ambassadors-quinton-de-kock.png?v=1727771384153&source=mcdsrc",
-      heading: "কুইন্টন ডি কক",
-      text: "দক্ষিণ আফ্রিকান ক্রিকেটার",
-    },
-    {
-      image:
-        "https://img.m156b.com/mb/h5/assets/images/dark/footer/ambassadors-monami-ghosh.png?v=1727771384153&source=mcdsrc",
-      heading: "মনামী ঘোষ",
-      text: "ফিল্ম ও টেলিভিশন সুপারস্টার",
-    },
-    {
-      image:
-        "https://img.m156b.com/mb/h5/assets/images/dark/footer/ambassadors-david-de-gea.png?v=1727771384153&source=mcdsrc",
-      heading: "ডেভিড ডি গিয়া",
-      text: "স্প্যানিশ পেশাদার ফুটবলার",
-    },
-    {
-      image:
-        "https://img.m156b.com/mb/h5/assets/images/dark/footer/ambassadors-sunny-leone.png?v=1727771384153&source=mcdsrc",
-      heading: "সানি লিওন",
-      text: "অভিনেত্রী",
-    },
-  ];
   // social
   const socials = [
     {
@@ -79,40 +52,10 @@ const Footer = () => {
   ];
   return (
     <div>
-      <div className="bg-zinc-800 p-4">
-        {/* ব্র্যান্ড অ্যাম্বাসেডর */}
-        <p className="pb-1 text-sm text-white">ব্র্যান্ড অ্যাম্বাসেডর</p>
-        <div className="flex flex-wrap gap-4 bg-[#333333] p-3 rounded-md">
-          {signatures.map((signature) => (
-            <BrandAmbassador
-              key={signature.image}
-              signature={signature}
-              image={signature.image}
-              heading={signature.heading}
-              text={signature.text}
-            />
-          ))}
-        </div>
-        {/* অফিসিয়াল পার্টনার */}
-        <p className="mt-2 pb-1 text-sm text-white">অফিসিয়াল পার্টনার</p>
-        <div className="flex gap-4 bg-[#333333] p-3 rounded-md">
-          <img
-            className="w-14"
-            src="https://img.m156b.com/mb/h5/assets/images/footer/white/official-partner-heyvip.png?v=1727771384153&source=mcdsrc"
-            alt=""
-          />
-        </div>
-        {/* কমিউনিটি ওয়েবসাইট */}
-        <p className="mt-2 pb-1 text-sm text-white">কমিউনিটি ওয়েবসাইট</p>
-        <div className="flex gap-4 bg-[#333333] p-3 rounded-md">
-          {socials.map((social) => (
-            <Social key={social.image} social={social} />
-          ))}
-          <Social />
-        </div>
+      <div className="bg-zinc-800 p-4 pt-8 space-y-3">
         {/* মুল্য পরিশোধ পদ্ধতি */}
-        <p className="mt-2 pb-1 text-sm text-white">মুল্য পরিশোধ পদ্ধতি</p>
-        <div className="flex gap-4 bg-[#333333] p-3 rounded-md">
+        <p className="text-sm text-white">Payment Methods</p>
+        <div className="flex gap-6 py-2">
           {accounts.map((account) => (
             <BrandAmbassador
               key={account.image}
@@ -121,43 +64,76 @@ const Footer = () => {
             />
           ))}
         </div>
-        {/* আমাদের সম্পর্কে */}
-        <p className="mt-2 pb-1 text-sm text-white">আমাদের সম্পর্কে</p>
-        <div className="flex flex-wrap gap-4 bg-[#333333] p-3 rounded-md">
+        {/* কমিউনিটি ওয়েবসাইট */}
+        <p className="text-sm text-white">Community Websites</p>
+        <div className="flex gap-3">
+          {socials.map((social) => (
+            <Social key={social.image} social={social} />
+          ))}
+          <Social />
+        </div>
+        {/* অফিসিয়াল পার্টনার */}
+        <p className="pt-4 text-sm text-white">Official Partner</p>
+        <div className="flex gap-4">
+          <img
+            className="w-28"
+            src="https://img.m156b.com/mb/h5/assets/images/footer/white/official-partner-heyvip.png?v=1727771384153&source=mcdsrc"
+            alt=""
+          />
+        </div>
+        <div className="pt-4 flex flex-wrap gap-2 text-white ">
           <Link to={""}>
-            <p className="text-yellow-400 text-xs md:text-sm underline">
-              আমাদের সম্পর্কে
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              About Us
             </p>
           </Link>
           <Link to={""}>
-            <p className="text-yellow-400 text-xs md:text-sm underline">
-              গোপনীয়তা নীতি
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Contact Us
             </p>
           </Link>
           <Link to={""}>
-            <p className="text-yellow-400 text-xs md:text-sm underline">
-              শর্তাবলী
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Privacy Policy
             </p>
           </Link>
           <Link to={""}>
-            <p className="text-yellow-400 text-xs md:text-sm underline">
-              নিয়ম এবং প্রবিধান
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Terms & Conditions
             </p>
           </Link>
           <Link to={""}>
-            <p className="text-yellow-400 text-xs md:text-sm underline">
-              দায়িত্বশীল গেম্বলিং
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Rules & Regulations
             </p>
           </Link>
           <Link to={""}>
-            <p className="text-yellow-400 text-xs md:text-sm underline">
-              সচরাচর জিজ্ঞাসা বাদ
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Responsible Gaming
+            </p>
+          </Link>
+          <Link to={""}>
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Frequentiy Asked Questions
+            </p>
+          </Link>
+          <Link to={""}>
+            <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              Affiliate
             </p>
           </Link>
         </div>
-        <p className="pt-3 text-center text-sm text-white">
-          © 2024 Betjili কপিরাইট। সমস্ত অধিকার সংরক্ষিত
-        </p>
+        <div className="pt-4 pb-12 md:pb-0 text-sm text-white flex gap-3 items-center">
+          <img
+            className="w-24 md:w-32 lg:w-40"
+            src="https://img.d4040p.com/dp/h5/assets/images/logo-02.png?v=1735554256445"
+            alt=""
+          />
+          <div className="">
+            <h2 className="font-bold">Best Quality Platform</h2>
+            <p>© 2025 DarazPlay Copyrights. All Rights Reserved</p>
+          </div>
+        </div>
       </div>
     </div>
   );

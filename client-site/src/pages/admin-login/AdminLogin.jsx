@@ -37,7 +37,7 @@ const AdminLogin = () => {
 
       if (loginData.token) {
         const { data: userData } = await getUser(loginData.token);
-        if (userData?.user?.role !== "admin") {
+        if (userData?.role !== "admin") {
           dispatch(logout());
           localStorage.removeItem("token");
           addToast("Please submit admin username and password!!!", {

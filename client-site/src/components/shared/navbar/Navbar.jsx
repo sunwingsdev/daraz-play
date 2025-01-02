@@ -15,6 +15,9 @@ import { useToasts } from "react-toast-notifications";
 import { TfiReload } from "react-icons/tfi";
 import DepositModal from "../../home/deposit-modal/DepositModal";
 import { FaRegUserCircle } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
+import { RiLuggageDepositFill } from "react-icons/ri";
+import { BsProjector } from "react-icons/bs";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
@@ -125,7 +128,7 @@ const Navbar = ({ open }) => {
                 ) : (
                   <>
                     {" "}
-                    <button
+                    {/* <button
                       onClick={() => setIsDepositModalOpen(true)}
                       className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-black bg-[#fde111] transition-all duration-300 rounded-md"
                     >
@@ -135,7 +138,7 @@ const Navbar = ({ open }) => {
                       onClick={handleLogout}
                       className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-black bg-[#fde111] transition-all duration-300 rounded-md"
                     >
-                  logout
+                      logout
                     </button>
                     <button className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-white bg-[#2d985f] transition-all duration-300 rounded-md inline-flex items-center gap-2">
                       {loading ? (
@@ -145,7 +148,35 @@ const Navbar = ({ open }) => {
                       )}
                       Main Balance <span>{singleUser?.balance || 0}</span>
                     </button>
-                    <FaRegUserCircle className="text-xl text-white md:text-3xl" />
+                    <FaRegUserCircle className="text-xl text-white md:text-3xl" /> */}
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => setIsDepositModalOpen(true)}
+                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white loginButtonBgColor"
+                      >
+                        {" "}
+                        <RiLuggageDepositFill size={18} />
+                        Deposit
+                      </button>
+                      <button
+                        onClick={reloadBalance}
+                        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
+                      >
+                        <TfiReload
+                          className={`mr-2 ${
+                            loading ? "animate-spin" : ""
+                          } transition duration-300`}
+                        />
+
+                        <span className="mr-2">Main Wallet</span>
+                        <span className="font-semibold">
+                          {singleUser?.balance || 0}
+                        </span>
+                      </button>
+                      <button>
+                        <FaRegUserCircle size={24} className="text-white" />
+                      </button>
+                    </div>
                   </>
                 )}
               </div>

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import baseApi from "./features/baseApi";
-import authReducer, { logout } from "./slices/authSlice";
+import authReducer from "./slices/authSlice";
 
 // const validateAuthMiddleware = (store) => (next) => (action) => {
 //   const token = localStorage.getItem("token");

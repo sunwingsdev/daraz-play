@@ -3,74 +3,16 @@ import { IoIosSearch } from "react-icons/io";
 import ReasonModal from "../../components/dashboard/ReasonModal";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useGetDepositsQuery } from "../../redux/features/allApis/depositsApi/depositsApi";
 
 const DepositHistory = () => {
-  // const { data: allDeposits, isLoading, isError } = useGetDepositsQuery();
+  const { data: allDeposits, isLoading, isError } = useGetDepositsQuery();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDeposit, setSelectedDeposit] = useState(null);
   const [status, setStatus] = useState("");
 
-  // fake data
-  const allDeposits = [
-    {
-      _id: "deposit1",
-      userInfo: {
-        name: "John Doe",
-      },
-      method: "Bank Transfer",
-      paymentInputs: [
-        {
-          accountNumber: "123456789",
-          transactionId: "TXN12345",
-          slip: "deposit1-slip.jpg",
-        },
-      ],
-      amount: 5000,
-      createdAt: "2024-12-01T10:30:00.000Z",
-      status: "pending",
-    },
-    {
-      _id: "deposit2",
-      userInfo: {
-        name: "Jane Smith",
-      },
-      method: "Mobile Banking",
-      paymentInputs: [
-        {
-          accountNumber: "987654321",
-          transactionId: "TXN67890",
-          slip: "deposit2-slip.jpg",
-        },
-        {
-          accountNumber: "987654322",
-          transactionId: "TXN67891",
-          slip: "deposit2-slip2.jpg",
-        },
-      ],
-      amount: 10000,
-      createdAt: "2024-12-02T12:45:00.000Z",
-      status: "completed",
-    },
-    {
-      _id: "deposit3",
-      userInfo: {
-        name: "Alice Johnson",
-      },
-      method: "Credit Card",
-      paymentInputs: [
-        {
-          cardNumber: "4111111111111111",
-          authorizationCode: "AUTH12345",
-        },
-      ],
-      amount: 2000,
-      createdAt: "2024-12-03T08:20:00.000Z",
-      status: "reject",
-    },
-  ];
-
-  // if (isLoading) return <div>Loading...</div>;
-  // if (isError) return <div>Error loading deposits.</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading deposits.</div>;
 
   const handleStatusClick = (deposit, status) => {
     setSelectedDeposit(deposit);
