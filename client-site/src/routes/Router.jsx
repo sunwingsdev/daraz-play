@@ -19,6 +19,7 @@ import AdminLogin from "../pages/admin-login/AdminLogin";
 import ActiveGames from "../pages/dashboard/ActiveGames";
 import InActiveGames from "../pages/dashboard/InActiveGames";
 import HomeControl from "../pages/dashboard/HomeControl";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
     children: [
       { path: "", element: <DashboardHome /> },
       { path: "all-user", element: <AllUsers /> },

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const MenuBar = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
 
   const menuItems = [
     {
@@ -523,11 +523,13 @@ const MenuBar = () => {
                   key={subItem.id}
                   className="text-center py-2 px-1.5 bg-red-800"
                 >
-                  <img
-                    className="w-6 lg:w-10 h-6 lg:h-10 mx-auto"
-                    src={subItem.icon}
-                    alt={subItem.name}
-                  />
+                  {subItem.icon && (
+                    <img
+                      className="w-6 lg:w-10 h-6 lg:h-10 mx-auto"
+                      src={subItem.icon}
+                      alt={subItem.name}
+                    />
+                  )}
                   <p className="mt-1 text-xs lg:text-sm font-semibold text-white whitespace-nowrap truncate">
                     {subItem.name}
                   </p>
