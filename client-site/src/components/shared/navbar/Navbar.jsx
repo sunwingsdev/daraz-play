@@ -19,10 +19,12 @@ import { RiLuggageDepositFill } from "react-icons/ri";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import UserMenu from "./UserMenu";
+import WithdrawModal from "../../home/withdraw-modal/WithdrawModal";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { token, user, singleUser } = useSelector((state) => state.auth);
   const [getSingleUser] = useLazyGetUserByIdQuery();
@@ -138,6 +140,14 @@ const Navbar = ({ open }) => {
                         {" "}
                         <RiLuggageDepositFill size={18} />
                         Deposit
+                      </button>
+                      <button
+                        onClick={() => setIsWithdrawModalOpen(true)}
+                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white loginButtonBgColor"
+                      >
+                        {" "}
+                        <RiLuggageDepositFill size={18} />
+                        Withdraw
                       </button>
                       <button
                         onClick={reloadBalance}
@@ -272,6 +282,11 @@ const Navbar = ({ open }) => {
       </div>
       {isDepositModalOpen && (
         <DepositModal closeDepositModal={() => setIsDepositModalOpen(false)} />
+      )}
+      {isWithdrawModalOpen && (
+        <WithdrawModal
+          closeWithdrawModal={() => setIsWithdrawModalOpen(false)}
+        />
       )}
     </>
   );
