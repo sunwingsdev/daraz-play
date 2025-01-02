@@ -557,7 +557,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         } hidden md:block duration-300 h-screen fixed`}
       >
         {/* Start Top collapse */}
-        <div className={`bg-zinc-800 py-3 ${!open && "py-5"}`}>
+        <div className={`bg-black py-3 ${!open && "py-5"}`}>
           <div className="flex gap-x-3 items-center justify-center">
             <div className={`flex gap-1 ${!open && "hidden"}`}>
               <Link
@@ -593,7 +593,7 @@ const SidebarMenu = ({ open, setOpen }) => {
 
       {/* Start Menu bar */}
       <div
-        className={`bg-[#222222] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
+        className={`bg-[#303030] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
           open ? "w-64" : "w-16"
         } text-sm text-white duration-300 font-semibold h-full scrollbar-hide`}
       >

@@ -20,6 +20,7 @@ import ActiveGames from "../pages/dashboard/ActiveGames";
 import InActiveGames from "../pages/dashboard/InActiveGames";
 import HomeControl from "../pages/dashboard/HomeControl";
 import AdminRoute from "./AdminRoute";
+import Promotion from "../components/home/promotion/Promotion";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/promotion",
+        element: <Promotion />,
       },
     ],
   },

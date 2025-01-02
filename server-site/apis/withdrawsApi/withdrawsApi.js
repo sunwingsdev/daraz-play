@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 
 const withdrawsApi = (withdrawsCollection) => {
   const router = express.Router();
@@ -55,8 +56,8 @@ const withdrawsApi = (withdrawsCollection) => {
   router.patch("/status/:id", async (req, res) => {
     const { id } = req.params;
     const query = { _id: new ObjectId(id) };
-    const { status } = req.body;
-    const updatedDoc = { $set: { status } };
+    const { status, reason } = req.body;
+    const updatedDoc = { $set: { status, reason } };
     const result = await withdrawsCollection.updateOne(query, updatedDoc);
     res.send(result);
   });
