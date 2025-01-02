@@ -52,7 +52,7 @@ const Promotion = () => {
           <input
             type="text"
             placeholder="Promo Code"
-            className="px-4 py-1 w-full rounded-l-md focus:outline-none"
+            className="px-4 py-1 w-full rounded-l-md focus:outline-none bg-slate-100"
           />
           <button className="px-4 py-1 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 transition">
             Add

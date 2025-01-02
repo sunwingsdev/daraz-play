@@ -13,13 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useToasts } from "react-toast-notifications";
+import myAccount from "../../assets/myAccount.png";
 
 const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-[#333333] rounded-md py-2 space-y-2">
-      <h2 className="border-s-8 border-[#14805e] px-2 ms-2">{heading}</h2>
-      <div className="w-full border-t border-gray-600"></div>
+    <div className="bg-gradient-to-t from-black to-red-600 text-white font-semibold rounded-md py-2 space-y-2">
+      <h2 className="border-s-8 border-white px-2 ms-2">{heading}</h2>
+      <div className="w-full border-t border-white"></div>
       <div
         className={`flex items-center px-2 ${
           contents.length === 4
@@ -42,12 +43,10 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
-              <div className="rounded-full bg-[#4a4a4a] p-1.5">
+              <div className="rounded-full bg-black p-1.5">
                 <Icon className="text-xl" />
               </div>
-              <p className="font-light text-xs sm:text-sm text-center">
-                {title}
-              </p>
+              <p className="text-xs sm:text-sm text-center">{title}</p>
             </Link>
           ) : (
             <div
@@ -55,13 +54,11 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
-              <div className="rounded-full bg-[#4a4a4a] p-1.5">
+              <div className="rounded-full bg-black p-1.5">
                 {" "}
                 <Icon className="text-xl" />
               </div>
-              <p className="font-light text-xs sm:text-sm text-center">
-                {title}
-              </p>
+              <p className="text-xs sm:text-sm text-center">{title}</p>
             </div>
           )
         )}
@@ -135,16 +132,12 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
         <div className="w-full h-full rounded-t-2xl shadow-lg flex flex-col">
           <button
             onClick={() => setDrawerOpen(false)}
-            className="self-end text-white bg-black absolute ps-10 pe-2 pb-8 rounded-bl-full text-2xl z-50"
+            className="self-end text-white myProfile absolute ps-10 pe-2 pb-8 rounded-bl-full text-2xl z-50"
           >
             ✕
           </button>
           <div className="">
-            <img
-              className="-mt-8"
-              src="https://img.b112j.com/bj/h5/assets/images/member-header-bg.png?v=1732693526219"
-              alt=""
-            />
+            <img className="-mt-8" src={myAccount} alt="" />
             <div className="px-3 absolute -mt-32 space-y-4 w-full">
               <div className="flex items-center justify-between">
                 <div className="w-1/6 m-auto">
@@ -155,8 +148,10 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                   />
                 </div>
                 <div className="w-5/6 space-y-2">
-                  <p className="text-xl">{user?.user.fullName}</p>
-                  <div className="bg-[#333333] flex items-center justify-center gap-2 px-3 py-2 text-[10px] rounded-full w-fit">
+                  <p className="text-xl font-bold text-white">
+                    User Id : {user?.username}
+                  </p>
+                  <div className="myProfile font-semibold text-white flex items-center justify-center gap-2 px-3 py-2 text-[10px] rounded-full w-fit">
                     <p>
                       {" "}
                       VIP Points (VP){" "}
@@ -168,8 +163,8 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#333333] px-3 py-7 rounded-md flex items-center justify-between">
-                <p className="inline-flex items-center gap-3 text-[#7dbfaa] text-sm">
+              <div className="myProfile text-white px-3 py-7 rounded-md flex items-center justify-between">
+                <p className="inline-flex items-center gap-3 text-sm">
                   Main Wallet{" "}
                   {isWalletOpen ? (
                     <FaEyeSlash
@@ -213,7 +208,7 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                 heading="Contact Us"
                 closeModal={() => setDrawerOpen(false)}
               />
-              <div className="bg-[#333333] py-3 rounded-md flex items-center justify-center">
+              <div className="bg-gray-800 hover:bg-red-700 duration-300 text-white py-3 rounded-md flex items-center justify-center">
                 <p
                   onClick={handleLogout}
                   className="inline-flex items-center justify-center gap-3 text-sm"
