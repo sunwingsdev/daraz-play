@@ -1,10 +1,10 @@
 import { useState } from "react";
-import logo from "../../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
 import { IoMdHome } from "react-icons/io";
+import logo from "../../../assets/footer_logo.png";
 
 const SidebarMenu = ({ open, setOpen }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,42 +33,42 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "9WICKETS",
-          icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-9w.png?v=1735560346274",
           path: "#",
         },
         {
           name: "CRAZYTIME",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-crazytime.png?v=1735560346274",
           path: "#",
         },
         {
           name: "AVIATOR",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-aviator.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SUPERACE",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-superace.png?v=1735560346274",
           path: "#",
         },
         {
           name: "MONEY COMING",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-moneycoming.png?v=1735560346274",
           path: "#",
         },
         {
           name: "ANDAR BAHAR",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-andarbahar.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SEXY BACCARAT",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-sexybacarratclassic.png?v=1735560346274",
           path: "#",
         },
         {
           name: "7UP7DOWN",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-7up7down2.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -79,52 +79,47 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "9WICKETS",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-exchange.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SBO",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sbov2.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SABA",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-saba.png?v=1735560346274",
           path: "#",
         },
         {
           name: "CMD",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-cmd.png?v=1735560346274",
           path: "#",
         },
         {
           name: "BTI",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-sbtech.png?v=1735560346274",
           path: "#",
         },
         {
           name: "HORSE",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-horsebook.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SV388",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-awcmrwb.png?v=1735560346274",
           path: "#",
         },
         {
           name: "RWB",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "INSPORTS",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-nst.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PINNACLE",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/sports-icon/icon-awcmpinnacle.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -562,7 +557,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             <div className={`flex gap-1 ${!open && "hidden"}`}>
               <Link
                 to={"/"}
-                className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
+                className="flex items-center gap-1 px-2 rounded-lg"
               >
                 {/* {logoHomeControl?.image ? (
                   <img
@@ -575,7 +570,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                 ) : (
                   <div className="h-10"></div>
                 )} */}
-                <img className="w-40" src={logo} alt="Logo" />
+                <img className="w-32" src={logo} alt="Logo" />
               </Link>
             </div>
             <div>
@@ -625,7 +620,7 @@ const SidebarMenu = ({ open, setOpen }) => {
 
             {/* Only show submenu when "Games Control" is clicked */}
             {item?.submenu && submenuOpen[item?.name] && open && (
-              <div className="pl-8 text-white text-sm font-semibold bg-black duration-300">
+              <div className="pl-8 text-white text-sm font-semibold bg-[#1c1b1b] duration-300">
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
                     onClick={
@@ -635,7 +630,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                     to={subItem?.path}
                     className="py-2.5 flex gap-2"
                   >
-                    <img className="w-8" src={subItem?.icon} alt="" />
+                    <img className="w-5 h-5" src={subItem?.icon} alt="" />
                     {subItem?.name}
                   </Link>
                 ))}
