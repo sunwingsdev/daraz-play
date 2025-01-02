@@ -101,3 +101,6 @@ input[type="number"] {
 .menubarBg {
   background: linear-gradient(0deg, #fd1111, #0e0e0e);
 }
+.myProfile {
+  background: linear-gradient(0deg, #700402 0%, #e31210 100%);
+}

@@ -1,4 +1,5 @@
 import { IoCloseOutline } from "react-icons/io5";
+import logo from "../../../assets/footer_logo.png";
 
 const AccoundModal = ({ id, title, children }) => {
   return (
@@ -7,11 +8,7 @@ const AccoundModal = ({ id, title, children }) => {
         <h3 className="py-3 font-bold text-lg text-center text-white bg-[#333]">
           {title}
         </h3>
-        <img
-          className="py-7 m-auto"
-          src="https://img.d4040p.com/dp/h5/assets/images/member-logo.png?v=1735034317574"
-          alt=""
-        />
+        <img className="w-32 py-7 m-auto" src={logo} alt="" />
         {children}
 
         {/* <p className="mt-2 px-4 text-xs text-center text-[#aaa9a9]">

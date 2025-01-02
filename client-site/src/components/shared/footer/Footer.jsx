@@ -130,7 +130,7 @@ const Footer = () => {
           </Link>
           <div className="">
             <h2 className="font-bold">Best Quality Platform</h2>
-            <p>© 2025 DarazPlay Copyrights. All Rights Reserved</p>
+            <p>© 2025 Melbet99 Copyrights.</p>
           </div>
         </div>
       </div>
