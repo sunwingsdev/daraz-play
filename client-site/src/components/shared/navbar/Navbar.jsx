@@ -94,7 +94,6 @@ const Navbar = ({ open }) => {
       title: "Deposit",
       route: "",
       onClick: () => setIsDepositModalOpen(true),
-      state: { method: "deposit" },
     },
     {
       icon: LuUser,
@@ -228,7 +227,11 @@ const Navbar = ({ open }) => {
         </div>
 
         {/* Mobile Menu login and sign up*/}
-        <div className="fixed bottom-0 left-0 px-4 py-2 z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600">
+        <div
+          className={`fixed bottom-0 left-0 ${
+            !user && !token ? "" : "px-4 py-2"
+          } z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600`}
+        >
           {!user && !token ? (
             <>
               {/* Bangladesh Flag Section */}
@@ -347,7 +350,13 @@ const Navbar = ({ open }) => {
           closeWithdrawModal={() => setIsWithdrawModalOpen(false)}
         />
       )}
-      {isDrawerOpen && <AccountDetailsMobile setDrawerOpen={setDrawerOpen} />}
+      {isDrawerOpen && (
+        <AccountDetailsMobile
+          setDrawerOpen={setDrawerOpen}
+          openDeposit={() => setIsDepositModalOpen(true)}
+          openWithdraw={() => setIsWithdrawModalOpen(true)}
+        />
+      )}
     </>
   );
 };

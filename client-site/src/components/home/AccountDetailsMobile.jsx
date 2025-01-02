@@ -30,7 +30,7 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
             : "justify-center gap-24"
         }`}
       >
-        {contents?.map(({ icon: Icon, title, route, state }) =>
+        {contents?.map(({ icon: Icon, title, route, state, onClick }) =>
           route ? (
             <Link
               // state={{ method: state }}
@@ -50,7 +50,7 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
             </Link>
           ) : (
             <div
-              onClick={handleModalOpen}
+              onClick={onClick || handleModalOpen}
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
@@ -67,7 +67,7 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
   );
 };
 
-const AccountDetailsMobile = ({ setDrawerOpen }) => {
+const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
   const { user } = useSelector((state) => state.auth);
   const [isWalletOpen, setIsWalletOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,14 +98,18 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
     {
       icon: PiWallet,
       title: "Deposit",
-      route: "/profile/deposit",
-      state: "deposit",
+      onClick: () => {
+        openDeposit();
+        setDrawerOpen(false);
+      },
     },
     {
       icon: PiHandWithdraw,
       title: "Withdraw",
-      route: "/profile/deposit",
-      state: "withdraw",
+      onClick: () => {
+        openWithdraw();
+        setDrawerOpen(false);
+      },
     },
   ];
   const historyContents = [
