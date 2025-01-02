@@ -66,6 +66,35 @@ const mobilePaymentMethods = [
       },
     ],
   },
+  {
+    image: "https://pay.hostbuybd.com/assets/template/images/rocket.png",
+    gateway: "MOBILE_BANKING",
+    paymentMethod: "Rocket",
+    bgColor: "#8a288f",
+    instructions: [
+      "Go to your Rocket Mobile Menu by dialing: *322# or Open Rocket App.",
+      "Enter the Receiver Account Number: 013000000",
+      "Choose: Send Money",
+      "Now enter your Rocket Mobile Menu PIN to confirm.",
+      "Done! You will receive a confirmation message from Rocket",
+      "Put theTransaction ID in the upper box and pressVERIFY",
+    ],
+    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
+    inputs: [
+      {
+        property: "senderAccountNumber",
+        type: "text",
+        label: "Enter Sender Account Number",
+        required: true,
+      },
+      {
+        property: "transactionId",
+        type: "text",
+        label: "Enter transaction id",
+        required: true,
+      },
+    ],
+  },
 ];
 
 const bankPaymentMethods = [
@@ -429,7 +458,7 @@ const DepositModal = ({ closeDepositModal }) => {
                     onClick={handlePaymentSubmit}
                     className="py-2 px-4 w-full text-xl font-semibold text-white loginButtonBgColor disabled:bg-slate-400 disabled:text-black disabled:cursor-not-allowed border border-white rounded-lg duration-300"
                   >
-                    {loading ? "..." : "Deposit Now"}
+                    {loading ? "Processing..." : "Deposit Now"}
                   </button>
                 </div>
               </form>

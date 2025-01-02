@@ -110,9 +110,9 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
         {step === 1 && (
           <div className="p-6">
             <div className="flex justify-center items-center space-x-3">
-              <p className="text-2xl font-bold text-white">Deposit</p>
+              <p className="text-2xl font-bold text-white">Withdraw</p>
             </div>
-            <div className="flex mt-2 justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-blue-500">
+            <div className="flex mt-2 justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-red-600">
               <IoHomeOutline onClick={() => setStep(1)} size={30} />
               <div className="flex gap-3">
                 <MdGTranslate size={30} />
@@ -125,8 +125,8 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
                   onClick={() => setActiveTabBottom("MOBILE_BANKING")}
                   className={`flex-1 py-2 font-semibold text-center rounded-l-md ${
                     activeTabBottom === "MOBILE_BANKING"
-                      ? "text-black bg-[#facc15] scale-105"
-                      : "bg-gray-400 text-gray-200"
+                      ? "text-white loginButtonBgColor scale-105"
+                      : "bg-black text-gray-200"
                   }`}
                 >
                   MOBILE BANKING
@@ -135,8 +135,8 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
                   onClick={() => setActiveTabBottom("BANK_TRANSFER")}
                   className={`flex-1 py-2 font-semibold text-center rounded-r-md ${
                     activeTabBottom === "BANK_TRANSFER"
-                      ? "text-black bg-[#facc15] scale-105"
-                      : "bg-gray-400 text-gray-200"
+                      ? "text-white loginButtonBgColor scale-105"
+                      : "bg-black text-gray-200"
                   }`}
                 >
                   BANK TRANSFER
@@ -187,7 +187,7 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
         {step === 2 && (
           <div className="space-y-2">
             <h2 className="p-2 w-full text-center text-lg font-semibold text-white border-b-2 border-gray-500">
-              Deposit
+              Withdraw
             </h2>
 
             <div className="pb-4 px-4 space-y-4">
@@ -201,7 +201,7 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
                   Choose other payment
                 </p>
               </div>
-              <div className="flex justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-blue-500">
+              <div className="flex justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-red-500">
                 <IoHomeOutline onClick={() => setStep(1)} size={30} />
                 <div className="flex gap-3">
                   <MdGTranslate size={30} />
@@ -257,7 +257,8 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
                             type={input.type}
                             name={input.property}
                             id={input.property}
-                            className="w-full py-2 px-4 text-white bg-[#152234] rounded-lg mt-2 border-2 border-gray-500 focus:outline-none"
+                            placeholder={input.label}
+                            className="w-full py-2 px-4 font-bold text-white bg-[#152234] rounded-lg mt-2 border-2 border-gray-500 focus:outline-none placeholder-white"
                           />
                         </div>
                       ))}
@@ -265,9 +266,10 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
                   <div className="w-full pt-3">
                     <button
                       type="submit"
-                      className="py-1 px-4 w-full text-xl font-semibold text-black bg-[#facc15] hover:bg-yellow-700 border border-white rounded-lg duration-300"
+                      className="py-2 px-4 w-full text-xl font-semibold text-white loginButtonBgColor disabled:bg-slate-400 disabled:text-black disabled:cursor-not-allowed border border-white rounded-lg duration-300"
+                      disabled={isLoading}
                     >
-                      {isLoading ? "Processing..." : "Submit"}
+                      {isLoading ? "Processing..." : "Withdraw"}
                     </button>
                   </div>
                 </form>
