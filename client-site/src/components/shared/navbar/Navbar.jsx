@@ -19,23 +19,26 @@ import { RiLuggageDepositFill } from "react-icons/ri";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import UserMenu from "./UserMenu";
+import WithdrawModal from "../../home/withdraw-modal/WithdrawModal";
 import { LuUser } from "react-icons/lu";
 import { PiWallet } from "react-icons/pi";
 import { RiIdCardLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import AccountDetailsMobile from "../../home/AccountDetailsMobile";
+import MobileLeftSideMenu from "./MobileLeftSideMenu";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { token, singleUser } = useSelector((state) => state.auth);
-  const user = true;
+  const { user, token, singleUser } = useSelector((state) => state.auth);
   const [getSingleUser] = useLazyGetUserByIdQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { addToast } = useToasts();
+  const { addToast } = useToasts(); 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -138,7 +141,7 @@ const Navbar = ({ open }) => {
             </div>
             <div className="hidden md:flex gap-1 sm:gap-2 md:gap-3">
               <div className="flex gap-1 items-center sm:gap-2">
-                {!user && !token ? (
+                {!user || !token ? (
                   <>
                     <button
                       className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-white loginButtonBgColor transition-all duration-300 rounded-md"
@@ -195,7 +198,11 @@ const Navbar = ({ open }) => {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-2 top-10 bg-[#333] border border-gray-700 rounded-lg shadow-lg focus:outline-none">
-                          <UserMenu handleLogout={handleLogout} />
+                          <UserMenu
+                            handleLogout={handleLogout}
+                            openDeposit={() => setIsDepositModalOpen(true)}
+                            openWithdraw={() => setIsWithdrawModalOpen(true)}
+                          />
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -216,6 +223,13 @@ const Navbar = ({ open }) => {
             </div>
           </div>
         </div>
+        <div className="block md:hidden">
+          <MobileLeftSideMenu
+            toggleMenu={toggleSidebar}
+            isMenuOpen={isSidebarOpen}
+          />
+        </div>
+
         {/* Mobile Menu login and sign up*/}
         <div className="fixed bottom-0 left-0 px-4 py-2 z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600">
           {!user && !token ? (
@@ -330,6 +344,11 @@ const Navbar = ({ open }) => {
       </div>
       {isDepositModalOpen && (
         <DepositModal closeDepositModal={() => setIsDepositModalOpen(false)} />
+      )}
+      {isWithdrawModalOpen && (
+        <WithdrawModal
+          closeWithdrawModal={() => setIsWithdrawModalOpen(false)}
+        />
       )}
       {isDrawerOpen && <AccountDetailsMobile setDrawerOpen={setDrawerOpen} />}
     </>

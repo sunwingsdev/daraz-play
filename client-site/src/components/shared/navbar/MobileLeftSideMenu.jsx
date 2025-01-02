@@ -1,25 +1,15 @@
-import { useState } from "react";
-import logo from "../../../assets/logo.png";
-import { IoIosArrowBack } from "react-icons/io";
+import { HiX } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import { FaAngleDown } from "react-icons/fa";
-import OppsModal from "../modal/OppsModal";
 import { IoMdHome } from "react-icons/io";
+import logo from "../../../assets/logo.png";
+import { FaAngleDown } from "react-icons/fa";
+import { useState } from "react";
 
-const SidebarMenu = ({ open, setOpen }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [submenuOpen, setSubmenuOpen] = useState({
-    GamesControl: false,
-    GamesApikey: false,
-    OracleTechnology: false, // Track submenu state for Games Control
-    Bonuses: false, // Track submenu state for Games Control
-    gameHistory: false, // Track submenu state for Games Control
-    Fontend: false, // Track submenu state for Games Control
-    BankingDeposit: false, // Track submenu state for Games Control
-    BankingWithdrow: false, // Track submenu state for Games Control
-    Settings: false, // Track submenu state for Games Control
-  });
-
+const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
+  const [submenuOpenIndex, setSubmenuOpenIndex] = useState(null);
+  const toggleSubmenu = (index) => {
+    setSubmenuOpenIndex(submenuOpenIndex === index ? null : index);
+  };
   const menuItems = [
     {
       name: "Home",
@@ -33,7 +23,7 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "9WICKETS",
-          icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+          icon: <IoMdHome />,
           path: "#",
         },
         {
@@ -523,138 +513,83 @@ const SidebarMenu = ({ open, setOpen }) => {
       ],
     },
   ];
-  //   const logoHomeControl = homeControls?.find(
-  //       (control) => control.category === "logo" && control.isSelected === true
-  //      );
-
-  // Toggle submenu visibility
-  const toggleSubmenu = (menu) => {
-    setSubmenuOpen((prevState) => ({
-      ...prevState,
-      [menu]: !prevState[menu],
-    }));
-  };
-
-  // Handle toggle sidebar visibility
-  const handleToggleSidebar = () => {
-    setOpen((prev) => !prev);
-  };
-
-  // Open modal
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  // Close modal
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
   return (
-    <div>
-      <div
-        className={`${
-          open ? "w-64" : "w-16"
-        } hidden md:block duration-300 h-screen fixed`}
+    <div
+      className={`fixed top-0 left-0 h-full w-[70%] sm:w-1/2 z-50 bg-[#222222] py-6 transform overflow-y-auto ${
+        isMenuOpen ? "translate-x-0" : "-translate-x-full"
+      } transition-transform duration-300`}
+    >
+      {/* Close Button */}
+      <button
+        onClick={toggleMenu}
+        className="text-white absolute top-3 right-3"
       >
-        {/* Start Top collapse */}
-        <div className={`bg-black py-3 ${!open && "py-5"}`}>
-          <div className="flex gap-x-3 items-center justify-center">
-            <div className={`flex gap-1 ${!open && "hidden"}`}>
-              <Link
-                to={"/"}
-                className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
-              >
-                {/* {logoHomeControl?.image ? (
-                  <img
-                    className="w-40"
-                    src={`${import.meta.env.VITE_BASE_API_URL}${
-                      logoHomeControl?.image
-                    }`}
-                    alt="Logo"
-                  />
-                ) : (
-                  <div className="h-10"></div>
-                )} */}
-                <img className="w-40" src={logo} alt="Logo" />
-              </Link>
-            </div>
-            <div>
-              <IoIosArrowBack
-                className={`m-auto text-center w-10 h-7 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-full cursor-pointer ${
-                  !open && "rotate-180"
-                } `}
-                onClick={handleToggleSidebar}
-              />
-            </div>
-          </div>
-        </div>
-        {/* End Top collapse */}
+        <HiX size={28} />
+      </button>
+
+      <div className="py-2 ps-4">
+        <img src={logo} className="w-40" alt="" />
       </div>
 
-      {/* Start Menu bar */}
-      <div
-        className={`bg-[#303030] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
-          open ? "w-64" : "w-16"
-        } text-sm text-white duration-300 font-semibold h-full scrollbar-hide`}
-      >
-        {/* Dynamic Menu Rendering */}
-        {menuItems?.map((item, index) => (
-          <div key={index}>
-            <Link
-              onClick={!item?.path && !item?.submenu && handleModalOpen}
-              to={item?.path || "#"}
-            >
+      {/* Menu List */}
+      <ul className="font-bold text-white">
+        {menuItems.map((item, index) => (
+          <li key={index}>
+            <Link to={item.path || "#"}>
               <div
-                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-red-600 duration-300 ${
-                  open ? "justify-between" : "justify-center"
-                }
+                className={`px-4 py-3 flex items-center gap-2 border-b border-gray-700 duration-300 hover:bg-red-600 hover:border-l-4 hover:border-l-slate-400 ${
+                  !open && "justify-center"
                 }`}
-                onClick={() => item?.submenu && toggleSubmenu(item?.name)}
+                onClick={() => item.submenu && toggleSubmenu(index)}
               >
-                {/* Only show icon for menu items with submenus */}
-                <div className="flex flex-row items-center gap-2">
-                  <img className="w-8" src={item?.icon} alt="" />
-                  <p className={`${!open && "hidden"}`}>{item?.name}</p>
+                {/* Icon */}
+                <img
+                  src={item.icon}
+                  alt={`${item.name} icon`}
+                  className="w-5 h-5"
+                />
+
+                {/* Label */}
+                <div className="flex items-center justify-between w-full">
+                  <p className="">{item.name}</p>
+                  {item?.submenu && item?.submenu?.length !== 0 && open && (
+                    <FaAngleDown
+                      className={`text-white duration-300 transform ${
+                        submenuOpenIndex === index ? "rotate-180" : ""
+                      }`}
+                    />
+                  )}
                 </div>
-                {/* Show arrow for submenu toggle */}
-                {item?.submenu && item?.submenu?.length !== 0 && open && (
-                  <FaAngleDown className={`text-white ${!open && "hidden"}`} />
-                )}
+
+                {/* Submenu toggle arrow */}
               </div>
             </Link>
 
-            {/* Only show submenu when "Games Control" is clicked */}
-            {item?.submenu && submenuOpen[item?.name] && open && (
-              <div className="pl-8 text-white text-sm font-semibold bg-black duration-300">
-                {item?.submenu?.map((subItem, subIndex) => (
-                  <Link
-                    onClick={
-                      !subItem.path && !subItem.submenu && handleModalOpen
-                    }
-                    key={subIndex}
-                    to={subItem?.path}
-                    className="py-2.5 flex gap-2"
-                  >
-                    <img className="w-8" src={subItem?.icon} alt="" />
-                    {subItem?.name}
-                  </Link>
+            {/* Render Submenu */}
+            {item.submenu && submenuOpenIndex === index && open && (
+              <ul className="ml-8 flex flex-col gap-2 border-l border-gray-700">
+                {item.submenu.map((subItem, subIndex) => (
+                  <li key={subIndex}>
+                    <Link
+                      to={subItem.path || "#"}
+                      className="px-4 py-2 flex gap-5 items-center text-gray-400 hover:text-white hover:bg-red-600"
+                    >
+                      {/* Submenu Icon */}
+                      {subItem.icon || <IoMdHome size={20} />}
+                      {subItem.name}
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
-          </div>
+          </li>
         ))}
-      </div>
-
-      {/* Modal */}
-      <OppsModal
-        title="Opps!!"
-        isOpen={isModalOpen}
-        onOpenChange={handleModalClose}
-      >
-        <p>Please contact your developer team to connect API!!!</p>
-      </OppsModal>
+      </ul>
+      {/* {isApiModalOpen && (
+        <ApiConnectionModal closeApiModal={() => setIsApiModalOpen(false)} />
+      )} */}
     </div>
   );
 };
 
-export default SidebarMenu;
+export default MobileLeftSideMenu;
