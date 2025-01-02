@@ -74,7 +74,7 @@ const DepositHistory = () => {
                         rowSpan={deposit?.paymentInputs?.length || 1}
                         className="px-4 py-2 font-medium"
                       >
-                        {deposit?.userInfo?.name || "N/A"}
+                        {deposit?.userInfo?.username || "N/A"}
                       </td>
                       <td
                         rowSpan={deposit?.paymentInputs?.length || 1}

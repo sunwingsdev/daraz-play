@@ -5,7 +5,7 @@ import { FaSync } from "react-icons/fa";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useAddUserMutation } from "../../../redux/features/allApis/usersApi/usersApi";
 import { useToasts } from "react-toast-notifications";
-const SignupForm = () => {
+const SignupForm = ({ onClose }) => {
   const [addUser, { isLoading }] = useAddUserMutation();
   const {
     register,
@@ -66,6 +66,7 @@ const SignupForm = () => {
         handleRefresh();
         reset();
         setPhone("");
+        onClose();
       }
     } else {
       console.log("Verification code does not match.");

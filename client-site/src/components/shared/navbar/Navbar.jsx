@@ -15,9 +15,10 @@ import { useToasts } from "react-toast-notifications";
 import { TfiReload } from "react-icons/tfi";
 import DepositModal from "../../home/deposit-modal/DepositModal";
 import { FaRegUserCircle } from "react-icons/fa";
-import { IoHomeOutline } from "react-icons/io5";
 import { RiLuggageDepositFill } from "react-icons/ri";
-import { BsProjector } from "react-icons/bs";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import UserMenu from "./UserMenu";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
@@ -127,29 +128,7 @@ const Navbar = ({ open }) => {
                   </>
                 ) : (
                   <>
-                    {" "}
-                    {/* <button
-                      onClick={() => setIsDepositModalOpen(true)}
-                      className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-black bg-[#fde111] transition-all duration-300 rounded-md"
-                    >
-                      Deposit
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-black bg-[#fde111] transition-all duration-300 rounded-md"
-                    >
-                      logout
-                    </button>
-                    <button className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-white bg-[#2d985f] transition-all duration-300 rounded-md inline-flex items-center gap-2">
-                      {loading ? (
-                        <span>...</span>
-                      ) : (
-                        <TfiReload onClick={reloadBalance} />
-                      )}
-                      Main Balance <span>{singleUser?.balance || 0}</span>
-                    </button>
-                    <FaRegUserCircle className="text-xl text-white md:text-3xl" /> */}
-                    <div className="flex gap-3">
+                    <Menu as="div" className="flex gap-3 relative">
                       <button
                         onClick={() => setIsDepositModalOpen(true)}
                         className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white loginButtonBgColor"
@@ -173,10 +152,23 @@ const Navbar = ({ open }) => {
                           {singleUser?.balance || 0}
                         </span>
                       </button>
-                      <button>
+                      <Menu.Button>
                         <FaRegUserCircle size={24} className="text-white" />
-                      </button>
-                    </div>
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="absolute right-2 top-10 bg-[#333] border border-gray-700 rounded-lg shadow-lg focus:outline-none">
+                          <UserMenu handleLogout={handleLogout} />
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
                   </>
                 )}
               </div>
@@ -194,7 +186,6 @@ const Navbar = ({ open }) => {
             </div>
           </div>
         </div>
-
         {/* Mobile Menu login and sign up*/}
         <div className="fixed bottom-0 left-0 z-50 w-full text-white flex justify-between md:hidden">
           {/* Bangladesh Flag Section */}
@@ -226,17 +217,18 @@ const Navbar = ({ open }) => {
             Login
           </button>
         </div>
-
         {/* Login Modal */}
         <AccoundModal id="login_modal" title="Login">
-          <LoginForm />
+          <LoginForm
+            onClose={() => document.getElementById("login_modal").close()}
+          />
         </AccoundModal>
-
         {/* Signup Modal */}
         <AccoundModal id="signup_modal" title="Sign Up">
-          <SignupForm />
+          <SignupForm
+            onClose={() => document.getElementById("signup_modal").close()}
+          />
         </AccoundModal>
-
         {/* Language Modal */}
         {isLanguageModalOpen && (
           <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-10 z-40 backdrop-filter backdrop-blur">

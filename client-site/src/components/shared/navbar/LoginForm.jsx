@@ -10,7 +10,7 @@ import { useToasts } from "react-toast-notifications";
 import { setCredentials } from "../../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -55,6 +55,7 @@ const LoginForm = () => {
       });
     } finally {
       reset();
+      onClose();
     }
   };
 
