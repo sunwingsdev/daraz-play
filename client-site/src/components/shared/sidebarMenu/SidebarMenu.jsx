@@ -3,7 +3,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
-import { IoMdHome } from "react-icons/io";
 import logo from "../../../assets/footer_logo.png";
 
 const SidebarMenu = ({ open, setOpen }) => {
@@ -130,97 +129,97 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "JILI",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-pg.png?v=1735560346274",
           path: "#",
         },
         {
           name: "JDB",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdb.png?v=1735560346274",
           path: "#",
         },
         {
           name: "FASTSPIN",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmfastspin.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PLAY8",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmp8.png?v=1735560346274",
           path: "#",
         },
         {
           name: "REDTIGER",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmrt.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmsg.png?v=1735560346274",
           path: "#",
         },
         {
           name: "CQ9",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735560346274",
           path: "#",
         },
         {
           name: "FC",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmfc.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KA",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-ka.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PP",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PT",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpt.png?v=1735560346274",
           path: "#",
         },
         {
           name: "NETENT",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-netent.png?v=1735560346274",
           path: "#",
         },
         {
           name: "JOKER",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-joker.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PNG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-playngo.png?v=1735560346274",
           path: "#",
         },
         {
           name: "NEXTSPIN",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-nextspin.png?v=1735560346274",
           path: "#",
         },
         {
           name: "RICH88",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-rich88.png?v=1735560346274",
           path: "#",
         },
         {
           name: "WORLDMATCH",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-worldmatch.png?v=1735560346274",
           path: "#",
         },
         {
           name: "YELLOWBAT",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmyesbingo.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -231,22 +230,22 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "AVIATOR",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1735560346274",
           path: "#",
         },
         {
           name: "JILI",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KM",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmkm.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PP",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -257,32 +256,32 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "EVO",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-evo.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SEXY",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmsexy.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PP",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PT",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpt.png?v=1735560346274",
           path: "#",
         },
         {
           name: "HOTROAD",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmhotroad.png?v=1735560346274",
           path: "#",
         },
         {
           name: "DG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmdg.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -293,57 +292,57 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "JILI",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KM",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmkm.png?v=1735560346274",
           path: "#",
         },
         {
           name: "RICH88",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-rich88.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SPRIBE",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-pg.png?v=1735560346274",
           path: "#",
         },
         {
           name: "WORLDMATCH",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-worldmatch.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KA",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-ka.png?v=1735560346274",
           path: "#",
         },
         {
           name: "CQ9",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PNG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735560346274",
           path: "#",
         },
         {
           name: "BPOKER",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-bpoker.png?v=1735560346274",
           path: "#",
         },
         {
           name: "MONOPOLY",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-monopoly.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -353,33 +352,23 @@ const SidebarMenu = ({ open, setOpen }) => {
       icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625",
       submenu: [
         {
+          name: "AVIATOR",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1735560346274",
+          path: "#",
+        },
+        {
           name: "JILI",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KM",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmkm.png?v=1735560346274",
           path: "#",
         },
         {
-          name: "JOKER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "YELLOWBAT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SABA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "MONOPOLY",
-          icon: <IoMdHome />,
+          name: "PP",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -389,33 +378,33 @@ const SidebarMenu = ({ open, setOpen }) => {
       icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625",
       submenu: [
         {
-          name: "JILI",
-          icon: <IoMdHome />,
+          name: "EVO",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-evo.png?v=1735560346274",
           path: "#",
         },
         {
-          name: "KM",
-          icon: <IoMdHome />,
+          name: "SEXY",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmsexy.png?v=1735560346274",
           path: "#",
         },
         {
-          name: "JOKER",
-          icon: <IoMdHome />,
+          name: "PP",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpp.png?v=1735560346274",
           path: "#",
         },
         {
-          name: "YELLOWBAT",
-          icon: <IoMdHome />,
+          name: "PT",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmpt.png?v=1735560346274",
           path: "#",
         },
         {
-          name: "SABA",
-          icon: <IoMdHome />,
+          name: "HOTROAD",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmhotroad.png?v=1735560346274",
           path: "#",
         },
         {
-          name: "MONOPOLY",
-          icon: <IoMdHome />,
+          name: "DG",
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmdg.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -426,57 +415,57 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "JILI",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmjili.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KM",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-awcmkm.png?v=1735560346274",
           path: "#",
         },
         {
           name: "RICH88",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-rich88.png?v=1735560346274",
           path: "#",
         },
         {
           name: "SPRIBE",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-jdbaspribe.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-pg.png?v=1735560346274",
           path: "#",
         },
         {
           name: "WORLDMATCH",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-worldmatch.png?v=1735560346274",
           path: "#",
         },
         {
           name: "KA",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-ka.png?v=1735560346274",
           path: "#",
         },
         {
           name: "CQ9",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735560346274",
           path: "#",
         },
         {
           name: "PNG",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-cq9.png?v=1735560346274",
           path: "#",
         },
         {
           name: "BPOKER",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-bpoker.png?v=1735560346274",
           path: "#",
         },
         {
           name: "MONOPOLY",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-monopoly.png?v=1735560346274",
           path: "#",
         },
       ],
@@ -497,22 +486,22 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "Telegram Support",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-telegram.png?v=1735560346274",
           path: "#",
         },
         {
           name: "Live Chat",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-customer.png?v=1735560346274",
           path: "#",
         },
         {
           name: "Messenger",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-facebook-messenger.png?v=1735560346274",
           path: "#",
         },
         {
           name: "Email",
-          icon: <IoMdHome />,
+          icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-email.png?v=1735560346274",
           path: "#",
         },
       ],
