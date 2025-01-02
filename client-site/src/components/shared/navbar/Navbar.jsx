@@ -180,7 +180,10 @@ const Navbar = ({ open }) => {
                         </span>
                       </button>
                       <Menu.Button>
-                        <FaRegUserCircle size={24} className="text-white" />
+                        <FaRegUserCircle
+                          size={24}
+                          className="text-white hover:text-[#f8f8f8dd] duration-300"
+                        />
                       </Menu.Button>
                       <Transition
                         as={Fragment}
