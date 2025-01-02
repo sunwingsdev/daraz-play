@@ -87,7 +87,7 @@ const Navbar = ({ open }) => {
 
   const authenticatedRoutes = [
     { icon: IoMdHome, title: "Home", route: "/" },
-    { icon: RiIdCardLine, title: "Promotion", route: "" },
+    { icon: RiIdCardLine, title: "Promotion", route: "/promotion" },
     {
       icon: PiWallet,
       title: "Deposit",
@@ -231,7 +231,7 @@ const Navbar = ({ open }) => {
         </div>
 
         {/* Mobile Menu login and sign up*/}
-        <div className="fixed bottom-0 left-0 z-40 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600">
+        <div className="fixed bottom-0 left-0 px-4 py-2 z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600">
           {!user && !token ? (
             <>
               {/* Bangladesh Flag Section */}
@@ -272,19 +272,19 @@ const Navbar = ({ open }) => {
                       state={state}
                       to={route}
                       key={title}
-                      className="flex flex-col items-center justify-center gap-1"
+                      className="flex flex-col items-center justify-center"
                     >
-                      <Icon className="text-2xl" />
-                      <p className="text-sm">{title}</p>
+                      <Icon className="text-[22px]" />
+                      <p className="text-xs">{title}</p>
                     </Link>
                   ) : (
                     <button
                       key={title}
-                      className="flex flex-col items-center justify-center gap-1"
+                      className="flex flex-col items-center justify-center"
                       onClick={onClick}
                     >
-                      <Icon className="text-2xl" />
-                      <p className="text-sm">{title}</p>
+                      <Icon className="text-[22px]" />
+                      <p className="text-xs">{title}</p>
                     </button>
                   )
               )}
