@@ -26,6 +26,7 @@ import { RiIdCardLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import AccountDetailsMobile from "../../home/AccountDetailsMobile";
 import MobileLeftSideMenu from "./MobileLeftSideMenu";
+import logo from "../../../assets/footer_logo.png";
 
 const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ const Navbar = ({ open }) => {
   const [getSingleUser] = useLazyGetUserByIdQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { addToast } = useToasts(); 
+  const { addToast } = useToasts();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -107,7 +108,7 @@ const Navbar = ({ open }) => {
     <>
       <div>
         <div
-          className={`bg-[#222222] py-2 md:py-4 px-4 fixed left-0 right-0 z-20 duration-300 ${
+          className={`bg-[#222222] py-2 md:py-3.5 px-4 fixed left-0 right-0 z-20 duration-300 ${
             !open ? "md:ml-16" : "md:ml-64"
           }`}
         >
@@ -121,11 +122,7 @@ const Navbar = ({ open }) => {
               </button>
               {!open && (
                 <Link to={"/"}>
-                  <img
-                    className="w-36 sm:w-28 md:w-36"
-                    src="https://img.d4040p.com/dp/h5/assets/images/logo.png?v=1735034317574"
-                    alt=""
-                  />
+                  <img className="w-32" src={logo} alt="" />
                 </Link>
               )}
               <div className="flex items-center gap-3 text-red-600 md:hidden">
