@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { FaAngleDown, FaRegCircle } from "react-icons/fa";
+import { FaAngleDown } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
 import { IoMdHome } from "react-icons/io";
 
@@ -33,7 +33,7 @@ const SidebarMenu = ({ open, setOpen }) => {
       submenu: [
         {
           name: "9WICKETS",
-          icon: <IoMdHome />,
+          icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
           path: "#",
         },
         {
@@ -635,7 +635,7 @@ const SidebarMenu = ({ open, setOpen }) => {
                     to={subItem?.path}
                     className="py-2.5 flex gap-2"
                   >
-                    <FaRegCircle size={22} className="text-yellow-300" />
+                    <img className="w-8" src={subItem?.icon} alt="" />
                     {subItem?.name}
                   </Link>
                 ))}
