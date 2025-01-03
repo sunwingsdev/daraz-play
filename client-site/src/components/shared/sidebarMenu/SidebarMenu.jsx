@@ -473,7 +473,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     {
       name: "Promotions",
       icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-promotion.png?v=1735554286625",
-      path: "/promotions",
+      path: "/promotion",
     },
     {
       name: "Download",
