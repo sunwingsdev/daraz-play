@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
 import logo from "../../../assets/footer_logo.png";
@@ -22,6 +22,7 @@ const SidebarMenu = ({ open, setOpen }) => {
     Settings: false, // Track submenu state for Games Control
   });
   const { addToast } = useToasts();
+  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -45,10 +46,12 @@ const SidebarMenu = ({ open, setOpen }) => {
         {
           name: "AVIATOR",
           icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-aviator.png?v=1735560346274",
+          demo: "/games/demo/aviator",
         },
         {
           name: "SUPERACE",
           icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-superace.png?v=1735560346274",
+          demo: "/games/demo/super-ace",
         },
         {
           name: "MONEY COMING",
@@ -432,12 +435,15 @@ const SidebarMenu = ({ open, setOpen }) => {
   //       (control) => control.category === "logo" && control.isSelected === true
   //      );
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (submenu) => {
     if (!user && !token) {
       addToast("Please login to access this page", {
         appearance: "error",
         autoDismiss: true,
       });
+    }
+    if (submenu?.demo) {
+      navigate(submenu.demo);
     } else {
       setIsModalOpen(true);
     }
@@ -544,11 +550,13 @@ const SidebarMenu = ({ open, setOpen }) => {
               <div className="pl-8 text-white text-sm font-semibold bg-[#1c1b1b] duration-300">
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
-                    onClick={
-                      !subItem.path && !subItem.submenu && handleMenuClick
+                    onClick={() =>
+                      !subItem.path &&
+                      !subItem.submenu &&
+                      handleMenuClick(subItem)
                     }
                     key={subIndex}
-                    to={subItem?.path}
+                    to={subItem?.demo ? subItem.demo : subItem?.path}
                     className="py-2.5 flex gap-2"
                   >
                     <img className="w-5 h-5" src={subItem?.icon} alt="" />

@@ -1,5 +1,5 @@
 import { HiX } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { useState } from "react";
 import logo from "../../../assets/footer_logo.png";
@@ -15,6 +15,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
     setSubmenuOpenIndex(submenuOpenIndex === index ? null : index);
   };
   const { addToast } = useToasts();
+  const navigate = useNavigate();
   const menuItems = [
     {
       name: "Home",
@@ -36,10 +37,12 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
         {
           name: "AVIATOR",
           icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-aviator.png?v=1735560346274",
+          demo: "/games/demo/aviator",
         },
         {
           name: "SUPERACE",
           icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-superace.png?v=1735560346274",
+          demo: "/games/demo/super-ace",
         },
         {
           name: "MONEY COMING",
@@ -420,12 +423,15 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
     },
   ];
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (submenu) => {
     if (!user && !token) {
       addToast("Please login to access this page", {
         appearance: "error",
         autoDismiss: true,
       });
+    }
+    if (submenu?.demo) {
+      navigate(submenu?.demo);
     } else {
       setIsModalOpen(true);
     }
@@ -492,10 +498,12 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
                 {item.submenu.map((subItem, subIndex) => (
                   <li key={subIndex}>
                     <Link
-                      onClick={
-                        !subItem?.path && !subItem?.submenu && handleMenuClick
+                      onClick={() =>
+                        !subItem?.path &&
+                        !subItem?.submenu &&
+                        handleMenuClick(subItem)
                       }
-                      to={subItem?.path}
+                      to={subItem?.demo ? subItem?.demo : subItem?.path}
                       className="px-4 py-2 flex gap-5 items-center text-gray-400 hover:text-white hover:bg-red-600"
                     >
                       {/* Icon */}
