@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import OppsModal from "../../shared/modal/OppsModal";
+import { useNavigate } from "react-router-dom";
 
 const MenuBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, token } = useSelector((state) => state.auth);
   const [activeTab, setActiveTab] = useState(1);
   const { addToast } = useToasts();
+  const navigate = useNavigate();
   const menuItems = [
     {
       id: 1,
@@ -23,6 +25,7 @@ const MenuBar = () => {
           id: 2,
           name: "AVIATOR",
           icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-aviator.png?v=1735554256445&source=mcdsrc",
+          demo: "/games/demo/aviator",
         },
         {
           id: 3,
@@ -43,6 +46,7 @@ const MenuBar = () => {
           id: 6,
           name: "SUPERACE",
           icon: "https://img.d4040p.com/dp/h5/assets/images/brand/white/provider-superace.png?v=1735554256445&source=mcdsrc",
+          demo: "/games/demo/super-ace",
         },
         {
           id: 7,
@@ -486,9 +490,12 @@ const MenuBar = () => {
     },
   ];
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (subItem) => {
     if (!user && !token) {
       addToast("Please login to play this game", { appearance: "error" });
+    }
+    if (subItem.demo) {
+      navigate(subItem.demo);
     } else {
       setIsModalOpen(true);
     }
@@ -534,7 +541,7 @@ const MenuBar = () => {
               <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-1">
                 {item.subItems.map((subItem) => (
                   <div
-                    onClick={handleMenuClick}
+                    onClick={() => handleMenuClick(subItem)}
                     key={subItem.id}
                     className="text-center py-2 px-1.5 bg-red-800 cursor-pointer"
                   >
