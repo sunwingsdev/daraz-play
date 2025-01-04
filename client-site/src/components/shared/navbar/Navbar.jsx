@@ -54,7 +54,7 @@ const Navbar = ({ open }) => {
 
   const reloadBalance = () => {
     if (!user) return;
-
+ 
     setLoading(true);
 
     getSingleUser(user?._id)

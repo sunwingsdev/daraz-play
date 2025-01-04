@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { BsArrowLeftSquare } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdGTranslate } from "react-icons/md";
 import { useToasts } from "react-toast-notifications";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAddWithdrawMutation } from "../../../redux/features/allApis/withdrawsApi/withdrawsApi";
+import { setSingleUser } from "../../../redux/slices/authSlice";
+import { useLazyGetUserByIdQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 // import { useAddWithdrawMutation } from "../../../redux/features/allApis/withdrawApi/withdrawApi";
 // import { uploadImage } from "../../../hooks/files";
 
@@ -47,13 +49,16 @@ const bankPaymentMethods = [
 ];
 
 const WithdrawModal = ({ closeWithdrawModal }) => {
-  const { user } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [getSingleUser] = useLazyGetUserByIdQuery();
+  const { user, singleUser } = useSelector((state) => state.auth);
   const [addWithdraw, { isLoading }] = useAddWithdrawMutation();
   const [activeTabBottom, setActiveTabBottom] = useState("MOBILE_BANKING");
   const [step, setStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const { addToast } = useToasts();
+  const dispatch = useDispatch();
 
   const selectPaymentMethod = (method) => {
     setPaymentMethod(method);
@@ -76,7 +81,13 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
       accountNumber: e.target?.accountNumber?.value,
       userId: user?._id,
     };
-    console.log(withdrawInfo);
+    if (withdrawAmount > singleUser?.balance) {
+      addToast("You don't have enough balance", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return;
+    }
     try {
       const { data } = await addWithdraw(withdrawInfo);
       if (data.insertedId) {
@@ -85,6 +96,7 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
           autoDismiss: true,
         });
         closeWithdrawModal();
+        reloadBalance();
       }
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
@@ -93,6 +105,26 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
         autoDismiss: true,
       });
     }
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    getSingleUser(user?._id).then(({ data }) => {
+      dispatch(setSingleUser(data));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const reloadBalance = () => {
+    if (!user) return;
+    setLoading(true);
+    getSingleUser(user?._id)
+      .then(({ data }) => {
+        dispatch(setSingleUser(data));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (

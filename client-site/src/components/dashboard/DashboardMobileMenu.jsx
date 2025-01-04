@@ -1,7 +1,7 @@
 import { IoMdMenu, IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5"; // Close icon
-import logo from "../../assets/logo.png";
+import logo from "../../assets/footer_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useSelector } from "react-redux";
@@ -30,25 +30,22 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
     setOpenSubmenu(openSubmenu === menu ? null : menu);
   };
 
-  // Handle click on a submenu item (close the sidebar after selecting)
-  // const handleSubmenuClick = () => {
-  //   closeSidebar();
-  // };
-
   const handleMenuClick = (menu) => {
     if (!user && !token) {
       addToast("Please login to access this page", {
         appearance: "error",
         autoDismiss: true,
       });
-    }
-    if (menu?.path && !menu?.submenu) {
+    } else if (menu?.path && !menu?.submenu) {
       navigate(menu?.path);
       closeSidebar();
+    } else if (menu?.submenu) {
+      return;
     } else {
       setIsModalOpen(true);
     }
   };
+
   const handleSubmenuClick = (submenu) => {
     if (!user && !token) {
       addToast("Please login to access this page", {
