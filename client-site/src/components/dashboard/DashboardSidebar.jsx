@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FaAngleDown, FaRegCircle } from "react-icons/fa";
 import OppsModal from "../shared/modal/OppsModal";
 
-
 const DashboardSidebar = ({ open, setOpen, menuItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState({
