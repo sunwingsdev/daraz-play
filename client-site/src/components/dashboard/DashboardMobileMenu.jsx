@@ -2,13 +2,18 @@ import { IoMdMenu, IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5"; // Close icon
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
+import { useSelector } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 
 const DashboardMobileMenu = ({ open, menuItems }) => {
+  const { user, token } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null); // Store the currently open submenu
+  const { addToast } = useToasts();
+  const navigate = useNavigate();
 
   // Toggle the sidebar
   const toggleSidebar = () => {
@@ -26,17 +31,38 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
   };
 
   // Handle click on a submenu item (close the sidebar after selecting)
-  const handleSubmenuClick = () => {
-    closeSidebar();
-  };
+  // const handleSubmenuClick = () => {
+  //   closeSidebar();
+  // };
 
-  //   const handleLogout = () => {
-  //     logOut();
-  //     addToast("Successfully logged out!", {
-  //       appearance: "success",
-  //       autoDismiss: true,
-  //     });
-  //   };
+  const handleMenuClick = (menu) => {
+    if (!user && !token) {
+      addToast("Please login to access this page", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+    if (menu?.path && !menu?.submenu) {
+      navigate(menu?.path);
+      closeSidebar();
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+  const handleSubmenuClick = (submenu) => {
+    if (!user && !token) {
+      addToast("Please login to access this page", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+    if (submenu?.path) {
+      navigate(submenu?.path);
+      closeSidebar();
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
     <>
@@ -85,7 +111,14 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
           {/* Menu Items with Fixed Icons and Dynamic Submenu */}
           <div className="text-white bg-[#172437]">
             {menuItems.map((item) => (
-              <div key={item?.name}>
+              <div
+                key={item?.name}
+                className={`${
+                  menuItems[menuItems.length - 1] === item
+                    ? ""
+                    : "border-b-2 border-zinc-500"
+                }`}
+              >
                 <div
                   className={`py-2.5 px-4 flex items-center justify-between ${
                     item?.submenu?.length > 0 ? "cursor-pointer" : ""
@@ -94,19 +127,11 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
                     item?.submenu?.length > 0 && toggleSubmenu(item?.name)
                   }
                 >
-                  <div className="flex items-center">
-                    {item.icon}
-                    <Link
-                      onClick={
-                        !item?.path && !item?.submenu
-                          ? () => setIsModalOpen(true)
-                          : handleSubmenuClick
-                      }
-                      to={item?.path}
-                      className="ml-2 block"
-                    >
-                      {item.name}
-                    </Link>
+                  <div
+                    onClick={() => handleMenuClick(item)}
+                    className="inline-flex items-center gap-3 w-full"
+                  >
+                    {item.icon} {item.name}
                   </div>
                   {item?.submenu?.length > 0 && (
                     <div>
@@ -122,13 +147,14 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
                   <div className="pl-4">
                     {item?.submenu?.map((submenuItem) => (
                       <div
-                        onClick={
-                          !item?.path
-                            ? () => setIsModalOpen(true)
-                            : handleSubmenuClick
-                        }
+                        onClick={() => handleSubmenuClick(submenuItem)}
                         key={submenuItem?.name}
-                        className="py-2.5 pl-6 text-sm"
+                        className={`py-2.5 pl-6 text-sm ${
+                          item?.submenu[item?.submenu.length - 1] ===
+                          submenuItem
+                            ? ""
+                            : "border-b-2 divide-black"
+                        }`}
                       >
                         <Link to={submenuItem?.path} className="block">
                           {submenuItem?.name}
