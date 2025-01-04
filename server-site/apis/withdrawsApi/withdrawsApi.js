@@ -1,7 +1,7 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 
-const withdrawsApi = (withdrawsCollection) => {
+const withdrawsApi = (withdrawsCollection, usersCollection) => {
   const router = express.Router();
 
   //   add a deposit
@@ -9,6 +9,11 @@ const withdrawsApi = (withdrawsCollection) => {
     const withdrawInfo = req.body;
     withdrawInfo.status = "pending";
     withdrawInfo.createdAt = new Date();
+    // Decrement the user's balance
+    await usersCollection.updateOne(
+      { _id: new ObjectId(withdrawInfo.userId) },
+      { $inc: { balance: -withdrawInfo.amount } }
+    );
     const result = await withdrawsCollection.insertOne(withdrawInfo);
     res.send(result);
   });

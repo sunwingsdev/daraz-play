@@ -13,7 +13,16 @@ const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
 
 const corsConfig = {
-  origin: ["http://localhost:5173", "http://localhost:5174", "*"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://melbet99.com",
+    "http://melbet99.com",
+    "https://www.melbet99.com",
+    "www.melbet99.com",
+    "melbet99.com",
+    "*",
+  ],
   credential: true,
   optionSuccessStatus: 200,
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
@@ -83,8 +92,8 @@ async function run() {
 
     // APIs start
     app.use("/users", usersApi(usersCollection));
-    app.use("/deposits", depositsApi(depositsCollection));
-    app.use("/withdraws", withdrawsApi(withdrawsCollection));
+    app.use("/deposits", depositsApi(depositsCollection, usersCollection));
+    app.use("/withdraws", withdrawsApi(withdrawsCollection, usersCollection));
     app.use("/home-controls", homeControlApi(homeControlsCollection));
 
     // APIs end
