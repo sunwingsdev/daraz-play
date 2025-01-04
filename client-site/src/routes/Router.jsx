@@ -21,6 +21,7 @@ import InActiveGames from "../pages/dashboard/InActiveGames";
 import HomeControl from "../pages/dashboard/HomeControl";
 import AdminRoute from "./AdminRoute";
 import Promotion from "../components/home/promotion/Promotion";
+import CashAgentLayout from "../layout/CashAgentLayout";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminLogin />,
+  },
+  {
+    path: "/cash-agent",
+    element: <CashAgentLayout />,
   },
 ]);
 
