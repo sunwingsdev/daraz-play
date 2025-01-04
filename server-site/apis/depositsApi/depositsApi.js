@@ -1,7 +1,7 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 
-const depositsApi = (depositsCollection) => {
+const depositsApi = (depositsCollection, usersCollection) => {
   const router = express.Router();
 
   //   add a deposit
@@ -55,11 +55,37 @@ const depositsApi = (depositsCollection) => {
   //   status updated
   router.patch("/status/:id", async (req, res) => {
     const { id } = req.params;
-    const query = { _id: new ObjectId(id) };
     const { status, reason } = req.body;
-    const updatedDoc = { $set: { status, reason } };
-    const result = await depositsCollection.updateOne(query, updatedDoc);
-    res.send(result);
+    try {
+      const deposit = await depositsCollection.findOne({
+        _id: new ObjectId(id),
+      });
+      if (!deposit) {
+        return res.status(404).send({ error: "Deposit not found" });
+      }
+      if (deposit.status !== "pending") {
+        return res
+          .status(400)
+          .send({ error: "Deposit is not in a pending state" });
+      }
+      const updatedDoc = { $set: { status, reason } };
+      const result = await depositsCollection.updateOne(
+        { _id: new ObjectId(id) },
+        updatedDoc
+      );
+
+      if (status === "completed") {
+        // Increment the user's balance
+        await usersCollection.updateOne(
+          { _id: new ObjectId(deposit.userId) },
+          { $inc: { balance: deposit.amount } }
+        );
+      }
+      res.send(result);
+    } catch (error) {
+      console.error("Error updating deposit status:", error);
+      res.status(500).send({ error: "Failed to update deposit status" });
+    }
   });
 
   //  delete a deposit
