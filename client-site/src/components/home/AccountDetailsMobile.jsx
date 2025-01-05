@@ -1,5 +1,5 @@
-import { logout } from "../../redux/slices/authSlice";
-import { useState } from "react";
+import { logout, setSingleUser } from "../../redux/slices/authSlice";
+import { useEffect, useState } from "react";
 import { BsClipboardHeart } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { FaEye, FaEyeSlash, FaUsers, FaWhatsapp } from "react-icons/fa";
@@ -14,6 +14,8 @@ import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useToasts } from "react-toast-notifications";
 import myAccount from "../../assets/myAccount.png";
+import { useLazyGetUserByIdQuery } from "../../redux/features/allApis/usersApi/usersApi";
+import { TfiReload } from "react-icons/tfi";
 
 const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
   const navigate = useNavigate();
@@ -68,9 +70,11 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
 };
 
 const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, singleUser } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
   const [isWalletOpen, setIsWalletOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [getSingleUser] = useLazyGetUserByIdQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { addToast } = useToasts();
@@ -84,6 +88,28 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
       autoDismiss: true,
     });
     navigate("/");
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    getSingleUser(user?._id).then(({ data }) => {
+      dispatch(setSingleUser(data));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const reloadBalance = () => {
+    if (!user) return;
+
+    setLoading(true);
+
+    getSingleUser(user?._id)
+      .then(({ data }) => {
+        dispatch(setSingleUser(data));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleModalOpen = () => {
@@ -183,7 +209,17 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
                   )}
                 </p>
                 <p className="text-xl text-yellow-300">
-                  ৳ <span className="ms-2">{isWalletOpen ? 0 : "***"}</span>
+                  <span
+                    onClick={reloadBalance}
+                    className="ms-2 inline-flex items-center gap-2"
+                  >
+                    <TfiReload
+                      className={`mr-2 ${
+                        loading ? "animate-spin" : ""
+                      } transition duration-300`}
+                    />
+                    ৳ {isWalletOpen ? singleUser?.balance || 0 : "***"}
+                  </span>
                 </p>
               </div>
 
@@ -212,11 +248,11 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
                 heading="Contact Us"
                 closeModal={() => setDrawerOpen(false)}
               />
-              <div className="bg-gray-800 hover:bg-red-700 duration-300 text-white py-3 rounded-md flex items-center justify-center">
-                <p
-                  onClick={handleLogout}
-                  className="inline-flex items-center justify-center gap-3 text-sm"
-                >
+              <div
+                onClick={handleLogout}
+                className="bg-gray-800 hover:bg-red-700 duration-300 text-white py-3 rounded-md flex items-center justify-center"
+              >
+                <p className="inline-flex items-center justify-center gap-3 text-sm">
                   <IoIosLogOut className="text-2xl" />
                   Log Out
                 </p>

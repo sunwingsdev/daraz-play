@@ -6,8 +6,8 @@ const HomeControl = () => {
     <div className="">
       <LogoUpload />
       <LogoSelection />
-      {/* <SliderUploadSection /> */}
-      {/* <SliderSelectionSection />  */}
+      {/* <SliderUploadSection />
+      <SliderSelectionSection /> */}
     </div>
   );
 };

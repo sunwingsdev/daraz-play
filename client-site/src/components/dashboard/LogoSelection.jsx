@@ -1,63 +1,64 @@
 import { FaTrash } from "react-icons/fa";
-import logo from "../../assets/logo.png";
+import { useGetHomeControlsQuery, useUpdateSelectionMutation } from "../../redux/features/allApis/homeControlApi/homeControlApi";
+import { useToasts } from "react-toast-notifications";
 
 const LogoSelection = () => {
-  //   const { data: homeControls, refetch } = useGetHomeControlsQuery();
-  //   const [updateSelection] = useUpdateSelectionMutation();
-  //   const { addToast } = useToasts();
+    const { data: homeControls, refetch } = useGetHomeControlsQuery();
+    const [updateSelection] = useUpdateSelectionMutation();
+    const { addToast } = useToasts();
 
   //fake data
-  const homeControls = [
-    {
-      _id: "1",
-      category: "logo",
-      image: logo,
-      isSelected: true,
-    },
-    {
-      _id: "2",
-      category: "logo",
-      image: logo,
-      isSelected: false,
-    },
-    {
-      _id: "3",
-      category: "logo",
-      image: logo,
-      isSelected: true,
-    },
-    {
-      _id: "4",
-      category: "logo",
-      image: logo,
-      isSelected: false,
-    },
-    {
-      _id: "5",
-      category: "background",
-      image: logo,
-      isSelected: false,
-    },
-  ];
+  // const homeControls = [
+  //   {
+  //     _id: "1",
+  //     category: "logo",
+  //     image: logo,
+  //     isSelected: true,
+  //   },
+  //   {
+  //     _id: "2",
+  //     category: "logo",
+  //     image: logo,
+  //     isSelected: false,
+  //   },
+  //   {
+  //     _id: "3",
+  //     category: "logo",
+  //     image: logo,
+  //     isSelected: true,
+  //   },
+  //   {
+  //     _id: "4",
+  //     category: "logo",
+  //     image: logo,
+  //     isSelected: false,
+  //   },
+  //   {
+  //     _id: "5",
+  //     category: "background",
+  //     image: logo,
+  //     isSelected: false,
+  //   },
+  // ];
 
   const logoHomeControls = homeControls?.filter(
     (control) => control.category === "logo"
   );
 
-  //   const handleCheckboxChange = async (id) => {
-  //     try {
-  //       const result = await updateSelection(id);
-  //       if (result.data) {
-  //         addToast(result.data.message, {
-  //           appearance: "success",
-  //           autoDismiss: true,
-  //         });
-  //       }
-  //       refetch();
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+    const handleCheckboxChange = async (id) => {
+      try {
+        const result = await updateSelection(id);
+        if (result.data) {
+          addToast(result.data.message, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+        refetch();
+      } catch (error) {
+        console.log(error);
+      }
+    };
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4">
       {logoHomeControls?.map((control) => (
@@ -67,8 +68,8 @@ const LogoSelection = () => {
         >
           <img
             className="w-full h-full rounded-md"
-            // src={`${import.meta.env.VITE_BASE_API_URL}${control.image}`}
-            src={control.image}
+            src={`${import.meta.env.VITE_BASE_API_URL}${control.image}`}
+            // src={control.image}
             alt=""
           />
           <input
@@ -76,7 +77,7 @@ const LogoSelection = () => {
             className="absolute top-0 left-0 size-6"
             type="checkbox"
             name=""
-            // onChange={() => handleCheckboxChange(control._id)}
+            onChange={() => handleCheckboxChange(control._id)}
             id={control?._id}
           />
           <div className="absolute -top-4 -right-4 p-2 group rounded-full hover:bg-red-600 duration-200">
