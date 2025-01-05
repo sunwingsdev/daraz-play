@@ -1,57 +1,25 @@
 import { FaTrash } from "react-icons/fa";
+import { useToasts } from "react-toast-notifications";
 import {
   useDeleteHomeControlMutation,
   useGetHomeControlsQuery,
   useUpdateSelectionMutation,
 } from "../../redux/features/allApis/homeControlApi/homeControlApi";
-import { useToasts } from "react-toast-notifications";
-import { useState } from "react";
 import DeleteModal from "../shared/modal/DeleteModal";
+import { useState } from "react";
 import { deleteImage } from "../../hooks/files";
 
-const LogoSelection = () => {
-  const { data: homeControls, refetch } = useGetHomeControlsQuery();
-  const [deleteHomeControl] = useDeleteHomeControlMutation();
-  const [item, setItem] = useState(null);
+const SliderSelectionSection = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [item, setItem] = useState(null);
+  const { data: homeControls, refetch } = useGetHomeControlsQuery();
   const [updateSelection] = useUpdateSelectionMutation();
+  const [deleteHomeControl] = useDeleteHomeControlMutation();
   const { addToast } = useToasts();
 
-  const logoHomeControls = homeControls?.filter(
-    (control) => control.category === "logo"
+  const sliderHomeControls = homeControls?.filter(
+    (control) => control.category === "slider"
   );
-
-  const handleDeleteButtonClick = (item) => {
-    setItem(item);
-    setIsOpen(true);
-  };
-
-  const handleDelete = async () => {
-    try {
-      const { message } = await deleteImage(item?.image);
-      if (message) {
-        try {
-          const result = await deleteHomeControl(item?._id);
-          if (result.data.deletedCount > 0) {
-            addToast("Logo deleted successfully", {
-              appearance: "success",
-              autoDismiss: true,
-            });
-            refetch();
-            setIsOpen(false);
-          }
-          // eslint-disable-next-line no-unused-vars
-        } catch (error) {
-          addToast("Failed to delete logo", {
-            appearance: "error",
-            autoDismiss: true,
-          });
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleCheckboxChange = async (id) => {
     try {
@@ -67,12 +35,45 @@ const LogoSelection = () => {
       console.log(error);
     }
   };
+
+  const handleDeleteButtonClick = (item) => {
+    setItem(item);
+    setIsOpen(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const { message } = await deleteImage(item?.image);
+      if (message) {
+        try {
+          const result = await deleteHomeControl(item?._id);
+          if (result.data.deletedCount > 0) {
+            addToast("Slider deleted successfully", {
+              appearance: "success",
+              autoDismiss: true,
+            });
+            refetch();
+            setIsOpen(false);
+          }
+          // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+          addToast("Failed to delete slider", {
+            appearance: "error",
+            autoDismiss: true,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4">
-        {logoHomeControls?.map((control) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        {sliderHomeControls?.map((control) => (
           <div
-            className="relative border border-[#14805e] p-2 rounded-md"
+            className="relative border border-[#041d3c] p-2 rounded-md"
             key={control._id}
           >
             <img
@@ -106,4 +107,4 @@ const LogoSelection = () => {
   );
 };
 
-export default LogoSelection;
+export default SliderSelectionSection;

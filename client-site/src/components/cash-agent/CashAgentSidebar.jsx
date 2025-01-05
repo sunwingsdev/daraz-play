@@ -1,16 +1,20 @@
 import { useState } from "react";
-import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 
 import { HiX } from "react-icons/hi";
+import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const CashAgentSidebar = () => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [submenuOpenIndex, setSubmenuOpenIndex] = useState(null);
   const toggleSubmenu = (index) => {
     setSubmenuOpenIndex(submenuOpenIndex === index ? null : index);
   };
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
   const menuItems = [
     {
       name: "Home",
@@ -518,7 +522,15 @@ const CashAgentSidebar = () => {
       </button>
 
       <div className="py-2 ps-4">
-        <img src={logo} className="w-28" alt="" />
+        {isLoading ? (
+          <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+        ) : (
+          <img
+            src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+            className="w-28"
+            alt=""
+          />
+        )}
       </div>
 
       {/* Menu List */}

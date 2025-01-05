@@ -1,11 +1,12 @@
 import { useState } from "react";
-import logo from "../../assets/footer_logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { FaAngleDown, FaRegCircle } from "react-icons/fa";
 import OppsModal from "../shared/modal/OppsModal";
+import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const DashboardSidebar = ({ open, setOpen, menuItems }) => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState({
     GamesControl: false,
@@ -19,9 +20,9 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
     Settings: false, // Track submenu state for Games Control
   });
 
-  //   const logoHomeControl = homeControls?.find(
-  //       (control) => control.category === "logo" && control.isSelected === true
-  //      );
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
 
   // Toggle submenu visibility
   const toggleSubmenu = (menu) => {
@@ -61,18 +62,16 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
                 to={"/"}
                 className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
               >
-                {/* {logoHomeControl?.image ? (
+            
+                {isLoading ? (
+                  <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+                ) : (
                   <img
                     className="w-40"
-                    src={`${import.meta.env.VITE_BASE_API_URL}${
-                      logoHomeControl?.image
-                    }`}
+                    src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
                     alt="Logo"
                   />
-                ) : (
-                  <div className="h-10"></div>
-                )} */}
-                <img className="w-40" src={logo} alt="Logo" />
+                )}
               </Link>
             </div>
             <div>

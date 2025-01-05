@@ -2,12 +2,13 @@ import { HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { useState } from "react";
-import logo from "../../../assets/footer_logo.png";
 import { useToasts } from "react-toast-notifications";
 import { useSelector } from "react-redux";
 import OppsModal from "../modal/OppsModal";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpenIndex, setSubmenuOpenIndex] = useState(null);
@@ -16,6 +17,11 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
   };
   const { addToast } = useToasts();
   const navigate = useNavigate();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
+
   const menuItems = [
     {
       name: "Home",
@@ -452,7 +458,15 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
       </button>
 
       <div className="py-2 ps-4">
-        <img src={logo} className="w-28" alt="" />
+        {isLoading ? (
+          <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+        ) : (
+          <img
+            src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+            className="w-28"
+            alt=""
+          />
+        )}
       </div>
 
       {/* Menu List */}

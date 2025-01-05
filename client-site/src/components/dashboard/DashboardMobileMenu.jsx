@@ -1,19 +1,24 @@
 import { IoMdMenu, IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5"; // Close icon
-import logo from "../../assets/footer_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
+import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const DashboardMobileMenu = ({ open, menuItems }) => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null); // Store the currently open submenu
   const { addToast } = useToasts();
   const navigate = useNavigate();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
 
   // Toggle the sidebar
   const toggleSidebar = () => {
@@ -92,7 +97,17 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
               <div className="rounded-lg">
                 <div className="flex items-center rounded-tl-lg rounded-tr-lg">
                   <Link to={"/"}>
-                    <img className="w-44" src={logo} alt="logo" />
+                    {isLoading ? (
+                      <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+                    ) : (
+                      <img
+                        className="w-44"
+                        src={`${import.meta.env.VITE_BASE_API_URL}${
+                          logo?.image
+                        }`}
+                        alt="logo"
+                      />
+                    )}
                   </Link>
                 </div>
               </div>
