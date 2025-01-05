@@ -494,7 +494,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
 
             {/* Render Submenu */}
             {item.submenu && submenuOpenIndex === index && open && (
-              <ul className="ml-8 flex flex-col gap-2 border-l border-gray-700">
+              <ul className="pl-8 flex flex-col gap-2 bg-red-600">
                 {item.submenu.map((subItem, subIndex) => (
                   <li key={subIndex}>
                     <Link
@@ -504,7 +504,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
                         handleMenuClick(subItem)
                       }
                       to={subItem?.demo ? subItem?.demo : subItem?.path}
-                      className="px-4 py-2 flex gap-5 items-center text-gray-400 hover:text-white hover:bg-red-600"
+                      className="px-4 py-2 flex gap-5 items-center text-white hover:bg-red-600"
                     >
                       {/* Icon */}
                       <img

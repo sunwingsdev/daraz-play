@@ -25,10 +25,14 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
 
   // Toggle submenu visibility
   const toggleSubmenu = (menu) => {
-    setSubmenuOpen((prevState) => ({
-      ...prevState,
-      [menu]: !prevState[menu],
-    }));
+    setSubmenuOpen((prevState) => {
+      const updatedState = {};
+      for (let key in prevState) {
+        updatedState[key] = false;
+      }
+      updatedState[menu] = !prevState[menu];
+      return updatedState;
+    });
   };
 
   // Handle toggle sidebar visibility
