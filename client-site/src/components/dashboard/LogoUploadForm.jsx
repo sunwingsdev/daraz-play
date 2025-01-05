@@ -4,6 +4,7 @@ import { useToasts } from "react-toast-notifications";
 import { useAddHomeControlMutation } from "../../redux/features/allApis/homeControlApi/homeControlApi";
 import SpinLoader from "../shared/loader/SpinLoader";
 import { uploadImage } from "../../hooks/files";
+import { Button } from "../shared/ui/button";
 
 const LogoUploadForm = ({ closeModal }) => {
   const [addHomeControl] = useAddHomeControlMutation();
@@ -100,10 +101,10 @@ const LogoUploadForm = ({ closeModal }) => {
           )}
         </div>
         <div className="flex items-center justify-center">
-          <button
+          <Button
             disabled={loading || !logoFile}
             type="submit"
-            className="bg-gray-800 hover:bg-red-700 duration-300 text-white py-3 px-6 rounded-md flex items-center justify-center disabled:cursor-not-allowed"
+            className="bg-[#222222] text-white hover:bg-[#ff3f3f] flex items-center gap-2 disabled:bg-slate-600 disabled:cursor-not-allowed"
           >
             {loading ? (
               <SpinLoader />
@@ -112,7 +113,7 @@ const LogoUploadForm = ({ closeModal }) => {
                 <IoAdd /> Upload
               </>
             )}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

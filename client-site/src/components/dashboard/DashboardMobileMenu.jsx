@@ -1,7 +1,6 @@
 import { IoMdMenu, IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5"; // Close icon
-import logo from "../../assets/footer_logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useSelector } from "react-redux";

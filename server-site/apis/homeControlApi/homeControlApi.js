@@ -62,6 +62,14 @@ const homeControlApi = (homeControlCollection) => {
     }
   });
 
+  // delete a home control
+  router.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    const query = { _id: new ObjectId(id) };
+    const result = await homeControlCollection.deleteOne(query);
+    res.send(result);
+  });
+
   return router;
 };
 
