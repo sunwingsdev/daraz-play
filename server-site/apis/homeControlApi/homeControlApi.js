@@ -36,7 +36,6 @@ const homeControlApi = (homeControlCollection) => {
       const { category, isSelected } = selectedObject;
 
       if (category === "logo") {
-        // Set isSelected true for the selected ID and false for other logos
         await homeControlCollection.updateMany(
           { category: "logo" },
           { $set: { isSelected: false } }
@@ -45,8 +44,16 @@ const homeControlApi = (homeControlCollection) => {
           { _id: new ObjectId(id) },
           { $set: { isSelected: true } }
         );
+      } else if (category === "notice") {
+        await homeControlCollection.updateMany(
+          { category: "notice" },
+          { $set: { isSelected: false } }
+        );
+        await homeControlCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: { isSelected: true } }
+        );
       } else if (category === "slider") {
-        // Toggle isSelected for the selected ID only
         await homeControlCollection.updateOne(
           { _id: new ObjectId(id) },
           { $set: { isSelected: !isSelected } }
