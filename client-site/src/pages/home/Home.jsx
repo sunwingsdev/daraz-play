@@ -5,12 +5,11 @@ import Slider from "../../components/home/slider/Slider";
 import BannerSlider from "../../components/shared/bannerSlider/BannerSlider";
 
 const Home = () => {
-  const messages = ["Welcome to Melbet99"];
   return (
     <div>
       <BannerSlider />
       <div className="px-4 bg-zinc-800">
-        <MarqueeSlider messages={messages} />
+        <MarqueeSlider  />
         <MenuBar />
         <Slider />
         <FeaturedGames />
