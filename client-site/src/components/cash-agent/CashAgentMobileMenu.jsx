@@ -8,7 +8,7 @@ import { IoIosArrowDown, IoIosArrowForward, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { FaRegCircle } from "react-icons/fa";
 
-const DashboardMobileMenu = ({ open, menuItems }) => {
+const CashAgentMobileMenu = ({ open, menuItems }) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +67,6 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
       setIsModalOpen(true);
     }
   };
-
   return (
     <>
       <div>
@@ -200,4 +199,4 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
   );
 };
 
-export default DashboardMobileMenu;
+export default CashAgentMobileMenu;
