@@ -76,6 +76,9 @@ const router = createBrowserRouter([
   {
     path: "/cash-agent",
     element: <CashAgentLayout />,
+    children: [
+      { path: "", element: <p className="text-black">Hello, cash agent</p> },
+    ],
   },
 ]);
 
