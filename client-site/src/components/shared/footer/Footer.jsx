@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
 import BrandAmbassador from "../brandAmbassador/BrandAmbassador";
 import Social from "../social/Social";
-import footerLogo from "../../../assets/footer_logo.png";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const Footer = () => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
   // social
   const socials = [
     {
@@ -126,7 +131,15 @@ const Footer = () => {
         </div>
         <div className="pt-4 pb-12 md:pb-0 text-sm text-white flex gap-3 items-center">
           <Link to={"/"}>
-            <img className="w-24 md:w-32 lg:w-40" src={footerLogo} alt="" />
+            {isLoading ? (
+              <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+            ) : (
+              <img
+                className="w-24 md:w-32 lg:w-40"
+                src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                alt=""
+              />
+            )}
           </Link>
           <div className="">
             <h2 className="font-bold">Best Quality Platform</h2>
