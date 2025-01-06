@@ -163,6 +163,7 @@ const CashAgentLayout = () => {
     <div className="flex">
       {/* DashboardSidebar */}
       <CashAgentSidebar open={open} setOpen={setOpen} menuItems={menuItems} />
+      <h1 className="text-black">gdfsdfsdsdsdvsvsds</h1>
     </div>
   );
 };

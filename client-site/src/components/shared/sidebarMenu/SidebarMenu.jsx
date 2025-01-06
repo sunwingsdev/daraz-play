@@ -452,10 +452,14 @@ const SidebarMenu = ({ open, setOpen }) => {
 
   // Toggle submenu visibility
   const toggleSubmenu = (menu) => {
-    setSubmenuOpen((prevState) => ({
-      ...prevState,
-      [menu]: !prevState[menu],
-    }));
+    setSubmenuOpen((prevState) => {
+      const updatedState = {};
+      for (let key in prevState) {
+        updatedState[key] = false;
+      }
+      updatedState[menu] = !prevState[menu];
+      return updatedState;
+    });
   };
 
   // Handle toggle sidebar visibility
@@ -545,7 +549,7 @@ const SidebarMenu = ({ open, setOpen }) => {
 
             {/* Only show submenu when "Games Control" is clicked */}
             {item?.submenu && submenuOpen[item?.name] && open && (
-              <div className="pl-8 text-white text-sm font-semibold bg-[#1c1b1b] duration-300">
+              <div className="pl-8 text-white text-sm font-semibold bg-red-600 duration-300">
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
                     onClick={() =>

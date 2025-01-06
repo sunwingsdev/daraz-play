@@ -30,7 +30,7 @@ const MainLayout = () => {
           !open ? "md:pl-16" : "md:pl-64"
         }`}
       >
-        <Navbar open={open} />
+        <Navbar open={open} setOpen={setOpen} />
         <div className="mt-[62px] md:mt-16 bg-gray-700">
           <Outlet />
         </div>
