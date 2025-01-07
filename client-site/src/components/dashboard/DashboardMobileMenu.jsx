@@ -117,7 +117,7 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
           {/* Menu Items with Fixed Icons and Dynamic Submenu */}
           <div className="text-white bg-[#222222] font-bold">
             {menuItems.map((item) => {
-              const isActive = location.pathname === item?.path; // Check if the route matches
+              const isActive = location.pathname === item?.path;
               return (
                 <div
                   key={item?.name}
