@@ -548,8 +548,12 @@ const SidebarMenu = ({ open, setOpen }) => {
             </Link>
 
             {/* Only show submenu when "Games Control" is clicked */}
-            {item?.submenu && submenuOpen[item?.name] && open && (
-              <div className="pl-8 text-white text-sm font-semibold bg-red-600 duration-300">
+            {item?.submenu && submenuOpen[item?.name] && (
+              <div
+                className={`text-white text-sm font-semibold ${
+                  open ? "bg-red-600 pl-8" : "bg-black"
+                } duration-300`}
+              >
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
                     onClick={() =>
@@ -559,10 +563,14 @@ const SidebarMenu = ({ open, setOpen }) => {
                     }
                     key={subIndex}
                     to={subItem?.demo ? subItem.demo : subItem?.path}
-                    className="py-2.5 flex gap-2"
+                    className={`py-2.5 flex gap-2 ${!open && "flex items-center justify-center"}`}
                   >
                     <img className="w-5 h-5" src={subItem?.icon} alt="" />
-                    {subItem?.name}
+                    {open && (
+                      <span >
+                        {subItem?.name}
+                      </span>
+                    )}
                   </Link>
                 ))}
               </div>
