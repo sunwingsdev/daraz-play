@@ -23,6 +23,7 @@ import AdminRoute from "./AdminRoute";
 import Promotion from "../components/home/promotion/Promotion";
 import CashAgentLayout from "../layout/CashAgentLayout";
 import DemoGame from "../pages/home/DemoGame";
+import BecomeAnAgent from "../components/become-an-agent/BecomeAnAgent";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
   {
     path: "/cash-agent",
     element: <CashAgentLayout />,
+  },
+  {
+    path: "/become-an-agent",
+    element: <BecomeAnAgent />,
   },
 ]);
 
