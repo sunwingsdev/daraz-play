@@ -11,6 +11,8 @@ const usersApi = require("./apis/usersApi/usersApi");
 const depositsApi = require("./apis/depositsApi/depositsApi");
 const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
+const promotionApi = require("./apis/promotionApi/promotionApi");
+const categoriesApi = require("./apis/categoriesApi/categoriesApi");
 
 const corsConfig = {
   origin: [
@@ -85,6 +87,8 @@ async function run() {
     const usersCollection = client.db("daraz").collection("users");
     const depositsCollection = client.db("daraz").collection("deposits");
     const withdrawsCollection = client.db("daraz").collection("withdraws");
+    const promotionCollection = client.db("daraz").collection("promotions");
+    const categoriesCollection = client.db("daraz").collection("categories");
     const homeControlsCollection = client
       .db("daraz")
       .collection("homeControls");
@@ -95,6 +99,8 @@ async function run() {
     app.use("/deposits", depositsApi(depositsCollection, usersCollection));
     app.use("/withdraws", withdrawsApi(withdrawsCollection, usersCollection));
     app.use("/home-controls", homeControlApi(homeControlsCollection));
+    app.use("/promotions", promotionApi(promotionCollection));
+    app.use("/categories", categoriesApi(categoriesCollection));
 
     // APIs end
 

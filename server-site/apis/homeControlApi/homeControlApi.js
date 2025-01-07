@@ -18,23 +18,17 @@ const homeControlApi = (homeControlCollection) => {
     const result = await homeControlCollection.find().toArray();
     res.send(result);
   });
-
-  // Update the selected ID based on category
   router.patch("/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
-      // Find the object to update
       const selectedObject = await homeControlCollection.findOne({
         _id: new ObjectId(id),
       });
-
       if (!selectedObject) {
         return res.status(404).send({ error: "Object not found" });
       }
-
       const { category, isSelected } = selectedObject;
-
       if (category === "logo") {
         await homeControlCollection.updateMany(
           { category: "logo" },
@@ -61,7 +55,6 @@ const homeControlApi = (homeControlCollection) => {
       } else {
         return res.status(400).send({ error: "Invalid category" });
       }
-
       res.send({ success: true, message: "Update successful" });
     } catch (error) {
       console.error(error);

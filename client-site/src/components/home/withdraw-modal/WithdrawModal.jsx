@@ -13,7 +13,6 @@ import { useLazyGetUserByIdQuery } from "../../../redux/features/allApis/usersAp
 // import { uploadImage } from "../../../hooks/files";
 
 // TODO:
-// 1. amount will be equal or less than the balance
 // 2. inputs will be dynamic based on the payment method
 
 const mobilePaymentMethods = [
@@ -27,6 +26,18 @@ const mobilePaymentMethods = [
     image: "https://pay.hostbuybd.com/assets/template/images/nagad.png",
     gateway: "MOBILE_BANKING",
     paymentMethod: "Nagad",
+    bgColor: "#ec1d25",
+  },
+  {
+    image: "https://pay.hostbuybd.com/assets/template/images/upay.png",
+    gateway: "MOBILE_BANKING",
+    paymentMethod: "Upay",
+    bgColor: "#ec1d25",
+  },
+  {
+    image: "https://pay.hostbuybd.com/assets/template/images/tap.png",
+    gateway: "MOBILE_BANKING",
+    paymentMethod: "Tap",
     bgColor: "#ec1d25",
   },
 ];
@@ -46,10 +57,37 @@ const bankPaymentMethods = [
       },
     ],
   },
+  {
+    image: "https://pay.hostbuybd.com/uploads/bank_logo/dbbl.png",
+    gateway: "BANK_TRANSFER",
+    paymentMethod: "DBBL",
+    bgColor: "#02733c",
+    inputs: [
+      {
+        property: "accountNumber",
+        type: "text",
+        label: "Enter Receiver Account Number",
+        required: true,
+      },
+    ],
+  },
+  {
+    image: "https://sslcommerz.com/wp-content/uploads/2024/05/dhaka-bank.jpg",
+    gateway: "BANK_TRANSFER",
+    paymentMethod: "DHAKA BANK",
+    bgColor: "#02733c",
+    inputs: [
+      {
+        property: "accountNumber",
+        type: "text",
+        label: "Enter Receiver Account Number",
+        required: true,
+      },
+    ],
+  },
 ];
 
 const WithdrawModal = ({ closeWithdrawModal }) => {
-  const [loading, setLoading] = useState(false);
   const [getSingleUser] = useLazyGetUserByIdQuery();
   const { user, singleUser } = useSelector((state) => state.auth);
   const [addWithdraw, { isLoading }] = useAddWithdrawMutation();
@@ -117,14 +155,9 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
 
   const reloadBalance = () => {
     if (!user) return;
-    setLoading(true);
-    getSingleUser(user?._id)
-      .then(({ data }) => {
-        dispatch(setSingleUser(data));
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    getSingleUser(user?._id).then(({ data }) => {
+      dispatch(setSingleUser(data));
+    });
   };
 
   return (
