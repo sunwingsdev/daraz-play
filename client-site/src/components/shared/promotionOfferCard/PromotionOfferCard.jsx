@@ -1,10 +1,22 @@
-import { IoTimeOutline } from "react-icons/io5";
+import { FaTrash } from "react-icons/fa";
 
-const PromotionOfferCard = ({ offer }) => {
-  const { image, title, subtitle, time } = offer;
+const PromotionOfferCard = ({ offer, hidden, handleDeleteButtonClick }) => {
+  const { image, title, subtitle } = offer;
   return (
-    <div className="menubarBgAct rounded-md">
-      <img className="rounded-t-md" src={image} alt="" />
+    <div className="menubarBgAct rounded-md relative">
+      {hidden && (
+        <div
+          onClick={() => handleDeleteButtonClick(offer)}
+          className="absolute top-0 right-0 p-2 group rounded-full bg-red-600 hover:bg-white duration-200 cursor-pointer"
+        >
+          <FaTrash className="text-xl text-white group-hover:text-red-600 duration-200" />
+        </div>
+      )}
+      <img
+        className="rounded-t-md"
+        src={`${import.meta.env.VITE_BASE_API_URL}${image}`}
+        alt=""
+      />
       <div className={""}>
         <div className="pb-2 relative">
           <div className="border-dashed absolute -top-4 w-full h-4 border-t-4 border-[#8E8E8E]"></div>
@@ -14,19 +26,21 @@ const PromotionOfferCard = ({ offer }) => {
           <div className="px-4 text-sm text-white space-y-2">
             <p>{subtitle}</p>
             <div className="flex items-center gap-2">
-              <IoTimeOutline className="text-xl" />
-              <p>{time}</p>
+              {/* <IoTimeOutline className="text-xl" /> */}
+              {/* <p>{time}</p> */}
             </div>
-            <div className="flex items-center gap-3 pb-3">
-              <button className="py-1.5 px-2 w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold border rounded-md duration-300">
-                {" "}
-                Apply Now{" "}
-              </button>
-              <button className="py-1.5 px-2 w-full loginButtonBgColor border rounded-md">
-                {" "}
-                Detail{" "}
-              </button>
-            </div>
+            {!hidden && (
+              <div className="flex items-center gap-3 pb-3">
+                <button className="py-1.5 px-2 w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold border rounded-md duration-300">
+                  {" "}
+                  Apply Now{" "}
+                </button>
+                <button className="py-1.5 px-2 w-full loginButtonBgColor border rounded-md">
+                  {" "}
+                  Detail{" "}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

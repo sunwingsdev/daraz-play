@@ -3,12 +3,14 @@ import { BsDiagram3Fill } from "react-icons/bs";
 import { FaChartArea } from "react-icons/fa6";
 import CustomTable from "../../components/dashboard/CustomTable";
 import StatesCard from "../../components/dashboard/StatesCard";
+import { useGetUsersQuery } from "../../redux/features/allApis/usersApi/usersApi";
 
 const DashboardHome = () => {
+  const { data: users } = useGetUsersQuery();
   const stats = [
     {
       title: "Total Users",
-      count: 6,
+      count: users?.length,
       Icon: FaUser,
       bgColor: "bg-[#3c8dbc]",
     },

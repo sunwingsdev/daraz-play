@@ -91,9 +91,9 @@ const SliderSelectionSection = () => {
             />
             <div
               onClick={() => handleDeleteButtonClick(control)}
-              className="absolute -top-4 -right-4 p-2 group rounded-full hover:bg-red-600 duration-200"
+              className="absolute top-0 right-0 p-2 group rounded-full bg-red-600 hover:bg-white duration-200 cursor-pointer"
             >
-              <FaTrash className="text-2xl text-red-500 group-hover:text-white duration-200" />
+              <FaTrash className="text-xl text-white group-hover:text-red-600 duration-200" />
             </div>
           </div>
         ))}
