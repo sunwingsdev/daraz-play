@@ -7,35 +7,35 @@ import { Outlet } from "react-router-dom";
 const CashAgentLayout = () => {
   const [open, setOpen] = useState(true);
   const menuItems = [
-    { name: "Dashboard", icon: <IoMdHome />, path: "/cash-agent", submenu: [] },
+    { name: "Dashboard", icon: <IoMdHome />, path: "/cashagent", submenu: [] },
     {
       name: "All Deposit History",
       icon: <IoMdHome />,
-      path: "/all-deposit-history",
+      path: "/alldeposithistory",
       submenu: [],
     },
     {
       name: "All Withdraw History",
       icon: <IoMdHome />,
-      path: "/all-withdraw-history",
+      path: "/allwithdrawhistory",
       submenu: [],
     },
     {
       name: "My All Deposit Method",
       icon: <IoMdHome />,
-      path: "/my-all-deposit-method",
+      path: "/myalldepositmethod",
       submenu: [],
     },
     {
       name: "My All Withdraw Method",
       icon: <IoMdHome />,
-      path: "/my-all-withdraw-method",
+      path: "/myallwithdrawmethod",
       submenu: [],
     },
     {
       name: "Request Admin Ticket",
       icon: <IoMdHome />,
-      path: "/request-admin-ticket",
+      path: "/requestadminticket",
       submenu: [],
     },
     // {
