@@ -116,7 +116,7 @@ const WithdrawHistory = () => {
                 <td className="px-4 py-2">{withdraw.gateway || "N/A"}</td>
                 <td className="px-4 py-2">{withdraw.paymentMethod || "N/A"}</td>
                 <td className="px-4 py-2">
-                  {withdraw.accountNumber || withdraw.userInfo?.phone}
+                  {withdraw?.accountNumber || withdraw?.receiverNumber}
                 </td>
                 <td className="px-4 py-2">{withdraw.amount}</td>
                 <td className="px-4 py-2">

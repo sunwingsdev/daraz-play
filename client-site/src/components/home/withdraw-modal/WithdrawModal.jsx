@@ -116,6 +116,7 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
       amount: withdrawAmount,
       paymentMethod: paymentMethod.paymentMethod,
       gateway: paymentMethod.gateway,
+      receiverNumber: e.target?.receiverNumber?.value,
       accountNumber: e.target?.accountNumber?.value,
       userId: user?._id,
     };
@@ -291,10 +292,17 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
 
               <div className="my-4 text-white">
                 <form onSubmit={handleSubmitWithdraw}>
-                  <div className="px-3 py-2 inline-flex items-center gap-2 bg-gradient-to-br from-[#f269b0] to-[#5d1b90] rounded-lg">
-                    <p>
-                      Receiver Number: {"+880"} {user?.phone}
-                    </p>
+                  <div className="mt-4">
+                    <label htmlFor="" className="text-base font-semibold">
+                      Receiver Number
+                    </label>
+                    <input
+                      className="w-full my-2 px-5 py-2 font-bold bg-[#152234] border border-gray-500 rounded-lg focus:outline-none placeholder-white text-white"
+                      type="text"
+                      placeholder="Enter Receiver Number"
+                      id="receiverNumber"
+                      name="receiverNumber"
+                    />
                   </div>
                   <div className="mt-4">
                     <label htmlFor="" className="text-base font-semibold">
