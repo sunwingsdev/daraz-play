@@ -6,19 +6,33 @@ import { MdEmail } from "react-icons/md";
 import SingleBecomeAnAgent from "./SingleBecomeAnAgent";
 import "aos/dist/aos.css";
 import Aos from "aos";
+import AccoundModal from "../shared/modal/AccoundModal";
+import LoginForm from "../shared/navbar/LoginForm";
+import SignupForm from "../shared/navbar/SignupForm";
 
 const BecomeAnAgent = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [phone, setPhone] = useState(""); // ✅ Proper state declaration
 
-  const languages = [
-    { code: "en", name: "en", flag: "" },
-    { code: "es", name: "es", flag: "" },
+  // languageCountry
+  const [selectedCountry, setSelectedCountry] = useState({
+    name: "BN",
+    flag: "https://flagcdn.com/w320/bd.png", // Default flag image can be added here
+  });
+  const countries = [
+    { name: "BN", flag: "https://flagcdn.com/w320/bd.png" },
+    { name: "IN", flag: "https://flagcdn.com/w320/in.png" },
+    { name: "USA", flag: "https://flagcdn.com/w320/us.png" },
+    { name: "UK", flag: "https://flagcdn.com/w320/gb.png" },
   ];
+  const toggleDropdown = () => {
+    setIsCountryOpen(!isCountryOpen);
+  };
 
-  const handleLanguageChange = (code) => {
-    setLanguage(code);
+  const handleSelect = (country) => {
+    setSelectedCountry(country);
+    setIsCountryOpen(false);
   };
 
   // ✅ Corrected phone number input handler
@@ -32,6 +46,10 @@ const BecomeAnAgent = () => {
       duration: 1000, // Animation duration in milliseconds
     });
   }, []);
+
+  const openModal = (id) => {
+    document.getElementById(id).showModal();
+  };
 
   return (
     <div className="bg-[#212121]">
@@ -57,39 +75,58 @@ const BecomeAnAgent = () => {
             </div>
             {/* Desktop Menu */}
             <div className="flex text-white text-base lg:text-lg font-semibold lg:font-bold items-center space-x-2 lg:space-x-3">
-              <button className="bg-[#333] hover:bg-red-600 text-white px-4 py-1.5 rounded duration-300">
+              <button
+                className="bg-[#333] hover:bg-red-600 text-white px-4 py-1.5 rounded duration-300"
+                onClick={() => openModal("login_modal")}
+              >
                 Login
               </button>
-              <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded duration-300 hidden lg:block">
+              <button
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded duration-300 hidden lg:block"
+                onClick={() => openModal("signup_modal")}
+              >
                 Become an Agent
               </button>
 
               {/* Language Selector with Flags */}
-              <div className="relative">
-                <button className="p-2 bg-black rounded flex items-center">
-                  <img
-                    src={languages.find((lang) => lang.code === language).flag}
-                    alt="Flag"
-                    className="inline-block w-5 h-5 mr-2"
-                  />
-                  {languages.find((lang) => lang.code === language).name}
-                </button>
-                <div className="absolute bg-white text-black rounded mt-2 shadow-lg">
-                  {languages.map((lang) => (
-                    <div
-                      key={lang.code}
-                      className="p-2 flex items-center cursor-pointer hover:bg-gray-200"
-                      onClick={() => handleLanguageChange(lang.code)}
-                    >
+              <div className="relative w-[68px]">
+                <button
+                  onClick={toggleDropdown}
+                  className="w-full flex items-center justify-between text-white focus:outline-none focus:ring-[#283548]"
+                >
+                  <div className="flex p-1 items-center text-sm font-normal">
+                    {selectedCountry.flag && (
                       <img
-                        src={lang.flag}
-                        alt={lang.name}
-                        className="w-5 h-5 mr-2"
+                        src={selectedCountry.flag}
+                        alt={selectedCountry.name}
+                        className="w-5 h-4 mr-2"
                       />
-                      {lang.name}
-                    </div>
-                  ))}
-                </div>
+                    )}
+                    {selectedCountry.name}
+                  </div>
+                  <span className="ml-1 text-xs">
+                    {isCountryOpen ? "▲" : "▼"}
+                  </span>
+                </button>
+
+                {isCountryOpen && (
+                  <ul className="absolute z-10 w-full text-white bg-[#1d2b3d] border border-[#283548] rounded-lg mt-1 max-h-60 overflow-y-auto">
+                    {countries.map((country) => (
+                      <li
+                        key={country.name}
+                        onClick={() => handleSelect(country)}
+                        className="flex items-center p-1 hover:bg-[#283548] cursor-pointer text-sm font-normal"
+                      >
+                        <img
+                          src={country.flag}
+                          alt={country.name}
+                          className="w-5 h-4 mr-2"
+                        />
+                        {country.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               {/* Mobile Menu Button */}
@@ -103,7 +140,7 @@ const BecomeAnAgent = () => {
 
           {/* Mobile Menu */}
           {isOpen && (
-            <div className="absolute right-0 w-full h-screen text-lg font-bold bg-[#212121] text-white flex flex-col items-center justify-center space-y-4 py-4 shadow-lg lg:hidden">
+            <div className="absolute z-40 right-0 w-full h-screen text-lg font-bold bg-[#212121] text-white flex flex-col items-center justify-center space-y-4 py-4 shadow-lg lg:hidden">
               <a href="#about" className="hover:text-gray-300 duration-300">
                 About Us
               </a>
@@ -331,6 +368,19 @@ const BecomeAnAgent = () => {
             </form>
           </div>
         </div>
+
+        {/* Login Modal */}
+        <AccoundModal id="login_modal" title="Login">
+          <LoginForm
+            onClose={() => document.getElementById("login_modal").close()}
+          />
+        </AccoundModal>
+        {/* Signup Modal */}
+        <AccoundModal id="signup_modal" title="Sign Up">
+          <SignupForm
+            onClose={() => document.getElementById("signup_modal").close()}
+          />
+        </AccoundModal>
       </div>
     </div>
   );
