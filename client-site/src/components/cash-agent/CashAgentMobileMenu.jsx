@@ -89,22 +89,25 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed inset-0 w-[70%] sm:w-1/2 h-screen overflow-y-auto backdrop-blur bg-black/40 z-30 md:hidden transform transition-transform duration-500 ${
+          className={`fixed inset-0 w-[70%] sm:w-1/2 h-screen overflow-y-auto bg-[#222222] z-30 md:hidden transform transition-transform duration-500 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
           <div className="flex justify-between bg-[#222222]">
-            <div className="py-2 ps-4">
-              {isLoading ? (
-                <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
-              ) : (
-                <img
-                  src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
-                  className="w-28"
-                  alt=""
-                />
-              )}
-            </div>
+            <Link to="/">
+              <div className="py-2 ps-4">
+                {isLoading ? (
+                  <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+                ) : (
+                  <img
+                    src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                    className="w-28"
+                    alt=""
+                  />
+                )}
+              </div>
+            </Link>
+
             <div
               className="text-white cursor-pointer mt-1"
               onClick={closeSidebar}

@@ -4,7 +4,7 @@ const CAwithdrawTable = ({ data }) => {
       <table className="min-w-full border border-gray-300 bg-white rounded-lg shadow-md">
         <thead className="bg-blue-500 text-white">
           <tr>
-            <th className="px-4 py-2 text-left border border-blue-400">
+            <th className="px-4 py-2 text-left border border-blue-400 whitespace-nowrap">
               User ID
             </th>
             <th className="px-4 py-2 text-left border border-blue-400">
@@ -20,7 +20,7 @@ const CAwithdrawTable = ({ data }) => {
             <th className="px-4 py-2 text-left border border-blue-400">
               Receiver A/C
             </th>
-            <th className="px-4 py-2 text-left border border-blue-400">
+            <th className="px-4 py-2 text-left border border-blue-400 whitespace-nowrap">
               Transaction ID
             </th>
             <th className="px-4 py-2 text-left border border-blue-400">
@@ -40,7 +40,7 @@ const CAwithdrawTable = ({ data }) => {
                 {item.userId}
               </td>
               <td className="px-4 py-2 border border-blue-400">
-                <button className="bg-red-600 px-4 py-1 text-white rounded-md font-bold capitalize">
+                <button className="bg-red-600 px-4 py-1 text-white rounded-md font-bold capitalize whitespace-nowrap">
                   {item.request}
                 </button>
               </td>
