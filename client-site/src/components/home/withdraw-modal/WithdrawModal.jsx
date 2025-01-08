@@ -116,6 +116,7 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
       amount: withdrawAmount,
       paymentMethod: paymentMethod.paymentMethod,
       gateway: paymentMethod.gateway,
+      receiverType: e.target?.receiverType?.value,
       receiverNumber: e.target?.receiverNumber?.value,
       accountNumber: e.target?.accountNumber?.value,
       userId: user?._id,
@@ -290,8 +291,33 @@ const WithdrawModal = ({ closeWithdrawModal }) => {
                 </div>
               </div>
 
-              <div className="my-4 text-white">
+              <div className=" text-white">
                 <form onSubmit={handleSubmitWithdraw}>
+                  {/* Radio Inputs for Personal and Agent */}
+                  <div className="flex items-center gap-3">
+                    <p className="text-base font-semibold">Receiver Type</p>
+                    <div className="flex gap-4 items-center">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="receiverType"
+                          value="Personal"
+                          className="form-radio"
+                          defaultChecked
+                        />
+                        <span>Personal</span>
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="receiverType"
+                          value="Agent"
+                          className="form-radio"
+                        />
+                        <span>Agent</span>
+                      </label>
+                    </div>
+                  </div>
                   <div className="mt-4">
                     <label htmlFor="" className="text-base font-semibold">
                       Receiver Number

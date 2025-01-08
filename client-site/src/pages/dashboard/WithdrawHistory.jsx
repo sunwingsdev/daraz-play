@@ -73,28 +73,31 @@ const WithdrawHistory = () => {
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-[#172437] dark:bg-[#172437] dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Username
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Phone
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Withdraw Gateway
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
+                Number Type
+              </th>
+              <th scope="col" className="px-3 py-3">
                 Withdraw Method
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Receiver A/C Number
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Amount
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Time & Date
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-3 py-3">
                 Status
               </th>
             </tr>
@@ -107,19 +110,20 @@ const WithdrawHistory = () => {
                   index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
                 } text-black`}
               >
-                <td className="px-4 py-2">
+                <td className="px-2 py-2">
                   {withdraw.userInfo?.username || "N/A"}
                 </td>
-                <td className="px-4 py-2">
+                <td className="px-2 py-2">
                   {withdraw.userInfo?.phone || "N/A"}
                 </td>
-                <td className="px-4 py-2">{withdraw.gateway || "N/A"}</td>
-                <td className="px-4 py-2">{withdraw.paymentMethod || "N/A"}</td>
-                <td className="px-4 py-2">
+                <td className="px-2 py-2">{withdraw.gateway || "N/A"}</td>
+                <td className="px-2 py-2">{withdraw.receiverType || "N/A"}</td>
+                <td className="px-2 py-2">{withdraw.paymentMethod || "N/A"}</td>
+                <td className="px-2 py-2">
                   {withdraw?.accountNumber || withdraw?.receiverNumber}
                 </td>
-                <td className="px-4 py-2">{withdraw.amount}</td>
-                <td className="px-4 py-2">
+                <td className="px-2 py-2">{withdraw.amount}</td>
+                <td className="px-2 py-2">
                   {withdraw.createdAt
                     ? new Date(withdraw.createdAt).toLocaleString("en-GB", {
                         day: "2-digit",
@@ -131,7 +135,7 @@ const WithdrawHistory = () => {
                       })
                     : "N/A"}
                 </td>
-                <td className="px-4 py-2 text-center">
+                <td className="px-2 py-2 text-center">
                   {withdraw.status === "pending" ? (
                     <div className="flex flex-col gap-2">
                       <button
