@@ -3,12 +3,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
-import logo from "../../../assets/footer_logo.png";
 import { useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const SidebarMenu = ({ open, setOpen }) => {
   const { user, token } = useSelector((state) => state.auth);
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState({
     GamesControl: false,
@@ -431,9 +432,9 @@ const SidebarMenu = ({ open, setOpen }) => {
       ],
     },
   ];
-  //   const logoHomeControl = homeControls?.find(
-  //       (control) => control.category === "logo" && control.isSelected === true
-  //      );
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
 
   const handleMenuClick = (submenu) => {
     if (!user && !token) {
@@ -451,10 +452,14 @@ const SidebarMenu = ({ open, setOpen }) => {
 
   // Toggle submenu visibility
   const toggleSubmenu = (menu) => {
-    setSubmenuOpen((prevState) => ({
-      ...prevState,
-      [menu]: !prevState[menu],
-    }));
+    setSubmenuOpen((prevState) => {
+      const updatedState = {};
+      for (let key in prevState) {
+        updatedState[key] = false;
+      }
+      updatedState[menu] = !prevState[menu];
+      return updatedState;
+    });
   };
 
   // Handle toggle sidebar visibility
@@ -479,25 +484,22 @@ const SidebarMenu = ({ open, setOpen }) => {
         } hidden md:block duration-300 h-screen fixed`}
       >
         {/* Start Top collapse */}
-        <div className={`bg-black py-3 ${!open && "py-5"}`}>
+        <div className={`bg-black py-3 h-full ${!open && "py-5"}`}>
           <div className="flex gap-x-3 items-center justify-center">
             <div className={`flex gap-1 ${!open && "hidden"}`}>
               <Link
                 to={"/"}
                 className="flex items-center gap-1 px-2 rounded-lg"
               >
-                {/* {logoHomeControl?.image ? (
+                {isLoading ? (
+                  <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+                ) : (
                   <img
-                    className="w-40"
-                    src={`${import.meta.env.VITE_BASE_API_URL}${
-                      logoHomeControl?.image
-                    }`}
+                    className="w-32"
+                    src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
                     alt="Logo"
                   />
-                ) : (
-                  <div className="h-10"></div>
-                )} */}
-                <img className="w-32" src={logo} alt="Logo" />
+                )}
               </Link>
             </div>
             <div>
@@ -546,8 +548,12 @@ const SidebarMenu = ({ open, setOpen }) => {
             </Link>
 
             {/* Only show submenu when "Games Control" is clicked */}
-            {item?.submenu && submenuOpen[item?.name] && open && (
-              <div className="pl-8 text-white text-sm font-semibold bg-[#1c1b1b] duration-300">
+            {item?.submenu && submenuOpen[item?.name] && (
+              <div
+                className={`text-white text-sm font-semibold ${
+                  open ? "bg-red-600 pl-8" : "bg-black"
+                } duration-300`}
+              >
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
                     onClick={() =>
@@ -557,10 +563,14 @@ const SidebarMenu = ({ open, setOpen }) => {
                     }
                     key={subIndex}
                     to={subItem?.demo ? subItem.demo : subItem?.path}
-                    className="py-2.5 flex gap-2"
+                    className={`py-2.5 flex gap-2 ${!open && "flex items-center justify-center"}`}
                   >
                     <img className="w-5 h-5" src={subItem?.icon} alt="" />
-                    {subItem?.name}
+                    {open && (
+                      <span >
+                        {subItem?.name}
+                      </span>
+                    )}
                   </Link>
                 ))}
               </div>

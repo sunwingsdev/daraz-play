@@ -102,10 +102,8 @@ const DashboardLayout = () => {
       icon: <BsFront />,
       submenu: [
         { name: "Home Control", path: "/dashboard/home-control" },
-        { name: "Slider", path: "/dashboard/frontend-slider" },
         { name: "Promotions", path: "/dashboard/promotion-offer" },
         { name: "Pages" },
-        { name: "Notice" },
         { name: "About Us" },
         { name: "FAQ" },
         { name: "Sponsorship" },
@@ -165,7 +163,7 @@ const DashboardLayout = () => {
         }`}
       >
         <DashboardMobileMenu open={open} menuItems={menuItems} />
-        <div className="mt-[62px] md:mt-16 p-2">
+        <div className="mt-[62px] md:mt-6 p-2">
           <Outlet />
         </div>
       </div>

@@ -26,9 +26,10 @@ import { RiIdCardLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import AccountDetailsMobile from "../../home/AccountDetailsMobile";
 import MobileLeftSideMenu from "./MobileLeftSideMenu";
-import logo from "../../../assets/footer_logo.png";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const Navbar = ({ open }) => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
@@ -39,6 +40,10 @@ const Navbar = ({ open }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { addToast } = useToasts();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -54,7 +59,7 @@ const Navbar = ({ open }) => {
 
   const reloadBalance = () => {
     if (!user) return;
- 
+
     setLoading(true);
 
     getSingleUser(user?._id)
@@ -121,9 +126,18 @@ const Navbar = ({ open }) => {
               </button>
               {!open && (
                 <Link to={"/"}>
-                  <img className="w-32" src={logo} alt="" />
+                  {isLoading ? (
+                    <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+                  ) : (
+                    <img
+                      className="w-32"
+                      src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                      alt="Logo"
+                    />
+                  )}
                 </Link>
               )}
+
               <div className="flex items-center gap-3 text-red-600 md:hidden">
                 <div className="flex flex-col items-center cursor-pointer">
                   <LuHardDriveDownload size={26} />

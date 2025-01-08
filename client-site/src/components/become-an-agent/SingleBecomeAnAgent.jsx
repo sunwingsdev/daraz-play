@@ -18,11 +18,11 @@ const SingleBecomeAnAgent = ({
       }`}
     >
       {/* Text Section */}
-      <div className="max-w-[650px] uppercase space-y-3 lg:space-y-4 mt-10">
-        <h2
-          data-aos="fade-up"
-          className="text-center lg:text-start text-2xl lg:text-4xl font-bold text-red-600 italic"
-        >
+      <div
+        data-aos="fade-right"
+        className="max-w-[650px] uppercase space-y-3 lg:space-y-4 mt-10"
+      >
+        <h2 className="text-center lg:text-start text-2xl lg:text-4xl font-bold text-red-600 italic">
           {heading}
         </h2>
 
@@ -82,7 +82,7 @@ const SingleBecomeAnAgent = ({
 
       {/* Image Section */}
       {image && (
-        <div>
+        <div data-aos="zoom-in">
           <img className="lg:w-[600px]" src={image} alt="Agent" />
         </div>
       )}

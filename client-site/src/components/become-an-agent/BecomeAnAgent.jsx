@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import logo from "../../assets/footer_logo.png";
 import { Link } from "react-router-dom";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import SingleBecomeAnAgent from "./SingleBecomeAnAgent";
+import "aos/dist/aos.css";
+import Aos from "aos";
 
 const BecomeAnAgent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +13,8 @@ const BecomeAnAgent = () => {
   const [phone, setPhone] = useState(""); // ✅ Proper state declaration
 
   const languages = [
-    { code: "en", name: "en", flag: logo },
-    { code: "es", name: "es", flag: logo },
+    { code: "en", name: "en", flag: "" },
+    { code: "es", name: "es", flag: "" },
   ];
 
   const handleLanguageChange = (code) => {
@@ -26,6 +27,12 @@ const BecomeAnAgent = () => {
     setPhone(value);
   };
 
+  useEffect(() => {
+    Aos.init({
+      duration: 1000, // Animation duration in milliseconds
+    });
+  }, []);
+
   return (
     <div className="bg-[#212121]">
       <div className="becomeAnAgent">
@@ -33,7 +40,7 @@ const BecomeAnAgent = () => {
         <div className="relative w-full">
           <div className="bg-[#212121] flex justify-between items-center p-4 shadow-md fixed top-0 left-0 w-full z-50">
             {/* Logo Section with Image */}
-            <img src={logo} alt="Logo" className="h-10" />
+            <img src={""} alt="Logo" className="h-10" />
             <div className="text-white space-x-10 text-lg font-bold hidden lg:block">
               <a href="#about" className="hover:text-gray-300 duration-300">
                 About Us
@@ -126,7 +133,10 @@ const BecomeAnAgent = () => {
           image={"https://melbetagents.com/wp-content/uploads/2023/06/img.png"}
         />
 
-        <div className="grid justify-center items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-12 pt-10 px-4">
+        <div
+          data-aos="fade-up"
+          className="grid justify-center items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-12 pt-10 px-4"
+        >
           <div className="max-w-[200px] m-auto uppercase space-y-4">
             <img
               className="w-24 lg:w-28 m-auto"
@@ -255,6 +265,7 @@ const BecomeAnAgent = () => {
                 </Link>
               </div>
               <img
+                data-aos="zoom-in"
                 className="w-64 sm:w-80 lg:w-64"
                 src="https://melbetagents.com/wp-content/uploads/2023/05/Group-8.png"
                 alt=""

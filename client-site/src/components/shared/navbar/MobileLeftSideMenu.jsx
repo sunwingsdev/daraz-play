@@ -2,12 +2,13 @@ import { HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { useState } from "react";
-import logo from "../../../assets/footer_logo.png";
 import { useToasts } from "react-toast-notifications";
 import { useSelector } from "react-redux";
 import OppsModal from "../modal/OppsModal";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpenIndex, setSubmenuOpenIndex] = useState(null);
@@ -16,6 +17,11 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
   };
   const { addToast } = useToasts();
   const navigate = useNavigate();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
+
   const menuItems = [
     {
       name: "Home",
@@ -452,7 +458,15 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
       </button>
 
       <div className="py-2 ps-4">
-        <img src={logo} className="w-28" alt="" />
+        {isLoading ? (
+          <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+        ) : (
+          <img
+            src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+            className="w-28"
+            alt=""
+          />
+        )}
       </div>
 
       {/* Menu List */}
@@ -494,7 +508,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
 
             {/* Render Submenu */}
             {item.submenu && submenuOpenIndex === index && open && (
-              <ul className="ml-8 flex flex-col gap-2 border-l border-gray-700">
+              <ul className="pl-8 flex flex-col gap-2 bg-red-600">
                 {item.submenu.map((subItem, subIndex) => (
                   <li key={subIndex}>
                     <Link
@@ -504,7 +518,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
                         handleMenuClick(subItem)
                       }
                       to={subItem?.demo ? subItem?.demo : subItem?.path}
-                      className="px-4 py-2 flex gap-5 items-center text-gray-400 hover:text-white hover:bg-red-600"
+                      className="px-4 py-2 flex gap-5 items-center text-white hover:bg-red-600"
                     >
                       {/* Icon */}
                       <img

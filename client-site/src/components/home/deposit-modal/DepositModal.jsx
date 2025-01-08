@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { BsArrowLeftSquare } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { MdGTranslate } from "react-icons/md";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoCopySharp, IoHomeOutline } from "react-icons/io5";
 import { useToasts } from "react-toast-notifications";
 import { useSelector } from "react-redux";
 import { useAddDepositMutation } from "../../../redux/features/allApis/depositsApi/depositsApi";
@@ -15,13 +15,14 @@ const mobilePaymentMethods = [
     gateway: "MOBILE_BANKING",
     paymentMethod: "bKash",
     bgColor: "#e2136e",
+    number: "01975577900",
     instructions: [
       "Go to your bKash Mobile Menu by dialing: *247# or Open bKash App.",
-      "Enter the Receiver Account Number: 013000000",
+      "Enter the Receiver Account Number: 01975577900",
       "Choose: Send Money",
       "Now enter your bKash Mobile Menu PIN to confirm.",
       "Done! You will receive a confirmation message from bKash",
-      "Put theTransaction ID in the upper box and pressVERIFY",
+      "Put the Transaction ID in the upper box and pressVERIFY",
     ],
     amounts: [200, 500, 1000, 5000, 10000, 15000, 20000, 25000],
     inputs: [
@@ -42,13 +43,14 @@ const mobilePaymentMethods = [
     gateway: "MOBILE_BANKING",
     paymentMethod: "Nagad",
     bgColor: "#ec1d25",
+    number: "01975577900",
     instructions: [
       "Go to your NAGAD Mobile Menu by dialing: *167# or Open NAGAD App.",
-      "Enter the Receiver Account Number: 013000000",
+      "Enter the Receiver Account Number: 01975577900",
       "Choose: Send Money",
       "Now enter your NAGAD Mobile Menu PIN to confirm.",
       "Done! You will receive a confirmation message from NAGAD",
-      "Put theTransaction ID in the upper box and pressVERIFY",
+      "Put the Transaction ID in the upper box and pressVERIFY",
     ],
     amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
     inputs: [
@@ -71,13 +73,74 @@ const mobilePaymentMethods = [
     gateway: "MOBILE_BANKING",
     paymentMethod: "Rocket",
     bgColor: "#8a288f",
+    number: "01975577900",
     instructions: [
       "Go to your Rocket Mobile Menu by dialing: *322# or Open Rocket App.",
-      "Enter the Receiver Account Number: 013000000",
+      "Enter the Receiver Account Number: 01975577900",
       "Choose: Send Money",
       "Now enter your Rocket Mobile Menu PIN to confirm.",
       "Done! You will receive a confirmation message from Rocket",
-      "Put theTransaction ID in the upper box and pressVERIFY",
+      "Put the Transaction ID in the upper box and pressVERIFY",
+    ],
+    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
+    inputs: [
+      {
+        property: "senderAccountNumber",
+        type: "text",
+        label: "Enter Sender Account Number",
+        required: true,
+      },
+      {
+        property: "transactionId",
+        type: "text",
+        label: "Enter transaction id",
+        required: true,
+      },
+    ],
+  },
+  {
+    image: "https://pay.hostbuybd.com/assets/template/images/upay.png",
+    gateway: "MOBILE_BANKING",
+    paymentMethod: "Upay",
+    bgColor: "#8a288f",
+    number: "01975577900",
+    instructions: [
+      "Go to your Upay Mobile Menu by dialing: *322# or Open Upay App.",
+      "Enter the Receiver Account Number: 01975577900",
+      "Choose: Send Money",
+      "Now enter your Upay Mobile Menu PIN to confirm.",
+      "Done! You will receive a confirmation message from Upay",
+      "Put the Transaction ID in the upper box and pressVERIFY",
+    ],
+    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
+    inputs: [
+      {
+        property: "senderAccountNumber",
+        type: "text",
+        label: "Enter Sender Account Number",
+        required: true,
+      },
+      {
+        property: "transactionId",
+        type: "text",
+        label: "Enter transaction id",
+        required: true,
+      },
+    ],
+  },
+  {
+    image: "https://pay.hostbuybd.com/assets/template/images/tap.png",
+    gateway: "MOBILE_BANKING",
+    paymentMethod: "Tap",
+    bgColor: "#8a288f",
+    number: "01975577900",
+    instructions: [
+      "Go to your Tap Mobile Menu by dialing: *322# or Open Tap App.",
+      "Enter the Receiver Account Number: 01975577900",
+      "Choose: Send Money",
+      "Now enter your Tap Mobile Menu PIN to confirm.",
+      "Done! You will receive a confirmation message from Tap",
+      "Put the Transaction ID in the upper box and pressVERIFY",
     ],
     amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
     inputs: [
@@ -103,12 +166,85 @@ const bankPaymentMethods = [
     gateway: "BANK_TRANSFER",
     paymentMethod: "IBBL",
     bgColor: "#02733c",
+    number: "013000000",
     instructions: [
       "Go to your bKash Mobile Menu by dialing: *247# or Open bKash App.",
       "Enter the Receiver Account Number: 013000000",
       "Choose: Send Money",
       "Now enter your NAGAD Mobile Menu PIN to confirm.",
       "Done! You will receive a confirmation message from NAGAD",
+      "Put theTransaction ID in the upper box and pressVERIFY",
+    ],
+    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
+    inputs: [
+      {
+        property: "senderAccountNumber",
+        type: "text",
+        label: "Enter Sender Account Number",
+        required: true,
+      },
+      {
+        property: "accountHolderName",
+        type: "text",
+        label: "Enter Account Holder Name",
+        required: true,
+      },
+      {
+        property: "screenshot",
+        type: "file",
+        label: "Attach a screenshot",
+        required: true,
+      },
+    ],
+  },
+  {
+    image: "https://pay.hostbuybd.com/uploads/bank_logo/dbbl.png",
+    gateway: "BANK_TRANSFER",
+    paymentMethod: "DBBL",
+    bgColor: "#02733c",
+    number: "013000000",
+    instructions: [
+      "Go to your DBBL App.",
+      "Enter the Receiver Account Number: 013000000",
+      "Choose: Send Money",
+      "Now enter your DBBL Mobile Menu PIN to confirm.",
+      "Done! You will receive a confirmation message from DBBL",
+      "Put theTransaction ID in the upper box and pressVERIFY",
+    ],
+    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
+    inputs: [
+      {
+        property: "senderAccountNumber",
+        type: "text",
+        label: "Enter Sender Account Number",
+        required: true,
+      },
+      {
+        property: "accountHolderName",
+        type: "text",
+        label: "Enter Account Holder Name",
+        required: true,
+      },
+      {
+        property: "screenshot",
+        type: "file",
+        label: "Attach a screenshot",
+        required: true,
+      },
+    ],
+  },
+  {
+    image: "https://sslcommerz.com/wp-content/uploads/2024/05/dhaka-bank.jpg",
+    gateway: "BANK_TRANSFER",
+    paymentMethod: "DHAKA BANK",
+    bgColor: "#02733c",
+    number: "013000000",
+    instructions: [
+      "Go to your DHAKA BANK App.",
+      "Enter the Receiver Account Number: 013000000",
+      "Choose: Send Money",
+      "Now enter your DHAKA BANK Mobile Menu PIN to confirm.",
+      "Done! You will receive a confirmation message from DHAKA BANK",
       "Put theTransaction ID in the upper box and pressVERIFY",
     ],
     amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
@@ -223,6 +359,22 @@ const DepositModal = ({ closeDepositModal }) => {
     }
   };
 
+  const handleCopy = () => {
+    if (paymentMethod?.number) {
+      navigator.clipboard
+        .writeText(paymentMethod.number)
+        .then(() => {
+          addToast("Copied to the clipboard", {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="w-full max-w-md bg-[#222222] rounded-lg shadow-md flex flex-col overflow-y-auto max-h-svh relative">
@@ -241,10 +393,18 @@ const DepositModal = ({ closeDepositModal }) => {
               <p className="text-2xl font-bold text-white">Deposit</p>
             </div>
             <div className="flex mt-2 justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-red-600">
-              <IoHomeOutline onClick={() => setStep(1)} size={22} />
+              <IoHomeOutline
+                className="cursor-pointer"
+                onClick={() => setStep(1)}
+                size={22}
+              />
               <div className="flex gap-3">
                 <MdGTranslate size={22} />
-                <IoMdClose onClick={closeDepositModal} size={22} />
+                <IoMdClose
+                  className="cursor-pointer"
+                  onClick={closeDepositModal}
+                  size={22}
+                />
               </div>
             </div>
             <div className="mt-6">
@@ -322,7 +482,7 @@ const DepositModal = ({ closeDepositModal }) => {
                 <BsArrowLeftSquare
                   onClick={goPreviousStep}
                   size={26}
-                  className="text-white"
+                  className="text-white cursor-pointer"
                 />
                 <p className="text-white text-base font-semibold">
                   Choose other payment
@@ -335,7 +495,7 @@ const DepositModal = ({ closeDepositModal }) => {
                       <p
                         onClick={() => setDepositAmount(amount)}
                         key={amount}
-                        className="py-2 px-4 text-center text-lg font-bold text-white bg-[#152234] hover:bg-[#0e1723] duration-300 rounded-md border border-dashed border-gray-400 hover:border-blue-500"
+                        className="py-2 px-4 text-center cursor-pointer text-sm md:text-lg font-bold text-white bg-[#152234] hover:bg-[#0e1723] duration-300 rounded-md border border-dashed border-gray-400 hover:border-blue-500"
                       >
                         {amount} BDT
                       </p>
@@ -377,15 +537,23 @@ const DepositModal = ({ closeDepositModal }) => {
               <BsArrowLeftSquare
                 onClick={goPreviousStep}
                 size={26}
-                className="text-white"
+                className="text-white cursor-pointer"
               />
             </div>
 
             <div className="flex justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-red-600">
-              <IoHomeOutline onClick={() => setStep(1)} size={24} />
+              <IoHomeOutline
+                className="cursor-pointer"
+                onClick={() => setStep(1)}
+                size={24}
+              />
               <div className="flex gap-3">
                 <MdGTranslate size={24} />
-                <IoMdClose onClick={closeDepositModal} size={24} />
+                <IoMdClose
+                  className="cursor-pointer"
+                  onClick={closeDepositModal}
+                  size={24}
+                />
               </div>
             </div>
             <div
@@ -400,12 +568,12 @@ const DepositModal = ({ closeDepositModal }) => {
                   <p className="text-base text-center font-semibold text-white">
                     টাকার পরিমান{" "}
                   </p>
-                  <div className="bg-white w-full mt-1 py-1 px-20 text-xl text-center rounded-lg font-bold">
+                  <div className="bg-white w-full mt-1 py-1 px-3 whitespace-nowrap text-xl text-center rounded-lg font-bold">
                     {depositAmount} BDT
                   </div>
                 </div>
               </div>
-              <form ref={formRef}>
+              <form onSubmit={handlePaymentSubmit} ref={formRef}>
                 <div>
                   {paymentMethod?.inputs?.map(
                     ({ label, type, property, required }, index) => (
@@ -443,10 +611,17 @@ const DepositModal = ({ closeDepositModal }) => {
                   )}
                 </div>
                 <div className="">
+                  <div
+                    onClick={handleCopy}
+                    className="text-white inline-flex group items-center gap-3 py-1.5 text-lg cursor-pointer pe-4"
+                  >
+                    {paymentMethod?.number}{" "}
+                    <IoCopySharp className="text-gray-300 group-hover:text-green-400" />
+                  </div>
                   {paymentMethod?.instructions?.map((item) => (
                     <p
                       key={item}
-                      className="text-xs font-semibold text-gray-300 py-2 border-b border-gray-600"
+                      className="text-xs font-semibold text-white py-2 border-b border-gray-600"
                     >
                       ▪{item}
                     </p>
@@ -454,8 +629,8 @@ const DepositModal = ({ closeDepositModal }) => {
                 </div>
                 <div className="w-40 m-auto pt-3">
                   <button
+                    type="submit"
                     disabled={loading}
-                    onClick={handlePaymentSubmit}
                     className="py-2 px-4 w-full text-xl font-semibold text-white loginButtonBgColor disabled:bg-slate-400 disabled:text-black disabled:cursor-not-allowed border border-white rounded-lg duration-300"
                   >
                     {loading ? "Processing..." : "Deposit Now"}
