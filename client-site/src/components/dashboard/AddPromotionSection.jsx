@@ -10,7 +10,7 @@ import { useToasts } from "react-toast-notifications";
 import { Button } from "../shared/ui/button";
 
 const AddPromotionSection = () => {
-  const { handleSubmit, control, register, reset } = useForm();
+  const { handleSubmit, control, register, reset, watch } = useForm();
   const [addPromotion, { isLoading: addPromoLoading }] =
     useAddPromotionMutation();
   const { data: categories, isLoading } = useGetCategoriesQuery();
@@ -42,6 +42,7 @@ const AddPromotionSection = () => {
             autoDismiss: true,
           });
           reset();
+          setFile(null);
         }
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
@@ -51,12 +52,14 @@ const AddPromotionSection = () => {
         });
       }
     } else {
-      addToast("Failed to upload image", {
+      addToast("Please select an image", {
         appearance: "error",
         autoDismiss: true,
       });
     }
   };
+
+  const watchBonus = watch("bonus"); // Watch the value of the bonus field
 
   return (
     <div className="w-full lg:w-2/3 rounded-lg px-3 py-1.5">
@@ -64,6 +67,7 @@ const AddPromotionSection = () => {
         Add Promotion Details
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Title Field */}
         <div>
           <label
             htmlFor="title"
@@ -79,9 +83,11 @@ const AddPromotionSection = () => {
             className="w-full bg-white p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
           />
         </div>
+
+        {/* Subtitle Field */}
         <div>
           <label
-            htmlFor="title"
+            htmlFor="subtitle"
             className="block text-sm font-medium text-gray-700 mb-2"
           >
             Subtitle
@@ -95,6 +101,8 @@ const AddPromotionSection = () => {
           />
         </div>
 
+        {/* Categories Field */}
+        {/* Categories Field */}
         <div>
           <label
             htmlFor="categories"
@@ -106,24 +114,35 @@ const AddPromotionSection = () => {
             name="categories"
             control={control}
             defaultValue={[]}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={
-                  isLoading
-                    ? [{ label: "Loading categories...", value: "loading" }]
-                    : promotionCategories
-                }
-                isMulti
-                placeholder="Select categories"
-                className="text-gray-800"
-                classNamePrefix="react-select"
-                isDisabled={isLoading}
-              />
+            rules={{
+              validate: (value) =>
+                (value && value.length > 0) ||
+                "At least one category is required",
+            }}
+            render={({ field, fieldState: { error } }) => (
+              <>
+                <Select
+                  {...field}
+                  options={
+                    isLoading
+                      ? [{ label: "Loading categories...", value: "loading" }]
+                      : promotionCategories
+                  }
+                  isMulti
+                  placeholder="Select categories"
+                  className="text-gray-800"
+                  classNamePrefix="react-select"
+                  isDisabled={isLoading}
+                />
+                {error && (
+                  <p className="text-sm text-red-500 mt-1">{error.message}</p>
+                )}
+              </>
             )}
           />
         </div>
 
+        {/* Image Upload Field */}
         <div>
           <label
             htmlFor="image"
@@ -139,6 +158,95 @@ const AddPromotionSection = () => {
           />
         </div>
 
+        {/* Bonus Option Field */}
+        <div>
+          <label
+            htmlFor="bonus"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Bonus Option
+          </label>
+          <select
+            id="bonus"
+            {...register("bonus", { required: "Please select a bonus option" })}
+            className="w-full bg-white p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
+          >
+            <option selected value="noBonus">
+              No Bonus
+            </option>
+            <option value="bonus">Bonus</option>
+          </select>
+        </div>
+
+        {/* Conditional Fields for Bonus */}
+        {watchBonus === "bonus" && (
+          <div className="space-y-4">
+            <div>
+              <label
+                htmlFor="bonusTitle"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Bonus Title
+              </label>
+              <input
+                type="text"
+                id="bonusTitle"
+                placeholder="Enter bonus title"
+                {...register("bonusTitle", {
+                  required: "Bonus Title is required",
+                })}
+                className="w-full bg-white p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="bonusType"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Bonus Type
+              </label>
+              <select
+                id="bonusType"
+                {...register("bonusType", {
+                  required: "Bonus Type is required",
+                })}
+                className="w-full bg-white p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
+              >
+                <option value="">Select Bonus Type</option>
+                <option value="percentage">Percentage</option>
+                <option value="amount">Amount</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="bonusValue"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Bonus Value
+              </label>
+              <input
+                type="number"
+                id="bonusValue"
+                placeholder="Enter bonus amount/percentage"
+                {...register("bonusValue", {
+                  required: "Bonus Value is required",
+                  valueAsNumber: true, // Ensures the value is treated as a number
+                  min: {
+                    value: 0,
+                    message: "Bonus Value must be greater than or equal to 0",
+                  },
+                  max: {
+                    value: 100000,
+                    message: "Bonus Value must be less than or equal to 100000",
+                  },
+                })}
+                className="w-full bg-white p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Details Field */}
         <div>
           <label
             htmlFor="details"
@@ -178,6 +286,7 @@ const AddPromotionSection = () => {
           />
         </div>
 
+        {/* Submit Button */}
         <div className="text-center">
           <Button
             type="submit"
