@@ -375,6 +375,12 @@ const DepositModal = ({ closeDepositModal }) => {
     }
   };
 
+  // Selected Option
+  const [selectedOption, setSelectedOption] = useState("");
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="w-full max-w-md bg-[#222222] rounded-lg shadow-md flex flex-col overflow-y-auto max-h-svh relative">
@@ -430,6 +436,25 @@ const DepositModal = ({ closeDepositModal }) => {
                   BANK TRANSFER
                 </button>
               </div>
+
+              <div className="flex flex-col items-start mt-2">
+                <select
+                  id="options"
+                  value={selectedOption}
+                  onChange={handleChange}
+                  className="w-full px-4 py-1 text-white bg-[#333] border border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 focus:border-transparent"
+                >
+                  <option value="option1">৩% আনলিমিটেড ডিপোজিট</option>
+                  <option value="option2">১০% HEYVIP স্লট রিলোড</option>
+                  <option value="option3">৬৬০% দৈনিক স্লট রিলোড</option>
+                  <option value="option4">৫০% ক্যাসিনো প্রথম ডিপোজিট</option>
+                  <option value="option5">১০০% স্পোর্টস স্বাগতম বোনাস</option>
+                  <option value="option6">২৫% স্পোর্টস রিলোড</option>
+                  <option value="option7">২০% ক্যাসিনো রিলোড</option>
+                  <option value="option8">নরমাল ডিপোজিট</option>
+                </select>
+              </div>
+
               <div className="mt-4">
                 {activeTabBottom === "MOBILE_BANKING" ? (
                   <div className="grid grid-cols-3 gap-2">
