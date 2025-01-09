@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useSelector } from "react-redux";
@@ -14,9 +14,27 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null); // Store the currently open submenu
+  const caSidebarRef = useRef(null);
   const { addToast } = useToasts();
   const navigate = useNavigate();
   const location = useLocation(); // Access current route
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        caSidebarRef.current &&
+        !caSidebarRef.current.contains(event.target)
+      ) {
+        setIsSidebarOpen(false); // Sidebar বন্ধ হবে
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsSidebarOpen]);
 
   const logo = homeControls?.find(
     (control) => control.category === "logo" && control.isSelected
@@ -89,6 +107,7 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
 
         {/* Mobile Menu */}
         <div
+          ref={caSidebarRef}
           className={`fixed inset-0 w-[70%] sm:w-1/2 h-screen overflow-y-auto bg-[#222222] z-30 md:hidden transform transition-transform duration-500 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}

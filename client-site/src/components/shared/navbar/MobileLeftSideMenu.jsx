@@ -1,22 +1,37 @@
 import { HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import { useSelector } from "react-redux";
 import OppsModal from "../modal/OppsModal";
 import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
-const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
+const MobileLeftSideMenu = ({ isMenuOpen, setIsMenuOpen, toggleMenu }) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpenIndex, setSubmenuOpenIndex] = useState(null);
+  const sidebarRef = useRef(null);
   const toggleSubmenu = (index) => {
     setSubmenuOpenIndex(submenuOpenIndex === index ? null : index);
   };
   const { addToast } = useToasts();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsMenuOpen(false); // Sidebar বন্ধ হবে
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsMenuOpen]);
 
   const logo = homeControls?.find(
     (control) => control.category === "logo" && control.isSelected
@@ -445,6 +460,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, toggleMenu }) => {
 
   return (
     <div
+      ref={sidebarRef}
       className={`fixed top-0 left-0 h-full w-[70%] sm:w-1/2 z-50 bg-[#222222] pb-6 transform overflow-y-auto ${
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300`}
