@@ -563,14 +563,12 @@ const SidebarMenu = ({ open, setOpen }) => {
                     }
                     key={subIndex}
                     to={subItem?.demo ? subItem.demo : subItem?.path}
-                    className={`py-2.5 flex gap-2 ${!open && "flex items-center justify-center"}`}
+                    className={`py-2.5 flex gap-2 ${
+                      !open && "flex items-center justify-center"
+                    }`}
                   >
                     <img className="w-5 h-5" src={subItem?.icon} alt="" />
-                    {open && (
-                      <span >
-                        {subItem?.name}
-                      </span>
-                    )}
+                    {open && <span>{subItem?.name}</span>}
                   </Link>
                 ))}
               </div>

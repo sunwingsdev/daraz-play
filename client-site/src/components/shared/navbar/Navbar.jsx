@@ -237,6 +237,7 @@ const Navbar = ({ open }) => {
           <MobileLeftSideMenu
             toggleMenu={toggleSidebar}
             isMenuOpen={isSidebarOpen}
+            setIsMenuOpen={setIsSidebarOpen}
           />
         </div>
 
