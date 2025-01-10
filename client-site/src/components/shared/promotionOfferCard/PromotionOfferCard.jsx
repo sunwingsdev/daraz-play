@@ -13,7 +13,7 @@ const PromotionOfferCard = ({ offer, hidden, handleDeleteButtonClick }) => {
         </div>
       )}
       <img
-        className="rounded-t-md"
+        className={`rounded-t-md  w-full ${!hidden ? "max-h-40" : "max-h-28"}`}
         src={`${import.meta.env.VITE_BASE_API_URL}${image}`}
         alt=""
       />
