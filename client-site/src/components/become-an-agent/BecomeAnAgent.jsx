@@ -8,12 +8,17 @@ import "aos/dist/aos.css";
 import Aos from "aos";
 import AccoundModal from "../shared/modal/AccoundModal";
 import LoginForm from "../shared/navbar/LoginForm";
-import SignupForm from "../shared/navbar/SignupForm";
+import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
+import AgentSignupForm from "./AgentSignUpForm";
 
 const BecomeAnAgent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [phone, setPhone] = useState(""); // ✅ Proper state declaration
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
 
   // languageCountry
   const [selectedCountry, setSelectedCountry] = useState({
@@ -35,12 +40,6 @@ const BecomeAnAgent = () => {
     setIsCountryOpen(false);
   };
 
-  // ✅ Corrected phone number input handler
-  const handleInputChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Only digits allowed
-    setPhone(value);
-  };
-
   useEffect(() => {
     Aos.init({
       duration: 1000, // Animation duration in milliseconds
@@ -58,7 +57,20 @@ const BecomeAnAgent = () => {
         <div className="relative w-full">
           <div className="bg-[#212121] flex justify-between items-center p-4 shadow-md fixed top-0 left-0 w-full z-50">
             {/* Logo Section with Image */}
-            <img src={""} alt="Logo" className="h-10" />
+            <Link
+              to={"/"}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
+            >
+              {isLoading ? (
+                <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+              ) : (
+                <img
+                  className="w-40"
+                  src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                  alt="Logo"
+                />
+              )}
+            </Link>
             <div className="text-white space-x-10 text-lg font-bold hidden lg:block">
               <a href="#about" className="hover:text-gray-300 duration-300">
                 About Us
@@ -168,6 +180,7 @@ const BecomeAnAgent = () => {
           ]}
           btn={"Become an agent"}
           image={"https://melbetagents.com/wp-content/uploads/2023/06/img.png"}
+          onClick={() => openModal("signup_modal")}
         />
 
         <div
@@ -238,6 +251,7 @@ const BecomeAnAgent = () => {
           image={
             "https://melbetagents.com/wp-content/uploads/2023/06/img-3.png"
           }
+          onClick={() => openModal("signup_modal")}
         />
 
         <SingleBecomeAnAgent
@@ -313,59 +327,7 @@ const BecomeAnAgent = () => {
             <h2 className="mb-2 lg:mb-4 text-2xl lg:text-4xl text-center uppercase font-bold text-red-600 italic">
               Submit an application
             </h2>
-            <form action="" className="space-y-1 lg:space-y-2">
-              <div className="space-y-1">
-                <label className="text-white text-sm" htmlFor="name">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-                />
-              </div>
-              <div className="space-y-1">
-                <label className="text-white text-sm" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-                />
-              </div>
-              <div className="space-y-1 relative w-full pb-1.5 lg:pb-2">
-                <label className="text-white text-sm" htmlFor="phone">
-                  Phone Number
-                </label>
-                <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
-                  <div className="flex items-center px-3 border-r border-[#767575]">
-                    <img
-                      src="https://flagcdn.com/w40/bd.png"
-                      alt="Bangladesh Flag"
-                      className="w-6 h-4"
-                    />
-                    <span className="ml-2">+880</span>
-                  </div>
-                  {/* ✅ Fixed state binding */}
-                  <input
-                    type="text"
-                    value={phone}
-                    onChange={handleInputChange}
-                    placeholder="1XXXXXXXXX"
-                    className="flex-1 bg-transparent border-none outline-none py-1.5 px-4 text-white"
-                    maxLength="10"
-                  />
-                </div>
-              </div>
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-1.5 px-4 rounded-md transition duration-300"
-              >
-                Submit
-              </button>
-            </form>
+            <AgentSignupForm />
           </div>
         </div>
 
@@ -377,7 +339,7 @@ const BecomeAnAgent = () => {
         </AccoundModal>
         {/* Signup Modal */}
         <AccoundModal id="signup_modal" title="Sign Up">
-          <SignupForm
+          <AgentSignupForm
             onClose={() => document.getElementById("signup_modal").close()}
           />
         </AccoundModal>

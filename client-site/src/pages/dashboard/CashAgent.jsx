@@ -1,63 +1,33 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useGetAgentsQuery } from "../../redux/features/allApis/usersApi/usersApi";
+import TablePagination from "../../components/dashboard/TablePagination";
 
 const CashAgent = () => {
-  const [agentsData, setAgentsData] = useState([
-    {
-      agent_name: "Agent001",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 2500,
-      status: "active",
-    },
-    {
-      agent_name: "Agent002",
-      login: "Login",
-      W_B: 5300,
-      D_B: 2300,
-      A_U_C: 14,
-      A_D_C: 14,
-      balance: 3200,
-      status: "inactive",
-    },
-    // Add more agents as needed
-  ]);
+  const { data: allAgentsData, isLoading, error } = useGetAgentsQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtered agents based on search query
-  const filteredAgents = agentsData.filter((agent) =>
-    agent.agent_name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredAgents = allAgentsData?.filter((agent) =>
+    agent?.fullName?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
 
-  // Add a new agent (dummy function)
-  const handleAddAgent = () => {
-    const newAgent = {
-      agent_name: "New_Agent",
-      login: "Login",
-      W_B: 0,
-      D_B: 0,
-      A_U_C: 0,
-      A_D_C: 0,
-      balance: 0,
-      status: "active",
-    };
-    setAgentsData([newAgent, ...agentsData]);
-  };
+  const paginatedAgents = filteredAgents?.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
   return (
     <div>
       {/* Header */}
       <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
         <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
           <h1 className="text-2xl text-white font-bold">Cash Agent</h1>
-          <button
-            className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 block md:hidden whitespace-nowrap"
-            onClick={handleAddAgent}
-          >
+          <button className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 block md:hidden whitespace-nowrap">
             Add Agent
           </button>
         </div>
@@ -77,7 +47,7 @@ const CashAgent = () => {
           </form>
           <button
             className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 hidden md:block whitespace-nowrap"
-            onClick={handleAddAgent}
+            // onClick={handleAddAgent}
           >
             Add Agent
           </button>
@@ -98,51 +68,102 @@ const CashAgent = () => {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-[#3b3b3b]">
-          <thead>
-            <tr className="bg-[#3b3b3b] text-white">
-              <th className="px-4 py-2 whitespace-nowrap">Agent Name</th>
-              <th className="px-4 py-2 whitespace-nowrap">Login</th>
-              <th className="px-4 py-2 whitespace-nowrap">W-B</th>
-              <th className="px-4 py-2 whitespace-nowrap">D-B</th>
-              <th className="px-4 py-2 whitespace-nowrap">A-U-C</th>
-              <th className="px-4 py-2 whitespace-nowrap">A-D-C</th>
-              <th className="px-4 py-2 whitespace-nowrap">Balance</th>
-              <th className="px-4 py-2 whitespace-nowrap">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAgents.map((agent, index) => (
-              <tr
-                key={index}
-                className={`text-center border-b border-[#3b3b3b] ${
-                  index % 2 === 0 ? "bg-gray-100" : "bg-[#cacaca]"
-                } text-black`}
-              >
-                <td className="px-4 py-2 text-blue-500 hover:text-blue-600">
-                  <Link to="/dashboard/agent-profile">{agent.agent_name}</Link>
-                </td>
-                <td className="px-4 py-2">{agent.login}</td>
-                <td className="px-4 py-2">{agent.W_B}</td>
-                <td className="px-4 py-2">{agent.D_B}</td>
-                <td className="px-4 py-2">{agent.A_U_C}</td>
-                <td className="px-4 py-2">{agent.A_D_C}</td>
-                <td className="px-4 py-2">{agent.balance}</td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-4 py-1 text-white size-20 ${
-                      agent.status.toLowerCase() === "active"
-                        ? "bg-green-500"
-                        : "bg-red-500"
-                    }`}
-                  >
-                    {agent.status.toUpperCase()}
-                  </span>
-                </td>
+        {isLoading ? (
+          <div className="text-center py-10 text-gray-500">
+            Data is loading...
+          </div>
+        ) : error ? (
+          <div className="text-center py-10 text-red-500">
+            Failed to load data.
+          </div>
+        ) : (
+          <table className="w-full border-collapse border border-blue-600">
+            <thead>
+              <tr className="bg-blue-600 text-white">
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  Agent Name
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  Login
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  W-B
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  D-B
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  A-U-C
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  A-D-C
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  Balance
+                </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  Status
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {paginatedAgents?.map((agent, index) => (
+                <tr
+                  key={index}
+                  className={`text-center border-b border-blue-600 ${
+                    index % 2 === 0 ? "bg-gray-100" : "bg-[#cacaca]"
+                  } text-black`}
+                >
+                  <td className="px-4 py-2 text-blue-500 hover:text-blue-600">
+                    <Link to="/dashboard/agent-profile">{agent?.fullName}</Link>
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    {agent?.login || "N/A"}
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    {agent?.W_B || "N/A"}
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    {agent?.D_B || "N/A"}
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    {agent?.A_U_C || "N/A"}
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    {agent?.A_D_C || "N/A"}
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    {agent?.balance || "N/A"}
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    <span
+                      className={`px-4 py-1 text-white size-20 ${
+                        agent?.status?.toLowerCase() === "active"
+                          ? "bg-green-500"
+                          : "bg-red-500"
+                      }`}
+                    >
+                      {agent?.status?.toUpperCase()}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+              {paginatedAgents?.length === 0 && (
+                <tr>
+                  <td colSpan="8" className="text-center py-4 text-gray-500">
+                    No agents found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
+        <TablePagination
+          currentPage={currentPage}
+          totalItems={filteredAgents?.length || 0}
+          itemsPerPage={rowsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </div>
   );

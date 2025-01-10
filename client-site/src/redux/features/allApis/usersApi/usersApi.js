@@ -12,6 +12,16 @@ const usersApi = baseApi.injectEndpoints({
       invalidatesTags: ["users"],
     }),
 
+    // Register as an agent
+    addAgent: builder.mutation({
+      query: (data) => ({
+        url: "/users/agentregistration",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
     // Login a user
     loginUser: builder.mutation({
       query: (credentials) => ({
@@ -39,6 +49,12 @@ const usersApi = baseApi.injectEndpoints({
       providesTags: ["users"],
     }),
 
+    // get all agents
+    getAgents: builder.query({
+      query: () => "/users/agent",
+      providesTags: ["users"],
+    }),
+
     getUserById: builder.query({
       query: (id) => `/users/single-user/${id}`,
       providesTags: ["users"],
@@ -48,8 +64,10 @@ const usersApi = baseApi.injectEndpoints({
 
 export const {
   useAddUserMutation,
+  useAddAgentMutation,
   useLoginUserMutation,
   useLazyGetAuthenticatedUserQuery,
   useGetUsersQuery,
+  useGetAgentsQuery,
   useLazyGetUserByIdQuery,
 } = usersApi;
