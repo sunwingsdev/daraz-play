@@ -8,6 +8,7 @@ import { useToasts } from "react-toast-notifications";
 import { useSelector } from "react-redux";
 import { useAddDepositMutation } from "../../../redux/features/allApis/depositsApi/depositsApi";
 import { uploadImage } from "../../../hooks/files";
+import { useGetPromotionsQuery } from "../../../redux/features/allApis/promotionApi/promotionApi";
 
 const mobilePaymentMethods = [
   {
@@ -273,6 +274,7 @@ const bankPaymentMethods = [
 
 const DepositModal = ({ closeDepositModal }) => {
   const { user } = useSelector((state) => state.auth);
+  const { data: promotions } = useGetPromotionsQuery();
   const [addDeposit] = useAddDepositMutation();
   const formRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -281,7 +283,12 @@ const DepositModal = ({ closeDepositModal }) => {
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [depositAmount, setDepositAmount] = useState("");
   const [files, setFiles] = useState({});
+  const [selectedOption, setSelectedOption] = useState("");
   const { addToast } = useToasts();
+
+  const bonusPromotions = promotions?.filter(
+    (promotion) => promotion.bonus === "bonus"
+  );
 
   // Step navigation handlers
   const goNextStep = () => setStep((prevStep) => prevStep + 1);
@@ -333,6 +340,7 @@ const DepositModal = ({ closeDepositModal }) => {
         userId: user?._id,
         method: paymentMethod?.paymentMethod,
         gateway: paymentMethod?.gateway,
+        promotionId: selectedOption ,
         paymentInputs: paymentInputs,
       };
       if (depositAmount) {
@@ -375,11 +383,12 @@ const DepositModal = ({ closeDepositModal }) => {
     }
   };
 
-  // Selected Option
-  const [selectedOption, setSelectedOption] = useState("");
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+    const selectedId = event.target.value;
+    setSelectedOption(selectedId); // Store the _id in the state
   };
+
+  console.log("Selected Option: ", selectedOption);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -439,19 +448,20 @@ const DepositModal = ({ closeDepositModal }) => {
 
               <div className="flex flex-col items-start mt-2">
                 <select
-                  id="options"
+                  id="bonusOption"
                   value={selectedOption}
                   onChange={handleChange}
                   className="w-full px-4 py-1 text-white bg-[#333] border border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 focus:border-transparent"
                 >
-                  <option value="option1">৩% আনলিমিটেড ডিপোজিট</option>
-                  <option value="option2">১০% HEYVIP স্লট রিলোড</option>
-                  <option value="option3">৬৬০% দৈনিক স্লট রিলোড</option>
-                  <option value="option4">৫০% ক্যাসিনো প্রথম ডিপোজিট</option>
-                  <option value="option5">১০০% স্পোর্টস স্বাগতম বোনাস</option>
-                  <option value="option6">২৫% স্পোর্টস রিলোড</option>
-                  <option value="option7">২০% ক্যাসিনো রিলোড</option>
-                  <option value="option8">নরমাল ডিপোজিট</option>
+                  {" "}
+                  <option selected disabled value={""}>
+                    Select Promotion
+                  </option>
+                  {bonusPromotions?.map((item) => (
+                    <option key={item?._id} value={item?._id}>
+                      {item?.bonusTitle}
+                    </option>
+                  ))}
                 </select>
               </div>
 
