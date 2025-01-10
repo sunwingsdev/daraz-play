@@ -1,7 +1,11 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 
-const depositsApi = (depositsCollection, usersCollection) => {
+const depositsApi = (
+  depositsCollection,
+  usersCollection,
+  promotionCollection
+) => {
   const router = express.Router();
 
   //   add a deposit
@@ -56,6 +60,7 @@ const depositsApi = (depositsCollection, usersCollection) => {
   router.patch("/status/:id", async (req, res) => {
     const { id } = req.params;
     const { status, reason } = req.body;
+
     try {
       const deposit = await depositsCollection.findOne({
         _id: new ObjectId(id),
@@ -68,19 +73,39 @@ const depositsApi = (depositsCollection, usersCollection) => {
           .status(400)
           .send({ error: "Deposit is not in a pending state" });
       }
-      const updatedDoc = { $set: { status, reason } };
+
+      if (status === "completed") {
+        let balanceIncrement = deposit.amount;
+        if (deposit.promotionId) {
+          const promotion = await promotionCollection.findOne({
+            _id: new ObjectId(deposit.promotionId),
+          });
+          if (promotion) {
+            const { bonusType, bonusValue } = promotion;
+            if (bonusType === "percentage") {
+              balanceIncrement += (deposit.amount * bonusValue) / 100;
+            } else if (bonusType === "amount") {
+              balanceIncrement += bonusValue;
+            }
+          }
+        }
+        await usersCollection.updateOne(
+          { _id: new ObjectId(deposit.userId) },
+          { $inc: { balance: balanceIncrement } }
+        );
+        await depositsCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: { addedBalance: balanceIncrement } }
+        );
+      }
+      const updatedDoc = {
+        $set: { status, reason },
+      };
       const result = await depositsCollection.updateOne(
         { _id: new ObjectId(id) },
         updatedDoc
       );
 
-      if (status === "completed") {
-        // Increment the user's balance
-        await usersCollection.updateOne(
-          { _id: new ObjectId(deposit.userId) },
-          { $inc: { balance: deposit.amount } }
-        );
-      }
       res.send(result);
     } catch (error) {
       console.error("Error updating deposit status:", error);

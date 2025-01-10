@@ -96,7 +96,10 @@ async function run() {
 
     // APIs start
     app.use("/users", usersApi(usersCollection));
-    app.use("/deposits", depositsApi(depositsCollection, usersCollection));
+    app.use(
+      "/deposits",
+      depositsApi(depositsCollection, usersCollection, promotionCollection)
+    );
     app.use("/withdraws", withdrawsApi(withdrawsCollection, usersCollection));
     app.use("/home-controls", homeControlApi(homeControlsCollection));
     app.use("/promotions", promotionApi(promotionCollection));

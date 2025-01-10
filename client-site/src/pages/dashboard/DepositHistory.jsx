@@ -81,6 +81,7 @@ const DepositHistory = () => {
               <th className="px-4 py-2">Amount</th>
               <th className="px-4 py-2">Slip</th>
               <th className="px-4 py-2">Reason</th>
+              <th className="px-4 py-2">Added Balance</th>
               <th className="px-4 py-2">Time & Date</th>
               <th className="px-4 py-2">Status</th>
             </tr>
@@ -164,6 +165,12 @@ const DepositHistory = () => {
                         className="px-4 py-2 text-center"
                       >
                         {deposit?.reason || "N/A"}
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2 text-center"
+                      >
+                        {deposit?.addedBalance || "N/A"}
                       </td>
                       <td
                         rowSpan={deposit?.paymentInputs?.length || 1}

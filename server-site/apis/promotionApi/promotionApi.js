@@ -8,7 +8,6 @@ const promotionApi = (promotionCollection) => {
   router.post("/", async (req, res) => {
     const promotionInfo = req.body;
     promotionInfo.createdAt = new Date();
-    promotionInfo.isSelected = false;
     const result = await promotionCollection.insertOne(promotionInfo);
     res.send(result);
   });
