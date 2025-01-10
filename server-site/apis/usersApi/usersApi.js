@@ -45,7 +45,40 @@ const usersApi = (usersCollection) => {
       if (existingUser)
         return res.status(400).json({ error: "User already exists" });
       const hashedPassword = await bcrypt.hash(userInfo?.password, 10);
-      const newUser = { ...userInfo, password: hashedPassword };
+      const newUser = {
+        ...userInfo,
+        password: hashedPassword,
+        role: "user",
+      };
+      newUser.createdAt = new Date();
+      const result = await usersCollection.insertOne(newUser);
+      res.status(201).send(result);
+    } catch (error) {
+      res.status(500).send({ message: "Registration failed" });
+    }
+  });
+
+  // Register as an agent
+  router.post("/agentregistration", async (req, res) => {
+    const userInfo = req.body;
+    if (!userInfo?.username || !userInfo?.password) {
+      return res
+        .status(400)
+        .send({ message: "Username and password are required" });
+    }
+    try {
+      const existingUser = await usersCollection.findOne({
+        username: userInfo?.username,
+      });
+      if (existingUser)
+        return res.status(400).json({ error: "User already exists" });
+      const hashedPassword = await bcrypt.hash(userInfo?.password, 10);
+      const newUser = {
+        ...userInfo,
+        password: hashedPassword,
+        role: "agent",
+        status: "inactive",
+      };
       newUser.createdAt = new Date();
       const result = await usersCollection.insertOne(newUser);
       res.status(201).send(result);
@@ -108,6 +141,18 @@ const usersApi = (usersCollection) => {
     try {
       const result = await usersCollection
         .find({}, { projection: { password: 0 } })
+        .toArray();
+      res.send(result);
+    } catch (error) {
+      res.status(500).send({ error: "Failed to fetch users" });
+    }
+  });
+
+  // get all agents
+  router.get("/agent", async (req, res) => {
+    try {
+      const result = await usersCollection
+        .find({ role: "agent" }, { projection: { password: 0 } })
         .toArray();
       res.send(result);
     } catch (error) {
