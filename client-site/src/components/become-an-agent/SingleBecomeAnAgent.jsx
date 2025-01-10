@@ -1,6 +1,7 @@
 import React from "react";
 
 const SingleBecomeAnAgent = ({
+  id = "",
   heading = "",
   text = [],
   list = [],
@@ -14,6 +15,7 @@ const SingleBecomeAnAgent = ({
 }) => {
   return (
     <div
+      id={id}
       className={`flex items-center flex-col-reverse pt-20 px-4 ${
         reverse ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}

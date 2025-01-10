@@ -174,7 +174,7 @@ const BecomeAnAgent = () => {
         {/* End Top menu */}
 
         <SingleBecomeAnAgent
-          heading={"Make money with MelBet TeamCash!"}
+          heading={"Make money with MelBet99 TeamCash!"}
           text={[
             "Partnering up with an international bookmaker is incredibly rewarding. Accept funds, top up accounts, make withdrawals for customers or create your very own agent network and earn commission!",
           ]}
@@ -240,12 +240,13 @@ const BecomeAnAgent = () => {
         </div>
 
         <SingleBecomeAnAgent
+          id="about"
           reverse={true}
-          heading={"What is a Melbet agent?"}
+          heading={"What is a Melbet99 agent?"}
           text={[
-            "A Melbet agent is someone who works online/offline and earns commission for bringing in new customers and helping them make deposits/withdrawals from their account.",
-            "With Melbet continuing to expand globally each year, why not join our international team? If you’d like to earn more, you could even set up your own agent network.",
-            "The more agents in your network, the larger your income! You can start earning with Melbet today. Submit an application on our website and we’ll soon be in touch!",
+            "A Melbet99 agent is someone who works online/offline and earns commission for bringing in new customers and helping them make deposits/withdrawals from their account.",
+            "With Melbet99 continuing to expand globally each year, why not join our international team? If you’d like to earn more, you could even set up your own agent network.",
+            "The more agents in your network, the larger your income! You can start earning with Melbet99 today. Submit an application on our website and we’ll soon be in touch!",
           ]}
           btn={"Start earning"}
           image={
@@ -272,8 +273,9 @@ const BecomeAnAgent = () => {
         />
 
         <SingleBecomeAnAgent
+          id="collaboration"
           reverse={true}
-          heading={"How can I become a Melbet agent?"}
+          heading={"How can I become a Melbet99 agent?"}
           text4={[
             "Obtain agent status",
             "Log in and make your first deposit",
@@ -284,9 +286,9 @@ const BecomeAnAgent = () => {
           ]}
           additionalText={[
             "Once you've completed verification, the bookmaker will grant you agent status.",
-            "Once you've logged in, you'll need to verify your identity on the MelBet website. You'll then get access to your own agent balance, which you'll use to top up customers' accounts.",
+            "Once you've logged in, you'll need to verify your identity on the MelBet99 website. You'll then get access to your own agent balance, which you'll use to top up customers' accounts.",
             "Your manager will send you a link which you can use to download the mobile app. Please make sure that your phone's operating system is no older than the Android 4.4 version before installing the app.",
-            "Make sure that they have a MelBet account.",
+            "Make sure that they have a MelBet99 account.",
             "You'll be able to top up customers' accounts quickly and easily. Use the deposits in your account to transfer funds from your agent account to customers' accounts.",
             "Earn between 3-5% comission on deposits and 2% on withdrawals. Your total earnings will depend on the specifics of your region and other parameters. You'll gain access to additional information once you fill in all of your details.",
           ]}
@@ -295,7 +297,10 @@ const BecomeAnAgent = () => {
           }
         />
 
-        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-10 pt-20 pb-14 px-4">
+        <div
+          id="contacts"
+          className="flex flex-col lg:flex-row items-center gap-5 lg:gap-10 pt-20 pb-14 px-4"
+        >
           <div className="max-w-[600px]">
             <h2 className="w-full lg:max-w-[100px] text-2xl lg:text-4xl uppercase font-bold text-red-600 italic">
               Contact information
