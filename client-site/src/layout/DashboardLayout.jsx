@@ -163,7 +163,7 @@ const DashboardLayout = () => {
         }`}
       >
         <DashboardMobileMenu open={open} menuItems={menuItems} />
-        <div className="mt-[62px] md:mt-6 p-2">
+        <div className="mt-[62px] md:mt-8 p-2">
           <Outlet />
         </div>
       </div>
