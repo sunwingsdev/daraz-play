@@ -25,6 +25,7 @@ import CashAgentLayout from "../layout/CashAgentLayout";
 import DemoGame from "../pages/home/DemoGame";
 import BecomeAnAgent from "../components/become-an-agent/BecomeAnAgent";
 import CashAgentHome from "../pages/cash-agent/CashAgentHome";
+import CashAgentRoute from "./CashAgentRoute";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashboardHome /> },
       { path: "all-user", element: <AllUsers /> },
-      { path: "agent-tree", element: <CashAgent /> },
+      { path: "cashagent", element: <CashAgent /> },
       { path: "affiliators", element: <Affiliators /> },
       { path: "game-categories", element: <GameCategories /> },
       { path: "active-games", element: <ActiveGames /> },
@@ -77,11 +78,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/cashagent",
-    element: <CashAgentLayout />,
+    element: (
+      <CashAgentRoute>
+        <CashAgentLayout />
+      </CashAgentRoute>
+    ),
+
     children: [{ path: "", element: <CashAgentHome /> }],
   },
   {
-    path: "/become-an-agent",
+    path: "/becomeanagent",
     element: <BecomeAnAgent />,
   },
 ]);

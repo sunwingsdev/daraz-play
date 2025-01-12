@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { useGetAgentsQuery } from "../../redux/features/allApis/usersApi/usersApi";
+import {
+  useGetAgentsQuery,
+  useUpdateAgentStatusMutation,
+} from "../../redux/features/allApis/usersApi/usersApi";
 import TablePagination from "../../components/dashboard/TablePagination";
+import { SyncLoader } from "react-spinners";
 
 const CashAgent = () => {
   const { data: allAgentsData, isLoading, error } = useGetAgentsQuery();
+  const [updateStatus] = useUpdateAgentStatusMutation();
+  const [loadingStates, setLoadingStates] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
 
@@ -20,6 +26,21 @@ const CashAgent = () => {
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
+
+  const handleStatusUpdate = async (agentId, newStatus, email) => {
+    setLoadingStates((prev) => ({ ...prev, [agentId]: true })); // Set loading for specific agent
+    try {
+      await updateStatus({
+        id: agentId,
+        status: newStatus,
+        email: email,
+      }).unwrap();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [agentId]: false })); // Reset loading
+    }
+  };
 
   return (
     <div>
@@ -104,6 +125,9 @@ const CashAgent = () => {
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
                   Status
                 </th>
+                <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                  Update Status
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -114,7 +138,7 @@ const CashAgent = () => {
                     index % 2 === 0 ? "bg-gray-100" : "bg-[#cacaca]"
                   } text-black`}
                 >
-                  <td className="px-4 py-2 text-blue-500 hover:text-blue-600">
+                  <td className="px-4 py-2 text-blue-500 hover:text-blue-600 whitespace-nowrap">
                     <Link to="/dashboard/agent-profile">{agent?.fullName}</Link>
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
@@ -137,14 +161,49 @@ const CashAgent = () => {
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
                     <span
-                      className={`px-4 py-1 text-white size-20 ${
-                        agent?.status?.toLowerCase() === "active"
+                      className={`px-2 py-1 text-white size-20 rounded-2xl ${
+                        agent?.status?.toLowerCase() === "approve"
                           ? "bg-green-500"
+                          : agent?.status?.toLowerCase() === "pending"
+                          ? "bg-yellow-500"
                           : "bg-red-500"
                       }`}
                     >
-                      {agent?.status?.toUpperCase()}
+                      {loadingStates[agent?._id] ? (
+                        <SyncLoader size={4} color="#ffff" />
+                      ) : (
+                        <>
+                          {agent?.status?.toLowerCase() === "approve"
+                            ? "Approved"
+                            : agent?.status?.toLowerCase() === "pending"
+                            ? "Pending"
+                            : "Rejected"}
+                        </>
+                      )}
                     </span>
+                  </td>
+                  <td className="px-4 py-2 border border-blue-600">
+                    <select
+                      name="status"
+                      className="px-3 py-1 border border-gray-300 rounded-sm bg-white text-black outline-none hover:border-blue-500 transition-all ease-in-out"
+                      onChange={(e) =>
+                        handleStatusUpdate(
+                          agent?._id,
+                          e.target.value,
+                          agent?.email
+                        )
+                      }
+                    >
+                      <option value="" className="text-gray-400">
+                        Select status
+                      </option>
+                      <option value="approve" className="text-green-500">
+                        Approve
+                      </option>
+                      <option value="reject" className="text-red-500">
+                        Reject
+                      </option>
+                    </select>
                   </td>
                 </tr>
               ))}
