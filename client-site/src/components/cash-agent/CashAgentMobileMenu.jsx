@@ -100,7 +100,7 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
       appearance: "success",
       autoDismiss: true,
     });
-    navigate("/");
+    navigate("/becomeanagent");
   };
 
   return (
