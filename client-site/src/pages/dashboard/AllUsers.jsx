@@ -13,8 +13,13 @@ const AllUsers = () => {
   const rowsPerPage = 10;
 
   // Filtered users based on search query
-  const filteredUsers = usersData?.filter((user) =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredUsers = usersData?.filter(
+    (user) =>
+      user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (user.phone &&
+        user.phone.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (user.email &&
+        user.email.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const paginatedUsers = filteredUsers?.slice(
@@ -37,7 +42,7 @@ const AllUsers = () => {
           <form className="md:w-3/4 hidden md:flex flex-row items-center">
             <input
               type="text"
-              placeholder="Type Username or Phone Number or Email..."
+              placeholder="Type Username / Phone / Email..."
               className="py-2 px-1 w-full outline-none"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -159,7 +164,7 @@ const AllUsers = () => {
                   </td>
                 </tr>
               ))}
-              {filteredUsers?.length === 0 && (
+              {paginatedUsers?.length === 0 && (
                 <tr>
                   <td colSpan="8" className="text-center py-4 text-gray-500">
                     No users found.

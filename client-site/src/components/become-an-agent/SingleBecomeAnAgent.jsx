@@ -1,6 +1,7 @@
 import React from "react";
 
 const SingleBecomeAnAgent = ({
+  id = "",
   heading = "",
   text = [],
   list = [],
@@ -10,9 +11,11 @@ const SingleBecomeAnAgent = ({
   btn = "",
   image = "",
   reverse = false,
+  onClick = () => {},
 }) => {
   return (
     <div
+      id={id}
       className={`flex items-center flex-col-reverse pt-20 px-4 ${
         reverse ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
@@ -72,7 +75,10 @@ const SingleBecomeAnAgent = ({
 
         {/* Button Section - Center for mobile, Start for lg */}
         {btn && (
-          <div className="flex justify-center lg:justify-start">
+          <div
+            onClick={onClick}
+            className="flex justify-center lg:justify-start"
+          >
             <button className="p-2 w-56 text-base lg:text-lg font-semibold text-white bg-red-600 hover:bg-red-700 uppercase rounded duration-300">
               {btn}
             </button>

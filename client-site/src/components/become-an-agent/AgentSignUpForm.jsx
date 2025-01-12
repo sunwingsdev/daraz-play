@@ -2,11 +2,13 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaSync } from "react-icons/fa";
+import Swal from "sweetalert2";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
-import { useAddUserMutation } from "../../../redux/features/allApis/usersApi/usersApi";
 import { useToasts } from "react-toast-notifications";
-const SignupForm = ({ onClose }) => {
-  const [addUser, { isLoading }] = useAddUserMutation();
+import { useAddAgentMutation } from "../../redux/features/allApis/usersApi/usersApi";
+
+const AgentSignupForm = ({ onClose }) => {
+  const [addAgent, { isLoading }] = useAddAgentMutation();
   const {
     register,
     handleSubmit,
@@ -48,16 +50,21 @@ const SignupForm = ({ onClose }) => {
     const { verificationCode, ...userInfo } = data;
     if (isCodeMatched) {
       try {
-        const result = await addUser(userInfo);
+        const result = await addAgent(userInfo);
         if (result.error) {
           addToast(result.error.data.error, {
             appearance: "error",
             autoDismiss: true,
           });
         } else if (result.data.insertedId) {
-          addToast("User registered successfully", {
-            appearance: "success",
-            autoDismiss: true,
+          Swal.fire({
+            text: "Thanks for your registration. Please wait for admin approval.",
+            showConfirmButton: false,
+            width: 600,
+            padding: "3em",
+            color: "#ffff",
+            background: "#222222",
+            timer: 1500,
           });
         }
       } catch (error) {
@@ -259,4 +266,4 @@ const SignupForm = ({ onClose }) => {
   );
 };
 
-export default SignupForm;
+export default AgentSignupForm;

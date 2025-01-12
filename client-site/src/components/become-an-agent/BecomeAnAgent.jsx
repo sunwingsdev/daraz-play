@@ -8,12 +8,17 @@ import "aos/dist/aos.css";
 import Aos from "aos";
 import AccoundModal from "../shared/modal/AccoundModal";
 import LoginForm from "../shared/navbar/LoginForm";
-import SignupForm from "../shared/navbar/SignupForm";
+import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
+import AgentSignupForm from "./AgentSignUpForm";
 
 const BecomeAnAgent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [phone, setPhone] = useState(""); // ✅ Proper state declaration
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
+
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
 
   // languageCountry
   const [selectedCountry, setSelectedCountry] = useState({
@@ -35,12 +40,6 @@ const BecomeAnAgent = () => {
     setIsCountryOpen(false);
   };
 
-  // ✅ Corrected phone number input handler
-  const handleInputChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Only digits allowed
-    setPhone(value);
-  };
-
   useEffect(() => {
     Aos.init({
       duration: 1000, // Animation duration in milliseconds
@@ -58,7 +57,20 @@ const BecomeAnAgent = () => {
         <div className="relative w-full">
           <div className="bg-[#212121] flex justify-between items-center p-4 shadow-md fixed top-0 left-0 w-full z-50">
             {/* Logo Section with Image */}
-            <img src={""} alt="Logo" className="h-10" />
+            <Link
+              to={"/"}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
+            >
+              {isLoading ? (
+                <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+              ) : (
+                <img
+                  className="w-40"
+                  src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                  alt="Logo"
+                />
+              )}
+            </Link>
             <div className="text-white space-x-10 text-lg font-bold hidden lg:block">
               <a href="#about" className="hover:text-gray-300 duration-300">
                 About Us
@@ -162,12 +174,13 @@ const BecomeAnAgent = () => {
         {/* End Top menu */}
 
         <SingleBecomeAnAgent
-          heading={"Make money with MelBet TeamCash!"}
+          heading={"Make money with MelBet99 TeamCash!"}
           text={[
             "Partnering up with an international bookmaker is incredibly rewarding. Accept funds, top up accounts, make withdrawals for customers or create your very own agent network and earn commission!",
           ]}
           btn={"Become an agent"}
           image={"https://melbetagents.com/wp-content/uploads/2023/06/img.png"}
+          onClick={() => openModal("signup_modal")}
         />
 
         <div
@@ -227,17 +240,19 @@ const BecomeAnAgent = () => {
         </div>
 
         <SingleBecomeAnAgent
+          id="about"
           reverse={true}
-          heading={"What is a Melbet agent?"}
+          heading={"What is a Melbet99 agent?"}
           text={[
-            "A Melbet agent is someone who works online/offline and earns commission for bringing in new customers and helping them make deposits/withdrawals from their account.",
-            "With Melbet continuing to expand globally each year, why not join our international team? If you’d like to earn more, you could even set up your own agent network.",
-            "The more agents in your network, the larger your income! You can start earning with Melbet today. Submit an application on our website and we’ll soon be in touch!",
+            "A Melbet99 agent is someone who works online/offline and earns commission for bringing in new customers and helping them make deposits/withdrawals from their account.",
+            "With Melbet99 continuing to expand globally each year, why not join our international team? If you’d like to earn more, you could even set up your own agent network.",
+            "The more agents in your network, the larger your income! You can start earning with Melbet99 today. Submit an application on our website and we’ll soon be in touch!",
           ]}
           btn={"Start earning"}
           image={
             "https://melbetagents.com/wp-content/uploads/2023/06/img-3.png"
           }
+          onClick={() => openModal("signup_modal")}
         />
 
         <SingleBecomeAnAgent
@@ -258,8 +273,9 @@ const BecomeAnAgent = () => {
         />
 
         <SingleBecomeAnAgent
+          id="collaboration"
           reverse={true}
-          heading={"How can I become a Melbet agent?"}
+          heading={"How can I become a Melbet99 agent?"}
           text4={[
             "Obtain agent status",
             "Log in and make your first deposit",
@@ -270,9 +286,9 @@ const BecomeAnAgent = () => {
           ]}
           additionalText={[
             "Once you've completed verification, the bookmaker will grant you agent status.",
-            "Once you've logged in, you'll need to verify your identity on the MelBet website. You'll then get access to your own agent balance, which you'll use to top up customers' accounts.",
+            "Once you've logged in, you'll need to verify your identity on the MelBet99 website. You'll then get access to your own agent balance, which you'll use to top up customers' accounts.",
             "Your manager will send you a link which you can use to download the mobile app. Please make sure that your phone's operating system is no older than the Android 4.4 version before installing the app.",
-            "Make sure that they have a MelBet account.",
+            "Make sure that they have a MelBet99 account.",
             "You'll be able to top up customers' accounts quickly and easily. Use the deposits in your account to transfer funds from your agent account to customers' accounts.",
             "Earn between 3-5% comission on deposits and 2% on withdrawals. Your total earnings will depend on the specifics of your region and other parameters. You'll gain access to additional information once you fill in all of your details.",
           ]}
@@ -281,7 +297,10 @@ const BecomeAnAgent = () => {
           }
         />
 
-        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-10 pt-20 pb-14 px-4">
+        <div
+          id="contacts"
+          className="flex flex-col lg:flex-row items-center gap-5 lg:gap-10 pt-20 pb-14 px-4"
+        >
           <div className="max-w-[600px]">
             <h2 className="w-full lg:max-w-[100px] text-2xl lg:text-4xl uppercase font-bold text-red-600 italic">
               Contact information
@@ -313,59 +332,7 @@ const BecomeAnAgent = () => {
             <h2 className="mb-2 lg:mb-4 text-2xl lg:text-4xl text-center uppercase font-bold text-red-600 italic">
               Submit an application
             </h2>
-            <form action="" className="space-y-1 lg:space-y-2">
-              <div className="space-y-1">
-                <label className="text-white text-sm" htmlFor="name">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-                />
-              </div>
-              <div className="space-y-1">
-                <label className="text-white text-sm" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
-                />
-              </div>
-              <div className="space-y-1 relative w-full pb-1.5 lg:pb-2">
-                <label className="text-white text-sm" htmlFor="phone">
-                  Phone Number
-                </label>
-                <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
-                  <div className="flex items-center px-3 border-r border-[#767575]">
-                    <img
-                      src="https://flagcdn.com/w40/bd.png"
-                      alt="Bangladesh Flag"
-                      className="w-6 h-4"
-                    />
-                    <span className="ml-2">+880</span>
-                  </div>
-                  {/* ✅ Fixed state binding */}
-                  <input
-                    type="text"
-                    value={phone}
-                    onChange={handleInputChange}
-                    placeholder="1XXXXXXXXX"
-                    className="flex-1 bg-transparent border-none outline-none py-1.5 px-4 text-white"
-                    maxLength="10"
-                  />
-                </div>
-              </div>
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-1.5 px-4 rounded-md transition duration-300"
-              >
-                Submit
-              </button>
-            </form>
+            <AgentSignupForm />
           </div>
         </div>
 
@@ -377,7 +344,7 @@ const BecomeAnAgent = () => {
         </AccoundModal>
         {/* Signup Modal */}
         <AccoundModal id="signup_modal" title="Sign Up">
-          <SignupForm
+          <AgentSignupForm
             onClose={() => document.getElementById("signup_modal").close()}
           />
         </AccoundModal>
