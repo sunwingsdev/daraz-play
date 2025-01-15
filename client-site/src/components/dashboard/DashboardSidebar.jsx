@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { FaAngleDown, FaRegCircle } from "react-icons/fa";
 import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
+import { useGetAgentsQuery } from "../../redux/features/allApis/usersApi/usersApi";
 import OppsModal from "../shared/modal/OppsModal";
 
 const DashboardSidebar = ({ open, setOpen, menuItems }) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
+  const { data: allAgents } = useGetAgentsQuery();
+  const [previousAgentCount, setPreviousAgentCount] = useState(0);
+  const [newAgentNotification, setNewAgentNotification] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState({
     GamesControl: false,
@@ -19,6 +23,21 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
     BankingWithdrow: false, // Track submenu state for Games Control
     Settings: false, // Track submenu state for Games Control
   });
+
+  useEffect(() => {
+    // Check if allAgents has increased
+    if (allAgents?.length > previousAgentCount) {
+      setNewAgentNotification(true); // Show red circle
+    }
+    // Update previousAgentCount
+    setPreviousAgentCount(allAgents?.length || 0);
+  }, [previousAgentCount, allAgents]);
+
+  const handleMenuClick = (path) => {
+    if (path === "/dashboard/cashagent") {
+      setNewAgentNotification(false); // Remove red circle after visiting
+    }
+  };
 
   const logo = homeControls?.find(
     (control) => control.category === "logo" && control.isSelected
@@ -66,7 +85,6 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
                 to={"/"}
                 className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
               >
-            
                 {isLoading ? (
                   <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
                 ) : (
@@ -101,7 +119,14 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
         {menuItems?.map((item, index) => (
           <div key={index}>
             <Link
-              onClick={!item?.path && !item?.submenu && handleModalOpen}
+              // onClick={!item?.path && !item?.submenu && handleModalOpen}
+              onClick={() => {
+                handleMenuClick(item?.path);
+                if (!item?.submenu) {
+                  // If no submenu, check for modal
+                  if (!item?.path) handleModalOpen();
+                }
+              }}
               to={item?.path || "#"}
             >
               <div
@@ -114,6 +139,11 @@ const DashboardSidebar = ({ open, setOpen, menuItems }) => {
                 <div className="flex flex-row items-center gap-2">
                   {item?.icon}
                   <p className={`${!open && "hidden"}`}>{item?.name}</p>
+                  {/* Show red circle if newAgentNotification is true for '/dashboard/cashagent' */}
+                  {item?.path === "/dashboard/cashagent" &&
+                    newAgentNotification && (
+                      <span className="w-3 h-3 bg-red-500 border border-white rounded-full"></span>
+                    )}
                 </div>
                 {/* Show arrow for submenu toggle */}
                 {item?.submenu && item?.submenu?.length !== 0 && open && (

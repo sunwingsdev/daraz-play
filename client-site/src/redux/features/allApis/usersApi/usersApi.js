@@ -31,6 +31,17 @@ const usersApi = baseApi.injectEndpoints({
       }),
       providesTags: ["users"],
     }),
+
+    // Login an agent
+    loginAgent: builder.mutation({
+      query: (credentials) => ({
+        url: "/users/agent/login",
+        method: "POST",
+        body: credentials,
+      }),
+      providesTags: ["users"],
+    }),
+
     // Fetch authenticated user
     getAuthenticatedUser: builder.query({
       query: (token) => ({
@@ -59,6 +70,19 @@ const usersApi = baseApi.injectEndpoints({
       query: (id) => `/users/single-user/${id}`,
       providesTags: ["users"],
     }),
+
+    // Update agent status
+    updateAgentStatus: builder.mutation({
+      query: ({ id, status, email, token }) => ({
+        url: `/users/updateagentstatus/${id}`,
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: { status, email },
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -66,8 +90,10 @@ export const {
   useAddUserMutation,
   useAddAgentMutation,
   useLoginUserMutation,
+  useLoginAgentMutation,
   useLazyGetAuthenticatedUserQuery,
   useGetUsersQuery,
   useGetAgentsQuery,
   useLazyGetUserByIdQuery,
+  useUpdateAgentStatusMutation,
 } = usersApi;

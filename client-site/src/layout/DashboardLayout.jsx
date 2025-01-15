@@ -28,7 +28,7 @@ const DashboardLayout = () => {
     {
       name: "Cash Agent",
       icon: <PiCashRegister />,
-      path: "/dashboard/agent-tree",
+      path: "/dashboard/cashagent",
     },
     {
       name: "Affiliators",

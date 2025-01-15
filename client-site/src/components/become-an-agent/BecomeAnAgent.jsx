@@ -7,9 +7,9 @@ import SingleBecomeAnAgent from "./SingleBecomeAnAgent";
 import "aos/dist/aos.css";
 import Aos from "aos";
 import AccoundModal from "../shared/modal/AccoundModal";
-import LoginForm from "../shared/navbar/LoginForm";
 import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
 import AgentSignupForm from "./AgentSignUpForm";
+import AgentLoginForm from "./AgenLoginForm";
 
 const BecomeAnAgent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,10 +57,7 @@ const BecomeAnAgent = () => {
         <div className="relative w-full">
           <div className="bg-[#212121] flex justify-between items-center p-4 shadow-md fixed top-0 left-0 w-full z-50">
             {/* Logo Section with Image */}
-            <Link
-              to={"/"}
-              className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
-            >
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg">
               {isLoading ? (
                 <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
               ) : (
@@ -70,7 +67,7 @@ const BecomeAnAgent = () => {
                   alt="Logo"
                 />
               )}
-            </Link>
+            </div>
             <div className="text-white space-x-10 text-lg font-bold hidden lg:block">
               <a href="#about" className="hover:text-gray-300 duration-300">
                 About Us
@@ -338,7 +335,7 @@ const BecomeAnAgent = () => {
 
         {/* Login Modal */}
         <AccoundModal id="login_modal" title="Login">
-          <LoginForm
+          <AgentLoginForm
             onClose={() => document.getElementById("login_modal").close()}
           />
         </AccoundModal>
