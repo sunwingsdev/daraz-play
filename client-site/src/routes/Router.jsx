@@ -26,6 +26,14 @@ import DemoGame from "../pages/home/DemoGame";
 import BecomeAnAgent from "../components/become-an-agent/BecomeAnAgent";
 import CashAgentHome from "../pages/cash-agent/CashAgentHome";
 import CashAgentRoute from "./CashAgentRoute";
+import AffiliatesLayout from "../layout/AffiliatesLayout";
+import Affiliates from "../pages/affiliates/Affiliates";
+import Sign from "../components/affiliates/Sign";
+import Login from "../components/affiliates/Login";
+import Terns from "../components/affiliates/Terns";
+import Privacy from "../components/affiliates/Privacy";
+import Disconnection from "../components/affiliates/Disconnection";
+import Faqs from "../components/affiliates/Faqs";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +97,38 @@ const router = createBrowserRouter([
   {
     path: "/becomeanagent",
     element: <BecomeAnAgent />,
+  },
+  {
+    path: "/affiliate",
+    element: <Affiliates />,
+  },
+  {
+    path: "/affiliate/login",
+    element: <Login />,
+  },
+  {
+    path: "/affiliate/sign",
+    element: <Sign />,
+  },
+  {
+    path: "/affiliate/terns",
+    element: <Terns />,
+  },
+  {
+    path: "/affiliate/privacy",
+    element: <Privacy />,
+  },
+  {
+    path: "/affiliate/disconnection",
+    element: <Disconnection />,
+  },
+  {
+    path: "/affiliate/faqs",
+    element: <Faqs />,
+  },
+  {
+    path: "/affiliatesdashboard",
+    element: <AffiliatesLayout />,
   },
 ]);
 
