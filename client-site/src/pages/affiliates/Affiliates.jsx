@@ -1,0 +1,39 @@
+import { useLocation } from "react-router-dom";
+import Header from "../../components/affiliates/Header";
+import Hero from "../../components/affiliates/Hero";
+import Introduction from "../../components/affiliates/Introduction";
+import Products from "../../components/affiliates/Products";
+import Commission from "../../components/affiliates/Commission";
+import Affiliate from "../../components/affiliates/Affiliate";
+import Registration from "../../components/affiliates/Registration";
+import Join from "../../components/affiliates/Join";
+import Contact from "../../components/affiliates/Contact";
+
+const Affiliates = () => {
+  const location = useLocation();
+
+  // Check if the current path is for Login or Sign Up
+  const isLoginOrSignUpPage =
+    location.pathname === "/login" || location.pathname === "/sign";
+
+  return (
+    <div className="flex flex-col min-h-screen bg-green-800 text-white">
+      {/* Show Header only if not on Login or Sign Up page */}
+      {!isLoginOrSignUpPage && <Header />}
+
+      {/* Main Content */}
+      <div className="flex-grow">
+        <Hero />
+        <Introduction />
+        <Products />
+        <Commission />
+        <Affiliate />
+        <Registration />
+        <Join />
+        <Contact />
+      </div>
+    </div>
+  );
+};
+
+export default Affiliates;
