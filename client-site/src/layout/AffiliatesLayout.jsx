@@ -1,41 +1,90 @@
-import { IoMdHome } from "react-icons/io";
+import { IoIosLogOut, IoLogoGameControllerB, IoMdHome } from "react-icons/io";
 import { useState } from "react";
 import CashAgentSidebar from "../components/cash-agent/CashAgentSidebar";
 import CashAgentMobileMenu from "../components/cash-agent/CashAgentMobileMenu";
 import { Outlet } from "react-router-dom";
+import { FaAffiliatetheme, FaUsers, FaWallet } from "react-icons/fa";
+import { SiInstructure, SiPacker } from "react-icons/si";
+import { TbHistoryToggle } from "react-icons/tb";
+import { MdOutlineSupport } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { LiaBuysellads } from "react-icons/lia";
+import { LuGitPullRequestCreateArrow } from "react-icons/lu";
 
 const AffiliatesLayout = () => {
   const [open, setOpen] = useState(true);
   const menuItems = [
     { name: "Home", icon: <IoMdHome />, path: "/affiliate", submenu: [] },
     {
-      name: "All Deposit History",
-      icon: <IoMdHome />,
-      path: "/alldeposithistory",
+      name: "All Affiliate User",
+      icon: <FaUsers />,
+      path: "",
       submenu: [],
     },
     {
-      name: "All Withdraw History",
-      icon: <IoMdHome />,
-      path: "/allwithdrawhistory",
+      name: "Affiliate Structure",
+      icon: <SiInstructure />,
+      path: "",
       submenu: [],
     },
     {
-      name: "My All Deposit Method",
-      icon: <IoMdHome />,
-      path: "/myalldepositmethod",
+      name: "My Affiliae Link",
+      icon: <FaAffiliatetheme />,
+      path: "",
       submenu: [],
     },
     {
-      name: "My All Withdraw Method",
-      icon: <IoMdHome />,
-      path: "/myallwithdrawmethod",
+      name: "Promo Code",
+      icon: <IoLogoGameControllerB />,
+      path: "",
       submenu: [],
     },
     {
-      name: "Request Admin Ticket",
-      icon: <IoMdHome />,
-      path: "/requestadminticket",
+      name: "Earning History",
+      icon: <TbHistoryToggle />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "AF Earning Pakege",
+      icon: <SiPacker />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "Create ads",
+      icon: <LuGitPullRequestCreateArrow />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "All Ads Ads",
+      icon: <LiaBuysellads />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "My Walet",
+      icon: <FaWallet />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "Profile",
+      icon: <CgProfile />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "Support Ticket",
+      icon: <MdOutlineSupport />,
+      path: "",
+      submenu: [],
+    },
+    {
+      name: "Log Out",
+      icon: <IoIosLogOut />,
+      path: "",
       submenu: [],
     },
     // {

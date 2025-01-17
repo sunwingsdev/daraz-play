@@ -57,14 +57,14 @@ const Contact = () => {
         <div className=" flex-row  md:flex-row lg:flex justify-center font-medium text-sm w-full space-y-4 lg:space-y-0 pl-6 lg:pl-10 gap-36">
           <div className="flex lg:flex-none gap-5 md:gap-60 lg:gap-20">
             <div>
-              <Link to="/terms">
+              <Link to="/affiliate/terns">
                 <h3 className=" hover:text-customYellow">Terms & Conditions</h3>
               </Link>
             </div>
 
             <div>
               <div>
-                <Link to="/privacy">
+                <Link to="/affiliate/privacy">
                   <h3 className=" hover:text-customYellow">Privacy Policy</h3>
                 </Link>
               </div>
@@ -73,7 +73,7 @@ const Contact = () => {
 
           <div className="flex lg:flex-none gap-2 md:gap-60 lg:gap-20    ">
             <div>
-              <Link to="/disconnection">
+              <Link to="/affiliate/disconnection">
                 <h3 className=" hover:text-customYellow ">
                   Disconnection Policy
                 </h3>
@@ -81,7 +81,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <Link to="/faqs">
+              <Link to="/affiliate/faqs">
                 <h3 className=" hover:text-customYellow ml-1 md:-ml-2.5 lg:ml-0">
                   FAQs
                 </h3>
