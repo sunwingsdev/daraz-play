@@ -13,6 +13,11 @@ const AffiliatesHome = () => {
       </div>
       <AffiliatesAllProduct />
       <AffiliatesDashboardTable />
+      <div className="bg-[#222222] py-2 mt-4">
+        <h1 className="text-2xl font-bold text-center text-white">
+          Copy Right @ 2025 BY Oracle Technology LLC
+        </h1>
+      </div>
     </div>
   );
 };
