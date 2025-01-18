@@ -34,6 +34,8 @@ import Terns from "../components/affiliates/Terns";
 import Privacy from "../components/affiliates/Privacy";
 import Disconnection from "../components/affiliates/Disconnection";
 import Faqs from "../components/affiliates/Faqs";
+import Pages from "../pages/page/Pages";
+import ManagePages from "../pages/dashboard/ManagePages";
 import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
 import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 
@@ -80,6 +82,7 @@ const router = createBrowserRouter([
       { path: "promotion-offer", element: <PromotionOffer /> },
       { path: "deposits", element: <DepositHistory /> },
       { path: "withdraws", element: <WithdrawHistory /> },
+      { path: "manage-pages", element: <ManagePages /> },
     ],
   },
   {
@@ -140,6 +143,10 @@ const router = createBrowserRouter([
     path: "/affiliatesdashboard",
     element: <AffiliatesLayout />,
     children: [{ path: "", element: <AffiliatesHome /> }],
+  },
+  {
+    path: "/pages/:route",
+    element: <Pages />,
   },
 ]);
 

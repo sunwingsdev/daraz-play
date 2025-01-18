@@ -13,6 +13,7 @@ const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
 const promotionApi = require("./apis/promotionApi/promotionApi");
 const categoriesApi = require("./apis/categoriesApi/categoriesApi");
+const pagesApi = require("./apis/pagesApi/pagesApi");
 
 const corsConfig = {
   origin: [
@@ -94,6 +95,7 @@ async function run() {
     const withdrawsCollection = client.db("daraz").collection("withdraws");
     const promotionCollection = client.db("daraz").collection("promotions");
     const categoriesCollection = client.db("daraz").collection("categories");
+    const pagesCollection = client.db("daraz").collection("pages");
     const homeControlsCollection = client
       .db("daraz")
       .collection("homeControls");
@@ -109,6 +111,7 @@ async function run() {
     app.use("/home-controls", homeControlApi(homeControlsCollection));
     app.use("/promotions", promotionApi(promotionCollection));
     app.use("/categories", categoriesApi(categoriesCollection));
+    app.use("/pages", pagesApi(pagesCollection));
 
     // APIs end
 

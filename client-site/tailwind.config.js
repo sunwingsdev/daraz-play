@@ -41,5 +41,5 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [import("daisyui"), require("@tailwindcss/typography")],
 };
