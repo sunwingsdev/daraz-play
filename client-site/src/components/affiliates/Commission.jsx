@@ -25,7 +25,10 @@ const Introduction = () => {
           </h2>
 
           {/* Card Section */}
-          <div className=" flex justify-center items-center flex-col gap-4  lg:flex-row pl-0 md:pl-52 lg:pl-20">
+          <div
+            data-aos="fade-up"
+            className=" flex justify-center items-center flex-col gap-4  lg:flex-row pl-0 md:pl-52 lg:pl-20"
+          >
             <div className="relative">
               <img
                 className="skew-x-[10deg] w-56 " // Skew effect applied

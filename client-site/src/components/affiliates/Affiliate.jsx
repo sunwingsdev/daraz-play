@@ -8,7 +8,10 @@ const Introduction = () => {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mr-10  gap-20 md:gap- lg:gap-10">
             {/* First Row */}
-            <div className=" bg-black text-xl shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in-up"
+              className=" bg-black text-xl shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className=" card-body   p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] text-[24px] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif  tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Free Account
@@ -29,7 +32,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2  flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] text-[24px] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif  tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Fast Payments
@@ -50,7 +56,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Live Matrics
@@ -70,7 +79,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Promo Materials
@@ -91,7 +103,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Extra Bonuses
@@ -112,7 +127,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Personal Manager
@@ -132,7 +150,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Fast Approvals
@@ -152,7 +173,10 @@ const Introduction = () => {
               </div>
             </div>
 
-            <div className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] ">
+            <div
+              data-aos="zoom-in"
+              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
+            >
               <div className="card-body p-2 flex justify-center items-center">
                 <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
                   Fair & Open
