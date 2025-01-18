@@ -90,7 +90,7 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
     <>
       <div>
         <div
-          className={`bg-[#222222] p-4 fixed left-0 right-0 z-20 duration-300 ${
+          className={`bg-[#222222] p-4 fixed left-0 right-0 z-40 duration-300 ${
             !open ? "md:ml-16" : "md:ml-64"
           }`}
         >
@@ -109,7 +109,7 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
         {/* Mobile Menu */}
         <div
           ref={dashboardSidebarRef}
-          className={`fixed inset-0 w-[70%] sm:w-1/2 h-screen overflow-y-auto backdrop-blur bg-black/40 z-30 md:hidden transform transition-transform duration-500 ${
+          className={`fixed inset-0 w-[70%] sm:w-1/2 h-screen overflow-y-auto backdrop-blur bg-black/40 z-50 md:hidden transform transition-transform duration-500 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

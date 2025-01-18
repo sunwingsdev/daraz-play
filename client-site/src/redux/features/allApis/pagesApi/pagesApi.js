@@ -17,9 +17,10 @@ const pagesApi = baseApi.injectEndpoints({
     }),
 
     updatePageDetail: builder.mutation({
-      query: (id) => ({
+      query: ({ id, pageDetails }) => ({
         url: `/pages/${id}`,
         method: "PATCH",
+        body: pageDetails,
       }),
       invalidatesTags: ["pages"],
     }),
