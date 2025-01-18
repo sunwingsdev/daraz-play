@@ -7,7 +7,10 @@ const Contact = () => {
   return (
     <div>
       <div className="h-auto pt-6  bg-backgroundImageRed w-auto">
-        <div className="flex-none md:flex-row  lg:flex  justify-center   mb-12">
+        <div
+          data-aos="zoom-in-up"
+          className="flex-none md:flex-row  lg:flex  justify-center mb-12"
+        >
           <div className="flex flex-col items-center  space-y-10 md:space-y-4 lg:flex-row lg:space-y-0 space-x-0 md:space-x-6 lg:space-x-16">
             {/* First Section */}
             <div className="w-72 md:w-10/12 lg:w-80 h-24 rounded-3xl bg-black skew-x-[-30deg] order-2 lg:order-none">
