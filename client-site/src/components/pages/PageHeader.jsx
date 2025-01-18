@@ -85,12 +85,12 @@ const PageHeader = () => {
             </ul>
           )}
 
-          <div className="w-16 lg:w-32 sans-serif">
+          <Link to="/" className="w-16 lg:w-32 sans-serif">
             <img
               src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
               alt=""
             />
-          </div>
+          </Link>
 
           <div className="flex-none gap-x-4 flex text-sm items-center Poppins, sans-serif">
             <Link className="font-bold" to="">

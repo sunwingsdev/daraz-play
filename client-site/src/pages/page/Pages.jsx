@@ -14,23 +14,28 @@ const Pages = () => {
 
   const selectedPage = pagesDetails?.find((page) => page.route === route);
 
-  console.log(selectedPage);
+  const routes = [
+    { value: "about-us", label: "About Us" },
+    { value: "contact-us", label: "Contact Us" },
+    { value: "terms-conditions", label: "Terms and Conditions" },
+    { value: "rules-regulations", label: "Rules and Regulations" },
+    { value: "responsible-gaming", label: "Responsible Gaming" },
+    { value: "privacy-policy", label: "Privacy Policy" },
+  ];
 
   return (
     <div className="h-screen bg-green-800">
-      {/* <div className="">
-        <img
-          src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
-          alt=""
-        />
-      </div> */}
       <PageHeader />
       <div className="bg-[#053018] py-4">
-        <div className="container mx-auto lg:px-28">
-          <div
-            className="prose prose-invert"
-            dangerouslySetInnerHTML={{ __html: selectedPage?.details }}
-          ></div>
+        <div className="container mx-auto lg:ps-28 text-white prose-base">
+          {selectedPage ? (
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: selectedPage?.details }}
+            ></div>
+          ) : (
+            <div className="text-center py-8">No Data</div>
+          )}
         </div>
       </div>
       <div className="bg-green-800 py-16">
@@ -42,12 +47,15 @@ const Pages = () => {
             />
           </div>
           <div className="w-full md:w-3/5 grid grid-cols-3 font-semibold gap-2">
-            <Link className="w-fit">About Us</Link>
-            <Link className="w-fit">Contact Us</Link>
-            <Link className="w-fit">Terms and Conditions</Link>
-            <Link className="w-fit">Rules and Regulations</Link>
-            <Link className="w-fit">Responsible Gaming</Link>
-            <Link className="w-fit">Privacy Policy</Link>
+            {routes?.map((route) => (
+              <Link
+                key={route?.value}
+                to={`/pages/${route?.value}`}
+                className="w-fit"
+              >
+                {route?.label}
+              </Link>
+            ))}
           </div>
           <div className="w-full md:w-1/5">
             <p className="mb-2">Community websites</p>

@@ -17,12 +17,16 @@ const pagesApi = (pagesCollection) => {
     const result = await pagesCollection.find().toArray();
     res.send(result);
   });
-  // TODO page update not set yet
+
   // update a page
   router.patch("/:id", async (req, res) => {
     const { id } = req.params;
-
-    console.log(id);
+    const pageInfo = req.body;
+    pageInfo.modifiedAt = new Date();
+    const query = { _id: new ObjectId(id) };
+    const updatedDoc = { $set: { ...pageInfo } };
+    const result = await pagesCollection.updateOne(query, updatedDoc);
+    res.send(result);
   });
 
   // delete a pages
