@@ -36,6 +36,8 @@ import Disconnection from "../components/affiliates/Disconnection";
 import Faqs from "../components/affiliates/Faqs";
 import Pages from "../pages/page/Pages";
 import ManagePages from "../pages/dashboard/ManagePages";
+import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
+import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 
 const router = createBrowserRouter([
   {
@@ -104,7 +106,30 @@ const router = createBrowserRouter([
   {
     path: "/affiliate",
     element: <Affiliates />,
+    children: [
+      {
+        path: "",
+        element: <HomeAffiliate />,
+      },
+      {
+        path: "terns",
+        element: <Terns />,
+      },
+      {
+        path: "privacy",
+        element: <Privacy />,
+      },
+      {
+        path: "disconnection",
+        element: <Disconnection />,
+      },
+      {
+        path: "faqs",
+        element: <Faqs />,
+      },
+    ],
   },
+
   {
     path: "/affiliate/login",
     element: <Login />,
@@ -113,25 +138,11 @@ const router = createBrowserRouter([
     path: "/affiliate/sign",
     element: <Sign />,
   },
-  {
-    path: "/affiliate/terns",
-    element: <Terns />,
-  },
-  {
-    path: "/affiliate/privacy",
-    element: <Privacy />,
-  },
-  {
-    path: "/affiliate/disconnection",
-    element: <Disconnection />,
-  },
-  {
-    path: "/affiliate/faqs",
-    element: <Faqs />,
-  },
+
   {
     path: "/affiliatesdashboard",
     element: <AffiliatesLayout />,
+    children: [{ path: "", element: <AffiliatesHome /> }],
   },
   {
     path: "/pages/:route",

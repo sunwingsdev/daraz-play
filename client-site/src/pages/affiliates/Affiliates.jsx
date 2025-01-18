@@ -1,12 +1,6 @@
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../../components/affiliates/Header";
 import Hero from "../../components/affiliates/Hero";
-import Introduction from "../../components/affiliates/Introduction";
-import Products from "../../components/affiliates/Products";
-import Commission from "../../components/affiliates/Commission";
-import Affiliate from "../../components/affiliates/Affiliate";
-import Registration from "../../components/affiliates/Registration";
-import Join from "../../components/affiliates/Join";
 import Contact from "../../components/affiliates/Contact";
 
 const Affiliates = () => {
@@ -24,12 +18,7 @@ const Affiliates = () => {
       {/* Main Content */}
       <div className="flex-grow">
         <Hero />
-        <Introduction />
-        <Products />
-        <Commission />
-        <Affiliate />
-        <Registration />
-        <Join />
+        <Outlet />
         <Contact />
       </div>
     </div>

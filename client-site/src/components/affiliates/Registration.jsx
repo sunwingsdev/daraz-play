@@ -15,7 +15,7 @@ const Registration = () => {
             <h1 className="mb-5 text-4xl pr-14 lg:pr-0 text-customGreenText  font-bold">
               <span className="pr-3.5 lg:pr-0">REGISTRATION</span> STEPS
             </h1>
-            <div className="flex flex-col sm:flex-row sm:justify-center sm:gap-8">
+            <div className="flex flex-col sm:flex-row sm:justify-center gap-3 sm:gap-8">
               <div className="w-52 h-48 bg-black  shadow-customBoxGreenShadow border 1px solid border-customYellow rounded-[20px] flex flex-col justify-center items-center p-4">
                 <h3 className="text-lg text-customGreenText font-bold">
                   Registration Form
