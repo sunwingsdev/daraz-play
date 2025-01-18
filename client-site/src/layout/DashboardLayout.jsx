@@ -103,8 +103,7 @@ const DashboardLayout = () => {
       submenu: [
         { name: "Home Control", path: "/dashboard/home-control" },
         { name: "Promotions", path: "/dashboard/promotion-offer" },
-        { name: "Pages" },
-        { name: "About Us" },
+        { name: "Pages", path: "/dashboard/manage-pages" },
         { name: "FAQ" },
         { name: "Sponsorship" },
         { name: "Brand Ambassador" },
