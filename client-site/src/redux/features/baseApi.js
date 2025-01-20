@@ -20,6 +20,7 @@ const baseApi = createApi({
     "homeControls",
     "promotions",
     "categories",
+    "kyc",
   ],
   endpoints: () => ({}),
 });

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const sendEmail = require("../../emailService");
 
-const usersApi = (usersCollection) => {
+const usersApi = (usersCollection, homeControlsCollection) => {
   const router = express.Router();
   const jwtSecret = process.env.JWT_SECRET;
 
@@ -230,6 +230,22 @@ const usersApi = (usersCollection) => {
         });
       }
 
+      const logoData = await homeControlsCollection.findOne({
+        page: "home",
+        section: "navbar",
+        category: "logo",
+        isSelected: true,
+      });
+
+      if (!logoData || !logoData?.image) {
+        return res
+          .status(500)
+          .json({ error: "Logo not found in the database" });
+      }
+
+      const logoUrl = `${process.env.CLIENT_URL}${logoData.image}`;
+      console.log("logo", logoUrl);
+
       const result = await usersCollection.updateOne(
         { _id: new ObjectId(id), role: "agent" },
         { $set: { status: status.toLowerCase(), updatedAt: new Date() } }
@@ -245,12 +261,45 @@ const usersApi = (usersCollection) => {
 
       if (status.toLowerCase() === "approve") {
         emailSubject = "Your Account has been Approved";
-        emailText =
-          "Congratulations! Your account has been approved. You can now log in to your account. Please visit our website and log in with your credentials.";
+        emailText = `<div style="max-width: 600px; margin: 30px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
+        <div style="background-color: #4caf50; text-align: center; padding: 20px;">
+        <img src="${logoUrl}" alt="Company Logo" style="max-width: 150px; height: auto; margin-bottom: 10px;">
+        </div>
+        <div style="padding: 20px; color: #333;"
+        <h2 style="font-size: 28px; margin-bottom: 10px; font-weight: 700;">Congratulations!</h2>
+        <p style="font-size: 16px; line-height: 1.6; margin: 10px 0;">
+        We are pleased to inform you that your application has been successfully approved. Thank you for choosing our services, and we are excited to have you onboard!</p>
+        <p style="font-size: 16px; line-height: 1.6; margin: 10px 0;">
+        If you have any questions or need further assistance, please feel free to contact us.</p>
+        <div style="text-align: center; margin: 20px 0;">
+        <a href="${process.env.AGENT_LOGIN_LINK}" target="_blank" style="display: inline-block; padding: 12px 25px; font-size: 16px; color: white; background-color: #4caf50; text-decoration: none; border-radius: 5px;">
+          Please Login
+        </a>
+        </div>
+        </div>
+        
+        <div style="text-align: center; padding: 15px; background-color: #f4f4f4; font-size: 14px; color: #777;">
+        <p style="margin: 5px 0;">
+        Need help? <a href="mailto:support@example.com" style="color: #4caf50; text-decoration: none;">Contact Support</a>
+        </p>
+        <p style="margin: 5px 0;">© 2025 ${process.env.SITE_NAME}. All rights reserved.</p>
+        </div>
+        </div>`;
       } else if (status.toLowerCase() === "reject") {
         emailSubject = "Your Account has been Rejected";
-        emailText =
-          "Unfortunately, your account has been rejected for some reason. Please contact our customer support for further assistance.";
+        emailText = `
+        <div style="max-width: 600px; margin: 30px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="background-color: #f44336; text-align: center; padding: 20px;">
+            <img src="${logoUrl}" alt="Company Logo" style="max-width: 150px; height: auto; margin-bottom: 10px;">
+          </div>
+          <div style="padding: 20px;">
+            <p>Unfortunately, your account has been rejected. Please contact our customer support for further assistance.</p>
+          </div>
+          <div style="text-align: center; margin: 20px;">
+            <a href="mailto:support@example.com" style="padding: 10px 20px; background-color: #f44336; color: white; text-decoration: none; border-radius: 5px;">Contact Support</a>
+          </div>
+        </div>
+      `;
       }
 
       if (emailSubject && emailText) {
@@ -263,6 +312,7 @@ const usersApi = (usersCollection) => {
     }
   });
 
+  // get a user by ID
   router.get("/single-user/:id", async (req, res) => {
     const { id } = req?.params;
     if (!id) {
@@ -273,6 +323,68 @@ const usersApi = (usersCollection) => {
       { projection: { password: 0 } }
     );
     res.send(result);
+  });
+
+  // get a agent by ID
+  router.get("/single-agent/:id", async (req, res) => {
+    const { id } = req?.params;
+    if (!id) {
+      return;
+    }
+    const result = await usersCollection.findOne(
+      { _id: new ObjectId(id), role: "agent" },
+      { projection: { password: 0 } }
+    );
+    res.send(result);
+  });
+
+  // Update an agent by ID
+  router.put("/update-agent/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updateData = req.body;
+
+      // Validate agent ID
+      if (!id || !ObjectId.isValid(id)) {
+        return res.status(400).send({ message: "Invalid agent ID" });
+      }
+
+      // Validate update data
+      if (!updateData || Object.keys(updateData).length === 0) {
+        return res.status(400).send({ message: "No data provided to update" });
+      }
+
+      // Handle password updates
+      if (updateData.password) {
+        if (updateData.password.length < 6) {
+          return res
+            .status(400)
+            .send({ message: "Password must be at least 6 characters long" });
+        }
+        updateData.password = await bcrypt.hash(updateData.password, 10); // Hash password
+      }
+
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = { $set: updateData };
+
+      const result = await usersCollection.updateOne(filter, updateDoc);
+
+      // Check the result of the update operation
+      if (result.matchedCount === 0) {
+        return res.status(404).send({ message: "Agent not found" });
+      }
+
+      if (result.modifiedCount === 0) {
+        return res.status(200).send({ message: "No changes were made" });
+      }
+
+      res.status(200).send({ message: "Agent updated successfully" });
+    } catch (error) {
+      console.error("Error updating agent:", error);
+      res
+        .status(500)
+        .send({ message: "Server error. Please try again later." });
+    }
   });
 
   return router;
