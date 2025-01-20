@@ -21,6 +21,7 @@ const baseApi = createApi({
     "promotions",
     "categories",
     "kyc",
+    "pages",
   ],
   endpoints: () => ({}),
 });

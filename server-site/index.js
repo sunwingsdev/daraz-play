@@ -14,6 +14,7 @@ const homeControlApi = require("./apis/homeControlApi/homeControlApi");
 const promotionApi = require("./apis/promotionApi/promotionApi");
 const categoriesApi = require("./apis/categoriesApi/categoriesApi");
 const kycApi = require("./apis/kycApi/kycApi");
+const pagesApi = require("./apis/pagesApi/pagesApi");
 
 const corsConfig = {
   origin: [
@@ -24,6 +25,11 @@ const corsConfig = {
     "https://www.melbet99.com",
     "www.melbet99.com",
     "melbet99.com",
+    "https://darazplay.oraclesoft.org",
+    "http://darazplay.oraclesoft.org",
+    "https://www.darazplay.oraclesoft.org",
+    "www.darazplay.oraclesoft.org",
+    "darazplay.oraclesoft.org",
     "*",
   ],
   credential: true,
@@ -90,6 +96,7 @@ async function run() {
     const withdrawsCollection = client.db("daraz").collection("withdraws");
     const promotionCollection = client.db("daraz").collection("promotions");
     const categoriesCollection = client.db("daraz").collection("categories");
+    const pagesCollection = client.db("daraz").collection("pages");
     const homeControlsCollection = client
       .db("daraz")
       .collection("homeControls");
@@ -107,6 +114,7 @@ async function run() {
     app.use("/promotions", promotionApi(promotionCollection));
     app.use("/categories", categoriesApi(categoriesCollection));
     app.use("/kyc", kycApi(kycCollection));
+    app.use("/pages", pagesApi(pagesCollection));
 
     // APIs end
 

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { FaAngleDown, FaRegCircle } from "react-icons/fa";
-import OppsModal from "../shared/modal/OppsModal";
 import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
 import { useGetAgentsQuery } from "../../redux/features/allApis/usersApi/usersApi";
+import OppsModal from "../shared/modal/OppsModal";
 
 const DashboardSidebar = ({ open, setOpen, menuItems }) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();

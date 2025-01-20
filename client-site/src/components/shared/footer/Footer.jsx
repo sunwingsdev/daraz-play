@@ -56,6 +56,16 @@ const Footer = () => {
         "https://img.m156b.com/mb/h5/assets/images/footer/white/pay34.png?v=1727771384153&source=mcdsrc",
     },
   ];
+
+  const routes = [
+    { value: "about-us", label: "About Us" },
+    { value: "contact-us", label: "Contact Us" },
+    { value: "terms-conditions", label: "Terms and Conditions" },
+    { value: "rules-regulations", label: "Rules and Regulations" },
+    { value: "responsible-gaming", label: "Responsible Gaming" },
+    { value: "privacy-policy", label: "Privacy Policy" },
+  ];
+
   return (
     <div>
       <div className="bg-zinc-800 p-4 pt-8 space-y-3">
@@ -88,46 +98,13 @@ const Footer = () => {
           />
         </div>
         <div className="pt-4 flex flex-wrap gap-2 text-white ">
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              About Us
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Contact Us
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Privacy Policy
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Terms & Conditions
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Rules & Regulations
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Responsible Gaming
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Frequentiy Asked Questions
-            </p>
-          </Link>
-          <Link to={""}>
-            <p className="text-xs md:text-sm border-r border-r-white pr-2">
-              Affiliate
-            </p>
-          </Link>
+          {routes?.map((route) => (
+            <Link key={route?.value} to={`/pages/${route?.value}`}>
+              <p className="text-xs md:text-sm border-r border-r-white pr-2">
+                {route?.label}
+              </p>
+            </Link>
+          ))}
         </div>
         <div className="pt-4 pb-12 md:pb-0 text-sm text-white flex gap-3 items-center">
           <Link to={"/"}>

@@ -28,6 +28,18 @@ import CashAgentHome from "../pages/cash-agent/CashAgentHome";
 import CashAgentRoute from "./CashAgentRoute";
 import CashAgentProfile from "../pages/cash-agent/CashAgentProfile";
 import Kyc from "../pages/dashboard/Kyc";
+import AffiliatesLayout from "../layout/AffiliatesLayout";
+import Affiliates from "../pages/affiliates/Affiliates";
+import Sign from "../components/affiliates/Sign";
+import Login from "../components/affiliates/Login";
+import Terns from "../components/affiliates/Terns";
+import Privacy from "../components/affiliates/Privacy";
+import Disconnection from "../components/affiliates/Disconnection";
+import Faqs from "../components/affiliates/Faqs";
+import Pages from "../pages/page/Pages";
+import ManagePages from "../pages/dashboard/ManagePages";
+import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
+import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +85,7 @@ const router = createBrowserRouter([
       { path: "promotion-offer", element: <PromotionOffer /> },
       { path: "deposits", element: <DepositHistory /> },
       { path: "withdraws", element: <WithdrawHistory /> },
+      { path: "manage-pages", element: <ManagePages /> },
     ],
   },
   {
@@ -95,6 +108,51 @@ const router = createBrowserRouter([
   {
     path: "/becomeanagent",
     element: <BecomeAnAgent />,
+  },
+  {
+    path: "/affiliate",
+    element: <Affiliates />,
+    children: [
+      {
+        path: "",
+        element: <HomeAffiliate />,
+      },
+      {
+        path: "terns",
+        element: <Terns />,
+      },
+      {
+        path: "privacy",
+        element: <Privacy />,
+      },
+      {
+        path: "disconnection",
+        element: <Disconnection />,
+      },
+      {
+        path: "faqs",
+        element: <Faqs />,
+      },
+    ],
+  },
+
+  {
+    path: "/affiliate/login",
+    element: <Login />,
+  },
+  {
+    path: "/affiliate/sign",
+    element: <Sign />,
+  },
+
+  {
+    path: "/affiliatesdashboard",
+    element: <AffiliatesLayout />,
+    children: [{ path: "", element: <AffiliatesHome /> }],
+  },
+  {
+    path: "/pages/:route",
+    element: <Pages />,
   },
 ]);
 
