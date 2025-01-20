@@ -71,6 +71,11 @@ const usersApi = baseApi.injectEndpoints({
       providesTags: ["users"],
     }),
 
+    getAgentById: builder.query({
+      query: (id) => `/users/single-agent/${id}`,
+      providesTags: ["users"],
+    }),
+
     // Update agent status
     updateAgentStatus: builder.mutation({
       query: ({ id, status, email, token }) => ({
@@ -82,6 +87,24 @@ const usersApi = baseApi.injectEndpoints({
         body: { status, email },
       }),
       invalidatesTags: ["users"],
+    }),
+
+    // Update agent details
+    updateAgent: builder.mutation({
+      query: ({ id, data, token }) => {
+        if (!id || !data || Object.keys(data).length === 0) {
+          throw new Error("Agent ID or update data is missing"); // Validate before query
+        }
+        return {
+          url: `/users/update-agent/${id}`,
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: data,
+        };
+      },
+      invalidatesTags: ["users"], // Update cache for user-related data
     }),
   }),
 });
@@ -95,5 +118,8 @@ export const {
   useGetUsersQuery,
   useGetAgentsQuery,
   useLazyGetUserByIdQuery,
+  useGetAgentByIdQuery,
+  useLazyGetAgentByIdQuery,
   useUpdateAgentStatusMutation,
+  useUpdateAgentMutation,
 } = usersApi;

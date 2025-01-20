@@ -26,6 +26,8 @@ import DemoGame from "../pages/home/DemoGame";
 import BecomeAnAgent from "../components/become-an-agent/BecomeAnAgent";
 import CashAgentHome from "../pages/cash-agent/CashAgentHome";
 import CashAgentRoute from "./CashAgentRoute";
+import CashAgentProfile from "../pages/cash-agent/CashAgentProfile";
+import Kyc from "../pages/dashboard/Kyc";
 import AffiliatesLayout from "../layout/AffiliatesLayout";
 import Affiliates from "../pages/affiliates/Affiliates";
 import Sign from "../components/affiliates/Sign";
@@ -69,13 +71,14 @@ const router = createBrowserRouter([
       { path: "", element: <DashboardHome /> },
       { path: "all-user", element: <AllUsers /> },
       { path: "cashagent", element: <CashAgent /> },
+      { path: "kyc", element: <Kyc /> },
       { path: "affiliators", element: <Affiliators /> },
       { path: "game-categories", element: <GameCategories /> },
       { path: "active-games", element: <ActiveGames /> },
       { path: "inactive-games", element: <InActiveGames /> },
       { path: "games-api/:id", element: <GamesApi /> },
       { path: "user-profile", element: <UserProfile /> },
-      { path: "agent-profile", element: <AgentProfile /> },
+      { path: "agentprofile/:id", element: <AgentProfile /> },
       { path: "add-games-categories", element: <AddGamesCategories /> },
       { path: "home-control", element: <HomeControl /> },
       { path: "frontend-slider", element: <FrontendSlider /> },
@@ -97,7 +100,10 @@ const router = createBrowserRouter([
       </CashAgentRoute>
     ),
 
-    children: [{ path: "", element: <CashAgentHome /> }],
+    children: [
+      { path: "", element: <CashAgentHome /> },
+      { path: "profile/:id", element: <CashAgentProfile /> },
+    ],
   },
   {
     path: "/becomeanagent",
