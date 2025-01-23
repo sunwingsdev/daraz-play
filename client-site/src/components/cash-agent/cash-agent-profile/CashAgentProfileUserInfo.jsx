@@ -22,7 +22,10 @@ const CashAgentProfileUserInfo = ({ id }) => {
 
     // Validate password and confirm password
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      addToast("Passwords do not match!", {
+        appearance: "warning",
+        autoDismiss: true,
+      });
       return;
     }
 
@@ -44,7 +47,6 @@ const CashAgentProfileUserInfo = ({ id }) => {
           autoDismiss: true,
         }
       );
-      alert();
     }
   };
   return (

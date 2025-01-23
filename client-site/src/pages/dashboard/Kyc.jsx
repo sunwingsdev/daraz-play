@@ -1,24 +1,28 @@
 import { useState } from "react";
-// import { useUpdateAgentStatusMutation } from "../../redux/features/allApis/usersApi/usersApi";
 import { IoIosSearch } from "react-icons/io";
-// import { ClipLoader } from "react-spinners";
 import TablePagination from "../../components/dashboard/TablePagination";
-// import nidFront from "../../assets/nidFront.jpg";
-// import nidBack from "../../assets/nidBack.jpeg";
-import { useGetAllKycsQuery } from "../../redux/features/allApis/kycApi/kycApi";
+import { ClipLoader } from "react-spinners";
+import {
+  useGetAllKycsQuery,
+  useUpdateKycStatusMutation,
+} from "../../redux/features/allApis/kycApi/kycApi";
+import { BiLogInCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+import { PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+import EmailCell from "../../components/dashboard/EmailCell";
+import PhoneCell from "../../components/dashboard/PhoneCell";
 
 const Kyc = () => {
-  // const { data: allAgentsData, isLoading, error } = useGetAgentsQuery();
   const { data: allKycs, isLoading, error } = useGetAllKycsQuery();
-  // const [updateStatus] = useUpdateAgentStatusMutation();
-  // const [loadingStates, setLoadingStates] = useState({});
+  const [updateKycStatus, { isLoading: isKycLoading }] =
+    useUpdateKycStatusMutation();
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
-
   const [searchQuery, setSearchQuery] = useState("");
+  const { addToast } = useToasts();
 
-  // Filtered agents based on search query
   const filteredKycs = allKycs?.filter((kyc) =>
     kyc?.userInfo?.fullName?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
@@ -37,20 +41,31 @@ const Kyc = () => {
     return d.toLocaleDateString("en-US", options);
   };
 
-  // const handleStatusUpdate = async (agentId, newStatus, email) => {
-  //   setLoadingStates((prev) => ({ ...prev, [agentId]: true })); // Set loading for specific agent
-  //   try {
-  //     await updateStatus({
-  //       id: agentId,
-  //       status: newStatus,
-  //       email: email,
-  //     }).unwrap();
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setLoadingStates((prev) => ({ ...prev, [agentId]: false })); // Reset loading
-  //   }
-  // };
+  const handleKycStatus = async (kycId, newStatus) => {
+    if (!newStatus) return;
+
+    try {
+      const response = await updateKycStatus({ id: kycId, status: newStatus });
+
+      if (response?.data?.message) {
+        addToast(response.data.message, {
+          appearance: "success",
+          autoDismiss: true,
+        });
+      } else {
+        addToast("Failed to update status", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      addToast("An error occurred while updating the status.", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+  };
 
   return (
     <div>
@@ -58,9 +73,6 @@ const Kyc = () => {
       <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
         <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
           <h1 className="text-2xl text-white font-bold">Agents Kyc</h1>
-          {/* <button className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 block md:hidden whitespace-nowrap">
-            Add Agent
-          </button> */}
         </div>
 
         <div className="flex w-1/2 gap-4">
@@ -76,12 +88,6 @@ const Kyc = () => {
               <IoIosSearch />
             </button>
           </form>
-          {/* <button
-            className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 hidden md:block whitespace-nowrap"
-            // onClick={handleAddAgent}
-          >
-            Add Agent
-          </button> */}
         </div>
         <form className="w-full flex flex-row items-center md:hidden">
           <input
@@ -113,10 +119,10 @@ const Kyc = () => {
               <thead>
                 <tr className="bg-blue-600 text-white">
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Agent Name
+                    Agent UserName
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    User Name
+                    Login
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
                     Email
@@ -152,120 +158,117 @@ const Kyc = () => {
                       index % 2 === 0 ? "bg-gray-100" : "bg-[#cacaca]"
                     } text-black`}
                   >
-                    <td className="px-4 py-2 text-blue-500 hover:text-blue-600 whitespace-nowrap">
+                    <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600 whitespace-nowrap">
                       <Link
                         to={`/dashboard/agentprofile/${kyc?.userInfo?._id}`}
                       >
-                        {kyc?.userInfo?.fullName}
+                        {kyc?.userInfo?.username}
                       </Link>
                     </td>
-                    <td className="px-4 py-2 border border-blue-600">
-                      {kyc?.userInfo?.username || "N/A"}
+                    <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600 text-center">
+                      <BiLogInCircle className="cursor-pointer text-2xl text-center" />
                     </td>
+                    <EmailCell email={kyc?.userInfo?.email} />
+                    <PhoneCell phone={kyc?.userInfo?.phone} />
+                    {/* <td
+                      title={`0${kyc?.userInfo?.phone}`}
+                      className="px-4 py-2 border border-blue-600"
+                    >
+                      {kyc?.userInfo?.phone
+                        ? `0${kyc?.userInfo?.phone.slice(0, 5)}...`
+                        : "N/A"}
+                    </td> */}
                     <td className="px-4 py-2 border border-blue-600">
-                      {kyc?.userInfo?.email || "N/A"}
-                    </td>
-                    <td className="px-4 py-2 border border-blue-600">
-                      0{kyc?.userInfo?.phone || "N/A"}
-                    </td>
-                    <td className="px-4 py-2 border border-blue-600">
-                      {/* {agent?.nidFront || "N/A"} */}
-                      <img
+                      <PhotoView
                         src={`${import.meta.env.VITE_BASE_API_URL}${
                           kyc?.frontImage
                         }`}
-                        alt="nid front img"
-                        className="w-14"
-                      />
+                      >
+                        <img
+                          src={`${import.meta.env.VITE_BASE_API_URL}${
+                            kyc?.frontImage
+                          }`}
+                          alt="nid front img"
+                          className="w-14 cursor-pointer"
+                        />
+                      </PhotoView>
                     </td>
                     <td className="px-4 py-2 border border-blue-600">
-                      {/* {agent?.nidBack || "N/A"} */}
-                      <img
+                      <PhotoView
                         src={`${import.meta.env.VITE_BASE_API_URL}${
                           kyc?.backImage
                         }`}
-                        alt="nid back img"
-                        className="w-14"
-                      />
+                      >
+                        <img
+                          src={`${import.meta.env.VITE_BASE_API_URL}${
+                            kyc?.backImage
+                          }`}
+                          alt="nid back img"
+                          className="w-14 cursor-pointer"
+                        />
+                      </PhotoView>
                     </td>
                     <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
                       {formattedDate(kyc?.createdAt) || "N/A"}
                     </td>
-                    <td className="px-4 py-2 border border-blue-600">
-                      {kyc?.verificationDate || "N/A"}
+                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
+                      {formattedDate(kyc?.updatedAt) || "N/A"}
                     </td>
-                    {/* <td className="px-4 py-2 border border-blue-600">
-                    {loadingStates[kyc?.userInfo?._id] ? (
-                      <ClipLoader size={18} color="#000000" />
-                    ) : (
-                      <span
-                        className={`px-2 py-1 text-white size-20 rounded-2xl ${
-                          agent?.status?.toLowerCase() === "approve"
-                            ? "bg-green-500"
-                            : agent?.status?.toLowerCase() === "pending"
-                            ? "bg-yellow-500"
-                            : "bg-red-500"
-                        }`}
-                      >
-                        <>
-                          {agent?.status?.toLowerCase() === "approve"
+                    <td className="px-4 py-2 border border-blue-600">
+                      {isKycLoading ? (
+                        <ClipLoader size={18} color="#000000" />
+                      ) : (
+                        <span
+                          className={`px-2 py-1 text-white size-20 rounded-2xl ${
+                            kyc?.status?.toLowerCase() === "approve"
+                              ? "bg-green-500"
+                              : kyc?.status?.toLowerCase() === "reject"
+                              ? "bg-red-500"
+                              : "bg-yellow-500"
+                          }`}
+                        >
+                          {kyc?.status?.toLowerCase() === "approve"
                             ? "Approved"
-                            : agent?.status?.toLowerCase() === "pending"
+                            : kyc?.status?.toLowerCase() === "pending"
                             ? "Pending"
                             : "Rejected"}
-                        </>
-                      </span>
-                    )}
-                  </td> */}
-                    <td className="px-4 py-2 border border-blue-600">
-                      {kyc?.sample || "N/A"}
+                        </span>
+                      )}
                     </td>
-                    {/* <td className="px-4 py-2 border border-blue-600">
-                    <select
-                      name="status"
-                      className="px-3 py-1 border border-gray-300 rounded-sm bg-white text-black outline-none hover:border-blue-500 transition-all ease-in-out"
-                      onChange={(e) =>
-                        handleStatusUpdate(
-                          agent?._id,
-                          e.target.value,
-                          agent?.email
-                        )
-                      }
-                    >
-                      <option value="" className="text-gray-400">
-                        Select status
-                      </option>
-                      <option value="approve" className="text-green-500">
-                        Approve
-                      </option>
-                      <option value="reject" className="text-red-500">
-                        Reject
-                      </option>
-                    </select>
-                  </td> */}
                     <td className="px-4 py-2 border border-blue-600">
-                      {kyc?.sample2 || "N/A"}
+                      <select
+                        name="status"
+                        className="px-3 py-1 border border-gray-300 rounded-sm bg-white text-black outline-none hover:border-blue-500 transition-all ease-in-out"
+                        onChange={(e) =>
+                          handleKycStatus(kyc._id, e.target.value)
+                        }
+                      >
+                        <option value="" className="text-gray-400">
+                          Select Status
+                        </option>
+                        <option value="approve" className="text-green-500">
+                          Approve
+                        </option>
+                        <option value="reject" className="text-red-500">
+                          Reject
+                        </option>
+                      </select>
                     </td>
                   </tr>
                 ))}
-                {paginatedKycs?.length === 0 && (
-                  <tr>
-                    <td colSpan="8" className="text-center py-4 text-gray-500">
-                      No agents found.
-                    </td>
-                  </tr>
-                )}
               </tbody>
             </table>
           </div>
         )}
-        <TablePagination
-          currentPage={currentPage}
-          totalItems={filteredKycs?.length || 0}
-          itemsPerPage={rowsPerPage}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
       </div>
+
+      {/* Pagination */}
+      <TablePagination
+        totalItems={filteredKycs?.length || 0}
+        itemsPerPage={rowsPerPage}
+        currentPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };

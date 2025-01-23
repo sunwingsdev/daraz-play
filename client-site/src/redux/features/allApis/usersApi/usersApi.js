@@ -106,6 +106,19 @@ const usersApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["users"], // Update cache for user-related data
     }),
+
+    // Update user profile image
+    updateUserProfileImage: builder.mutation({
+      query: ({ id, profileImage, token }) => ({
+        url: `/users/update-user-image/${id}`,
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: { profileImage },
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -122,4 +135,5 @@ export const {
   useLazyGetAgentByIdQuery,
   useUpdateAgentStatusMutation,
   useUpdateAgentMutation,
+  useUpdateUserProfileImageMutation,
 } = usersApi;

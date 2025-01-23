@@ -387,6 +387,40 @@ const usersApi = (usersCollection, homeControlsCollection) => {
     }
   });
 
+  // Update user image by ID
+  router.put("/update-user-image/:id", async (req, res) => {
+    try {
+      const { id } = req.params; // User ID from the URL parameter
+      const { profileImage } = req.body; // Image URL or path from the request body
+
+      // Validate the user ID
+      if (!id || !ObjectId.isValid(id)) {
+        return res.status(400).json({ error: "Invalid user ID" });
+      }
+
+      // Validate the image field
+      if (!profileImage || typeof profileImage !== "string") {
+        return res.status(400).json({
+          error: "Invalid image value. It must be a non-empty string.",
+        });
+      }
+
+      // Update the user's image field
+      const result = await usersCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { profileImage } } // Update `image` timestamp
+      );
+
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      res.status(200).json({ message: "Profile image updated successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update profile image" });
+    }
+  });
+
   return router;
 };
 

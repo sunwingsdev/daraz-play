@@ -23,8 +23,21 @@ const kycApi = baseApi.injectEndpoints({
       query: (id) => `/kyc/single-kyc/${id}`,
       providesTags: ["kyc"],
     }),
+
+    updateKycStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/kyc/update-kyc-status/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["kyc"],
+    }),
   }),
 });
 
-export const { useAddKycMutation, useGetAllKycsQuery, useGetKycByIdQuery } =
-  kycApi;
+export const {
+  useAddKycMutation,
+  useGetAllKycsQuery,
+  useGetKycByIdQuery,
+  useUpdateKycStatusMutation,
+} = kycApi;
