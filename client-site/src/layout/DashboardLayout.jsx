@@ -31,6 +31,10 @@ const DashboardLayout = () => {
       submenu: [
         { name: "All Agents", path: "/dashboard/cashagent" },
         { name: "KYC", path: "/dashboard/kyc" },
+        {
+          name: "Payment Requests",
+          path: "/dashboard/paymentmethodrequests",
+        },
       ],
     },
     {

@@ -79,7 +79,7 @@ const Kyc = () => {
           <form className="w-full hidden md:flex flex-row items-center">
             <input
               type="text"
-              placeholder="Search Agent Name..."
+              placeholder="Search by Agent UserName..."
               className="py-2 px-1 w-full outline-none"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -92,7 +92,7 @@ const Kyc = () => {
         <form className="w-full flex flex-row items-center md:hidden">
           <input
             type="text"
-            placeholder="Search Agent Name..."
+            placeholder="Search by Agent UserName..."
             className="py-2 px-1 w-full outline-none"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -256,6 +256,13 @@ const Kyc = () => {
                     </td>
                   </tr>
                 ))}
+                {paginatedKycs?.length === 0 && (
+                  <tr>
+                    <td colSpan="8" className="text-center py-4 text-gray-500">
+                      No kyc data found.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
