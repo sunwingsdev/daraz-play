@@ -12,6 +12,10 @@ import { ClipLoader } from "react-spinners";
 import { useToasts } from "react-toast-notifications";
 import { useForm } from "react-hook-form";
 import { uploadImage } from "../../hooks/files";
+import {
+  useGetAllPaymentNumbersQuery,
+  // useGetPaymentNumberByIdQuery,
+} from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 
 const CashAgentProfile = () => {
   const { id } = useParams();
@@ -24,7 +28,13 @@ const CashAgentProfile = () => {
     useGetAgentByIdQuery(id);
   const [updateProfileImage, { isLoading: isProfileImageLoading }] =
     useUpdateUserProfileImageMutation();
-
+  const { data: allPaymentNumber } = useGetAllPaymentNumbersQuery();
+  // const { data: singlePaymentNumber } = useGetPaymentNumberByIdQuery(id);
+  // console.log("single-payment", singlePaymentNumber);
+  const filteredPaymentNumber = allPaymentNumber?.filter(
+    (paymentNumber) => paymentNumber?.userId === id
+  );
+  console.log(filteredPaymentNumber);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -155,6 +165,39 @@ const CashAgentProfile = () => {
               >
                 <p className="text-gray-600 font-semibold">{item.label}</p>
                 <p className="text-green-600 font-bold ml-2">{item.value}</p>
+              </div>
+            ))}
+            <div className="px-2">
+              <p className="text-left">Payment Methods & Numbers:</p>
+            </div>
+            {filteredPaymentNumber?.map((paymentNum, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between bg-gray-100 p-2 rounded-md"
+              >
+                <p className="text-gray-600 font-semibold">
+                  {paymentNum?.paymentNumberMethod}
+                </p>
+                <div className="flex flex-row items-center gap-2">
+                  <p className="text-green-600 font-bold ml-2">
+                    {paymentNum?.paymentNumber}
+                  </p>
+                  <p
+                    className={`${
+                      paymentNum?.status === "pending"
+                        ? "bg-yellow-400"
+                        : paymentNum?.status === "approve"
+                        ? "bg-green-400"
+                        : ""
+                    } text-capitalize text-xs px-3 rounded-full`}
+                  >
+                    {paymentNum?.status === "pending"
+                      ? "Pending"
+                      : paymentNum?.status === "approve"
+                      ? "Approved"
+                      : ""}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

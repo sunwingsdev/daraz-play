@@ -8,6 +8,7 @@ import {
 import TablePagination from "../../components/dashboard/TablePagination";
 import { ClipLoader } from "react-spinners";
 import { useGetAllKycsQuery } from "../../redux/features/allApis/kycApi/kycApi";
+import { BiLogInCircle } from "react-icons/bi";
 
 const CashAgent = () => {
   const { data: allAgentsData, isLoading, error } = useGetAgentsQuery();
@@ -117,10 +118,10 @@ const CashAgent = () => {
                   D-B
                 </th>
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                  A-U-C
+                  A-D-C
                 </th>
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                  A-D-C
+                  A-W-C
                 </th>
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
                   Balance
@@ -146,8 +147,8 @@ const CashAgent = () => {
                       {agent?.fullName}
                     </Link>
                   </td>
-                  <td className="px-4 py-2 border border-blue-600">
-                    {agent?.login || "N/A"}
+                  <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600">
+                    <BiLogInCircle className="cursor-pointer text-2xl" />
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
                     {agent?.W_B || "N/A"}

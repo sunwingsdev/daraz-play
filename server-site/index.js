@@ -15,6 +15,7 @@ const promotionApi = require("./apis/promotionApi/promotionApi");
 const categoriesApi = require("./apis/categoriesApi/categoriesApi");
 const kycApi = require("./apis/kycApi/kycApi");
 const pagesApi = require("./apis/pagesApi/pagesApi");
+const paymentNumberApi = require("./apis/paymentNumberApi/paymentNumberApi");
 
 const corsConfig = {
   origin: [
@@ -101,6 +102,9 @@ async function run() {
       .db("daraz")
       .collection("homeControls");
     const kycCollection = client.db("daraz").collection("kyc");
+    const paymentNumberCollection = client
+      .db("daraz")
+      .collection("payment-numbers");
     //collections end
 
     // APIs start
@@ -115,6 +119,7 @@ async function run() {
     app.use("/categories", categoriesApi(categoriesCollection));
     app.use("/kyc", kycApi(kycCollection, homeControlsCollection));
     app.use("/pages", pagesApi(pagesCollection));
+    app.use("/paymentnumber", paymentNumberApi(paymentNumberCollection));
 
     // APIs end
 
