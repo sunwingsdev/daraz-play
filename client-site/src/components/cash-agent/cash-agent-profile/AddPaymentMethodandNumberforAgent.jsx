@@ -124,6 +124,22 @@ const AddPaymentMethodandNumberforAgent = ({ id }) => {
                     Personal
                   </label>
                 </div>
+                <div className="flex items-center mb-4">
+                  <input
+                    type="radio"
+                    id="merchantCategory"
+                    name="numberCategory"
+                    value="merchant"
+                    {...register("numberCategory", { required: true })}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+                  />
+                  <label
+                    htmlFor="merchantCategory"
+                    className="ms-2 text-sm font-medium text-black"
+                  >
+                    Merchant
+                  </label>
+                </div>
               </div>
 
               {errors.numberCategory && (

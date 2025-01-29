@@ -179,7 +179,15 @@ const CashAgentProfile = () => {
                   {paymentNum?.paymentNumberMethod}
                 </p>
                 <div className="flex flex-row items-center gap-2">
-                  <p className="text-green-600 font-bold ml-2">
+                  <p
+                    className={`font-bold ml-2 ${
+                      paymentNum?.status === "reject"
+                        ? "line-through text-red-600"
+                        : paymentNum?.status === "pending"
+                        ? "text-gray-400"
+                        : "text-green-600"
+                    }`}
+                  >
                     {paymentNum?.paymentNumber}
                   </p>
                   <p
@@ -188,14 +196,14 @@ const CashAgentProfile = () => {
                         ? "bg-yellow-400"
                         : paymentNum?.status === "approve"
                         ? "bg-green-400"
-                        : ""
+                        : "bg-red-400"
                     } text-capitalize text-xs px-3 rounded-full`}
                   >
                     {paymentNum?.status === "pending"
                       ? "Pending"
                       : paymentNum?.status === "approve"
                       ? "Approved"
-                      : ""}
+                      : "Rejected"}
                   </p>
                 </div>
               </div>

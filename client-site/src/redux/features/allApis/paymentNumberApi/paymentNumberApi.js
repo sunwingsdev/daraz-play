@@ -23,6 +23,16 @@ const paymentNumberApi = baseApi.injectEndpoints({
       query: (id) => `/paymentnumber/single-number/${id}`,
       providesTags: ["paymentNumber"],
     }),
+
+    // update payment number status
+    updatePaymentNumberStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/paymentnumber/update-number-status/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["paymentNumber"],
+    }),
   }),
 });
 
@@ -30,4 +40,5 @@ export const {
   useAddPaymentNumberMutation,
   useGetAllPaymentNumbersQuery,
   useGetPaymentNumberByIdQuery,
+  useUpdatePaymentNumberStatusMutation,
 } = paymentNumberApi;

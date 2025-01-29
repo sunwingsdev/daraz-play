@@ -65,6 +65,47 @@ const paymentNumberApi = (paymentNumberCollection) => {
     res.send(result);
   });
 
+  // update payment number status
+  router.patch("/update-number-status/:id", async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    // Validate input
+    if (!id || !status) {
+      return res
+        .status(400)
+        .json({ error: "Payment Number ID and status are required" });
+    }
+
+    try {
+      // Define valid statuses
+      const validStatuses = ["approve", "reject", "pending"];
+      if (!validStatuses.includes(status.toLowerCase())) {
+        return res.status(400).json({
+          error: "Invalid status. Use 'approve', 'reject', or 'pending'.",
+        });
+      }
+
+      // Update the KYC status in the database
+      const result = await paymentNumberCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { status: status.toLowerCase(), updatedAt: new Date() } }
+      );
+
+      // Handle cases where no record is matched
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: "Payment number not found" });
+      }
+
+      // Return success response
+      res
+        .status(200)
+        .json({ message: "Payment number status updated successfully" });
+    } catch (error) {
+      // Handle errors
+      res.status(500).json({ error: "Failed to update payment number status" });
+    }
+  });
+
   return router;
 };
 
