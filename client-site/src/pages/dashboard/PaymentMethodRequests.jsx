@@ -5,24 +5,31 @@ import { IoIosSearch } from "react-icons/io";
 import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
 import {
-  useGetAllKycsQuery,
-  useUpdateKycStatusMutation,
-} from "../../redux/features/allApis/kycApi/kycApi";
+  useGetAllPaymentNumbersQuery,
+  useUpdatePaymentNumberStatusMutation,
+} from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 
 const PaymentMethodRequests = () => {
-  const { data: allKycs, isLoading, error } = useGetAllKycsQuery();
-  const [updateKycStatus, { isLoading: isKycLoading }] =
-    useUpdateKycStatusMutation();
+  const {
+    data: allPaymentNumbers,
+    isLoading,
+    error,
+  } = useGetAllPaymentNumbersQuery();
+
+  const [updatePaymentNumberStatus, { isLoading: isPaymentNumberLoading }] =
+    useUpdatePaymentNumberStatusMutation();
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
   const [searchQuery, setSearchQuery] = useState("");
   const { addToast } = useToasts();
 
-  const filteredKycs = allKycs?.filter((kyc) =>
-    kyc?.userInfo?.username?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+  const filteredNumbers = allPaymentNumbers?.filter((payNum) =>
+    payNum?.userInfo?.username
+      ?.toLowerCase()
+      ?.includes(searchQuery?.toLowerCase())
   );
 
-  const paginatedKycs = filteredKycs?.slice(
+  const paginatedNumbers = filteredNumbers?.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
@@ -36,11 +43,14 @@ const PaymentMethodRequests = () => {
     return d.toLocaleDateString("en-US", options);
   };
 
-  const handleKycStatus = async (kycId, newStatus) => {
+  const handlePaymentNumberStatus = async (numberId, newStatus) => {
     if (!newStatus) return;
 
     try {
-      const response = await updateKycStatus({ id: kycId, status: newStatus });
+      const response = await updatePaymentNumberStatus({
+        id: numberId,
+        status: newStatus,
+      });
 
       if (response?.data?.message) {
         addToast(response.data.message, {
@@ -67,7 +77,9 @@ const PaymentMethodRequests = () => {
       {/* Header */}
       <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
         <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
-          <h1 className="text-2xl text-white font-bold">Payment Requests</h1>
+          <h1 className="text-2xl text-white font-bold">
+            Payment Method Add Requests
+          </h1>
         </div>
 
         <div className="flex w-1/2 gap-4">
@@ -120,15 +132,19 @@ const PaymentMethodRequests = () => {
                     Request Date
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Amount
+                    Approval Date
                   </th>
-
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Due Date
+                    Number
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
                     Method
                   </th>
+
+                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                    Category
+                  </th>
+
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
                     Status
                   </th>
@@ -138,7 +154,7 @@ const PaymentMethodRequests = () => {
                 </tr>
               </thead>
               <tbody>
-                {paginatedKycs?.map((kyc, index) => (
+                {paginatedNumbers?.map((payNum, index) => (
                   <tr
                     key={index}
                     className={`text-center border-b border-blue-600 ${
@@ -147,43 +163,45 @@ const PaymentMethodRequests = () => {
                   >
                     <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600 whitespace-nowrap">
                       <Link
-                        to={`/dashboard/agentprofile/${kyc?.userInfo?._id}`}
+                        to={`/dashboard/agentprofile/${payNum?.userInfo?._id}`}
                       >
-                        {kyc?.userInfo?.username}
+                        {payNum?.userInfo?.username}
                       </Link>
                     </td>
                     <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
-                      {formattedDate(kyc?.createdAt) || "N/A"}
+                      {formattedDate(payNum?.createdAt) || "N/A"}
+                    </td>
+                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
+                      {formattedDate(payNum?.updatedAt) || "N/A"}
+                    </td>
+                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
+                      {payNum?.paymentNumber}
                     </td>
 
                     <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
-                      500 BDT
+                      {payNum?.paymentNumberMethod}
                     </td>
 
                     <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
-                      {formattedDate(kyc?.createdAt) || "N/A"}
-                    </td>
-
-                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
-                      Bkash
+                      {payNum?.numberCategory}
                     </td>
 
                     <td className="px-4 py-2 border border-blue-600">
-                      {isKycLoading ? (
+                      {isPaymentNumberLoading ? (
                         <ClipLoader size={18} color="#000000" />
                       ) : (
                         <span
                           className={`px-2 py-1 text-white size-20 rounded-2xl ${
-                            kyc?.status?.toLowerCase() === "approve"
+                            payNum?.status?.toLowerCase() === "approve"
                               ? "bg-green-500"
-                              : kyc?.status?.toLowerCase() === "reject"
+                              : payNum?.status?.toLowerCase() === "reject"
                               ? "bg-red-500"
                               : "bg-yellow-500"
                           }`}
                         >
-                          {kyc?.status?.toLowerCase() === "approve"
+                          {payNum?.status?.toLowerCase() === "approve"
                             ? "Approved"
-                            : kyc?.status?.toLowerCase() === "pending"
+                            : payNum?.status?.toLowerCase() === "pending"
                             ? "Pending"
                             : "Rejected"}
                         </span>
@@ -194,7 +212,7 @@ const PaymentMethodRequests = () => {
                         name="status"
                         className="px-3 py-1 border border-gray-300 rounded-sm bg-white text-black outline-none hover:border-blue-500 transition-all ease-in-out"
                         onChange={(e) =>
-                          handleKycStatus(kyc._id, e.target.value)
+                          handlePaymentNumberStatus(payNum._id, e.target.value)
                         }
                       >
                         <option value="" className="text-gray-400">
@@ -210,7 +228,7 @@ const PaymentMethodRequests = () => {
                     </td>
                   </tr>
                 ))}
-                {paginatedKycs?.length === 0 && (
+                {paginatedNumbers?.length === 0 && (
                   <tr>
                     <td colSpan="8" className="text-center py-4 text-gray-500">
                       No payment request data found.
@@ -225,7 +243,7 @@ const PaymentMethodRequests = () => {
 
       {/* Pagination */}
       <TablePagination
-        totalItems={filteredKycs?.length || 0}
+        totalItems={filteredNumbers?.length || 0}
         itemsPerPage={rowsPerPage}
         currentPage={currentPage}
         onPageChange={(page) => setCurrentPage(page)}

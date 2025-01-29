@@ -135,7 +135,7 @@ const CashAgentProfileUserInfo = ({ id }) => {
               <input
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder="New Password"
                 className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-500"
                 {...register("password", {
                   required: "Password is required",
