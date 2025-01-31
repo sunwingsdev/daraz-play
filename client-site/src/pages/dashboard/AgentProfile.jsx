@@ -110,36 +110,6 @@ const AgentProfile = () => {
         autoDismiss: true,
       });
     }
-    // if (profileImage) {
-    //   const frontImagePath = await uploadImage(profileImage);
-
-    //   const formattedData = {
-    //     _id: id,
-    //     profileImage: frontImagePath.filePath,
-    //   };
-
-    //   try {
-    //     const response = await addKyc(formattedData); // Your mutation call
-    //     if (response) {
-    //       addToast("KYC uploaded successfully", {
-    //         appearance: "success",
-    //         autoDismiss: true,
-    //       });
-    //     }
-    //     reset();
-    //   } catch (error) {
-    //     console.log(error);
-    //     addToast("Failed to upload KYC", {
-    //       appearance: "error",
-    //       autoDismiss: true,
-    //     });
-    //   }
-    // } else {
-    //   addToast("Please upload both front and back images", {
-    //     appearance: "error",
-    //     autoDismiss: true,
-    //   });
-    // }
   };
 
   return (
@@ -174,11 +144,12 @@ const AgentProfile = () => {
                   className="rounded-full w-full h-full object-cover border-4 border-gray-500"
                   src={
                     selectedImage ||
-                    `${import.meta.env.VITE_BASE_API_URL}${
-                      singleAgent?.profileImage
-                    }` ||
-                    noImage
-                  } // Display the selected image or fallback to default
+                    (singleAgent?.profileImage
+                      ? `${import.meta.env.VITE_BASE_API_URL}${
+                          singleAgent.profileImage
+                        }`
+                      : noImage)
+                  }
                   alt="User Avatar"
                 />
               )}

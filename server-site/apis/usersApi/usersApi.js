@@ -421,6 +421,43 @@ const usersApi = (usersCollection, homeControlsCollection) => {
     }
   });
 
+  // Admin can log in as any agent using their username
+  router.post("/admin/login-as-agent", async (req, res) => {
+    try {
+      const { username } = req.body;
+      if (!username) {
+        return res.status(400).json({ error: "Agent username is required" });
+      }
+
+      // Find the agent by username
+      const agent = await usersCollection.findOne({ username: username });
+      if (!agent) {
+        return res.status(404).json({ error: "Agent not found" });
+      }
+
+      if (agent.status.toLowerCase() !== "approve") {
+        return res
+          .status(403)
+          .json({ error: "Agent account is not approved yet." });
+      }
+
+      // Generate JWT token for the agent
+      const agentToken = jwt.sign(
+        { userId: agent._id, username: agent.username },
+        jwtSecret,
+        { expiresIn: "1d" }
+      );
+
+      // Return the agent's login token
+      res.status(200).json({
+        token: agentToken,
+        message: "Admin logged in as agent successfully.",
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Login as agent failed." });
+    }
+  });
+
   return router;
 };
 

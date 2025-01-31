@@ -12,10 +12,7 @@ import { ClipLoader } from "react-spinners";
 import { useToasts } from "react-toast-notifications";
 import { useForm } from "react-hook-form";
 import { uploadImage } from "../../hooks/files";
-import {
-  useGetAllPaymentNumbersQuery,
-  // useGetPaymentNumberByIdQuery,
-} from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
+import { useGetAllPaymentNumbersQuery } from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 
 const CashAgentProfile = () => {
   const { id } = useParams();
@@ -29,12 +26,10 @@ const CashAgentProfile = () => {
   const [updateProfileImage, { isLoading: isProfileImageLoading }] =
     useUpdateUserProfileImageMutation();
   const { data: allPaymentNumber } = useGetAllPaymentNumbersQuery();
-  // const { data: singlePaymentNumber } = useGetPaymentNumberByIdQuery(id);
-  // console.log("single-payment", singlePaymentNumber);
   const filteredPaymentNumber = allPaymentNumber?.filter(
     (paymentNumber) => paymentNumber?.userId === id
   );
-  console.log(filteredPaymentNumber);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -122,11 +117,12 @@ const CashAgentProfile = () => {
                   className="rounded-full w-full h-full object-cover border-4 border-gray-500"
                   src={
                     selectedImage ||
-                    `${import.meta.env.VITE_BASE_API_URL}${
-                      singleAgent?.profileImage
-                    }` ||
-                    noImage
-                  } // Display the selected image or fallback to default
+                    (singleAgent?.profileImage
+                      ? `${import.meta.env.VITE_BASE_API_URL}${
+                          singleAgent.profileImage
+                        }`
+                      : noImage)
+                  }
                   alt="User Avatar"
                 />
               )}
@@ -167,15 +163,18 @@ const CashAgentProfile = () => {
                 <p className="text-green-600 font-bold ml-2">{item.value}</p>
               </div>
             ))}
-            <div className="px-2">
-              <p className="text-left">Payment Methods & Numbers:</p>
-            </div>
+            {filteredPaymentNumber?.length !== 0 && (
+              <div className="px-2">
+                <p className="text-left">Payment Methods & Numbers:</p>
+              </div>
+            )}
+
             {filteredPaymentNumber?.map((paymentNum, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between bg-gray-100 p-2 rounded-md"
               >
-                <p className="text-gray-600 font-semibold">
+                <p className="text-gray-600 font-semibold capitalize">
                   {paymentNum?.paymentNumberMethod}
                 </p>
                 <div className="flex flex-row items-center gap-2">

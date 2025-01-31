@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import {
   useGetAgentByIdQuery,
+  useGetUsersQuery,
   useUpdateAgentMutation,
 } from "../../../redux/features/allApis/usersApi/usersApi";
 import { useToasts } from "react-toast-notifications";
@@ -17,6 +18,9 @@ const CashAgentProfileUserInfo = ({ id }) => {
 
   const { data: singleAgent } = useGetAgentByIdQuery(id);
   const [updateAgent, { isLoading }] = useUpdateAgentMutation();
+  const { data: allUsers } = useGetUsersQuery();
+
+  const admin = allUsers?.filter((user) => user?.role === "admin");
 
   const onSubmit = async (data) => {
     const { password, confirmPassword, ...updatedAgent } = data;
@@ -172,7 +176,7 @@ const CashAgentProfileUserInfo = ({ id }) => {
           {isLoading ? "Updating..." : "Update Info"}
         </button>
       </form>
-      <AddPaymentMethodandNumberforAgent id={id} />
+      {!admin && <AddPaymentMethodandNumberforAgent id={id} />}
     </>
   );
 };
