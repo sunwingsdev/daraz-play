@@ -7,13 +7,11 @@ import {
 } from "../../redux/features/allApis/usersApi/usersApi";
 import TablePagination from "../../components/dashboard/TablePagination";
 import { ClipLoader } from "react-spinners";
-import { useGetAllKycsQuery } from "../../redux/features/allApis/kycApi/kycApi";
 import { BiLogInCircle } from "react-icons/bi";
 
 const CashAgent = () => {
   const { data: allAgentsData, isLoading, error } = useGetAgentsQuery();
-  const { data: allKycs } = useGetAllKycsQuery();
-  console.log("abc", allKycs);
+
   const [updateStatus] = useUpdateAgentStatusMutation();
   const [loadingStates, setLoadingStates] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -148,7 +146,9 @@ const CashAgent = () => {
                     </Link>
                   </td>
                   <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600">
-                    <BiLogInCircle className="cursor-pointer text-2xl" />
+                    <Link to={`/dashboard/viewagentprofile/${agent?._id}`}>
+                      <BiLogInCircle className="cursor-pointer text-2xl" />
+                    </Link>
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
                     {agent?.W_B || "N/A"}

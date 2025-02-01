@@ -119,6 +119,16 @@ const usersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+
+    // ✅ Login as Agent (Admin logs in as an agent)
+    loginAsAgent: builder.mutation({
+      query: (username) => ({
+        url: "/users/admin/login-as-agent",
+        method: "POST",
+        body: { username },
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -136,4 +146,5 @@ export const {
   useUpdateAgentStatusMutation,
   useUpdateAgentMutation,
   useUpdateUserProfileImageMutation,
+  useLoginAsAgentMutation,
 } = usersApi;
