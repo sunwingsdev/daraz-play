@@ -484,7 +484,7 @@ const SidebarMenu = ({ open, setOpen }) => {
         } hidden md:block duration-300 h-screen fixed`}
       >
         {/* Start Top collapse */}
-        <div className={`bg-black py-3 h-full ${!open && "py-5"}`}>
+        <div className={`bg-SideBarTopBg py-3 h-full ${!open && "py-5"}`}>
           <div className="flex gap-x-3 items-center justify-center">
             <div className={`flex gap-1 ${!open && "hidden"}`}>
               <Link
@@ -504,7 +504,7 @@ const SidebarMenu = ({ open, setOpen }) => {
             </div>
             <div>
               <IoIosArrowBack
-                className={`m-auto text-center w-10 h-7 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-full cursor-pointer ${
+                className={`m-auto text-center w-10 h-7 p-1 bg-sideBerTopBtnBg text-white rounded-full cursor-pointer ${
                   !open && "rotate-180"
                 } `}
                 onClick={handleToggleSidebar}
@@ -517,7 +517,7 @@ const SidebarMenu = ({ open, setOpen }) => {
 
       {/* Start Menu bar */}
       <div
-        className={`bg-[#303030] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
+        className={`bg-SidebarBg overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
           open ? "w-64" : "w-16"
         } text-sm text-white duration-300 font-semibold h-full scrollbar-hide`}
       >
@@ -529,7 +529,7 @@ const SidebarMenu = ({ open, setOpen }) => {
               to={item?.path}
             >
               <div
-                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-red-600 duration-300 ${
+                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-sideBerTopBtnBg duration-300 ${
                   open ? "justify-between" : "justify-center"
                 }
                 }`}
@@ -551,7 +551,9 @@ const SidebarMenu = ({ open, setOpen }) => {
             {item?.submenu && submenuOpen[item?.name] && (
               <div
                 className={`text-white text-sm font-semibold ${
-                  open ? "bg-red-600 pl-8" : "bg-black"
+                  open
+                    ? "bg-menuHoverActiveColor pl-8"
+                    : "bg-black hover:bg-sideBerTopBtnBg"
                 } duration-300`}
               >
                 {item?.submenu?.map((subItem, subIndex) => (

@@ -8,8 +8,8 @@ const Home = () => {
   return (
     <div>
       <BannerSlider />
-      <div className="px-4 bg-zinc-800">
-        <MarqueeSlider  />
+      <div className="px-4 bg-footerBg">
+        <MarqueeSlider />
         <MenuBar />
         <Slider />
         <FeaturedGames />

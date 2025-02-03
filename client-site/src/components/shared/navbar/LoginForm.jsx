@@ -75,12 +75,12 @@ const LoginForm = ({ onClose }) => {
               },
             })}
             placeholder="4-15 char, allow number"
-            className={`text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ${
-              errors.username ? "ring-red-600" : "ring-[#767575]"
-            } hover:ring-red-600`}
+            className={`text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ${
+              errors.username ? "ring-SidebarBg" : "ring-[#767575]"
+            } hover:ring-SidebarBg`}
           />
           {errors.username && (
-            <p className="text-red-600 text-xs">{errors.username.message}</p>
+            <p className="text-SidebarBg text-xs">{errors.username.message}</p>
           )}
         </div>
         <div className="space-y-1 relative">
@@ -93,9 +93,9 @@ const LoginForm = ({ onClose }) => {
             })}
             type={showPassword ? "text" : "password"}
             placeholder="6-20 Characters and Numbers"
-            className={`text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ${
-              errors.password ? "ring-red-600" : "ring-[#767575]"
-            } hover:ring-red-600`}
+            className={`text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ${
+              errors.password ? "ring-SidebarBg" : "ring-[#767575]"
+            } hover:ring-SidebarBg`}
           />
           <button
             type="button"
@@ -105,16 +105,16 @@ const LoginForm = ({ onClose }) => {
             {showPassword ? <IoIosEye /> : <IoIosEyeOff />}
           </button>
           {errors.password && (
-            <p className="text-red-600 text-xs">{errors.password.message}</p>
+            <p className="text-textColor text-xs">{errors.password.message}</p>
           )}
         </div>
 
-        <div className="text-right text-sm font-semibold text-red-600">
+        <div className="my-2 text-right text-sm font-semibold text-textColor">
           <div className="inline-block cursor-pointer">Forgot password?</div>
         </div>
         <button
           type="submit"
-          className="p-1.5 w-full text-lg text-[#aaa9a9] hover:text-white bg-[#363636] hover:bg-red-600 duration-300 rounded-md"
+          className="p-1.5 w-full text-lg text-[#aaa9a9] hover:text-white bg-[#363636] hover:bg-SidebarBg duration-300 rounded-md"
         >
           {isLoading ? "..." : "Login"}
         </button>

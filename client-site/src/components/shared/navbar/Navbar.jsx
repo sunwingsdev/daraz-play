@@ -112,16 +112,13 @@ const Navbar = ({ open }) => {
     <>
       <div>
         <div
-          className={`bg-[#222222] py-2 md:py-3.5 px-4 fixed left-0 right-0 z-20 duration-300 ${
+          className={`bg-SidebarBg py-2 md:py-3.5 px-4 fixed left-0 right-0 z-20 duration-300 ${
             !open ? "md:ml-16" : "md:ml-64"
           }`}
         >
           <div className="md:flex items-center justify-between">
             <div className="flex items-center justify-between gap-1 sm:gap-3">
-              <button
-                className="md:hidden text-red-600"
-                onClick={toggleSidebar}
-              >
+              <button className="md:hidden text-white" onClick={toggleSidebar}>
                 <BiMenuAltLeft size={36} />
               </button>
               {!open && (
@@ -138,7 +135,7 @@ const Navbar = ({ open }) => {
                 </Link>
               )}
 
-              <div className="flex items-center gap-3 text-red-600 md:hidden">
+              <div className="flex items-center gap-3 text-white md:hidden">
                 <div className="flex flex-col items-center cursor-pointer">
                   <LuHardDriveDownload size={26} />
                   <p>app</p>
@@ -154,13 +151,13 @@ const Navbar = ({ open }) => {
                 {!user || !token ? (
                   <>
                     <button
-                      className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-white loginButtonBgColor transition-all duration-300 rounded-md"
+                      className="text-xs sm:text-sm font-medium px-2 sm:px-4 md:px-7 py-1 md:py-2 text-black bg-loginButtonBgColor transition-all duration-300 rounded-md"
                       onClick={() => openModal("login_modal")}
                     >
                       Login
                     </button>
                     <button
-                      className="text-xs sm:text-sm font-medium px-2 sm:px-3 md:px-6 py-1 md:py-2 text-white signinButtonBgColor transition-all duration-300 rounded-md"
+                      className="text-xs sm:text-sm font-medium px-2 sm:px-3 md:px-6 py-1 md:py-2 text-white bg-signinButtonBgColor transition-all duration-300 rounded-md"
                       onClick={() => openModal("signup_modal")}
                     >
                       Sign Up
@@ -171,7 +168,7 @@ const Navbar = ({ open }) => {
                     <Menu as="div" className="flex gap-3 relative">
                       <button
                         onClick={() => setIsDepositModalOpen(true)}
-                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white loginButtonBgColor"
+                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white bg-loginButtonBgColor"
                       >
                         {" "}
                         <RiLuggageDepositFill size={18} />
@@ -179,7 +176,7 @@ const Navbar = ({ open }) => {
                       </button>
                       <button
                         onClick={reloadBalance}
-                        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
+                        className="flex items-center px-4 py-2 bg-mainWalletBtnHover text-white rounded-md hover:bg-mainWalletBtnHover transition duration-300"
                       >
                         <TfiReload
                           className={`mr-2 ${
@@ -265,14 +262,14 @@ const Navbar = ({ open }) => {
               </button>
               {/* Sign In Button */}
               <button
-                className="py-1.5 px-1 w-full flex items-center justify-center signinButtonBgColor"
+                className="py-1.5 px-1 w-full flex items-center justify-center bg-signinButtonBgColor"
                 onClick={() => openModal("signup_modal")}
               >
                 Sign up
               </button>
               {/* Login Button */}
               <button
-                className="py-1.5 px-1 w-full flex items-center justify-center loginButtonBgColor"
+                className="py-1.5 px-1 w-full flex items-center justify-center text-black bg-loginButtonBgColor"
                 onClick={() => openModal("login_modal")}
               >
                 Login
@@ -348,7 +345,7 @@ const Navbar = ({ open }) => {
                   <button className="text-white p-1.5 w-24 sm:w-32 border border-gray-500">
                     বাংলা
                   </button>
-                  <button className="text-red-600 p-1.5 w-24 sm:w-32 border border-red-600">
+                  <button className="text-SidebarBg p-1.5 w-24 sm:w-32 border border-SidebarBg">
                     English
                   </button>
                 </div>

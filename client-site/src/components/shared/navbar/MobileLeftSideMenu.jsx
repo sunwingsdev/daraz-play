@@ -461,7 +461,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, setIsMenuOpen, toggleMenu }) => {
   return (
     <div
       ref={sidebarRef}
-      className={`fixed top-0 left-0 h-full w-[70%] sm:w-1/2 z-50 bg-[#222222] pb-6 transform overflow-y-auto ${
+      className={`fixed top-0 left-0 h-full w-[70%] sm:w-1/2 z-50 bg-mobileMenuBg pb-6 transform overflow-y-auto ${
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300`}
     >
@@ -473,7 +473,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, setIsMenuOpen, toggleMenu }) => {
         <HiX size={28} />
       </button>
 
-      <div className="py-2 ps-4">
+      <div className="pt-6 pb-3 ps-4">
         {isLoading ? (
           <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
         ) : (
@@ -494,7 +494,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, setIsMenuOpen, toggleMenu }) => {
               to={item?.path}
             >
               <div
-                className={`px-4 py-3 flex items-center gap-2 border-b border-gray-700 duration-300 hover:bg-red-600 hover:border-l-4 hover:border-l-slate-400 ${
+                className={`px-4 py-3 flex items-center gap-2 border-b border-gray-700 duration-300 hover:border-l-4 hover:border-l-slate-400 ${
                   !open && "justify-center"
                 }`}
                 onClick={() => item.submenu && toggleSubmenu(index)}
@@ -524,7 +524,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, setIsMenuOpen, toggleMenu }) => {
 
             {/* Render Submenu */}
             {item.submenu && submenuOpenIndex === index && open && (
-              <ul className="pl-8 flex flex-col gap-2 bg-red-600">
+              <ul className="pl-4 py-2 flex flex-col gap-1 bg-mobileSubMenuBg">
                 {item.submenu.map((subItem, subIndex) => (
                   <li key={subIndex}>
                     <Link
@@ -534,7 +534,7 @@ const MobileLeftSideMenu = ({ isMenuOpen, setIsMenuOpen, toggleMenu }) => {
                         handleMenuClick(subItem)
                       }
                       to={subItem?.demo ? subItem?.demo : subItem?.path}
-                      className="px-4 py-2 flex gap-5 items-center text-white hover:bg-red-600"
+                      className="px-4 py-2 flex gap-4 text-sm items-center text-white"
                     >
                       {/* Icon */}
                       <img
