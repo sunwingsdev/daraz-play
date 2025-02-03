@@ -55,6 +55,9 @@ const paymentNumberApi = (paymentNumberCollection) => {
   // get a payment number by ID
   router.get("/single-number/:id", async (req, res) => {
     const { id } = req?.params;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     if (!id) {
       return;
     }
@@ -68,6 +71,9 @@ const paymentNumberApi = (paymentNumberCollection) => {
   // update payment number status
   router.patch("/update-number-status/:id", async (req, res) => {
     const { id } = req.params;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     const { status } = req.body;
     // Validate input
     if (!id || !status) {
