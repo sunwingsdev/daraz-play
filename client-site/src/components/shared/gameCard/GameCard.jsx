@@ -10,7 +10,7 @@ const GameCard = ({ imageUrl, title }) => {
         />
       </div>
       {/* Text Content */}
-      <h2 className="py-1 px-3 text-base text-white bg-red-600">{title}</h2>
+      <h2 className="py-1 px-3 text-base text-white bg-SidebarBg">{title}</h2>
     </div>
   );
 };

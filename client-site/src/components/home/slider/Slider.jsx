@@ -9,9 +9,9 @@ import favourites_4 from "../../../assets/Favourites/1.png";
 
 const Slider = () => {
   return (
-    <div className="bg-zinc-800">
+    <div>
       <div className="pt-4">
-        <p className="text-white text-base font-semibold mb-3 pl-2 border-l-4 border-l-red-600">
+        <p className="text-footerTextColor text-base font-semibold mb-3 pl-2 border-l-4 border-footerTextColor">
           Favourites
         </p>
       </div>

@@ -68,9 +68,9 @@ const Footer = () => {
 
   return (
     <div>
-      <div className="bg-zinc-800 p-4 pt-8 space-y-3">
+      <div className="text-base bg-footerBg text-footerTextColor p-4 pt-8 space-y-3">
         {/* মুল্য পরিশোধ পদ্ধতি */}
-        <p className="text-sm text-white">Payment Methods</p>
+        <p className="text-base">Payment Methods</p>
         <div className="flex gap-6 py-2">
           {accounts.map((account) => (
             <BrandAmbassador
@@ -81,7 +81,7 @@ const Footer = () => {
           ))}
         </div>
         {/* কমিউনিটি ওয়েবসাইট */}
-        <p className="text-sm text-white">Community Websites</p>
+        <p>Community Websites</p>
         <div className="flex gap-3">
           {socials.map((social) => (
             <Social key={social.image} social={social} />
@@ -89,7 +89,7 @@ const Footer = () => {
           <Social />
         </div>
         {/* অফিসিয়াল পার্টনার */}
-        <p className="pt-4 text-sm text-white">Official Partner</p>
+        <p className="pt-4">Official Partner</p>
         <div className="flex gap-4">
           <img
             className="w-28"
@@ -97,16 +97,16 @@ const Footer = () => {
             alt=""
           />
         </div>
-        <div className="pt-4 flex flex-wrap gap-2 text-white ">
+        <div className="pt-4 flex flex-wrap gap-2">
           {routes?.map((route) => (
             <Link key={route?.value} to={`/pages/${route?.value}`}>
-              <p className="text-xs md:text-sm border-r border-r-white pr-2">
+              <p className="text-xs md:text-base border-r border-r-footerTextColor pr-2">
                 {route?.label}
               </p>
             </Link>
           ))}
         </div>
-        <div className="pt-4 pb-12 md:pb-0 text-sm text-white flex gap-3 items-center">
+        <div className="pt-4 pb-12 md:pb-0 text-footerTextColor flex gap-3 items-center">
           <Link to={"/"}>
             {isLoading ? (
               <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>

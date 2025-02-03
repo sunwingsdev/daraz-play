@@ -17,7 +17,7 @@ const BannerSlider = () => {
   );
 
   return (
-    <div className="banner-slider relative md:px-4 md:pt-4 bg-zinc-800">
+    <div className="banner-slider relative md:px-4 md:pt-4 bg-footerBg">
       <Swiper
         slidesPerView={1}
         spaceBetween={1}

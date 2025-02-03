@@ -88,7 +88,7 @@ const SignupForm = ({ onClose }) => {
             name="fullName"
             type="text"
             placeholder="Your Full Name"
-            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
           {errors.fullName && (
             <p className="text-red-600 text-sm">{errors.fullName.message}</p>
@@ -113,7 +113,7 @@ const SignupForm = ({ onClose }) => {
             name="username"
             type="text"
             placeholder="4-15 char and number"
-            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
           {errors.username && (
             <p className="text-red-600 text-sm">{errors.username.message}</p>
@@ -131,7 +131,7 @@ const SignupForm = ({ onClose }) => {
             })}
             type="email"
             placeholder="Your Email Address"
-            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
 
           {errors.email && (
@@ -155,7 +155,7 @@ const SignupForm = ({ onClose }) => {
             })}
             type={showPassword ? "text" : "password"}
             placeholder="6-20 Characters and Numbers"
-            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
           <button
             type="button"
@@ -174,7 +174,7 @@ const SignupForm = ({ onClose }) => {
           <label className="text-white text-sm" htmlFor="phone">
             Phone Number
           </label>
-          <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
+          <div className="flex items-center bg-[#363636] text-white ring-2 ring-[#767575] hover:ring-SidebarBg rounded-md">
             <div className="flex items-center px-3 border-r border-[#767575]">
               <img
                 src="https://flagcdn.com/w40/bd.png"
@@ -209,7 +209,7 @@ const SignupForm = ({ onClose }) => {
           <label className="text-white text-sm" htmlFor="verificationCode">
             Verification Code
           </label>
-          <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
+          <div className="flex items-center bg-[#363636] text-white ring-2 ring-[#767575] hover:ring-SidebarBg rounded-md">
             <div className="w-1/2">
               <input
                 {...register("verificationCode", {
@@ -226,7 +226,7 @@ const SignupForm = ({ onClose }) => {
               <button
                 type="button"
                 onClick={handleRefresh}
-                className="hover:text-red-600"
+                className="hover:text-SidebarBg"
               >
                 <FaSync size={18} />
               </button>
@@ -242,7 +242,7 @@ const SignupForm = ({ onClose }) => {
         <button
           className={`p-1.5 w-full text-lg ${
             isCodeMatched || isLoading
-              ? "text-white bg-red-600 hover:bg-red-800"
+              ? "text-white bg-SidebarBg hover:bg-SideBarTopBg"
               : "text-gray-500 bg-gray-300 cursor-not-allowed"
           } duration-300 rounded-md`}
           type="submit"
@@ -250,9 +250,9 @@ const SignupForm = ({ onClose }) => {
         >
           {isLoading ? "..." : "SIGN UP"}
         </button>
-        <p className="mt-2 px-4 text-xs text-center text-[#aaa9a9]">
+        <p className="mt-2 px-4 text-sm text-center text-[#aaa9a9]">
           Already have an account?
-          <span className="text-red-600 font-semibold"> Login</span>
+          <span className="text-SidebarBg font-semibold"> Login</span>
         </p>
       </form>
     </div>
