@@ -55,6 +55,9 @@ const kycApi = (kycCollection, homeControlsCollection) => {
   // get a kyc by ID
   router.get("/single-kyc/:id", async (req, res) => {
     const { id } = req?.params;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     if (!id) {
       return;
     }
@@ -68,6 +71,9 @@ const kycApi = (kycCollection, homeControlsCollection) => {
   // update kyc status
   router.patch("/update-kyc-status/:id", async (req, res) => {
     const { id } = req.params;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     const { status } = req.body;
     // Validate input
     if (!id || !status) {
