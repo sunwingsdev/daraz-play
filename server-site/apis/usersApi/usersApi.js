@@ -217,6 +217,10 @@ const usersApi = (usersCollection, homeControlsCollection) => {
   // update status of an agent
   router.put("/updateagentstatus/:id", authenticateToken, async (req, res) => {
     const { id } = req.params; // User ID from the URL parameter
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     const { status, email } = req.body; // New status from the request body
     if (!id || !status) {
       return res.status(400).json({ error: "User ID and status are required" });
@@ -315,6 +319,11 @@ const usersApi = (usersCollection, homeControlsCollection) => {
   // get a user by ID
   router.get("/single-user/:id", async (req, res) => {
     const { id } = req?.params;
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
+
     if (!id) {
       return;
     }
@@ -328,6 +337,11 @@ const usersApi = (usersCollection, homeControlsCollection) => {
   // get a agent by ID
   router.get("/single-agent/:id", async (req, res) => {
     const { id } = req?.params;
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
+
     if (!id) {
       return;
     }
@@ -342,11 +356,12 @@ const usersApi = (usersCollection, homeControlsCollection) => {
   router.put("/update-agent/:id", async (req, res) => {
     try {
       const { id } = req.params;
+
       const updateData = req.body;
 
       // Validate agent ID
       if (!id || !ObjectId.isValid(id)) {
-        return res.status(400).send({ message: "Invalid agent ID" });
+        return res.status(400).json({ message: "Invalid agent ID" });
       }
 
       // Validate update data
