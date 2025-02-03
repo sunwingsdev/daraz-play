@@ -21,6 +21,7 @@ const AgentProfileView = () => {
   const navigate = useNavigate();
   const [selectedSection, setSelectedSection] = useState("userInfo");
   // const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { addToast } = useToasts();
 
@@ -39,6 +40,8 @@ const AgentProfileView = () => {
   ];
 
   const handleLoginAsAgent = async () => {
+    setLoading(true);
+
     try {
       const { data: loginAgentData } = await loginAsAgent(
         singleAgent?.username
@@ -46,11 +49,12 @@ const AgentProfileView = () => {
       console.log("loginA", loginAgentData);
 
       if (loginAgentData?.token) {
-        const { data: userData } = await getUser(loginAgentData.token);
-        console.log("User Data:", userData);
-
+        // Use the role from the response (No need to fetch user separately)
         dispatch(
-          setCredentials({ token: loginAgentData.token, user: userData })
+          setCredentials({
+            token: loginAgentData.token,
+            user: { role: loginAgentData.role },
+          })
         );
 
         addToast("Login successful", {
@@ -58,15 +62,17 @@ const AgentProfileView = () => {
           autoDismiss: true,
         });
 
-        // Wait until state updates before navigating
+        // Delay before navigation for smooth transition
         setTimeout(() => {
-          navigate("/cashagent"); // Redirect to the agent dashboard
-        }, 100); // Small delay to ensure state updates
+          navigate("/cashagent"); // Always redirect to agent page
+          setLoading(false);
+        }, 2000);
       } else {
         addToast("Login failed! Invalid credentials.", {
           appearance: "error",
           autoDismiss: true,
         });
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error logging in:", error);
@@ -74,6 +80,7 @@ const AgentProfileView = () => {
         appearance: "error",
         autoDismiss: true,
       });
+      setLoading(false);
     }
   };
 
@@ -120,7 +127,7 @@ const AgentProfileView = () => {
               className="bg-[#6b7699f1] text-white rounded-md px-4 py-2 hover:bg-gray-400 mt-4"
               disabled={loginLoading} // Disable the button while the login is in progress
             >
-              {loginLoading ? "Logging in..." : "Login as Agent"}
+              {loading ? "Logging in..." : "Login as Agent"}
             </button>
             {/* {errorMessage && (
               <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
