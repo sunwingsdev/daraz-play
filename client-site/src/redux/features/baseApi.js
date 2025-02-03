@@ -22,6 +22,7 @@ const baseApi = createApi({
     "categories",
     "kyc",
     "pages",
+    "paymentNumber",
   ],
   endpoints: () => ({}),
 });

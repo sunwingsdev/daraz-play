@@ -12,6 +12,7 @@ import { ClipLoader } from "react-spinners";
 import { useToasts } from "react-toast-notifications";
 import { useForm } from "react-hook-form";
 import { uploadImage } from "../../hooks/files";
+import { useGetAllPaymentNumbersQuery } from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 
 const CashAgentProfile = () => {
   const { id } = useParams();
@@ -24,6 +25,10 @@ const CashAgentProfile = () => {
     useGetAgentByIdQuery(id);
   const [updateProfileImage, { isLoading: isProfileImageLoading }] =
     useUpdateUserProfileImageMutation();
+  const { data: allPaymentNumber } = useGetAllPaymentNumbersQuery();
+  const filteredPaymentNumber = allPaymentNumber?.filter(
+    (paymentNumber) => paymentNumber?.userId === id
+  );
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -112,11 +117,12 @@ const CashAgentProfile = () => {
                   className="rounded-full w-full h-full object-cover border-4 border-gray-500"
                   src={
                     selectedImage ||
-                    `${import.meta.env.VITE_BASE_API_URL}${
-                      singleAgent?.profileImage
-                    }` ||
-                    noImage
-                  } // Display the selected image or fallback to default
+                    (singleAgent?.profileImage
+                      ? `${import.meta.env.VITE_BASE_API_URL}${
+                          singleAgent.profileImage
+                        }`
+                      : noImage)
+                  }
                   alt="User Avatar"
                 />
               )}
@@ -155,6 +161,50 @@ const CashAgentProfile = () => {
               >
                 <p className="text-gray-600 font-semibold">{item.label}</p>
                 <p className="text-green-600 font-bold ml-2">{item.value}</p>
+              </div>
+            ))}
+            {filteredPaymentNumber?.length !== 0 && (
+              <div className="px-2">
+                <p className="text-left">Payment Methods & Numbers:</p>
+              </div>
+            )}
+
+            {filteredPaymentNumber?.map((paymentNum, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between bg-gray-100 p-2 rounded-md"
+              >
+                <p className="text-gray-600 font-semibold capitalize">
+                  {paymentNum?.paymentNumberMethod}
+                </p>
+                <div className="flex flex-row items-center gap-2">
+                  <p
+                    className={`font-bold ml-2 ${
+                      paymentNum?.status === "reject"
+                        ? "line-through text-red-600"
+                        : paymentNum?.status === "pending"
+                        ? "text-gray-400"
+                        : "text-green-600"
+                    }`}
+                  >
+                    {paymentNum?.paymentNumber}
+                  </p>
+                  <p
+                    className={`${
+                      paymentNum?.status === "pending"
+                        ? "bg-yellow-400"
+                        : paymentNum?.status === "approve"
+                        ? "bg-green-400"
+                        : "bg-red-400"
+                    } text-capitalize text-xs px-3 rounded-full`}
+                  >
+                    {paymentNum?.status === "pending"
+                      ? "Pending"
+                      : paymentNum?.status === "approve"
+                      ? "Approved"
+                      : "Rejected"}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

@@ -1,33 +1,35 @@
-import { useState } from "react";
-import { IoIosSearch } from "react-icons/io";
-import TablePagination from "../../components/dashboard/TablePagination";
 import { ClipLoader } from "react-spinners";
-import {
-  useGetAllKycsQuery,
-  useUpdateKycStatusMutation,
-} from "../../redux/features/allApis/kycApi/kycApi";
-import { BiLogInCircle } from "react-icons/bi";
+import TablePagination from "../../components/dashboard/TablePagination";
 import { Link } from "react-router-dom";
+import { IoIosSearch } from "react-icons/io";
 import { useToasts } from "react-toast-notifications";
-import { PhotoView } from "react-photo-view";
-import "react-photo-view/dist/react-photo-view.css";
-import EmailCell from "../../components/dashboard/EmailCell";
-import PhoneCell from "../../components/dashboard/PhoneCell";
+import { useState } from "react";
+import {
+  useGetAllPaymentNumbersQuery,
+  useUpdatePaymentNumberStatusMutation,
+} from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 
-const Kyc = () => {
-  const { data: allKycs, isLoading, error } = useGetAllKycsQuery();
-  const [updateKycStatus, { isLoading: isKycLoading }] =
-    useUpdateKycStatusMutation();
+const PaymentMethodRequests = () => {
+  const {
+    data: allPaymentNumbers,
+    isLoading,
+    error,
+  } = useGetAllPaymentNumbersQuery();
+
+  const [updatePaymentNumberStatus, { isLoading: isPaymentNumberLoading }] =
+    useUpdatePaymentNumberStatusMutation();
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
   const [searchQuery, setSearchQuery] = useState("");
   const { addToast } = useToasts();
 
-  const filteredKycs = allKycs?.filter((kyc) =>
-    kyc?.userInfo?.fullName?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+  const filteredNumbers = allPaymentNumbers?.filter((payNum) =>
+    payNum?.userInfo?.username
+      ?.toLowerCase()
+      ?.includes(searchQuery?.toLowerCase())
   );
 
-  const paginatedKycs = filteredKycs?.slice(
+  const paginatedNumbers = filteredNumbers?.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
@@ -41,11 +43,14 @@ const Kyc = () => {
     return d.toLocaleDateString("en-US", options);
   };
 
-  const handleKycStatus = async (kycId, newStatus) => {
+  const handlePaymentNumberStatus = async (numberId, newStatus) => {
     if (!newStatus) return;
 
     try {
-      const response = await updateKycStatus({ id: kycId, status: newStatus });
+      const response = await updatePaymentNumberStatus({
+        id: numberId,
+        status: newStatus,
+      });
 
       if (response?.data?.message) {
         addToast(response.data.message, {
@@ -72,7 +77,9 @@ const Kyc = () => {
       {/* Header */}
       <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
         <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
-          <h1 className="text-2xl text-white font-bold">Agents Kyc</h1>
+          <h1 className="text-2xl text-white font-bold">
+            Payment Method Add Requests
+          </h1>
         </div>
 
         <div className="flex w-1/2 gap-4">
@@ -122,36 +129,32 @@ const Kyc = () => {
                     Agent UserName
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Login
+                    Request Date
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Email
+                    Approval Date
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Phone
+                    Number
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    NID Front
+                    Method
+                  </th>
+
+                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                    Category
+                  </th>
+
+                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
+                    Status
                   </th>
                   <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    NID Back
-                  </th>
-                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Sub. Date
-                  </th>
-                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Verify Date
-                  </th>
-                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    KYC Status
-                  </th>
-                  <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                    Update KYC Status
+                    Update Status
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {paginatedKycs?.map((kyc, index) => (
+                {paginatedNumbers?.map((payNum, index) => (
                   <tr
                     key={index}
                     className={`text-center border-b border-blue-600 ${
@@ -160,76 +163,45 @@ const Kyc = () => {
                   >
                     <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600 whitespace-nowrap">
                       <Link
-                        to={`/dashboard/agentprofile/${kyc?.userInfo?._id}`}
+                        to={`/dashboard/agentprofile/${payNum?.userInfo?._id}`}
                       >
-                        {kyc?.userInfo?.username}
+                        {payNum?.userInfo?.username}
                       </Link>
                     </td>
-                    <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600 text-center">
-                      <BiLogInCircle className="cursor-pointer text-2xl text-center" />
-                    </td>
-                    <EmailCell email={kyc?.userInfo?.email} />
-                    <PhoneCell phone={kyc?.userInfo?.phone} />
-                    {/* <td
-                      title={`0${kyc?.userInfo?.phone}`}
-                      className="px-4 py-2 border border-blue-600"
-                    >
-                      {kyc?.userInfo?.phone
-                        ? `0${kyc?.userInfo?.phone.slice(0, 5)}...`
-                        : "N/A"}
-                    </td> */}
-                    <td className="px-4 py-2 border border-blue-600">
-                      <PhotoView
-                        src={`${import.meta.env.VITE_BASE_API_URL}${
-                          kyc?.frontImage
-                        }`}
-                      >
-                        <img
-                          src={`${import.meta.env.VITE_BASE_API_URL}${
-                            kyc?.frontImage
-                          }`}
-                          alt="nid front img"
-                          className="w-14 cursor-pointer"
-                        />
-                      </PhotoView>
-                    </td>
-                    <td className="px-4 py-2 border border-blue-600">
-                      <PhotoView
-                        src={`${import.meta.env.VITE_BASE_API_URL}${
-                          kyc?.backImage
-                        }`}
-                      >
-                        <img
-                          src={`${import.meta.env.VITE_BASE_API_URL}${
-                            kyc?.backImage
-                          }`}
-                          alt="nid back img"
-                          className="w-14 cursor-pointer"
-                        />
-                      </PhotoView>
+                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
+                      {formattedDate(payNum?.createdAt) || "N/A"}
                     </td>
                     <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
-                      {formattedDate(kyc?.createdAt) || "N/A"}
+                      {formattedDate(payNum?.updatedAt) || "N/A"}
                     </td>
                     <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
-                      {formattedDate(kyc?.updatedAt) || "N/A"}
+                      {payNum?.paymentNumber}
                     </td>
+
+                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
+                      {payNum?.paymentNumberMethod}
+                    </td>
+
+                    <td className="px-4 py-2 border border-blue-600 whitespace-nowrap">
+                      {payNum?.numberCategory}
+                    </td>
+
                     <td className="px-4 py-2 border border-blue-600">
-                      {isKycLoading ? (
+                      {isPaymentNumberLoading ? (
                         <ClipLoader size={18} color="#000000" />
                       ) : (
                         <span
                           className={`px-2 py-1 text-white size-20 rounded-2xl ${
-                            kyc?.status?.toLowerCase() === "approve"
+                            payNum?.status?.toLowerCase() === "approve"
                               ? "bg-green-500"
-                              : kyc?.status?.toLowerCase() === "reject"
+                              : payNum?.status?.toLowerCase() === "reject"
                               ? "bg-red-500"
                               : "bg-yellow-500"
                           }`}
                         >
-                          {kyc?.status?.toLowerCase() === "approve"
+                          {payNum?.status?.toLowerCase() === "approve"
                             ? "Approved"
-                            : kyc?.status?.toLowerCase() === "pending"
+                            : payNum?.status?.toLowerCase() === "pending"
                             ? "Pending"
                             : "Rejected"}
                         </span>
@@ -240,7 +212,7 @@ const Kyc = () => {
                         name="status"
                         className="px-3 py-1 border border-gray-300 rounded-sm bg-white text-black outline-none hover:border-blue-500 transition-all ease-in-out"
                         onChange={(e) =>
-                          handleKycStatus(kyc._id, e.target.value)
+                          handlePaymentNumberStatus(payNum._id, e.target.value)
                         }
                       >
                         <option value="" className="text-gray-400">
@@ -256,10 +228,10 @@ const Kyc = () => {
                     </td>
                   </tr>
                 ))}
-                {paginatedKycs?.length === 0 && (
+                {paginatedNumbers?.length === 0 && (
                   <tr>
                     <td colSpan="8" className="text-center py-4 text-gray-500">
-                      No kyc data found.
+                      No payment request data found.
                     </td>
                   </tr>
                 )}
@@ -271,7 +243,7 @@ const Kyc = () => {
 
       {/* Pagination */}
       <TablePagination
-        totalItems={filteredKycs?.length || 0}
+        totalItems={filteredNumbers?.length || 0}
         itemsPerPage={rowsPerPage}
         currentPage={currentPage}
         onPageChange={(page) => setCurrentPage(page)}
@@ -280,4 +252,4 @@ const Kyc = () => {
   );
 };
 
-export default Kyc;
+export default PaymentMethodRequests;

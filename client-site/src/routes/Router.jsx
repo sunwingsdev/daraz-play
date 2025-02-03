@@ -40,6 +40,8 @@ import Pages from "../pages/page/Pages";
 import ManagePages from "../pages/dashboard/ManagePages";
 import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
 import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
+import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
+import AgentProfileView from "../pages/dashboard/AgentProfileView";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,7 @@ const router = createBrowserRouter([
       { path: "games-api/:id", element: <GamesApi /> },
       { path: "user-profile", element: <UserProfile /> },
       { path: "agentprofile/:id", element: <AgentProfile /> },
+      { path: "paymentmethodrequests", element: <PaymentMethodRequests /> },
       { path: "add-games-categories", element: <AddGamesCategories /> },
       { path: "home-control", element: <HomeControl /> },
       { path: "frontend-slider", element: <FrontendSlider /> },
@@ -86,6 +89,7 @@ const router = createBrowserRouter([
       { path: "deposits", element: <DepositHistory /> },
       { path: "withdraws", element: <WithdrawHistory /> },
       { path: "manage-pages", element: <ManagePages /> },
+      { path: "viewagentprofile/:id", element: <AgentProfileView /> },
     ],
   },
   {

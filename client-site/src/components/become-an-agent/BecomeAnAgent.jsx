@@ -61,11 +61,14 @@ const BecomeAnAgent = () => {
               {isLoading ? (
                 <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
               ) : (
-                <img
-                  className="w-40"
-                  src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
-                  alt="Logo"
-                />
+                <div className="flex flex-col">
+                  <img
+                    className="w-32"
+                    src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                    alt="Logo"
+                  />
+                  <p className="text-white text-xs">Cash Agent</p>
+                </div>
               )}
             </div>
             <div className="text-white space-x-10 text-lg font-bold hidden lg:block">

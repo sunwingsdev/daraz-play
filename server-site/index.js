@@ -15,21 +15,22 @@ const promotionApi = require("./apis/promotionApi/promotionApi");
 const categoriesApi = require("./apis/categoriesApi/categoriesApi");
 const kycApi = require("./apis/kycApi/kycApi");
 const pagesApi = require("./apis/pagesApi/pagesApi");
+const paymentNumberApi = require("./apis/paymentNumberApi/paymentNumberApi");
 
 const corsConfig = {
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://melbet99.com",
-    "http://melbet99.com",
-    "https://www.melbet99.com",
-    "www.melbet99.com",
-    "melbet99.com",
-    "https://darazplay.oracleapi.net",
-    "http://darazplay.oracleapi.net",
-    "https://www.darazplay.oracleapi.net",
-    "www.darazplay.oracleapi.net",
-    "darazplay.oracleapi.net",
+    "https://betby247.com",
+    "http://betby247.com",
+    "https://www.betby247.com",
+    "www.betby247.com",
+    "betby247.com",
+    // "https://darazplay.oracleapi.net",
+    // "http://darazplay.oracleapi.net",
+    // "https://www.darazplay.oracleapi.net",
+    // "www.darazplay.oracleapi.net",
+    // "darazplay.oracleapi.net",
     "*",
   ],
   credential: true,
@@ -101,6 +102,9 @@ async function run() {
       .db("daraz")
       .collection("homeControls");
     const kycCollection = client.db("daraz").collection("kyc");
+    const paymentNumberCollection = client
+      .db("daraz")
+      .collection("payment-numbers");
     //collections end
 
     // APIs start
@@ -115,6 +119,7 @@ async function run() {
     app.use("/categories", categoriesApi(categoriesCollection));
     app.use("/kyc", kycApi(kycCollection, homeControlsCollection));
     app.use("/pages", pagesApi(pagesCollection));
+    app.use("/paymentnumber", paymentNumberApi(paymentNumberCollection));
 
     // APIs end
 

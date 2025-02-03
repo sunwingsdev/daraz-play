@@ -69,11 +69,14 @@ const CashAgentSidebar = ({ open, setOpen, menuItems }) => {
                 {isLoading ? (
                   <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
                 ) : (
-                  <img
-                    className="w-40"
-                    src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
-                    alt="Logo"
-                  />
+                  <div className="flex flex-col">
+                    <img
+                      className="w-32"
+                      src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
+                      alt="Logo"
+                    />
+                    <p className="text-white text-xs">Cash Agent Dashboard</p>
+                  </div>
                 )}
               </Link>
             </div>
