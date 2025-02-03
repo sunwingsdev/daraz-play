@@ -441,16 +441,17 @@ const usersApi = (usersCollection, homeControlsCollection) => {
           .json({ error: "Agent account is not approved yet." });
       }
 
-      // Generate JWT token for the agent
+      // Generate JWT token for the agent (include role in payload)
       const agentToken = jwt.sign(
-        { userId: agent._id, username: agent.username },
+        { userId: agent._id, username: agent.username, role: "agent" }, // Include role
         jwtSecret,
         { expiresIn: "1d" }
       );
 
-      // Return the agent's login token
+      // Return the agent's login token with role
       res.status(200).json({
         token: agentToken,
+        role: "agent", // Send role separately too
         message: "Admin logged in as agent successfully.",
       });
     } catch (error) {
