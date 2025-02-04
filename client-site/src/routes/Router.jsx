@@ -42,6 +42,7 @@ import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
 import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
 import AgentProfileView from "../pages/dashboard/AgentProfileView";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -157,6 +158,10 @@ const router = createBrowserRouter([
   {
     path: "/pages/:route",
     element: <Pages />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
