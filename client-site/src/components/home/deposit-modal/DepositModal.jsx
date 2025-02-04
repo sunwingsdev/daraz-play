@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { BsArrowLeftSquare } from "react-icons/bs";
+import { BsArrowLeftSquare, BsFillPatchExclamationFill } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { MdGTranslate } from "react-icons/md";
 import { IoCopySharp, IoHomeOutline } from "react-icons/io5";
@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { useAddDepositMutation } from "../../../redux/features/allApis/depositsApi/depositsApi";
 import { uploadImage } from "../../../hooks/files";
 import { useGetPromotionsQuery } from "../../../redux/features/allApis/promotionApi/promotionApi";
+import { Check } from "lucide-react";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 const mobilePaymentMethods = [
   {
@@ -390,9 +392,20 @@ const DepositModal = ({ closeDepositModal }) => {
 
   console.log("Selected Option: ", selectedOption);
 
+  // button Deposit Channel
+  const [activeButton, setActiveButton] = useState(null);
+  const buttons = ["Expay", "Autopay", "সেন্ড মানি"];
+
+  // Amount
+  const amounts = [2000, 5000, 10000, 15000, 20000, 25000, 500, 200];
+  const [totalAmount, setTotalAmount] = useState(0); // মোট যোগফল ট্র্যাক করবে
+
+  const handleClick = (amount) => {
+    setTotalAmount((prevTotal) => prevTotal + amount); // টোটাল অ্যামাউন্টে যোগ হবে
+  };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="w-full max-w-md bg-[#222222] rounded-lg shadow-md flex flex-col overflow-y-auto max-h-svh relative">
+    <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+      <div className="w-full max-w-md bg-SidebarBg rounded-lg shadow-md flex flex-col overflow-y-auto max-h-svh relative">
         {/* Close Button */}
         <button
           onClick={closeDepositModal}
@@ -403,11 +416,11 @@ const DepositModal = ({ closeDepositModal }) => {
 
         {/* Step 1: Select Payment Method */}
         {step === 1 && (
-          <div className="p-6">
-            <div className="flex justify-center items-center space-x-3">
+          <div className="">
+            <div className="flex justify-center items-center space-x-3 mt-4 px-4">
               <p className="text-2xl font-bold text-white">Deposit</p>
             </div>
-            <div className="flex mt-2 justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-red-600">
+            {/* <div className="flex mt-2 justify-between items-center gap-4 py-2 px-4 text-gray-700 bg-gray-50 border-2 border-red-600">
               <IoHomeOutline
                 className="cursor-pointer"
                 onClick={() => setStep(1)}
@@ -421,86 +434,186 @@ const DepositModal = ({ closeDepositModal }) => {
                   size={22}
                 />
               </div>
-            </div>
-            <div className="mt-6">
-              <div className="flex">
+            </div> */}
+            <div className="">
+              {/* Deposit & Withdrawal button */}
+              <div className="flex py-3 px-6">
                 <button
                   onClick={() => setActiveTabBottom("MOBILE_BANKING")}
-                  className={`flex-1 py-2 font-semibold text-center rounded-l-md ${
+                  className={`flex-1 py-1.5 font-semibold text-center rounded-l-md ${
                     activeTabBottom === "MOBILE_BANKING"
-                      ? "text-white loginButtonBgColor scale-105"
-                      : "bg-black text-gray-200"
+                      ? "text-black bg-yellow-400 loginButtonBgColor scale-105"
+                      : "bg-[#0d4f2c] text-gray-200"
                   }`}
                 >
                   MOBILE BANKING
                 </button>
                 <button
                   onClick={() => setActiveTabBottom("BANK_TRANSFER")}
-                  className={`flex-1 py-2 font-semibold text-center rounded-r-md ${
+                  className={`flex-1 py-1.5 font-semibold text-center rounded-r-md ${
                     activeTabBottom === "BANK_TRANSFER"
-                      ? "text-white loginButtonBgColor scale-105"
-                      : "bg-black text-gray-200"
+                      ? "text-black bg-yellow-400 loginButtonBgColor scale-105"
+                      : "bg-[#0d4f2c] text-gray-200"
                   }`}
                 >
                   BANK TRANSFER
                 </button>
               </div>
 
-              <div className="flex flex-col items-start mt-2">
-                <select
-                  id="bonusOption"
-                  value={selectedOption}
-                  onChange={handleChange}
-                  className="w-full px-4 py-1 text-white bg-[#333] border border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 focus:border-transparent"
-                >
-                  {" "}
-                  <option selected disabled value={""}>
-                    Select Promotion
-                  </option>
-                  {bonusPromotions?.map((item) => (
-                    <option key={item?._id} value={item?._id}>
-                      {item?.bonusTitle}
+              <div className="bg-[#0d4f2c] text-white text-sm flex items-center justify-between gap-2 py-2 px-5">
+                <div className="flex gap-2 items-center">
+                  <img
+                    src="https://img.d4040p.com/dp/h5/assets/images/icon-set/icon-selectpromotion.svg?v=1737700451320"
+                    alt=""
+                  />
+                  <p>Select Promotion</p>
+                </div>
+                <div className="flex flex-col items-start">
+                  <select
+                    id="bonusOption"
+                    value={selectedOption}
+                    onChange={handleChange}
+                    className="w-full  bg-[#0d4f2c] focus:outline-none focus:border-transparent"
+                  >
+                    {" "}
+                    <option selected disabled value={""}>
+                      ৩% আনলিমিটেড ডিপোজিট
                     </option>
-                  ))}
-                </select>
+                    {bonusPromotions?.map((item) => (
+                      <option key={item?._id} value={item?._id}>
+                        {item?.bonusTitle}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div className="mt-4">
-                {activeTabBottom === "MOBILE_BANKING" ? (
-                  <div className="grid grid-cols-3 gap-2">
-                    {mobilePaymentMethods?.map((item) => (
+              <div className="py-3 px-2 bg-footerBg max-h-[410px] 2xl:max-h-[560px] overflow-y-auto scrollbar-hide">
+                {/* Bank accoun name */}
+                <div className="p-3 bg-white rounded-md">
+                  <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
+                    Payment Method
+                  </h2>
+                  {activeTabBottom === "MOBILE_BANKING" ? (
+                    <div className="grid grid-cols-3 gap-2">
+                      {mobilePaymentMethods?.map((item) => (
+                        <button
+                          key={item}
+                          onClick={() => selectPaymentMethod(item)}
+                        >
+                          <div className="p-2 bg-gray-200 rounded-md text-center group">
+                            <img
+                              className="w-20 m-auto transform transition-transform duration-300 group-hover:scale-110"
+                              src={item.image}
+                              alt={item.paymentMethod}
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                      {bankPaymentMethods?.map((item) => (
+                        <button
+                          key={item}
+                          onClick={() => selectPaymentMethod(item)}
+                        >
+                          <div className="p-2 bg-gray-200 rounded-md text-center group">
+                            <img
+                              className="w-20 m-auto transform transition-transform duration-300 group-hover:scale-110"
+                              src={item.image}
+                              alt={item.paymentMethod}
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Deposit Channel */}
+                <div className="mt-2 p-3 bg-white rounded-md">
+                  <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
+                    Deposit Channel
+                  </h2>
+                  <div className="flex gap-3">
+                    {buttons.map((label, index) => (
                       <button
-                        key={item}
-                        onClick={() => selectPaymentMethod(item)}
+                        key={index}
+                        onClick={() => setActiveButton(index)}
+                        className={`relative py-1.5 px-4 text-sm border rounded-sm uppercase transition-all duration-300 ${
+                          activeButton === index
+                            ? "border-footerTextColor text-footerTextColor"
+                            : "border-gray-400 text-gray-600"
+                        }`}
                       >
-                        <div className="p-2 bg-gray-200 rounded-md text-center group">
-                          <img
-                            className="w-20 m-auto transform transition-transform duration-300 group-hover:scale-110"
-                            src={item.image}
-                            alt={item.paymentMethod}
-                          />
-                        </div>
+                        {label}
+                        {activeButton === index && (
+                          <span className="absolute bottom-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                            <Check size={10} />
+                          </span>
+                        )}
                       </button>
                     ))}
                   </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-2">
-                    {bankPaymentMethods?.map((item) => (
-                      <button
-                        key={item}
-                        onClick={() => selectPaymentMethod(item)}
-                      >
-                        <div className="p-2 bg-gray-200 rounded-md text-center group">
-                          <img
-                            className="w-20 m-auto transform transition-transform duration-300 group-hover:scale-110"
-                            src={item.image}
-                            alt={item.paymentMethod}
-                          />
-                        </div>
-                      </button>
-                    ))}
+                </div>
+
+                {/* Amount */}
+                <div className="mt-2 p-3 bg-white rounded-md">
+                  <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
+                    Amount
+                  </h2>
+                  <div>
+                    {/* Grid Buttons */}
+                    <div className="grid grid-cols-4 gap-3 mb-3">
+                      {amounts.map((amount, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleClick(amount)}
+                          className="flex items-center gap-2 py-1.5 px-3 text-sm border border-gray-400 rounded-sm transition-all duration-300 hover:border-black hover:text-black"
+                        >
+                          + {amount}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Selected Total Amount */}
+                    <div className="flex justify-between items-center gap-2 bg-slate-200 border py-1.5 px-3 rounded-md">
+                      <h3 className="text-base font-semibold">
+                        <FaBangladeshiTakaSign />
+                      </h3>
+                      <p className="text-sm font-semibold">
+                        {totalAmount > 0 ? totalAmount : "0.00"}
+                      </p>
+                    </div>
                   </div>
-                )}
+
+                  <div className="flex gap-2 mt-2 p-2 bg-yellow-100 rounded-sm">
+                    <BsFillPatchExclamationFill size={34} />
+                    <div className="">
+                      <p className="text-xs">
+                        ১/ব্যক্তিগত তথ্য"-এর অধীনে ক্যাশ আউট করার আগে সর্বোচ্চ
+                        ৩টি মোবাইল নম্বর যোগ করুন এবং ভেরিফাই করুন।
+                      </p>
+                      <p className="text-xs">
+                        ২/আপনার ডিপোজিট প্রক্রিয়ার দ্রুত সফল করতে সঠিক ক্যাশ
+                        আউট নাম্বার , এমাউন্ট এবং ট্রানজেকশন আইডি সহ সাবমিট দিন।
+                      </p>
+                      <p className="text-xs">
+                        ৩/যেকোনো ডিপোজিট করার আগে সবসময় আমাদের ডিপোজিট পেইজে
+                        নাম্বার চেক করুন ।
+                      </p>
+                      <p className="text-xs">
+                        ৪/ডিপোজিট পেন্ডিং অবস্থায় আপনি ২টি ডিপোজিট এর জন্য ট্রাই
+                        করতে পারবেন। আপনি কোনো সমস্যার সম্মুখীন হলে লাইভচ্যাট
+                        সহায়তা নিতে পারেন।
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <button className="w-full mt-2 p-1.5 text-base text-white bg-SideBarTopBg rounded-sm">
+                  Submit
+                </button>
               </div>
             </div>
           </div>
