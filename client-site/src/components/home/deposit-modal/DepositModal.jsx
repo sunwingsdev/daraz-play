@@ -340,7 +340,7 @@ const DepositModal = ({ closeDepositModal }) => {
         userId: user?._id,
         method: paymentMethod?.paymentMethod,
         gateway: paymentMethod?.gateway,
-        promotionId: selectedOption ,
+        promotionId: selectedOption,
         paymentInputs: paymentInputs,
       };
       if (depositAmount) {

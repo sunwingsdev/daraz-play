@@ -23,8 +23,8 @@ export default {
         marqueBg: "#147b44",
         marqueText: "#ffffff",
         gameMenuBgActive: "#20cf74",
-        mobileMenuBg: "#000000",
-        mobileSubMenuBg: "#1f2937",
+        mobileMenuBg: "#147b44",
+        mobileSubMenuBg: "#1f603d",
 
         customWhite: "#fff",
         customGreenPrimary: "#117c44",
