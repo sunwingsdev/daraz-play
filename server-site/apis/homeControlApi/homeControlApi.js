@@ -55,7 +55,11 @@ const homeControlApi = (homeControlCollection) => {
           { _id: new ObjectId(id) },
           { $set: { isSelected: true } }
         );
-      } else if (category === "slider") {
+      } else if (
+        category === "slider" ||
+        category === "favorite" ||
+        category === "featured-game"
+      ) {
         await homeControlCollection.updateOne(
           { _id: new ObjectId(id) },
           { $set: { isSelected: !isSelected } }
@@ -73,21 +77,16 @@ const homeControlApi = (homeControlCollection) => {
   // delete a home control
   router.delete("/:id", async (req, res) => {
     const { id } = req.params;
-
-    // ObjectId চেক করা হচ্ছে
     if (!ObjectId.isValid(id)) {
       return res.status(400).send({ error: "Invalid ObjectId format" });
     }
-
     try {
       const query = { _id: new ObjectId(id) };
       const result = await homeControlCollection.deleteOne(query);
-
       if (result.deletedCount === 0) {
         return res.status(404).send({ error: "Object not found" });
       }
-
-      res.send({ success: true, message: "Delete successful" });
+      res.send(result);
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: "An error occurred" });
