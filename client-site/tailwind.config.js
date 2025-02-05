@@ -20,7 +20,7 @@ export default {
         signinButtonBgColor: "#2d985f",
         footerBg: "#dfdbda",
         footerTextColor: "#147b44",
-        marqueBg: "#147b44",
+        marqueBg: "#0a4a28",
         marqueText: "#ffffff",
         gameMenuBgActive: "#20cf74",
         mobileMenuBg: "#147b44",
