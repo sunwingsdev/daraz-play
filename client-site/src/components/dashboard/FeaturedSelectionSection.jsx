@@ -70,7 +70,7 @@ const FeaturedSelectionSection = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 py-4">
         {featuredHomeControls?.map((control) => (
           <div
             className="relative border border-[#041d3c] p-2 rounded-md"
