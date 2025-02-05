@@ -8,7 +8,7 @@ const MarqueeSlider = () => {
     (control) => control.category === "notice" && control.isSelected
   );
   return (
-    <div className="mb-2 overflow-hidden whitespace-nowrap text-marqueText bg-marqueBg relative">
+    <div className="mb-0 md:mb-2 pb-1 md:pb-0 overflow-hidden whitespace-nowrap text-marqueText bg-marqueBg relative">
       <div className="bg-marqueBg absolute top-0 left-0 z-10 p-2 pl-6 text-white">
         <GrAnnounce size={14} />
       </div>
