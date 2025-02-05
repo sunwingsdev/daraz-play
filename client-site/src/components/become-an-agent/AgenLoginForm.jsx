@@ -80,7 +80,6 @@ const AgentLoginForm = ({ onClose }) => {
           navigate("/becomeanagent");
         }
       }
-      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       addToast("Unexpected error occurred.", {
         appearance: "error",

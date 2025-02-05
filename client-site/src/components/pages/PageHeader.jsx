@@ -76,7 +76,7 @@ const PageHeader = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/affiliate/sign">
+                <Link to="/affiliate/signup">
                   <button className="w-32 h-10 bg-customYellow hover:bg-customYellow text-black sm:text-sm lg:text-base font-medium font-poppins  rounded-lg lg:block">
                     Sign Up
                   </button>
