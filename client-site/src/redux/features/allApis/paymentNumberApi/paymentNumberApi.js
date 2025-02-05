@@ -33,6 +33,12 @@ const paymentNumberApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["paymentNumber"],
     }),
+
+    // get a random number
+    getRandomNumber: builder.query({
+      query: (method) => `/paymentnumber/random-number/${method}`,
+      providesTags: ["paymentNumber"],
+    }),
   }),
 });
 
@@ -41,4 +47,5 @@ export const {
   useGetAllPaymentNumbersQuery,
   useGetPaymentNumberByIdQuery,
   useUpdatePaymentNumberStatusMutation,
+  useGetRandomNumberQuery,
 } = paymentNumberApi;

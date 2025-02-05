@@ -43,6 +43,7 @@ import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
 import AgentProfileView from "../pages/dashboard/AgentProfileView";
 import NotFound from "../pages/NotFound";
+import DepositLastPage from "../components/home/deposit-modal/DepositLastPage";
 
 const router = createBrowserRouter([
   {
@@ -162,6 +163,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound />,
+  },
+  {
+    path: "/depositlastpage",
+    element: <DepositLastPage />,
   },
 ]);
 
