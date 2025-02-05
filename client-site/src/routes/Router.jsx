@@ -146,7 +146,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/affiliate/sign",
+    path: "/affiliate/signup",
     element: <Sign />,
   },
 
