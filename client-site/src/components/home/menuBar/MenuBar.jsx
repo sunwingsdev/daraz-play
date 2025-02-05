@@ -510,7 +510,7 @@ const MenuBar = () => {
             <div
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-[90px] text-center py-2 md:py-1.5 px-5 text-xs font-semibold cursor-pointer ${
+              className={`w-[90px] text-center py-3 px-3 md:px-5 text-xs font-semibold cursor-pointer ${
                 activeTab === item.id ? "bg-gameMenuBgActive" : "text-white"
               }`}
             >
@@ -539,7 +539,7 @@ const MenuBar = () => {
         {menuItems
           .filter((item) => item.id === activeTab)
           .map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="px-4 md:px-0">
               <div className="py-2 text-center text-footerTextColor">
                 <p className="text-sm font-semibold text-start border-l-4 border-footerTextColor pl-2">
                   {item.name}
@@ -550,7 +550,7 @@ const MenuBar = () => {
                   <div
                     onClick={() => handleMenuClick(subItem)}
                     key={subItem.id}
-                    className="text-center py-2 px-1.5 bg-SidebarBg cursor-pointer"
+                    className="text-center py-3 px-1.5 bg-SidebarBg cursor-pointer"
                   >
                     {subItem.icon && (
                       <img

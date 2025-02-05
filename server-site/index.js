@@ -8,6 +8,7 @@ const { upload, deleteFile } = require("./utils");
 const path = require("path");
 
 const usersApi = require("./apis/usersApi/usersApi");
+const affiliatesApi = require("./apis/usersApi/affiliateApi");
 const depositsApi = require("./apis/depositsApi/depositsApi");
 const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
@@ -109,6 +110,7 @@ async function run() {
 
     // APIs start
     app.use("/users", usersApi(usersCollection, homeControlsCollection));
+    app.use("/users", affiliatesApi(usersCollection, homeControlsCollection));
     app.use(
       "/deposits",
       depositsApi(depositsCollection, usersCollection, promotionCollection)

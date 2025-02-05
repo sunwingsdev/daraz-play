@@ -71,7 +71,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/affiliate/sign">
+                <Link to="/affiliate/signup">
                   <button className="w-32 h-10 bg-customYellow hover:bg-customYellow text-black sm:text-sm lg:text-base font-medium font-poppins  rounded-lg lg:block">
                     Sign Up
                   </button>
@@ -91,7 +91,7 @@ const Header = () => {
               </button>
             </Link>
 
-            <Link to="/affiliate/sign">
+            <Link to="/affiliate/signup">
               <button className="lg:w-24 sm:h-6 lg:h-10 bg-customYellow hover:bg-customYellow text-black sm:text-sm lg:text-base font-medium font-poppins hidden rounded-sm lg:block">
                 Sign Up
               </button>

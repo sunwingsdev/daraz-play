@@ -40,7 +40,8 @@ const DashboardLayout = () => {
     {
       name: "Affiliators",
       icon: <FaAffiliatetheme />,
-      path: "/dashboard/affiliators",
+
+      submenu: [{ name: "All Affiliates", path: "/dashboard/affiliators" }],
     },
     {
       name: "Games Control",
