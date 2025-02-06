@@ -20,9 +20,9 @@ import { TfiReload } from "react-icons/tfi";
 const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-gradient-to-t from-black to-red-600 text-white font-semibold rounded-md py-2 space-y-2">
-      <h2 className="border-s-8 border-white px-2 ms-2">{heading}</h2>
-      <div className="w-full border-t border-white"></div>
+    <div className="bg-white text-SidebarBg font-semibold rounded-md py-2 space-y-2">
+      <h2 className="border-s-8 border-SidebarBg px-2 ms-2">{heading}</h2>
+      <div className="w-full border-t border-SidebarBg"></div>
       <div
         className={`flex items-center px-2 ${
           contents.length === 4
@@ -45,7 +45,7 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
-              <div className="rounded-full bg-black p-1.5">
+              <div className="rounded-full bg-gray-200 text-black p-1.5">
                 <Icon className="text-xl" />
               </div>
               <p className="text-xs sm:text-sm text-center">{title}</p>
@@ -56,7 +56,7 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
-              <div className="rounded-full bg-black p-1.5">
+              <div className="rounded-full bg-gray-200 text-black p-1.5">
                 {" "}
                 <Icon className="text-xl" />
               </div>
@@ -157,12 +157,12 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center bg-black justify-center z-50 font-normal overflow-y-auto">
+      <div className="fixed inset-0 flex items-center bg-footerBg justify-center z-50 font-normal overflow-y-auto">
         {/* Drawer Content */}
         <div className="w-full h-full rounded-t-2xl shadow-lg flex flex-col">
           <button
             onClick={() => setDrawerOpen(false)}
-            className="self-end text-white myProfile absolute ps-10 pe-2 pb-8 rounded-bl-full text-2xl z-50"
+            className="self-end text-footerTextColor bg-gray-300 font-bold absolute ps-10 pe-2 pb-8 rounded-bl-full text-2xl z-50"
           >
             ✕
           </button>
@@ -181,7 +181,7 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
                   <p className="text-xl font-bold text-white">
                     User Id : {user?.username}
                   </p>
-                  <div className="myProfile font-semibold text-white flex items-center justify-center gap-2 px-3 py-2 text-[10px] rounded-full w-fit">
+                  <div className="bg-white font-semibold text-black flex items-center justify-center gap-2 px-3 py-2 text-[10px] rounded-full w-fit">
                     <p>
                       {" "}
                       VIP Points (VP){" "}
@@ -193,7 +193,7 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
                   </div>
                 </div>
               </div>
-              <div className="myProfile text-white px-3 py-7 rounded-md flex items-center justify-between">
+              <div className="bg-SidebarBg text-white px-3 py-7 rounded-md flex items-center justify-between">
                 <p className="inline-flex items-center gap-3 text-sm">
                   Main Wallet{" "}
                   {isWalletOpen ? (
@@ -250,7 +250,7 @@ const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
               />
               <div
                 onClick={handleLogout}
-                className="bg-gray-800 hover:bg-red-700 duration-300 text-white py-3 rounded-md flex items-center justify-center"
+                className="bg-white hover:bg-SidebarBg duration-300 text-black py-3 rounded-md flex items-center justify-center"
               >
                 <p className="inline-flex items-center justify-center gap-3 text-sm">
                   <IoIosLogOut className="text-2xl" />

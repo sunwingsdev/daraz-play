@@ -111,6 +111,31 @@ const paymentNumberApi = (paymentNumberCollection) => {
       res.status(500).json({ error: "Failed to update payment number status" });
     }
   });
+  router.get("/random-number/:method", async (req, res) => {
+    const { method } = req.params;
+
+    try {
+      const result = await paymentNumberCollection
+        .aggregate([
+          { $match: { status: "approve", paymentNumberMethod: method } },
+          { $sample: { size: 1 } },
+        ])
+        .toArray();
+
+      if (result.length === 0) {
+        return res
+          .status(404)
+          .json({ error: "No approved payment numbers found for this method" });
+      }
+
+      res.json(result[0]);
+    } catch (error) {
+      console.error("Error fetching random approved payment number:", error);
+      res
+        .status(500)
+        .json({ error: "Failed to fetch a random approved payment number" });
+    }
+  });
 
   return router;
 };

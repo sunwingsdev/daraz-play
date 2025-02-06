@@ -44,6 +44,8 @@ import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
 import AgentProfileView from "../pages/dashboard/AgentProfileView";
 import AffiliateRoute from "./AffiliateRoute";
 import AffiliateProfile from "../pages/affiliates-dashboard/AffiliateProfile";
+import NotFound from "../pages/NotFound";
+import DepositLastPage from "../components/home/deposit-modal/DepositLastPage";
 
 const router = createBrowserRouter([
   {
@@ -166,6 +168,14 @@ const router = createBrowserRouter([
   {
     path: "/pages/:route",
     element: <Pages />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  {
+    path: "/depositlastpage",
+    element: <DepositLastPage />,
   },
 ]);
 
