@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   useGetAgentByIdQuery,
+  useUpdateAgentMutation,
   useUpdateUserProfileImageMutation,
 } from "../../redux/features/allApis/usersApi/usersApi";
 import noImage from "../../assets/noImageAvailable.png";
@@ -19,6 +20,7 @@ import { IoCameraOutline } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import CashAgentProfileUserInfo from "../../components/cash-agent/cash-agent-profile/CashAgentProfileUserInfo";
 import { uploadImage } from "../../hooks/files";
+import { useGetAllPaymentNumbersQuery } from "../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 
 const AgentProfile = () => {
   const { id } = useParams();
@@ -29,11 +31,14 @@ const AgentProfile = () => {
   const { handleSubmit, reset } = useForm();
   const { data: singleAgent, isLoading: agentLoading } =
     useGetAgentByIdQuery(id);
+  const [updateAgent, { isLoading: updateAgentLoading }] =
+    useUpdateAgentMutation();
   const [updateProfileImage, { isLoading: isProfileImageLoading }] =
     useUpdateUserProfileImageMutation();
   const { data: singleKyc } = useGetKycByIdQuery(id);
   const [updateKycStatus, { isLoading: isKycLoading }] =
     useUpdateKycStatusMutation();
+  const { data: allPaymentNumber } = useGetAllPaymentNumbersQuery();
 
   // Handle image selection
   const handleImageChange = (e) => {
@@ -111,6 +116,10 @@ const AgentProfile = () => {
       });
     }
   };
+
+  const filteredPaymentNumber = allPaymentNumber?.filter(
+    (paymentNumber) => paymentNumber?.userId === id
+  );
 
   return (
     <div className="bg-gray-100 min-h-screen p-2">
@@ -190,6 +199,50 @@ const AgentProfile = () => {
                 <p className="text-green-600 font-bold ml-2">{item.value}</p>
               </div>
             ))}
+            {filteredPaymentNumber?.length !== 0 && (
+              <div className="px-2">
+                <p className="text-left">Payment Methods & Numbers:</p>
+              </div>
+            )}
+
+            {filteredPaymentNumber?.map((paymentNum, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between bg-gray-100 p-2 rounded-md"
+              >
+                <p className="text-gray-600 font-semibold capitalize">
+                  {paymentNum?.paymentNumberMethod}
+                </p>
+                <div className="flex flex-row items-center gap-2">
+                  <p
+                    className={`font-bold ml-2 ${
+                      paymentNum?.status === "reject"
+                        ? "line-through text-red-600"
+                        : paymentNum?.status === "pending"
+                        ? "text-gray-400"
+                        : "text-green-600"
+                    }`}
+                  >
+                    {paymentNum?.paymentNumber}
+                  </p>
+                  <p
+                    className={`${
+                      paymentNum?.status === "pending"
+                        ? "bg-yellow-400"
+                        : paymentNum?.status === "approve"
+                        ? "bg-green-400"
+                        : "bg-red-400"
+                    } text-capitalize text-xs px-3 rounded-full`}
+                  >
+                    {paymentNum?.status === "pending"
+                      ? "Pending"
+                      : paymentNum?.status === "approve"
+                      ? "Approved"
+                      : "Rejected"}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -233,7 +286,12 @@ const AgentProfile = () => {
           </div>
 
           {selectedSection === "userInfo" && (
-            <CashAgentProfileUserInfo id={id} />
+            <CashAgentProfileUserInfo
+              id={id}
+              singleUser={singleAgent}
+              updateUser={updateAgent}
+              isLoading={updateAgentLoading}
+            />
           )}
 
           {selectedSection === "transactionHistory" && (
@@ -305,76 +363,81 @@ const AgentProfile = () => {
                       </div>
                     </div>
                   </div>
-
-                  <div className="mb-6">
-                    <div className="p-4 border rounded-md shadow-sm bg-gray-50">
-                      <h3 className="font-semibold text-gray-700 text-lg mb-2 flex items-center space-x-2">
-                        <span>Status Info:</span>
-                        {isKycLoading && (
-                          <ClipLoader size={18} color="#000000" />
+                  {singleKyc && (
+                    <div className="mb-6">
+                      <div className="p-4 border rounded-md shadow-sm bg-gray-50">
+                        <h3 className="font-semibold text-gray-700 text-lg mb-2 flex items-center space-x-2">
+                          <span>Status Info:</span>
+                          {isKycLoading && (
+                            <ClipLoader size={18} color="#000000" />
+                          )}
+                        </h3>
+                        {!isKycLoading && (
+                          <div
+                            className={`flex items-start p-3 border-l-4 rounded-md ${
+                              singleKyc?.status === "approve"
+                                ? "border-green-500 bg-green-50"
+                                : singleKyc?.status === "reject"
+                                ? "border-red-500 bg-red-50"
+                                : "border-yellow-500 bg-yellow-50"
+                            }`}
+                          >
+                            <div className="mr-3 mt-1">
+                              {singleKyc?.status === "approve" && (
+                                <FaCheck className="text-2xl text-green-600" />
+                              )}
+                              {singleKyc?.status === "reject" && (
+                                <IoMdClose className="text-2xl text-red-600" />
+                              )}
+                              {singleKyc?.status === "pending" && (
+                                <RiErrorWarningLine className="text-2xl text-yellow-600" />
+                              )}
+                            </div>
+                            <div>
+                              <p className="font-semibold text-lg">
+                                {singleKyc?.status === "approve" && "Approved"}
+                                {singleKyc?.status === "reject" && "Rejected"}
+                                {singleKyc?.status === "pending" &&
+                                  "Pending Review"}
+                              </p>
+                              <p className="text-gray-600 mt-1">
+                                {singleKyc?.status === "approve" &&
+                                  "KYC approved. No action needed."}
+                                {singleKyc?.status === "reject" &&
+                                  "KYC rejected. Review the reason."}
+                                {singleKyc?.status === "pending" &&
+                                  "KYC under review. Take action."}
+                              </p>
+                              {singleKyc?.status === "reject" && (
+                                <div className="mt-2 text-sm text-gray-700">
+                                  <p>
+                                    <span className="font-semibold">
+                                      Reason:
+                                    </span>{" "}
+                                    Photo not clear.
+                                  </p>
+                                  <p className="mt-2">
+                                    <span className="font-semibold">
+                                      Action:
+                                    </span>{" "}
+                                    Request resubmission.
+                                  </p>
+                                </div>
+                              )}
+                              {singleKyc?.status === "pending" && (
+                                <div className="mt-2 text-sm text-gray-700">
+                                  <p>
+                                    <span className="font-semibold">Next:</span>{" "}
+                                    Verify documents and update status.
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         )}
-                      </h3>
-                      {!isKycLoading && (
-                        <div
-                          className={`flex items-start p-3 border-l-4 rounded-md ${
-                            singleKyc?.status === "approve"
-                              ? "border-green-500 bg-green-50"
-                              : singleKyc?.status === "reject"
-                              ? "border-red-500 bg-red-50"
-                              : "border-yellow-500 bg-yellow-50"
-                          }`}
-                        >
-                          <div className="mr-3 mt-1">
-                            {singleKyc?.status === "approve" && (
-                              <FaCheck className="text-2xl text-green-600" />
-                            )}
-                            {singleKyc?.status === "reject" && (
-                              <IoMdClose className="text-2xl text-red-600" />
-                            )}
-                            {singleKyc?.status === "pending" && (
-                              <RiErrorWarningLine className="text-2xl text-yellow-600" />
-                            )}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-lg">
-                              {singleKyc?.status === "approve" && "Approved"}
-                              {singleKyc?.status === "reject" && "Rejected"}
-                              {singleKyc?.status === "pending" &&
-                                "Pending Review"}
-                            </p>
-                            <p className="text-gray-600 mt-1">
-                              {singleKyc?.status === "approve" &&
-                                "KYC approved. No action needed."}
-                              {singleKyc?.status === "reject" &&
-                                "KYC rejected. Review the reason."}
-                              {singleKyc?.status === "pending" &&
-                                "KYC under review. Take action."}
-                            </p>
-                            {singleKyc?.status === "reject" && (
-                              <div className="mt-2 text-sm text-gray-700">
-                                <p>
-                                  <span className="font-semibold">Reason:</span>{" "}
-                                  Photo not clear.
-                                </p>
-                                <p className="mt-2">
-                                  <span className="font-semibold">Action:</span>{" "}
-                                  Request resubmission.
-                                </p>
-                              </div>
-                            )}
-                            {singleKyc?.status === "pending" && (
-                              <div className="mt-2 text-sm text-gray-700">
-                                <p>
-                                  <span className="font-semibold">Next:</span>{" "}
-                                  Verify documents and update status.
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="mb-6">
                     <label className="block text-sm font-medium mb-2">

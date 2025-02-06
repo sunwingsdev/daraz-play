@@ -42,6 +42,8 @@ import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
 import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
 import AgentProfileView from "../pages/dashboard/AgentProfileView";
+import AffiliateRoute from "./AffiliateRoute";
+import AffiliateProfile from "../pages/affiliates-dashboard/AffiliateProfile";
 
 const router = createBrowserRouter([
   {
@@ -151,8 +153,15 @@ const router = createBrowserRouter([
 
   {
     path: "/affiliatesdashboard",
-    element: <AffiliatesLayout />,
-    children: [{ path: "", element: <AffiliatesHome /> }],
+    element: (
+      <AffiliateRoute>
+        <AffiliatesLayout />
+      </AffiliateRoute>
+    ),
+    children: [
+      { path: "", element: <AffiliatesHome /> },
+      { path: "profile/:id", element: <AffiliateProfile /> },
+    ],
   },
   {
     path: "/pages/:route",

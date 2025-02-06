@@ -3,6 +3,7 @@ import { useAddAffiliateMutation } from "../../redux/features/allApis/usersApi/a
 import { useToasts } from "react-toast-notifications";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import affiliateBg from "../../assets/Affiliates/affiliateBg.jpg";
 
 const Sign = () => {
   const { addToast } = useToasts();
@@ -38,7 +39,10 @@ const Sign = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#384050] p-4">
+    <div
+      className="flex items-center justify-center min-h-screen p-4 bg-cover bg-center"
+      style={{ backgroundImage: `url(${affiliateBg})` }}
+    >
       <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg">
         <div>
           <h3 className="text-left font-semibold text-2xl text-gray-800 mb-6 border-s-8 border-[#384050] ps-3">

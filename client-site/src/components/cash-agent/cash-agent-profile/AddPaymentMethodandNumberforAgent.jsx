@@ -15,7 +15,6 @@ const AddPaymentMethodandNumberforAgent = ({ id }) => {
   const { addToast } = useToasts();
   const [addPaymentNumber, { isLoading }] = useAddPaymentNumberMutation();
   const { data: singleKyc } = useGetKycByIdQuery(id);
-  console.log(singleKyc);
 
   const selectedMethod = watch("paymentNumberMethod");
 
