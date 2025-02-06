@@ -1,13 +1,22 @@
 import { useForm } from "react-hook-form";
-import {
-  useGetAgentByIdQuery,
-  useGetUsersQuery,
-  useUpdateAgentMutation,
-} from "../../../redux/features/allApis/usersApi/usersApi";
 import { useToasts } from "react-toast-notifications";
 import AddPaymentMethodandNumberforAgent from "./AddPaymentMethodandNumberforAgent";
+import { useLocation } from "react-router-dom";
 
-const CashAgentProfileUserInfo = ({ id }) => {
+const CashAgentProfileUserInfo = ({
+  id,
+  singleUser,
+  updateUser,
+  isLoading,
+}) => {
+  const location = useLocation();
+  const isAdminAgentProfilePage = location.pathname.includes(
+    "/dashboard/agentprofile/"
+  );
+  const isAffiliateProfilePage = location.pathname.includes(
+    "/affiliatesdashboard/profile/"
+  );
+  const isAgentProfilePage = location.pathname.includes("/cashagent/profile/");
   const {
     register,
     handleSubmit,
@@ -16,14 +25,8 @@ const CashAgentProfileUserInfo = ({ id }) => {
 
   const { addToast } = useToasts();
 
-  const { data: singleAgent } = useGetAgentByIdQuery(id);
-  const [updateAgent, { isLoading }] = useUpdateAgentMutation();
-  const { data: allUsers } = useGetUsersQuery();
-
-  const admin = allUsers?.filter((user) => user?.role === "admin");
-
   const onSubmit = async (data) => {
-    const { password, confirmPassword, ...updatedAgent } = data;
+    const { password, confirmPassword, ...updatedUser } = data;
 
     // Validate password and confirm password
     if (password !== confirmPassword) {
@@ -36,17 +39,17 @@ const CashAgentProfileUserInfo = ({ id }) => {
 
     try {
       // Call mutation
-      await updateAgent({
+      await updateUser({
         id,
-        data: { ...updatedAgent, ...(password && { password }) }, // Conditionally include password
+        data: { ...updatedUser, ...(password && { password }) }, // Conditionally include password
       }).unwrap();
-      addToast("Agent information updated successfully!", {
+      addToast("Information updated successfully!", {
         appearance: "success",
         autoDismiss: true,
       });
     } catch (error) {
       addToast(
-        error?.data?.message || "Failed to update agent. Please try again.",
+        error?.data?.message || "Failed to update Info. Please try again.",
         {
           appearance: "error",
           autoDismiss: true,
@@ -68,7 +71,7 @@ const CashAgentProfileUserInfo = ({ id }) => {
                 {...register("fullName", {
                   required: "Full Name is required",
                 })}
-                defaultValue={singleAgent?.fullName}
+                defaultValue={singleUser?.fullName}
               />
               {errors.fullName && (
                 <p className="text-red-500">{errors.fullName.message}</p>
@@ -88,7 +91,7 @@ const CashAgentProfileUserInfo = ({ id }) => {
                     message: "Invalid email format",
                   },
                 })}
-                defaultValue={singleAgent?.email}
+                defaultValue={singleUser?.email}
               />
               {errors.email && (
                 <p className="text-red-500">{errors.email.message}</p>
@@ -116,7 +119,7 @@ const CashAgentProfileUserInfo = ({ id }) => {
                     message: "Invalid phone number",
                   },
                 })}
-                defaultValue={singleAgent?.phone}
+                defaultValue={singleUser?.phone || "01XXXXXXXXX"}
               />
             </div>
             {errors.phone && (
@@ -130,7 +133,7 @@ const CashAgentProfileUserInfo = ({ id }) => {
                 name="username"
                 placeholder="Username"
                 className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-green-500 cursor-not-allowed"
-                defaultValue={singleAgent?.username}
+                defaultValue={singleUser?.username}
                 readOnly
                 title="Username not allowed to update"
               />
@@ -176,7 +179,9 @@ const CashAgentProfileUserInfo = ({ id }) => {
           {isLoading ? "Updating..." : "Update Info"}
         </button>
       </form>
-      {!admin && <AddPaymentMethodandNumberforAgent id={id} />}
+      {(isAgentProfilePage || isAdminAgentProfilePage) && (
+        <AddPaymentMethodandNumberforAgent id={id} />
+      )}
     </>
   );
 };

@@ -8,23 +8,25 @@ import { IoIosArrowDown, IoIosArrowForward, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { FaRegCircle, FaRegUserCircle } from "react-icons/fa";
 import { logout } from "../../redux/slices/authSlice";
-// import { useGetAgentByIdQuery, useLazyGetAgentByIdQuery } from "../../redux/features/allApis/usersApi/usersApi";
 
-const CashAgentMobileMenu = ({ open, menuItems }) => {
+const CashAgentMobileMenu = ({
+  open,
+  menuItems,
+  dashboardLink,
+  logOutPath,
+}) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
-  // console.log(singleUser);
-  // const [singleAgent] = useGetAgentByIdQuery(id);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState(null); // Store the currently open submenu
+  const [openSubmenu, setOpenSubmenu] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const caSidebarRef = useRef(null);
   const { addToast } = useToasts();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation(); // Access current route
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -42,15 +44,6 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setIsSidebarOpen]);
-
-  // useEffect(() => {
-  //   if (!user) return;
-  //   singleAgent(user?._id).then(({ data }) => {
-  //     console.log(data);
-  //     dispatch(setSingleUser(data));
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user]);
 
   const logo = homeControls?.find(
     (control) => control.category === "logo" && control.isSelected
@@ -113,7 +106,8 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
       appearance: "success",
       autoDismiss: true,
     });
-    navigate("/becomeanagent");
+
+    navigate(logOutPath);
   };
 
   return (
@@ -133,6 +127,7 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
                 <IoMdMenu className="text-3xl sm:text-3xl" />
               </div>
             </div>
+
             <div className="text-white text-2xl flex justify-end items-center relative select-none">
               <FaRegUserCircle
                 onClick={toggleDropdown}
@@ -143,7 +138,7 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
                   <ul className="py-2">
                     <li>
                       <Link
-                        to={`/cashagent/profile/${user?._id}`}
+                        to={`${dashboardLink}/profile/${user?._id}`}
                         className="block px-4 py-2 text-sm text-white hover:bg-blue-200 hover:text-black"
                         onClick={() => setIsDropdownOpen(false)}
                       >

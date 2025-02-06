@@ -106,7 +106,12 @@ const AffiliatesLayout = () => {
           !open ? "md:pl-16" : "md:pl-64"
         }`}
       >
-        <CashAgentMobileMenu open={open} menuItems={menuItems} />
+        <CashAgentMobileMenu
+          open={open}
+          menuItems={menuItems}
+          dashboardLink="/affiliatesdashboard"
+          logOutPath="/affiliate"
+        />
         <div className="mt-[62px] md:mt-16 p-2">
           <Outlet />
         </div>

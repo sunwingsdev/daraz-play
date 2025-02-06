@@ -20,8 +20,8 @@ const Affiliators = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtered affiliates based on search query
-  const filteredAffiliates = allAffiliatesData?.filter((agent) =>
-    agent?.username?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+  const filteredAffiliates = allAffiliatesData?.filter((affiliate) =>
+    affiliate?.username?.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
 
   const paginatedAffiliates = filteredAffiliates?.slice(
@@ -30,7 +30,7 @@ const Affiliators = () => {
   );
 
   const handleStatusUpdate = async (affiliateId, newStatus, email) => {
-    setLoadingStates((prev) => ({ ...prev, [affiliateId]: true })); // Set loading for specific agent
+    setLoadingStates((prev) => ({ ...prev, [affiliateId]: true })); // Set loading for specific affiliate
     try {
       await updateStatus({
         id: affiliateId,
@@ -69,7 +69,7 @@ const Affiliators = () => {
           </form>
           <button
             className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 hidden md:block whitespace-nowrap"
-            // onClick={handleAddAgent}
+            // onClick={handleAddaffiliate}
           >
             Add
           </button>
@@ -145,7 +145,9 @@ const Affiliators = () => {
                     </Link>
                   </td>
                   <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600">
-                    <Link to={`/dashboard/viewagentprofile/${affiliate?._id}`}>
+                    <Link
+                      to={`/dashboard/viewaffiliateprofile/${affiliate?._id}`}
+                    >
                       <BiLogInCircle className="cursor-pointer text-2xl" />
                     </Link>
                   </td>
