@@ -8,6 +8,8 @@ import { Check } from "lucide-react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import DepositLastPage from "./DepositLastPage";
 import { uploadImage } from "../../../hooks/files";
+import { useGetRandomNumberQuery } from "../../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
+import { useSelector } from "react-redux";
 
 const mobilePaymentMethods = [
   {
@@ -15,7 +17,6 @@ const mobilePaymentMethods = [
     gateway: "MOBILE_BANKING",
     paymentMethod: "bkash",
     bgColor: "#e2136e",
-    number: "01975577900",
     depositChannels: ["expay", "autopay", "send money"],
     instructions: [
       "Go to your bKash Mobile Menu by dialing: *247# or Open bKash App.",
@@ -276,7 +277,8 @@ const bankPaymentMethods = [
 const buttons = ["Expay", "Autopay", "সেন্ড মানি"];
 
 const DepositModal = ({ closeDepositModal }) => {
-  // const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+
   const { data: promotions } = useGetPromotionsQuery();
   const [addDeposit, { isLoading }] = useAddDepositMutation();
   const [isFirstStep, setIsFirstStep] = useState(true);
@@ -293,7 +295,9 @@ const DepositModal = ({ closeDepositModal }) => {
     transactionId: "",
     screenshot: "",
     bonusId: "",
+    userId: user?._id,
   });
+  const { addToast } = useToasts();
 
   useEffect(() => {
     if (activeTabBottom === "MOBILE_BANKING") {
@@ -302,9 +306,18 @@ const DepositModal = ({ closeDepositModal }) => {
       setPaymentMethod(bankPaymentMethods[0]);
     }
     setFormData({ ...formData, paymentMethod: paymentMethod.paymentMethod });
-  }, [activeTabBottom]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    activeTabBottom,
+    mobilePaymentMethods,
+    bankPaymentMethods,
+    setPaymentMethod,
+  ]);
 
-  const { addToast } = useToasts();
+  const { data: randomNumber, refetch } = useGetRandomNumberQuery(
+    formData.paymentMethod.toLowerCase(),
+    { skip: !formData.paymentMethod }
+  );
 
   const bonusPromotions = promotions?.filter(
     (promotion) => promotion.bonus === "bonus"
@@ -329,6 +342,7 @@ const DepositModal = ({ closeDepositModal }) => {
         autoDismiss: true,
       });
       closeDepositModal();
+      refetch();
     }
     if (result.error) {
       addToast(result.error.data.error, {
@@ -688,6 +702,8 @@ const DepositModal = ({ closeDepositModal }) => {
               file={file}
               handlePaymentSubmit={handlePaymentSubmit}
               isLoading={isLoading}
+              randomNumber={randomNumber}
+              refetch={refetch}
             />
           )}
         </div>

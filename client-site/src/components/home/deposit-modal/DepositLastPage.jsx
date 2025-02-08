@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGetRandomNumberQuery } from "../../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
 import walletNumber from "../../../assets/walletNumber.png";
 import { useToasts } from "react-toast-notifications";
 import { GoCopy } from "react-icons/go";
@@ -12,17 +11,16 @@ const DepositLastPage = ({
   setFile,
   handlePaymentSubmit,
   isLoading,
+  randomNumber,
+  refetch,
 }) => {
-  const { data: randomNumber } = useGetRandomNumberQuery(
-    formData.paymentMethod.toLowerCase()
-  );
-  // const randomNumber = true;
   const [timeLeft, setTimeLeft] = useState(359);
   const { addToast } = useToasts();
 
   useEffect(() => {
     if (timeLeft <= 0) {
       resetAndClose();
+      refetch();
       return;
     }
 
@@ -31,11 +29,13 @@ const DepositLastPage = ({
     }, 1000);
 
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
   // Function to reset all input fields and close modal
   const resetAndClose = () => {
     closeModal();
+    refetch();
   };
 
   // Convert seconds to MM:SS format

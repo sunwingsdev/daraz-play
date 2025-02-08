@@ -15,6 +15,7 @@ export default {
         mainWalletBtn: "#2563eb",
         mainWalletBtnHover: "#0c44bf",
         SidebarBg: "#147b44",
+        hoverSidebarBg: "#0a4a28",
         textColor: "#1f603d",
         loginButtonBgColor: "#fde111",
         signinButtonBgColor: "#2d985f",

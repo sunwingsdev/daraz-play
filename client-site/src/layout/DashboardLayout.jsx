@@ -121,7 +121,7 @@ const DashboardLayout = () => {
       name: "Banking Deposit",
       icon: <BsPiggyBank />,
       submenu: [
-        { name: "Deposit Method" },
+        { name: "Deposit Method", path: "/dashboard/depositmethod" },
         { name: "Deposit History", path: "/dashboard/deposits" },
       ],
     },
