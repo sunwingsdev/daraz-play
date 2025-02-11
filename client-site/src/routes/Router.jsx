@@ -50,6 +50,7 @@ import AllAffiliateLinks from "../pages/dashboard/AllAffiliateLinks.jsx";
 import CommissionSetting from "../pages/dashboard/CommissionSetting.jsx";
 import NotFound from "../pages/NotFound";
 import DepositLastPage from "../components/home/deposit-modal/DepositLastPage";
+import DepositMethod from "../pages/dashboard/DepositMethod";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,7 @@ const router = createBrowserRouter([
       { path: "frontend-slider", element: <FrontendSlider /> },
       { path: "promotion-offer", element: <PromotionOffer /> },
       { path: "deposits", element: <DepositHistory /> },
+      { path: "depositmethod", element: <DepositMethod /> },
       { path: "withdraws", element: <WithdrawHistory /> },
       { path: "manage-pages", element: <ManagePages /> },
       { path: "viewagentprofile/:id", element: <AgentProfileView /> },

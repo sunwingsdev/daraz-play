@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { IoIosSearch } from "react-icons/io";
 import ReasonModal from "../../components/dashboard/ReasonModal";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -17,9 +16,20 @@ const DepositHistory = () => {
   const [status, setStatus] = useState("");
   const { addToast } = useToasts();
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Number of items per page
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Sort state
+  const [sortOrder, setSortOrder] = useState("latest"); // 'latest' or 'oldest'
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading deposits.</div>;
-  console.log(allDeposits);
+
+  // Handle status update
   const handleStatusClick = (deposit, status) => {
     setSelectedDeposit(deposit);
     setStatus(status);
@@ -37,13 +47,13 @@ const DepositHistory = () => {
     try {
       const { data } = await updateStatus(statusInfo);
       if (data.modifiedCount > 0) {
-        addToast("Status upadated!", {
+        addToast("Status updated!", {
           appearance: "success",
           autoDismiss: true,
         });
         setModalOpen(false);
       }
-      // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
       addToast("Error updating status", {
         appearance: "error",
@@ -56,20 +66,67 @@ const DepositHistory = () => {
     setModalOpen(false);
   };
 
+  // Sort deposits based on createdAt
+  const sortedDeposits = [...(allDeposits || [])].sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return sortOrder === "latest" ? dateB - dateA : dateA - dateB;
+  });
+
+  // Filter deposits based on search query
+  const filteredDeposits = sortedDeposits?.filter((deposit) => {
+    const username = deposit?.userInfo?.username?.toLowerCase() || "";
+    const accountNumber = deposit?.accountNumber?.toLowerCase() || "";
+    return (
+      username.includes(searchQuery.toLowerCase()) ||
+      accountNumber.includes(searchQuery.toLowerCase())
+    );
+  });
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredDeposits?.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(filteredDeposits?.length / itemsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Handle sort order change
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+    setCurrentPage(1); // Reset to the first page when sorting changes
+  };
+
   return (
     <div>
       <div className="bg-[#172437] flex flex-row items-center justify-between p-4 mb-2">
         <h1 className="text-2xl text-white font-bold">Deposit History</h1>
-        <form className="w-1/2 md:w-1/4 flex flex-row items-center">
-          <input
-            type="text"
-            placeholder="Type Account User Name or Account Number..."
-            className="py-2 px-1 w-full outline-none"
-          />
-          <button className="bg-white p-3">
-            <IoIosSearch />
-          </button>
-        </form>
+        <div className="flex items-center gap-4">
+          <form className="w-1/2 md:w-1/2 flex flex-row items-center">
+            <input
+              type="text"
+              placeholder="Type User Name or Account Number..."
+              className="py-2 px-1 w-full outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </form>
+          <div className="flex items-center gap-2">
+            <label className="text-white">Sort by:</label>
+            <select
+              value={sortOrder}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="py-2 px-2 rounded"
+            >
+              <option value="latest">Latest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse border border-gray-700">
@@ -87,8 +144,12 @@ const DepositHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {allDeposits?.map((deposit, index) =>
-              deposit?.paymentInputs?.map((input, inputIndex) => (
+            {currentItems?.map((deposit, index) => {
+              const paymentInputs = Array.isArray(deposit?.paymentInputs)
+                ? deposit.paymentInputs
+                : [];
+
+              return paymentInputs.map((input, inputIndex) => (
                 <tr
                   key={`${deposit?._id}-${inputIndex}`}
                   className={`${
@@ -98,13 +159,13 @@ const DepositHistory = () => {
                   {inputIndex === 0 && (
                     <>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2 font-medium"
                       >
                         {deposit?.userInfo?.username || "N/A"}
                       </td>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2"
                       >
                         {deposit?.method || "N/A"}
@@ -149,31 +210,31 @@ const DepositHistory = () => {
                   {inputIndex === 0 && (
                     <>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2"
                       >
                         {deposit?.amount || "N/A"}
                       </td>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2 text-center"
                       >
                         <IoCloudUploadOutline className="text-2xl cursor-pointer" />
                       </td>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2 text-center"
                       >
                         {deposit?.reason || "N/A"}
                       </td>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2 text-center"
                       >
                         {deposit?.addedBalance || "N/A"}
                       </td>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2"
                       >
                         {deposit?.createdAt
@@ -191,7 +252,7 @@ const DepositHistory = () => {
                           : "N/A"}
                       </td>
                       <td
-                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        rowSpan={paymentInputs.length || 1}
                         className="px-4 py-2 text-center"
                       >
                         {deposit?.status === "pending" ? (
@@ -228,11 +289,11 @@ const DepositHistory = () => {
                     </>
                   )}
                 </tr>
-              ))
-            )}
-            {allDeposits?.length === 0 && (
+              ));
+            })}
+            {currentItems?.length === 0 && (
               <tr>
-                <td colSpan="7" className="text-center py-4 text-gray-500">
+                <td colSpan="9" className="text-center py-4 text-gray-500">
                   No deposits found.
                 </td>
               </tr>
@@ -240,6 +301,36 @@ const DepositHistory = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 mx-1 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button
+            key={page}
+            onClick={() => paginate(page)}
+            className={`px-4 py-2 mx-1 ${
+              currentPage === page ? "bg-blue-500 text-white" : "bg-gray-300"
+            } rounded`}
+          >
+            {page}
+          </button>
+        ))}
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 mx-1 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+
       <ReasonModal
         isOpen={modalOpen}
         onClose={handleCloseModal}

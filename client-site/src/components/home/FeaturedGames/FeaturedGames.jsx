@@ -10,7 +10,6 @@ const FeaturedGames = () => {
   const featuredHomeControls = homeControls?.filter(
     (control) => control.category === "featured-game"
   );
-  console.log(featuredHomeControls);
   return (
     <div>
       <div className="pt-4">
