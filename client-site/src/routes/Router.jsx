@@ -48,6 +48,8 @@ import MyAffiliateLinks from "../pages/affiliates-dashboard/MyAffiliateLinks";
 import ReferralRedirect from "../components/shared/ReferralRedirect ";
 import AllAffiliateLinks from "../pages/dashboard/AllAffiliateLinks.jsx";
 import CommissionSetting from "../pages/dashboard/CommissionSetting.jsx";
+import NotFound from "../pages/NotFound";
+import DepositLastPage from "../components/home/deposit-modal/DepositLastPage";
 
 const router = createBrowserRouter([
   {
@@ -177,6 +179,14 @@ const router = createBrowserRouter([
   {
     path: "/pages/:route",
     element: <Pages />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  {
+    path: "/depositlastpage",
+    element: <DepositLastPage />,
   },
 ]);
 

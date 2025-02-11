@@ -28,7 +28,7 @@ import AccountDetailsMobile from "../../home/AccountDetailsMobile";
 import MobileLeftSideMenu from "./MobileLeftSideMenu";
 import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
-const Navbar = ({ open }) => {
+const Navbar = ({ open, menuItems }) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
@@ -189,7 +189,7 @@ const Navbar = ({ open }) => {
                     <Menu as="div" className="flex gap-3 relative">
                       <button
                         onClick={() => setIsDepositModalOpen(true)}
-                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-white bg-loginButtonBgColor"
+                        className="flex items-center gap-1 py-1.5 px-3 rounded-md text-black bg-loginButtonBgColor"
                       >
                         {" "}
                         <RiLuggageDepositFill size={18} />
@@ -253,6 +253,7 @@ const Navbar = ({ open }) => {
         </div>
         <div className="block md:hidden">
           <MobileLeftSideMenu
+            menuItems={menuItems}
             toggleMenu={toggleSidebar}
             isMenuOpen={isSidebarOpen}
             setIsMenuOpen={setIsSidebarOpen}
@@ -263,7 +264,7 @@ const Navbar = ({ open }) => {
         <div
           className={`fixed bottom-0 left-0 ${
             !user && !token ? "" : "px-4 py-2"
-          } z-50 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-red-600`}
+          } z-40 w-full text-white flex justify-between md:hidden bg-gradient-to-t from-black to-SidebarBg`}
         >
           {!user && !token ? (
             <>

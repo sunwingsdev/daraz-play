@@ -14,7 +14,7 @@ const MenuBar = () => {
     {
       id: 1,
       name: "HOT GAME",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-home.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -63,7 +63,7 @@ const MenuBar = () => {
     {
       id: 2,
       name: "SPORTS",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -110,7 +110,7 @@ const MenuBar = () => {
     {
       id: 3,
       name: "SLOTS",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -217,7 +217,7 @@ const MenuBar = () => {
     {
       id: 4,
       name: "CRASH",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -248,7 +248,7 @@ const MenuBar = () => {
     {
       id: 5,
       name: "CASINO",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-casino.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-casino.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -287,7 +287,7 @@ const MenuBar = () => {
     {
       id: 6,
       name: "TABLE",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -350,7 +350,7 @@ const MenuBar = () => {
     {
       id: 7,
       name: "LOTTERY",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -397,7 +397,7 @@ const MenuBar = () => {
     {
       id: 8,
       name: "FISHING",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -444,7 +444,7 @@ const MenuBar = () => {
     {
       id: 9,
       name: "ARCADE",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
+      icon: "https://img.d4040p.com/dp/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1737700451320",
       subItems: [
         {
           id: 1,
@@ -510,19 +510,26 @@ const MenuBar = () => {
             <div
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-[90px] text-center py-1 md:py-1.5 px-5 text-xs font-semibold cursor-pointer ${
+              className={`w-[90px] text-center py-3 px-3 md:px-5 text-xs font-semibold cursor-pointer ${
                 activeTab === item.id ? "bg-gameMenuBgActive" : "text-white"
               }`}
             >
               <div className="tab-content">
-                <img
+                {/* <img
                   className={`w-8 m-auto tab-image ${
                     activeTab === item.id ? "filter-white" : "filter-white"
                   }`}
                   src={item.icon}
                   alt={item.name}
+                /> */}
+                <img
+                  className="w-8 m-auto text-black bg-white rounded-full"
+                  src={item?.icon}
+                  alt=""
                 />
-                <p className="text-white whitespace-nowrap">{item.name}</p>
+                <p className="mt-0.5 text-white whitespace-nowrap">
+                  {item.name}
+                </p>
               </div>
             </div>
           ))}
@@ -532,7 +539,7 @@ const MenuBar = () => {
         {menuItems
           .filter((item) => item.id === activeTab)
           .map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="px-4 md:px-0">
               <div className="py-2 text-center text-footerTextColor">
                 <p className="text-sm font-semibold text-start border-l-4 border-footerTextColor pl-2">
                   {item.name}
@@ -543,7 +550,7 @@ const MenuBar = () => {
                   <div
                     onClick={() => handleMenuClick(subItem)}
                     key={subItem.id}
-                    className="text-center py-2 px-1.5 bg-SidebarBg cursor-pointer"
+                    className="text-center py-3 px-1.5 bg-SidebarBg cursor-pointer"
                   >
                     {subItem.icon && (
                       <img

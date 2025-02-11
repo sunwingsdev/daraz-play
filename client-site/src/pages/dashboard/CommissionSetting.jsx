@@ -1,4 +1,3 @@
-import React from "react";
 import AffiliateCommissionForm from "../../components/dashboard/AffiliateCommissionForm";
 import AfDepositCommissionForm from "../../components/dashboard/AfDepositCommissionForm";
 import AfSignUpCommissionForm from "../../components/dashboard/AfSignUpCommissionForm";

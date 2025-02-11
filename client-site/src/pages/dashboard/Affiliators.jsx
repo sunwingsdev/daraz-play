@@ -9,13 +9,10 @@ import { BiLogInCircle } from "react-icons/bi";
 import { ClipLoader } from "react-spinners";
 import TablePagination from "../../components/dashboard/TablePagination";
 import { useGetAllCommissionsQuery } from "../../redux/features/allApis/commissionApi/commissionApi";
-import { FaPen } from "react-icons/fa";
 import { useGetDepositsQuery } from "../../redux/features/allApis/depositsApi/depositsApi";
-import { useSelector } from "react-redux";
 import { useGetWithdrawsQuery } from "../../redux/features/allApis/withdrawsApi/withdrawsApi";
 
 const Affiliators = () => {
-  const { user } = useSelector((state) => state.auth);
   const { data: allAffiliatesData, isLoading, error } = useGetAffiliatesQuery();
   const { data: allCommissions } = useGetAllCommissionsQuery();
   const { data: allDeposites } = useGetDepositsQuery();
@@ -68,14 +65,6 @@ const Affiliators = () => {
     }
   };
 
-  const [editingFields, setEditingFields] = useState({
-    A_D_C: null,
-    A_S_C: null,
-  });
-
-  const handleEdit = (field, value) => {
-    setEditingFields((prev) => ({ ...prev, [field]: value }));
-  };
   return (
     <div>
       {/* Header */}
