@@ -24,6 +24,8 @@ const baseApi = createApi({
     "pages",
     "paymentNumber",
     "paymentMethod",
+    "refercodes",
+    "commission",
   ],
   endpoints: () => ({}),
 });
