@@ -41,7 +41,10 @@ const DashboardLayout = () => {
       name: "Affiliators",
       icon: <FaAffiliatetheme />,
 
-      submenu: [{ name: "All Affiliates", path: "/dashboard/affiliators" }],
+      submenu: [
+        { name: "All Affiliates", path: "/dashboard/affiliators" },
+        { name: "All Affiliate Links", path: "/dashboard/allaffiliatelinks" },
+      ],
     },
     {
       name: "Games Control",
@@ -145,6 +148,7 @@ const DashboardLayout = () => {
         { name: "Mailings" },
         { name: "Support" },
         { name: "Security" },
+        { name: "Commission", path: "/dashboard/commissionsetting" },
       ],
     },
     {

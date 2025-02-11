@@ -56,6 +56,22 @@ const depositsApi = (
     }
   });
 
+  // get a deposit by ID
+  router.get("/single-deposit/:id", async (req, res) => {
+    const { id } = req?.params;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
+    if (!id) {
+      return;
+    }
+    const result = await depositsCollection.findOne(
+      { userId: id },
+      { projection: { password: 0 } }
+    );
+    res.send(result);
+  });
+
   //   status updated
   router.patch("/status/:id", async (req, res) => {
     const { id } = req.params;

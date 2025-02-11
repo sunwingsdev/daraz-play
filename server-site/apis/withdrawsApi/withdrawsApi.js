@@ -1,14 +1,10 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 
-const withdrawsApi = (
-  withdrawsCollection,
-  usersCollection,
-  
-) => {
+const withdrawsApi = (withdrawsCollection, usersCollection) => {
   const router = express.Router();
 
-  //   add a deposit
+  //   add a withdraw
   router.post("/", async (req, res) => {
     const withdrawInfo = req.body;
     withdrawInfo.status = "pending";
@@ -23,7 +19,7 @@ const withdrawsApi = (
     res.send(result);
   });
 
-  //   get all deposits
+  //   get all withdraws
   router.get("/", async (req, res) => {
     try {
       const result = await withdrawsCollection

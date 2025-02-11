@@ -44,6 +44,10 @@ import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
 import AgentProfileView from "../pages/dashboard/AgentProfileView";
 import AffiliateRoute from "./AffiliateRoute";
 import AffiliateProfile from "../pages/affiliates-dashboard/AffiliateProfile";
+import MyAffiliateLinks from "../pages/affiliates-dashboard/MyAffiliateLinks";
+import ReferralRedirect from "../components/shared/ReferralRedirect ";
+import AllAffiliateLinks from "../pages/dashboard/AllAffiliateLinks.jsx";
+import CommissionSetting from "../pages/dashboard/CommissionSetting.jsx";
 import NotFound from "../pages/NotFound";
 import DepositLastPage from "../components/home/deposit-modal/DepositLastPage";
 
@@ -64,6 +68,10 @@ const router = createBrowserRouter([
         path: "/promotion",
         element: <Promotion />,
       },
+      {
+        path: "/signup",
+        element: <ReferralRedirect />, // Redirect to homepage when ref query is present
+      },
     ],
   },
   {
@@ -79,6 +87,7 @@ const router = createBrowserRouter([
       { path: "cashagent", element: <CashAgent /> },
       { path: "kyc", element: <Kyc /> },
       { path: "affiliators", element: <Affiliators /> },
+      { path: "allaffiliatelinks", element: <AllAffiliateLinks /> },
       { path: "game-categories", element: <GameCategories /> },
       { path: "active-games", element: <ActiveGames /> },
       { path: "inactive-games", element: <InActiveGames /> },
@@ -94,6 +103,7 @@ const router = createBrowserRouter([
       { path: "withdraws", element: <WithdrawHistory /> },
       { path: "manage-pages", element: <ManagePages /> },
       { path: "viewagentprofile/:id", element: <AgentProfileView /> },
+      { path: "commissionsetting", element: <CommissionSetting /> },
     ],
   },
   {
@@ -163,6 +173,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <AffiliatesHome /> },
       { path: "profile/:id", element: <AffiliateProfile /> },
+      { path: "myaffiliatelinks/:id", element: <MyAffiliateLinks /> },
     ],
   },
   {

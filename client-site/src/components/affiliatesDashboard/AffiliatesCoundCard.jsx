@@ -27,7 +27,7 @@ const AffiliatesCoundCard = () => {
       // "bg-[#f39c12]",
     },
     {
-      title: "আমার আজকের ইনকাম",
+      title: "আমার আজকের উত্তোলন",
       amount: 0,
       Icon: BiTransferAlt,
       bgColor: "bg-gradient-to-t from-red-600 to-black",

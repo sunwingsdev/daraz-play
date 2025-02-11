@@ -23,6 +23,8 @@ const baseApi = createApi({
     "kyc",
     "pages",
     "paymentNumber",
+    "refercodes",
+    "commission",
   ],
   endpoints: () => ({}),
 });
