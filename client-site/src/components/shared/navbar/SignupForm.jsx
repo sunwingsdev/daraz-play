@@ -5,7 +5,7 @@ import { FaSync } from "react-icons/fa";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useAddUserMutation } from "../../../redux/features/allApis/usersApi/usersApi";
 import { useToasts } from "react-toast-notifications";
-const SignupForm = ({ onClose }) => {
+const SignupForm = ({ onClose, refCode }) => {
   const [addUser, { isLoading }] = useAddUserMutation();
   const {
     register,
@@ -213,6 +213,7 @@ const SignupForm = ({ onClose }) => {
             {...register("refercode")}
             type="text"
             placeholder="Type Refer Code"
+            value={refCode ? refCode : ""}
             className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
         </div>

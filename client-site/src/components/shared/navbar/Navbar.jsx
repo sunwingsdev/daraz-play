@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AccoundModal from "../modal/AccoundModal";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -33,6 +33,9 @@ const Navbar = ({ open }) => {
   const [loading, setLoading] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
+  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  const [refCode, setRefCode] = useState(null); // Store the referral code
+  const { search } = useLocation();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { user, token, singleUser } = useSelector((state) => state.auth);
@@ -57,6 +60,22 @@ const Navbar = ({ open }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  const openModal = (id) => {
+    document.getElementById(id).showModal();
+  };
+
+  // Automatically open the modal if referral code exists in the URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(search);
+    const ref = urlParams.get("ref");
+
+    if (ref) {
+      setRefCode(ref); // Set referral code
+      openModal("signup_modal"); // Automatically open modal
+      navigate("/"); // Redirect to homepage (optional, since you're already on homepage)
+    }
+  }, [search, navigate]);
+
   const reloadBalance = () => {
     if (!user) return;
 
@@ -71,8 +90,10 @@ const Navbar = ({ open }) => {
       });
   };
 
-  const openModal = (id) => {
-    document.getElementById(id).showModal();
+  const handleSignUpModalClose = () => {
+    // Close modal by using document method
+    document.getElementById("signup_modal").close();
+    setSignupModalOpen(false); // Ensure the state reflects the modal is closed
   };
 
   // LanguageModal
@@ -312,6 +333,7 @@ const Navbar = ({ open }) => {
         {/* Signup Modal */}
         <AccoundModal id="signup_modal" title="Sign Up">
           <SignupForm
+            refCode={refCode} // Pass referral code to the form
             onClose={() => document.getElementById("signup_modal").close()}
           />
         </AccoundModal>

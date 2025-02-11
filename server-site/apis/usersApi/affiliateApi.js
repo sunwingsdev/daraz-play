@@ -301,6 +301,40 @@ const affiliateApi = (usersCollection, homeControlsCollection) => {
     }
   });
 
+  // Generate a referral code
+  router.post("/affiliate/generate-referral", async (req, res) => {
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+
+    try {
+      const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Generate a random referral code
+      const referralCode = Math.random()
+        .toString(36)
+        .substring(2, 10)
+        .toUpperCase();
+
+      // Store the referral code in the database
+      await usersCollection.updateOne(
+        { _id: new ObjectId(userId) },
+        { $push: { referralCodes: referralCode } } // Push new referral code to user's referralCodes array
+      );
+
+      // Return the generated referral code
+      res.status(200).json({ referralCode });
+    } catch (error) {
+      console.error("Error generating referral code:", error);
+      res.status(500).json({ error: "Failed to generate referral code" });
+    }
+  });
+
   return router;
 };
 
