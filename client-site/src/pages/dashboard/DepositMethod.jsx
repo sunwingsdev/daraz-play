@@ -15,8 +15,7 @@ import { IoReloadOutline } from "react-icons/io5";
 const DepositMethod = () => {
   const { data: gateways } = useGetPaymentMethodsQuery();
   const [deleteGateway, { isLoading }] = useDeletePaymentMethodMutation();
-  const [updateStatus, { isLoading: updateLoading }] =
-    useUpdatePaymentMethodMutation();
+  const [updateStatus] = useUpdatePaymentMethodMutation();
   const [item, setItem] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -132,31 +131,27 @@ const DepositMethod = () => {
                       <span className="ps-2">{gateway.method}</span>
                     </td>
                     <td className="py-1 px-4">
-                      {updateLoading ? (
-                        <IoReloadOutline className="animate-spin" />
-                      ) : (
-                        <div
-                          onClick={() => handleUpdateStatus(gateway)}
-                          className="flex items-center hover:cursor-pointer"
+                      <div
+                        onClick={() => handleUpdateStatus(gateway)}
+                        className="flex items-center hover:cursor-pointer"
+                      >
+                        <span
+                          className={`h-2 w-2 ${
+                            gateway?.status === "active"
+                              ? "bg-green-500"
+                              : "bg-red-500"
+                          } rounded-full mr-2`}
+                        />
+                        <span
+                          className={` ${
+                            gateway?.status === "active"
+                              ? "text-green-700"
+                              : "text-red-700"
+                          } text-sm capitalize`}
                         >
-                          <span
-                            className={`h-2 w-2 ${
-                              gateway?.status === "active"
-                                ? "bg-green-500"
-                                : "bg-red-500"
-                            } rounded-full mr-2`}
-                          />
-                          <span
-                            className={` ${
-                              gateway?.status === "active"
-                                ? "text-green-700"
-                                : "text-red-700"
-                            } text-sm capitalize`}
-                          >
-                            {gateway.status || ""}
-                          </span>
-                        </div>
-                      )}
+                          {gateway.status || ""}
+                        </span>
+                      </div>
                     </td>
                     <td className="py-1 px-4 mx-auto">
                       <div className="flex items-center justify-center">

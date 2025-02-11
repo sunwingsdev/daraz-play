@@ -1,359 +1,61 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useGetPromotionsQuery } from "../../../redux/features/allApis/promotionApi/promotionApi";
+import { useGetPaymentMethodsQuery } from "../../../redux/features/allApis/paymentMethodApi/paymentMethodApi";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { Check } from "lucide-react";
 import { BsFillPatchExclamationFill } from "react-icons/bs";
 import { useToasts } from "react-toast-notifications";
-import { useAddDepositMutation } from "../../../redux/features/allApis/depositsApi/depositsApi";
-import { useGetPromotionsQuery } from "../../../redux/features/allApis/promotionApi/promotionApi";
-import { Check } from "lucide-react";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import DepositLastPage from "./DepositLastPage";
-import { uploadImage } from "../../../hooks/files";
 import { useGetRandomNumberQuery } from "../../../redux/features/allApis/paymentNumberApi/paymentNumberApi";
+import { uploadImage } from "../../../hooks/files";
+import { useAddDepositMutation } from "../../../redux/features/allApis/depositsApi/depositsApi";
 import { useSelector } from "react-redux";
 
-const mobilePaymentMethods = [
-  {
-    image: "https://pay.hostbuybd.com/assets/template/images/bkash.png",
-    gateway: "MOBILE_BANKING",
-    paymentMethod: "bkash",
-    bgColor: "#e2136e",
-    depositChannels: ["expay", "autopay", "send money"],
-    instructions: [
-      "Go to your bKash Mobile Menu by dialing: *247# or Open bKash App.",
-      "Enter the Receiver Account Number: 01975577900",
-      "Choose: Send Money",
-      "Now enter your bKash Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from bKash",
-      "Put the Transaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 15000, 20000, 25000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-      },
-      {
-        property: "transactionId",
-        type: "text",
-        label: "Enter transaction id",
-      },
-    ],
-  },
-  {
-    image: "https://pay.hostbuybd.com/assets/template/images/nagad.png",
-    gateway: "MOBILE_BANKING",
-    paymentMethod: "nagad",
-    depositChannels: ["expay", "autopay", "send money"],
-    bgColor: "#ec1d25",
-    number: "01975577900",
-    instructions: [
-      "Go to your NAGAD Mobile Menu by dialing: *167# or Open NAGAD App.",
-      "Enter the Receiver Account Number: 01975577900",
-      "Choose: Send Money",
-      "Now enter your NAGAD Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from NAGAD",
-      "Put the Transaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "transactionId",
-        type: "text",
-        label: "Enter transaction id",
-        required: true,
-      },
-    ],
-  },
-  {
-    image: "https://pay.hostbuybd.com/assets/template/images/rocket.png",
-    gateway: "MOBILE_BANKING",
-    paymentMethod: "rocket",
-    depositChannels: ["expay", "send money"],
-    bgColor: "#8a288f",
-    number: "01975577900",
-    instructions: [
-      "Go to your Rocket Mobile Menu by dialing: *322# or Open Rocket App.",
-      "Enter the Receiver Account Number: 01975577900",
-      "Choose: Send Money",
-      "Now enter your Rocket Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from Rocket",
-      "Put the Transaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "transactionId",
-        type: "text",
-        label: "Enter transaction id",
-        required: true,
-      },
-    ],
-  },
-  {
-    image: "https://pay.hostbuybd.com/assets/template/images/upay.png",
-    gateway: "MOBILE_BANKING",
-    paymentMethod: "upay",
-    bgColor: "#8a288f",
-    number: "01975577900",
-    instructions: [
-      "Go to your Upay Mobile Menu by dialing: *322# or Open Upay App.",
-      "Enter the Receiver Account Number: 01975577900",
-      "Choose: Send Money",
-      "Now enter your Upay Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from Upay",
-      "Put the Transaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "transactionId",
-        type: "text",
-        label: "Enter transaction id",
-        required: true,
-      },
-    ],
-  },
-  {
-    image: "https://pay.hostbuybd.com/assets/template/images/tap.png",
-    gateway: "MOBILE_BANKING",
-    paymentMethod: "tap",
-    bgColor: "#8a288f",
-    number: "01975577900",
-    instructions: [
-      "Go to your Tap Mobile Menu by dialing: *322# or Open Tap App.",
-      "Enter the Receiver Account Number: 01975577900",
-      "Choose: Send Money",
-      "Now enter your Tap Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from Tap",
-      "Put the Transaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "transactionId",
-        type: "text",
-        label: "Enter transaction id",
-        required: true,
-      },
-    ],
-  },
-];
-
-const bankPaymentMethods = [
-  {
-    image: "https://pay.hostbuybd.com/uploads/bank_logo/ibbl.png",
-    gateway: "BANK_TRANSFER",
-    paymentMethod: "ibbl",
-    bgColor: "#02733c",
-    number: "013000000",
-    instructions: [
-      "Go to your bKash Mobile Menu by dialing: *247# or Open bKash App.",
-      "Enter the Receiver Account Number: 013000000",
-      "Choose: Send Money",
-      "Now enter your NAGAD Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from NAGAD",
-      "Put theTransaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "accountHolderName",
-        type: "text",
-        label: "Enter Account Holder Name",
-        required: true,
-      },
-      {
-        property: "screenshot",
-        type: "file",
-        label: "Attach a screenshot",
-        required: true,
-      },
-    ],
-  },
-  {
-    image: "https://pay.hostbuybd.com/uploads/bank_logo/dbbl.png",
-    gateway: "BANK_TRANSFER",
-    paymentMethod: "dbbl",
-    bgColor: "#02733c",
-    number: "013000000",
-    instructions: [
-      "Go to your DBBL App.",
-      "Enter the Receiver Account Number: 013000000",
-      "Choose: Send Money",
-      "Now enter your DBBL Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from DBBL",
-      "Put theTransaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "accountHolderName",
-        type: "text",
-        label: "Enter Account Holder Name",
-        required: true,
-      },
-      {
-        property: "screenshot",
-        type: "file",
-        label: "Attach a screenshot",
-        required: true,
-      },
-    ],
-  },
-  {
-    image: "https://sslcommerz.com/wp-content/uploads/2024/05/dhaka-bank.jpg",
-    gateway: "BANK_TRANSFER",
-    paymentMethod: "dhakabank",
-    bgColor: "#02733c",
-    number: "013000000",
-    instructions: [
-      "Go to your DHAKA BANK App.",
-      "Enter the Receiver Account Number: 013000000",
-      "Choose: Send Money",
-      "Now enter your DHAKA BANK Mobile Menu PIN to confirm.",
-      "Done! You will receive a confirmation message from DHAKA BANK",
-      "Put theTransaction ID in the upper box and pressVERIFY",
-    ],
-    amounts: [200, 500, 1000, 5000, 10000, 12000, 20000, 35000],
-    inputs: [
-      {
-        property: "senderAccountNumber",
-        type: "text",
-        label: "Enter Sender Account Number",
-        required: true,
-      },
-      {
-        property: "accountHolderName",
-        type: "text",
-        label: "Enter Account Holder Name",
-        required: true,
-      },
-      {
-        property: "screenshot",
-        type: "file",
-        label: "Attach a screenshot",
-        required: true,
-      },
-    ],
-  },
-];
-const buttons = ["Expay", "Autopay", "সেন্ড মানি"];
-
+const depositChannels = ["expay", "autopay", "send money"];
+const amounts = [200, 500, 1000, 5000, 10000, 15000, 20000, 25000];
 const DepositModal = ({ closeDepositModal }) => {
   const { user } = useSelector((state) => state.auth);
-
-  const { data: promotions } = useGetPromotionsQuery();
   const [addDeposit, { isLoading }] = useAddDepositMutation();
+  const { data: promotions } = useGetPromotionsQuery();
+  const [tempInputValues, setTempInputValues] = useState({});
+  const { data: paymentMethods } = useGetPaymentMethodsQuery();
+  const [paymentMethod, setPaymentMethod] = useState(null);
   const [isFirstStep, setIsFirstStep] = useState(true);
-  const [activeTabBottom, setActiveTabBottom] = useState("MOBILE_BANKING");
-  const [paymentMethod, setPaymentMethod] = useState(
-    mobilePaymentMethods[0] || bankPaymentMethods[0]
-  );
-  const [file, setFile] = useState(null);
+  const [activeTabBottom, setActiveTabBottom] = useState("deposit");
   const [formData, setFormData] = useState({
     amount: 0,
     paymentMethod: "",
     depositChannel: "",
-    senderAccountNumber: "",
-    transactionId: "",
-    screenshot: "",
     bonusId: "",
+    paymentInputs: [],
     userId: user?._id,
   });
-  const { addToast } = useToasts();
-
-  useEffect(() => {
-    if (activeTabBottom === "MOBILE_BANKING") {
-      setPaymentMethod(mobilePaymentMethods[0]);
-    } else {
-      setPaymentMethod(bankPaymentMethods[0]);
-    }
-    setFormData({ ...formData, paymentMethod: paymentMethod.paymentMethod });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    activeTabBottom,
-    mobilePaymentMethods,
-    bankPaymentMethods,
-    setPaymentMethod,
-  ]);
 
   const { data: randomNumber, refetch } = useGetRandomNumberQuery(
     formData.paymentMethod.toLowerCase(),
     { skip: !formData.paymentMethod }
+  );
+  const { addToast } = useToasts();
+
+  const depositMethods = paymentMethods?.filter(
+    (method) => method?.status === "active" && method?.paymentType === "deposit"
   );
 
   const bonusPromotions = promotions?.filter(
     (promotion) => promotion.bonus === "bonus"
   );
 
-  const selectPaymentMethod = (method) => {
-    setPaymentMethod(method);
-  };
-
-  const handlePaymentSubmit = async (e) => {
-    e.preventDefault();
-
-    if (file) {
-      const { filePath } = await uploadImage(file);
-      console.log(filePath);
-      setFormData({ ...formData, screenshot: filePath });
+  // Set the first deposit method as the initial payment method only once
+  useEffect(() => {
+    if (depositMethods && depositMethods.length > 0 && !paymentMethod) {
+      setPaymentMethod(depositMethods[0]);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        paymentMethod: depositMethods[0]?.method,
+      }));
     }
-    const result = await addDeposit(formData);
-    if (result.data.insertedId) {
-      addToast("Deposited successfully. Wait for the response.", {
-        appearance: "success",
-        autoDismiss: true,
-      });
-      closeDepositModal();
-      refetch();
-    }
-    if (result.error) {
-      addToast(result.error.data.error, {
-        appearance: "error",
-        autoDismiss: true,
-      });
-    }
-  };
-
-  // button Deposit Channel
-  const [activeButton, setActiveButton] = useState(0);
+  }, [depositMethods, paymentMethod]);
 
   const handleClick = (amount) => {
     setFormData({
@@ -370,11 +72,68 @@ const DepositModal = ({ closeDepositModal }) => {
           appearance: "error",
           autoDismiss: true,
         })
-      : addToast("Please select an deposit channel", {
+      : addToast("Please select a deposit channel", {
           appearance: "error",
           autoDismiss: true,
         });
   };
+
+  const handleInputChange = (name, value) => {
+    setTempInputValues((prevValues) => ({
+      ...prevValues,
+      [name]: value, // Update the temporary state
+    }));
+  };
+
+  const handleSubmit = async () => {
+    const paymentInputs = [];
+    for (const [name, value] of Object.entries(tempInputValues)) {
+      if (value instanceof File) {
+        try {
+          const { filePath } = await uploadImage(value); 
+          paymentInputs.push({ [name]: filePath }); 
+        // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+          addToast("Failed to upload file. Please try again.", {
+            appearance: "error",
+            autoDismiss: true,
+          });
+          continue;
+        }
+      } else {
+        paymentInputs.push({ [name]: value });
+      }
+    }
+    const updatedFormData = {
+      ...formData,
+      paymentInputs: paymentInputs, 
+    };
+
+    const result = await addDeposit(updatedFormData);
+
+    if (result.error) {
+      addToast(result.error.data.error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    } else if (result.data.insertedId) {
+      addToast("Deposit added successfully", {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      // Reset form data and close modal
+      setFormData({
+        amount: 0,
+        paymentMethod: "",
+        depositChannel: "",
+        bonusId: "",
+        paymentInputs: [],
+      });
+      closeDepositModal();
+      refetch();
+    }
+  };
+
   return (
     <>
       <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
@@ -391,29 +150,28 @@ const DepositModal = ({ closeDepositModal }) => {
               <div className="flex justify-center items-center space-x-3 mt-4 px-4">
                 <p className="text-2xl font-bold text-white">Deposit</p>
               </div>
-
               <div className="">
                 {/* Deposit & Withdrawal button */}
                 <div className="flex py-3 px-6">
                   <button
-                    onClick={() => setActiveTabBottom("MOBILE_BANKING")}
+                    onClick={() => setActiveTabBottom("deposit")}
                     className={`flex-1 py-1.5 font-semibold text-center rounded-l-md ${
-                      activeTabBottom === "MOBILE_BANKING"
+                      activeTabBottom === "deposit"
                         ? "text-black bg-yellow-400 loginButtonBgColor scale-105"
                         : "bg-[#0d4f2c] text-gray-200"
                     }`}
                   >
-                    MOBILE BANKING
+                    Deposit
                   </button>
                   <button
-                    onClick={() => setActiveTabBottom("BANK_TRANSFER")}
+                    onClick={() => setActiveTabBottom("withdrawal")}
                     className={`flex-1 py-1.5 font-semibold text-center rounded-r-md ${
-                      activeTabBottom === "BANK_TRANSFER"
+                      activeTabBottom === "withdrawal"
                         ? "text-black bg-yellow-400 loginButtonBgColor scale-105"
                         : "bg-[#0d4f2c] text-gray-200"
                     }`}
                   >
-                    BANK TRANSFER
+                    Withdrawal
                   </button>
                 </div>
 
@@ -428,11 +186,10 @@ const DepositModal = ({ closeDepositModal }) => {
                   <div className="flex flex-col items-start">
                     <select
                       id="bonusOption"
-                      value={formData.bonusId}
+                      className="w-full px-2 bg-[#0d4f2c] focus:outline-none focus:border-transparent"
                       onChange={(e) =>
                         setFormData({ ...formData, bonusId: e.target.value })
                       }
-                      className="w-full px-2 bg-[#0d4f2c] focus:outline-none focus:border-transparent"
                     >
                       {" "}
                       <option selected disabled value={""}>
@@ -446,40 +203,39 @@ const DepositModal = ({ closeDepositModal }) => {
                     </select>
                   </div>
                 </div>
-
                 <div className="py-3 px-2 bg-footerBg max-h-[410px] 2xl:max-h-[560px] overflow-y-auto scrollbar-hide">
-                  {/* Bank accoun name */}
+                  {/* Bank account name */}
                   <div className="p-3 bg-white rounded-md">
                     <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
                       Payment Method
                     </h2>
-                    {activeTabBottom === "MOBILE_BANKING" ? (
+                    {activeTabBottom === "deposit" ? (
                       <div className="">
                         <div className="grid grid-cols-3 gap-2">
-                          {mobilePaymentMethods?.map((item) => (
+                          {depositMethods?.map((item) => (
                             <button
-                              key={item}
+                              key={item._id} // Use a unique key like item._id
+                              className="p-2 relative bg-gray-200 rounded-md text-center group"
                               onClick={() => {
-                                selectPaymentMethod(item);
+                                setPaymentMethod(item);
                                 setFormData({
                                   ...formData,
-                                  paymentMethod: item.paymentMethod,
+                                  paymentMethod: item?.method,
                                 });
                               }}
                             >
-                              <div className="p-2 relative bg-gray-200 rounded-md text-center group">
-                                <img
-                                  className="w-20 m-auto transform transition-transform duration-300 group-hover:scale-110"
-                                  src={item.image}
-                                  alt={item.paymentMethod}
-                                />
-                                {item.paymentMethod ===
-                                  paymentMethod.paymentMethod && (
-                                  <span className="absolute top-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                                    <Check size={10} />
-                                  </span>
-                                )}
-                              </div>
+                              <img
+                                className="w-12 m-auto transform transition-transform duration-300 group-hover:scale-110"
+                                src={`${import.meta.env.VITE_BASE_API_URL}${
+                                  item.image
+                                }`}
+                                alt={item?.method}
+                              />
+                              {item?.method === paymentMethod?.method && (
+                                <span className="absolute top-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                                  <Check size={10} />
+                                </span>
+                              )}
                             </button>
                           ))}
                         </div>
@@ -489,133 +245,24 @@ const DepositModal = ({ closeDepositModal }) => {
                             Deposit Channel
                           </h2>
                           <div className="flex gap-3">
-                            {paymentMethod?.depositChannels?.map(
-                              (label, index) => (
-                                <button
-                                  key={index}
-                                  onClick={() =>
-                                    setFormData({
-                                      ...formData,
-                                      depositChannel: label,
-                                    })
-                                  }
-                                  className={`relative py-1.5 px-4 text-sm border rounded-sm uppercase transition-all duration-300 ${
-                                    formData.depositChannel === label
-                                      ? "border-footerTextColor text-footerTextColor"
-                                      : "border-gray-400 text-gray-600"
-                                  }`}
-                                >
-                                  {label}
-                                  {formData.depositChannel === label && (
-                                    <span className="absolute top-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                                      <Check size={10} />
-                                    </span>
-                                  )}
-                                </button>
-                              )
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Amount */}
-                        <div className="mt-2 p-3 bg-white rounded-md">
-                          <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
-                            Amount
-                          </h2>
-                          <div>
-                            {/* Grid Buttons */}
-                            <div className="grid grid-cols-4 gap-3 mb-3">
-                              {paymentMethod?.amounts.map((amount, index) => (
-                                <button
-                                  key={index}
-                                  onClick={() => handleClick(amount)}
-                                  className="flex items-center gap-2 py-1.5 px-3 text-sm border border-gray-400 rounded-sm transition-all duration-300 hover:border-black hover:text-black"
-                                >
-                                  + {amount}
-                                </button>
-                              ))}
-                            </div>
-
-                            {/* Selected Total Amount */}
-                            <div className="flex justify-between items-center gap-2 bg-slate-200 border py-1.5 px-3 rounded-md">
-                              <h3 className="text-base font-semibold">
-                                <FaBangladeshiTakaSign />
-                              </h3>
-                              <p className="text-sm font-semibold">
-                                {formData.amount > 0 ? formData.amount : "0.00"}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-2 mt-2 p-2 bg-yellow-100 rounded-sm">
-                            <BsFillPatchExclamationFill size={34} />
-                            <div className="">
-                              <p className="text-xs">
-                                ১/ব্যক্তিগত তথ্য-এর অধীনে ক্যাশ আউট করার আগে
-                                সর্বোচ্চ ৩টি মোবাইল নম্বর যোগ করুন এবং ভেরিফাই
-                                করুন।
-                              </p>
-                              <p className="text-xs">
-                                ২/আপনার ডিপোজিট প্রক্রিয়ার দ্রুত সফল করতে সঠিক
-                                ক্যাশ আউট নাম্বার , এমাউন্ট এবং ট্রানজেকশন আইডি
-                                সহ সাবমিট দিন।
-                              </p>
-                              <p className="text-xs">
-                                ৩/যেকোনো ডিপোজিট করার আগে সবসময় আমাদের ডিপোজিট
-                                পেইজে নাম্বার চেক করুন ।
-                              </p>
-                              <p className="text-xs">
-                                ৪/ডিপোজিট পেন্ডিং অবস্থায় আপনি ২টি ডিপোজিট এর
-                                জন্য ট্রাই করতে পারবেন। আপনি কোনো সমস্যার
-                                সম্মুখীন হলে লাইভচ্যাট সহায়তা নিতে পারেন।
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="">
-                        <div className="grid grid-cols-2 gap-2">
-                          {bankPaymentMethods?.map((item) => (
-                            <button
-                              key={item}
-                              onClick={() => selectPaymentMethod(item)}
-                            >
-                              <div className="p-2 relative bg-gray-200 rounded-md text-center group">
-                                <img
-                                  className="w-20 m-auto transform transition-transform duration-300 group-hover:scale-110"
-                                  src={item.image}
-                                  alt={item.paymentMethod}
-                                />
-                                {item.paymentMethod ===
-                                  paymentMethod.paymentMethod && (
-                                  <span className="absolute top-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-                                    <Check size={10} />
-                                  </span>
-                                )}
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                        {/* Deposit Channel */}
-                        <div className="mt-2 p-3 bg-white rounded-md">
-                          <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
-                            Deposit Channel
-                          </h2>
-                          <div className="flex gap-3">
-                            {buttons.map((label, index) => (
+                            {depositChannels?.map((label, index) => (
                               <button
                                 key={index}
-                                onClick={() => setActiveButton(index)}
+                                onClick={() =>
+                                  setFormData({
+                                    ...formData,
+                                    depositChannel: label,
+                                  })
+                                }
                                 className={`relative py-1.5 px-4 text-sm border rounded-sm uppercase transition-all duration-300 ${
-                                  activeButton === index
+                                  formData.depositChannel === label
                                     ? "border-footerTextColor text-footerTextColor"
                                     : "border-gray-400 text-gray-600"
                                 }`}
                               >
                                 {label}
-                                {activeButton === index && (
-                                  <span className="absolute bottom-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                                {formData.depositChannel === label && (
+                                  <span className="absolute top-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
                                     <Check size={10} />
                                   </span>
                                 )}
@@ -632,7 +279,7 @@ const DepositModal = ({ closeDepositModal }) => {
                           <div>
                             {/* Grid Buttons */}
                             <div className="grid grid-cols-4 gap-3 mb-3">
-                              {paymentMethod?.amounts.map((amount, index) => (
+                              {amounts.map((amount, index) => (
                                 <button
                                   key={index}
                                   onClick={() => handleClick(amount)}
@@ -656,30 +303,124 @@ const DepositModal = ({ closeDepositModal }) => {
 
                           <div className="flex gap-2 mt-2 p-2 bg-yellow-100 rounded-sm">
                             <BsFillPatchExclamationFill size={34} />
-                            <div className="">
-                              <p className="text-xs">
-                                ১/ব্যক্তিগত তথ্য-এর অধীনে ক্যাশ আউট করার আগে
-                                সর্বোচ্চ ৩টি মোবাইল নম্বর যোগ করুন এবং ভেরিফাই
-                                করুন।
-                              </p>
-                              <p className="text-xs">
-                                ২/আপনার ডিপোজিট প্রক্রিয়ার দ্রুত সফল করতে সঠিক
-                                ক্যাশ আউট নাম্বার , এমাউন্ট এবং ট্রানজেকশন আইডি
-                                সহ সাবমিট দিন।
-                              </p>
-                              <p className="text-xs">
-                                ৩/যেকোনো ডিপোজিট করার আগে সবসময় আমাদের ডিপোজিট
-                                পেইজে নাম্বার চেক করুন ।
-                              </p>
-                              <p className="text-xs">
-                                ৪/ডিপোজিট পেন্ডিং অবস্থায় আপনি ২টি ডিপোজিট এর
-                                জন্য ট্রাই করতে পারবেন। আপনি কোনো সমস্যার
-                                সম্মুখীন হলে লাইভচ্যাট সহায়তা নিতে পারেন।
-                              </p>
-                            </div>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: paymentMethod?.instruction,
+                              }}
+                              className=""
+                            ></div>
                           </div>
                         </div>
                       </div>
+                    ) : (
+                      <div>On Working</div>
+                      // <div className="">
+                      //   <div className="grid grid-cols-3 gap-2">
+                      //     {withdrawalMethods?.map((item) => (
+                      //       <button
+                      //         key={item._id} // Use a unique key like item._id
+                      //         className="p-2 relative bg-gray-200 rounded-md text-center group"
+                      //       >
+                      //         <img
+                      //           className="w-16 m-auto transform transition-transform duration-300 group-hover:scale-110"
+                      //           src={`${import.meta.env.VITE_BASE_API_URL}${
+                      //             item.image
+                      //           }`}
+                      //           alt={item?.method}
+                      //         />
+                      //       </button>
+                      //     ))}
+                      //   </div>
+                      //   {/* Deposit Channel */}
+                      //   <div className="mt-2 p-3 bg-white rounded-md">
+                      //     <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
+                      //       Deposit Channel
+                      //     </h2>
+                      //     <div className="flex gap-3">
+                      //       {paymentMethod?.depositChannels?.map(
+                      //         (label, index) => (
+                      //           <button
+                      //             key={index}
+                      //             onClick={() =>
+                      //               setFormData({
+                      //                 ...formData,
+                      //                 depositChannel: label,
+                      //               })
+                      //             }
+                      //             className={`relative py-1.5 px-4 text-sm border rounded-sm uppercase transition-all duration-300 ${
+                      //               formData.depositChannel === label
+                      //                 ? "border-footerTextColor text-footerTextColor"
+                      //                 : "border-gray-400 text-gray-600"
+                      //             }`}
+                      //           >
+                      //             {label}
+                      //             {formData.depositChannel === label && (
+                      //               <span className="absolute top-[-5px] right-[-5px] bg-footerTextColor text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                      //                 <Check size={10} />
+                      //               </span>
+                      //             )}
+                      //           </button>
+                      //         )
+                      //       )}
+                      //     </div>
+                      //   </div>
+
+                      //   {/* Amount */}
+                      //   <div className="mt-2 p-3 bg-white rounded-md">
+                      //     <h2 className="mb-2 text-base font-semibold text-footerTextColor border-l-4 border-footerTextColor pl-1">
+                      //       Amount
+                      //     </h2>
+                      //     <div>
+                      //       {/* Grid Buttons */}
+                      //       <div className="grid grid-cols-4 gap-3 mb-3">
+                      //         {paymentMethod?.amounts.map((amount, index) => (
+                      //           <button
+                      //             key={index}
+                      //             onClick={() => handleClick(amount)}
+                      //             className="flex items-center gap-2 py-1.5 px-3 text-sm border border-gray-400 rounded-sm transition-all duration-300 hover:border-black hover:text-black"
+                      //           >
+                      //             + {amount}
+                      //           </button>
+                      //         ))}
+                      //       </div>
+
+                      //       {/* Selected Total Amount */}
+                      //       <div className="flex justify-between items-center gap-2 bg-slate-200 border py-1.5 px-3 rounded-md">
+                      //         <h3 className="text-base font-semibold">
+                      //           <FaBangladeshiTakaSign />
+                      //         </h3>
+                      //         <p className="text-sm font-semibold">
+                      //           {formData.amount > 0 ? formData.amount : "0.00"}
+                      //         </p>
+                      //       </div>
+                      //     </div>
+
+                      //     <div className="flex gap-2 mt-2 p-2 bg-yellow-100 rounded-sm">
+                      //       <BsFillPatchExclamationFill size={34} />
+                      //       <div className="">
+                      //         <p className="text-xs">
+                      //           ১/ব্যক্তিগত তথ্য-এর অধীনে ক্যাশ আউট করার আগে
+                      //           সর্বোচ্চ ৩টি মোবাইল নম্বর যোগ করুন এবং ভেরিফাই
+                      //           করুন।
+                      //         </p>
+                      //         <p className="text-xs">
+                      //           ২/আপনার ডিপোজিট প্রক্রিয়ার দ্রুত সফল করতে সঠিক
+                      //           ক্যাশ আউট নাম্বার , এমাউন্ট এবং ট্রানজেকশন আইডি
+                      //           সহ সাবমিট দিন।
+                      //         </p>
+                      //         <p className="text-xs">
+                      //           ৩/যেকোনো ডিপোজিট করার আগে সবসময় আমাদের ডিপোজিট
+                      //           পেইজে নাম্বার চেক করুন ।
+                      //         </p>
+                      //         <p className="text-xs">
+                      //           ৪/ডিপোজিট পেন্ডিং অবস্থায় আপনি ২টি ডিপোজিট এর
+                      //           জন্য ট্রাই করতে পারবেন। আপনি কোনো সমস্যার
+                      //           সম্মুখীন হলে লাইভচ্যাট সহায়তা নিতে পারেন।
+                      //         </p>
+                      //       </div>
+                      //     </div>
+                      //   </div>
+                      // </div>
                     )}
                   </div>
 
@@ -694,16 +435,16 @@ const DepositModal = ({ closeDepositModal }) => {
             </div>
           ) : (
             <DepositLastPage
-              closeModal={closeDepositModal}
               paymentMethod={paymentMethod}
+              closeModal={closeDepositModal}
               setFormData={setFormData}
               formData={formData}
-              setFile={setFile}
-              file={file}
-              handlePaymentSubmit={handlePaymentSubmit}
-              isLoading={isLoading}
               randomNumber={randomNumber}
               refetch={refetch}
+              handleSubmit={handleSubmit}
+              handleInputChange={handleInputChange}
+              tempInputValues={tempInputValues}
+              isLoading={isLoading}
             />
           )}
         </div>

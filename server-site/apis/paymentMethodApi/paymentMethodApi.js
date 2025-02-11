@@ -21,7 +21,6 @@ const paymentMethodApi = (paymentMethodCollection) => {
   // update a payment method
   router.patch("/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id, req.body);
 
     if (!ObjectId.isValid(id)) {
       return res.status(400).send({ error: "Invalid ObjectId format" });

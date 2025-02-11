@@ -4,15 +4,15 @@ import { useToasts } from "react-toast-notifications";
 import { GoCopy } from "react-icons/go";
 
 const DepositLastPage = ({
-  closeModal,
-  setFormData,
-  formData,
   paymentMethod,
-  setFile,
-  handlePaymentSubmit,
+  closeModal,
+  handleInputChange,
+  formData,
+  handleSubmit,
   isLoading,
   randomNumber,
   refetch,
+  tempInputValues,
 }) => {
   const [timeLeft, setTimeLeft] = useState(359);
   const { addToast } = useToasts();
@@ -61,6 +61,30 @@ const DepositLastPage = ({
     }
   };
 
+  const validateRequiredFields = () => {
+    const requiredFields = paymentMethod?.userInputs?.filter(
+      (input) => input.isRequired === "required"
+    );
+
+    for (const field of requiredFields) {
+      if (!tempInputValues[field.name]) {
+        addToast(`Please fill in the required field: ${field.label}`, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handleFormSubmit = () => {
+    if (validateRequiredFields()) {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
       <div className="bg-white px-4 py-6 md:p-6 rounded-lg shadow-lg w-[90%] md:w-[80%] lg:w-[60%] xl:w-[54%] relative max-h-[90vh] overflow-y-auto">
@@ -82,9 +106,15 @@ const DepositLastPage = ({
         {randomNumber ? (
           <>
             <div className="flex gap-2 items-center pb-4 text-xl font-bold border-b-2 border-gray-300">
-              <img className="w-24" src={paymentMethod.image} alt="" />
+              <img
+                className="w-12"
+                src={`${import.meta.env.VITE_BASE_API_URL}${
+                  paymentMethod.image
+                }`}
+                alt=""
+              />
               <p>
-                <span className="uppercase">{paymentMethod.paymentMethod}</span>{" "}
+                <span className="uppercase">{paymentMethod.method}</span>{" "}
                 Payment
               </p>
             </div>
@@ -120,77 +150,44 @@ const DepositLastPage = ({
                     {formData?.amount || 0}
                   </span>
                 </p>
-                {/* Phone Number Input */}
-                <label className="text-red-500 mt-3">
-                  Phone Number / Cash Out No.
-                </label>
-                <input
-                  type="number"
-                  className="w-full py-1.5 px-3 outline-none rounded-sm"
-                  placeholder="Please input data"
-                  value={formData.senderAccountNumber}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      senderAccountNumber: e.target.value.slice(0, 11),
-                    })
-                  }
-                  maxLength={11}
-                />
-                {/* Transaction ID Input */}
-                <label className="text-red-500 mt-3">Transaction ID</label>
-                <input
-                  type="text"
-                  className="w-full py-1.5 px-3 outline-none rounded-sm"
-                  placeholder="Enter transaction ID"
-                  value={formData.transactionId}
-                  onChange={(e) =>
-                    setFormData({ ...formData, transactionId: e.target.value })
-                  }
-                  maxLength={20}
-                />
-                {/* Upload Receipt */}
-                <div className="flex flex-col mt-3">
-                  <label className="text-black mb-2 flex justify-between">
-                    Upload receipt
-                    <button
-                      className="px-1 border border-red-500 text-red-500 rounded-md"
-                      onClick={() => {
-                        setFile(null);
-                        const inputField =
-                          document.querySelector("input[type='file']");
-                        if (inputField) {
-                          inputField.value = "";
-                        }
-                      }}
-                    >
-                      Reset Receipt
-                    </button>
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="py-1 px-2 bg-white rounded-sm"
-                    onChange={(e) => setFile(e.target.files[0])}
-                  />
-                  <div
-                    className="mt-2 border-2 border-dashed border-gray-300 rounded-md p-10"
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setFile(e.dataTransfer.files[0]);
-                    }}
-                  >
-                    <p className="text-center text-gray-500">
-                      Drag and drop image here
-                    </p>
-                  </div>
+                <div className="">
+                  {paymentMethod?.userInputs?.map((item) => (
+                    <div key={item?.name}>
+                      <label className="text-red-500 mt-3">{item?.label}</label>
+                      {item?.type === "file" ? (
+                        <input
+                          name={item?.name}
+                          type="file"
+                          className="w-full py-1.5 px-3 outline-none rounded-sm"
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            handleInputChange(item?.name, file); // Update temporary state with the file
+                          }}
+                          required={item?.isRequired === "required"}
+                        />
+                      ) : (
+                        <input
+                          name={item?.name}
+                          type={item?.type}
+                          className="w-full py-1.5 px-3 outline-none rounded-sm"
+                          placeholder={item?.label}
+                          value={tempInputValues[item?.name] || ""} // Bind to temporary state
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            handleInputChange(item?.name, value); // Update temporary state with the input value
+                          }}
+                          required={item?.isRequired === "required"}
+                        />
+                      )}
+                    </div>
+                  ))}
                 </div>
 
                 {/* Submit Button */}
                 <div className="w-full sm:w-60 m-auto">
                   <button
-                    onClick={handlePaymentSubmit}
+                    type="submit"
+                    onClick={handleFormSubmit}
                     disabled={isLoading}
                     className="mt-6 w-full p-2 text-base font-semibold bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 disabled:bg-slate-400 disabled:cursor-not-allowed"
                   >
