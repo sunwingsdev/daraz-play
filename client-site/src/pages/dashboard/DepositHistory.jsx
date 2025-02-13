@@ -3,28 +3,53 @@ import { IoIosSearch } from "react-icons/io";
 import ReasonModal from "../../components/dashboard/ReasonModal";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useGetDepositsQuery } from "../../redux/features/allApis/depositsApi/depositsApi";
+import {
+  useGetDepositsQuery,
+  useUpdateDepositStatusMutation,
+} from "../../redux/features/allApis/depositsApi/depositsApi";
+import { useToasts } from "react-toast-notifications";
 
 const DepositHistory = () => {
   const { data: allDeposits, isLoading, isError } = useGetDepositsQuery();
+  const [updateStatus] = useUpdateDepositStatusMutation();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDeposit, setSelectedDeposit] = useState(null);
   const [status, setStatus] = useState("");
+  const { addToast } = useToasts();
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading deposits.</div>;
-
+  console.log(allDeposits);
   const handleStatusClick = (deposit, status) => {
     setSelectedDeposit(deposit);
     setStatus(status);
     setModalOpen(true);
   };
 
-  const handleSubmit = (reason) => {
-    console.log(
-      `Deposit ID: ${selectedDeposit?._id}, Status: ${status}, Reason: ${reason}`
-    );
-    setModalOpen(false);
+  const handleSubmit = async (reason) => {
+    const statusInfo = {
+      id: selectedDeposit?._id,
+      data: {
+        status: status,
+        reason: reason,
+      },
+    };
+    try {
+      const { data } = await updateStatus(statusInfo);
+      if (data.modifiedCount > 0) {
+        addToast("Status upadated!", {
+          appearance: "success",
+          autoDismiss: true,
+        });
+        setModalOpen(false);
+      }
+      // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      addToast("Error updating status", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
   };
 
   const handleCloseModal = () => {
@@ -55,6 +80,8 @@ const DepositHistory = () => {
               <th className="px-4 py-2">Sender Inputs</th>
               <th className="px-4 py-2">Amount</th>
               <th className="px-4 py-2">Slip</th>
+              <th className="px-4 py-2">Reason</th>
+              <th className="px-4 py-2">Added Balance</th>
               <th className="px-4 py-2">Time & Date</th>
               <th className="px-4 py-2">Status</th>
             </tr>
@@ -74,7 +101,7 @@ const DepositHistory = () => {
                         rowSpan={deposit?.paymentInputs?.length || 1}
                         className="px-4 py-2 font-medium"
                       >
-                        {deposit?.userInfo?.name || "N/A"}
+                        {deposit?.userInfo?.username || "N/A"}
                       </td>
                       <td
                         rowSpan={deposit?.paymentInputs?.length || 1}
@@ -135,6 +162,18 @@ const DepositHistory = () => {
                       </td>
                       <td
                         rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2 text-center"
+                      >
+                        {deposit?.reason || "N/A"}
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
+                        className="px-4 py-2 text-center"
+                      >
+                        {deposit?.addedBalance || "N/A"}
+                      </td>
+                      <td
+                        rowSpan={deposit?.paymentInputs?.length || 1}
                         className="px-4 py-2"
                       >
                         {deposit?.createdAt
@@ -168,7 +207,7 @@ const DepositHistory = () => {
                             <button
                               className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
                               onClick={() =>
-                                handleStatusClick(deposit, "reject")
+                                handleStatusClick(deposit, "rejected")
                               }
                             >
                               Reject
@@ -177,9 +216,9 @@ const DepositHistory = () => {
                         ) : (
                           <span
                             className={`rounded-full px-3 py-1 text-white capitalize ${
-                              deposit?.status === "completed"
-                                ? "bg-green-500"
-                                : "bg-red-500"
+                              deposit?.status === "rejected"
+                                ? "bg-red-500"
+                                : "bg-green-500"
                             }`}
                           >
                             {deposit?.status}

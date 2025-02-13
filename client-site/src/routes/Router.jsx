@@ -20,6 +20,24 @@ import ActiveGames from "../pages/dashboard/ActiveGames";
 import InActiveGames from "../pages/dashboard/InActiveGames";
 import HomeControl from "../pages/dashboard/HomeControl";
 import AdminRoute from "./AdminRoute";
+import Promotion from "../components/home/promotion/Promotion";
+import CashAgentLayout from "../layout/CashAgentLayout";
+import DemoGame from "../pages/home/DemoGame";
+import BecomeAnAgent from "../components/become-an-agent/BecomeAnAgent";
+import CashAgentHome from "../pages/cash-agent/CashAgentHome";
+import CashAgentRoute from "./CashAgentRoute";
+import AffiliatesLayout from "../layout/AffiliatesLayout";
+import Affiliates from "../pages/affiliates/Affiliates";
+import Sign from "../components/affiliates/Sign";
+import Login from "../components/affiliates/Login";
+import Terns from "../components/affiliates/Terns";
+import Privacy from "../components/affiliates/Privacy";
+import Disconnection from "../components/affiliates/Disconnection";
+import Faqs from "../components/affiliates/Faqs";
+import Pages from "../pages/page/Pages";
+import ManagePages from "../pages/dashboard/ManagePages";
+import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
+import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/games/demo/:id",
+        element: <DemoGame />,
+      },
+      {
+        path: "/promotion",
+        element: <Promotion />,
       },
     ],
   },
@@ -42,7 +68,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <DashboardHome /> },
       { path: "all-user", element: <AllUsers /> },
-      { path: "agent-tree", element: <CashAgent /> },
+      { path: "cashagent", element: <CashAgent /> },
       { path: "affiliators", element: <Affiliators /> },
       { path: "game-categories", element: <GameCategories /> },
       { path: "active-games", element: <ActiveGames /> },
@@ -56,11 +82,71 @@ const router = createBrowserRouter([
       { path: "promotion-offer", element: <PromotionOffer /> },
       { path: "deposits", element: <DepositHistory /> },
       { path: "withdraws", element: <WithdrawHistory /> },
+      { path: "manage-pages", element: <ManagePages /> },
     ],
   },
   {
     path: "/admin",
     element: <AdminLogin />,
+  },
+  {
+    path: "/cashagent",
+    element: (
+      <CashAgentRoute>
+        <CashAgentLayout />
+      </CashAgentRoute>
+    ),
+
+    children: [{ path: "", element: <CashAgentHome /> }],
+  },
+  {
+    path: "/becomeanagent",
+    element: <BecomeAnAgent />,
+  },
+  {
+    path: "/affiliate",
+    element: <Affiliates />,
+    children: [
+      {
+        path: "",
+        element: <HomeAffiliate />,
+      },
+      {
+        path: "terns",
+        element: <Terns />,
+      },
+      {
+        path: "privacy",
+        element: <Privacy />,
+      },
+      {
+        path: "disconnection",
+        element: <Disconnection />,
+      },
+      {
+        path: "faqs",
+        element: <Faqs />,
+      },
+    ],
+  },
+
+  {
+    path: "/affiliate/login",
+    element: <Login />,
+  },
+  {
+    path: "/affiliate/sign",
+    element: <Sign />,
+  },
+
+  {
+    path: "/affiliatesdashboard",
+    element: <AffiliatesLayout />,
+    children: [{ path: "", element: <AffiliatesHome /> }],
+  },
+  {
+    path: "/pages/:route",
+    element: <Pages />,
   },
 ]);
 

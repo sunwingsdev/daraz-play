@@ -78,6 +78,7 @@ input[type="number"] {
 }
 
 /* Login button bg color */
+.menubarBgAct,
 .loginButtonBgColor {
   background: linear-gradient(0deg, #700402 0%, #e31210 100%);
   transition: all 360ms ease;
@@ -100,6 +101,11 @@ input[type="number"] {
 .menubarBg {
   background: linear-gradient(0deg, #fd1111, #0e0e0e);
 }
-.menubarBgAct {
+.myProfile {
   background: linear-gradient(0deg, #700402 0%, #e31210 100%);
+}
+
+.becomeAnAgent {
+  max-width: 1100px;
+  margin: auto;
 }

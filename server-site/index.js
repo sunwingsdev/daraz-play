@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const { upload, deleteFile } = require("./utils");
@@ -11,9 +11,26 @@ const usersApi = require("./apis/usersApi/usersApi");
 const depositsApi = require("./apis/depositsApi/depositsApi");
 const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
+const promotionApi = require("./apis/promotionApi/promotionApi");
+const categoriesApi = require("./apis/categoriesApi/categoriesApi");
+const pagesApi = require("./apis/pagesApi/pagesApi");
 
 const corsConfig = {
-  origin: ["http://localhost:5173", "http://localhost:5174", "*"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://melbet99.com",
+    "http://melbet99.com",
+    "https://www.melbet99.com",
+    "www.melbet99.com",
+    "melbet99.com",
+    "https://darazplay.oraclesoft.org",
+    "http://darazplay.oraclesoft.org",
+    "https://www.darazplay.oraclesoft.org",
+    "www.darazplay.oraclesoft.org",
+    "darazplay.oraclesoft.org",
+    "*",
+  ],
   credential: true,
   optionSuccessStatus: 200,
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
@@ -76,6 +93,9 @@ async function run() {
     const usersCollection = client.db("daraz").collection("users");
     const depositsCollection = client.db("daraz").collection("deposits");
     const withdrawsCollection = client.db("daraz").collection("withdraws");
+    const promotionCollection = client.db("daraz").collection("promotions");
+    const categoriesCollection = client.db("daraz").collection("categories");
+    const pagesCollection = client.db("daraz").collection("pages");
     const homeControlsCollection = client
       .db("daraz")
       .collection("homeControls");
@@ -83,9 +103,15 @@ async function run() {
 
     // APIs start
     app.use("/users", usersApi(usersCollection));
-    app.use("/deposits", depositsApi(depositsCollection));
-    app.use("/withdraws", withdrawsApi(withdrawsCollection));
+    app.use(
+      "/deposits",
+      depositsApi(depositsCollection, usersCollection, promotionCollection)
+    );
+    app.use("/withdraws", withdrawsApi(withdrawsCollection, usersCollection));
     app.use("/home-controls", homeControlApi(homeControlsCollection));
+    app.use("/promotions", promotionApi(promotionCollection));
+    app.use("/categories", categoriesApi(categoriesCollection));
+    app.use("/pages", pagesApi(pagesCollection));
 
     // APIs end
 

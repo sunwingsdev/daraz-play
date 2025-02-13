@@ -1,6 +1,11 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 
-const depositsApi = (depositsCollection) => {
+const depositsApi = (
+  depositsCollection,
+  usersCollection,
+  promotionCollection
+) => {
   const router = express.Router();
 
   //   add a deposit
@@ -54,11 +59,58 @@ const depositsApi = (depositsCollection) => {
   //   status updated
   router.patch("/status/:id", async (req, res) => {
     const { id } = req.params;
-    const query = { _id: new ObjectId(id) };
-    const { status } = req.body;
-    const updatedDoc = { $set: { status } };
-    const result = await depositsCollection.updateOne(query, updatedDoc);
-    res.send(result);
+    const { status, reason } = req.body;
+
+    try {
+      const deposit = await depositsCollection.findOne({
+        _id: new ObjectId(id),
+      });
+      if (!deposit) {
+        return res.status(404).send({ error: "Deposit not found" });
+      }
+      if (deposit.status !== "pending") {
+        return res
+          .status(400)
+          .send({ error: "Deposit is not in a pending state" });
+      }
+
+      if (status === "completed") {
+        let balanceIncrement = deposit.amount;
+        if (deposit.promotionId) {
+          const promotion = await promotionCollection.findOne({
+            _id: new ObjectId(deposit.promotionId),
+          });
+          if (promotion) {
+            const { bonusType, bonusValue } = promotion;
+            if (bonusType === "percentage") {
+              balanceIncrement += (deposit.amount * bonusValue) / 100;
+            } else if (bonusType === "amount") {
+              balanceIncrement += bonusValue;
+            }
+          }
+        }
+        await usersCollection.updateOne(
+          { _id: new ObjectId(deposit.userId) },
+          { $inc: { balance: balanceIncrement } }
+        );
+        await depositsCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: { addedBalance: balanceIncrement } }
+        );
+      }
+      const updatedDoc = {
+        $set: { status, reason },
+      };
+      const result = await depositsCollection.updateOne(
+        { _id: new ObjectId(id) },
+        updatedDoc
+      );
+
+      res.send(result);
+    } catch (error) {
+      console.error("Error updating deposit status:", error);
+      res.status(500).send({ error: "Failed to update deposit status" });
+    }
   });
 
   //  delete a deposit

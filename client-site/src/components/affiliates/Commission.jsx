@@ -1,9 +1,10 @@
-import React from "react";
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/swiper/swiper-bundle.min.css"
-/>
-
+import slogo from "../../assets/Affiliates/commision_plan_banner.png";
+import dlogo from "../../assets/Affiliates/dollar.png";
+import clogo from "../../assets/Affiliates/cost.png";
+import blogo from "../../assets/Affiliates/bonus.png";
+import flogo from "../../assets/Affiliates/fee.png";
+import tlogo from "../../assets/Affiliates/affilate_total.png";
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />;
 
 const Introduction = () => {
   // Table data
@@ -24,96 +25,96 @@ const Introduction = () => {
           </h2>
 
           {/* Card Section */}
-          <div className=" flex flex-col gap-4  lg:flex-row pl-0 md:pl-52 lg:pl-20">
+          <div
+            data-aos="fade-up"
+            className=" flex justify-center items-center flex-col gap-4  lg:flex-row pl-0 md:pl-52 lg:pl-20"
+          >
             <div className="relative">
               <img
-                className="skew-x-[10deg] w-56 "  // Skew effect applied
-                src="https://darazplaypartner.com/wp-content/uploads/2024/07/commision_plan_banner.png"
+                className="skew-x-[10deg] w-56 " // Skew effect applied
+                src={slogo}
                 alt="Commission Plan Banner"
               />
               <img
-                className="absolute top-12 left-20 w-14 h-12"  // Positioning for the second image
-                src="https://darazplaypartner.com/wp-content/uploads/2024/07/dollar.png"
+                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
+                src={dlogo}
                 alt="Dollar Icon"
               />
               <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm"  // Positioning for the text
+                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
               >
                 Player Win/Loss
               </div>
             </div>
             <div className="relative">
               <img
-                className="skew-x-[10deg] w-56 "  // Skew effect applied
-                src="https://darazplaypartner.com/wp-content/uploads/2024/07/commision_plan_banner.png"
+                className="skew-x-[10deg] w-56 " // Skew effect applied
+                src={slogo}
                 alt="Commission Plan Banner"
               />
               <img
-                className="absolute top-12 left-20 w-14 h-12"  // Positioning for the second image
-                src="	https://darazplaypartner.com/wp-content/uploads/2024/07/cost.png"
+                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
+                src={clogo}
                 alt="Dollar Icon"
               />
               <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm"  // Positioning for the text
+                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
               >
                 18% Operation Cost
               </div>
             </div>
             <div className="relative">
               <img
-                className="skew-x-[10deg] w-56 "  // Skew effect applied
-                src="https://darazplaypartner.com/wp-content/uploads/2024/07/commision_plan_banner.png"
+                className="skew-x-[10deg] w-56 " // Skew effect applied
+                src={slogo}
                 alt="Commission Plan Banner"
               />
               <img
-                className="absolute top-12 left-20 w-14 h-12"  // Positioning for the second image
-                src="	https://darazplaypartner.com/wp-content/uploads/2024/07/bonus.png"
+                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
+                src={blogo}
                 alt="Dollar Icon"
               />
               <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm"  // Positioning for the text
+                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
               >
                 Bonus/Promotions
               </div>
             </div>
             <div className="relative">
               <img
-                className="skew-x-[10deg] w-56 "  // Skew effect applied
-                src="https://darazplaypartner.com/wp-content/uploads/2024/07/commision_plan_banner.png"
+                className="skew-x-[10deg] w-56 " // Skew effect applied
+                src={slogo}
                 alt="Commission Plan Banner"
               />
               <img
-                className="absolute top-12 left-20 w-14 h-12"  // Positioning for the second image
-                src="	https://darazplaypartner.com/wp-content/uploads/2024/07/fee.png"
+                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
+                src={flogo}
                 alt="Dollar Icon"
               />
               <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm"  // Positioning for the text
+                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
               >
                 2% Payment Fee
               </div>
             </div>
             <div className="relative">
               <img
-                className="skew-x-[10deg] w-56 "  // Skew effect applied
-                src="https://darazplaypartner.com/wp-content/uploads/2024/07/commision_plan_banner.png"
+                className="skew-x-[10deg] w-56 " // Skew effect applied
+                src={slogo}
                 alt="Commission Plan Banner"
               />
               <img
-                className="absolute top-12 left-20 w-14 h-12"  // Positioning for the second image
-                src="	https://darazplaypartner.com/wp-content/uploads/2024/07/affilate_total.png"
+                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
+                src={tlogo}
                 alt="Dollar Icon"
               />
               <div
-                className="absolute top-24 left-10 pl-0 text-customGreenPrimary font-bold text-sm"  // Positioning for the text
+                className="absolute top-24 left-10 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
               >
                 Affiliate Earns Upto <br /> 45% of Net Profit
               </div>
             </div>
-
           </div>
-
-
 
           {/* Table Section */}
           <div className="mt-10 flex justify-center items-center">
@@ -134,24 +135,31 @@ const Introduction = () => {
               <tbody>
                 {rows.map((row, rowIndex) => {
                   // Define unique background colors for each row
-                  const rowColors = ["bg-green-400", "bg-customGreenPrimary", "bg-green-400", "bg-customGreenSecondary"];
+                  const rowColors = [
+                    "bg-green-400",
+                    "bg-customGreenPrimary",
+                    "bg-green-400",
+                    "bg-customGreenSecondary",
+                  ];
                   const bgColor = rowColors[rowIndex] || "bg-gray-100"; // Default color if index exceeds
 
                   return (
                     <tr
                       key={rowIndex}
-                      className={`${rowIndex === rows.length - 1
-                        ? bgColor  // Last row with no hover effect
-                        : `${bgColor} hover:bg-green-800` // Other rows with hover effect
-                        }`}
+                      className={`${
+                        rowIndex === rows.length - 1
+                          ? bgColor // Last row with no hover effect
+                          : `${bgColor} hover:bg-green-800` // Other rows with hover effect
+                      }`}
                     >
                       {row.map((cell, cellIndex) => (
                         <td
                           key={cellIndex}
-                          className={`px-4 py-2 ${rowIndex === rows.length - 1
-                            ? "text-customYellowHeading font-semibold" // Last row text color
-                            : "text-black hover:text-white font-semibold" // Other rows text color on hover
-                            }`}
+                          className={`px-4 py-2 ${
+                            rowIndex === rows.length - 1
+                              ? "text-customYellowHeading font-semibold" // Last row text color
+                              : "text-black hover:text-white font-semibold" // Other rows text color on hover
+                          }`}
                         >
                           {cell}
                         </td>
@@ -160,10 +168,6 @@ const Introduction = () => {
                   );
                 })}
               </tbody>
-
-
-
-
             </table>
           </div>
         </div>
