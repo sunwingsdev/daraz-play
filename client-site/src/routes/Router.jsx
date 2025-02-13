@@ -26,6 +26,8 @@ import DemoGame from "../pages/home/DemoGame";
 import BecomeAnAgent from "../components/become-an-agent/BecomeAnAgent";
 import CashAgentHome from "../pages/cash-agent/CashAgentHome";
 import CashAgentRoute from "./CashAgentRoute";
+import CashAgentProfile from "../pages/cash-agent/CashAgentProfile";
+import Kyc from "../pages/dashboard/Kyc";
 import AffiliatesLayout from "../layout/AffiliatesLayout";
 import Affiliates from "../pages/affiliates/Affiliates";
 import Sign from "../components/affiliates/Sign";
@@ -38,6 +40,17 @@ import Pages from "../pages/page/Pages";
 import ManagePages from "../pages/dashboard/ManagePages";
 import AffiliatesHome from "../pages/affiliates-dashboard/AffiliatesHome";
 import HomeAffiliate from "../pages/affiliates/HomeAffiliate";
+import PaymentMethodRequests from "../pages/dashboard/PaymentMethodRequests";
+import AgentProfileView from "../pages/dashboard/AgentProfileView";
+import AffiliateRoute from "./AffiliateRoute";
+import AffiliateProfile from "../pages/affiliates-dashboard/AffiliateProfile";
+import MyAffiliateLinks from "../pages/affiliates-dashboard/MyAffiliateLinks";
+import ReferralRedirect from "../components/shared/ReferralRedirect ";
+import AllAffiliateLinks from "../pages/dashboard/AllAffiliateLinks.jsx";
+import CommissionSetting from "../pages/dashboard/CommissionSetting.jsx";
+import NotFound from "../pages/NotFound";
+import DepositLastPage from "../components/home/deposit-modal/DepositLastPage";
+import DepositMethod from "../pages/dashboard/DepositMethod";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +69,10 @@ const router = createBrowserRouter([
         path: "/promotion",
         element: <Promotion />,
       },
+      {
+        path: "/signup",
+        element: <ReferralRedirect />, // Redirect to homepage when ref query is present
+      },
     ],
   },
   {
@@ -69,20 +86,26 @@ const router = createBrowserRouter([
       { path: "", element: <DashboardHome /> },
       { path: "all-user", element: <AllUsers /> },
       { path: "cashagent", element: <CashAgent /> },
+      { path: "kyc", element: <Kyc /> },
       { path: "affiliators", element: <Affiliators /> },
+      { path: "allaffiliatelinks", element: <AllAffiliateLinks /> },
       { path: "game-categories", element: <GameCategories /> },
       { path: "active-games", element: <ActiveGames /> },
       { path: "inactive-games", element: <InActiveGames /> },
       { path: "games-api/:id", element: <GamesApi /> },
       { path: "user-profile", element: <UserProfile /> },
-      { path: "agent-profile", element: <AgentProfile /> },
+      { path: "agentprofile/:id", element: <AgentProfile /> },
+      { path: "paymentmethodrequests", element: <PaymentMethodRequests /> },
       { path: "add-games-categories", element: <AddGamesCategories /> },
       { path: "home-control", element: <HomeControl /> },
       { path: "frontend-slider", element: <FrontendSlider /> },
       { path: "promotion-offer", element: <PromotionOffer /> },
       { path: "deposits", element: <DepositHistory /> },
+      { path: "depositmethod", element: <DepositMethod /> },
       { path: "withdraws", element: <WithdrawHistory /> },
       { path: "manage-pages", element: <ManagePages /> },
+      { path: "viewagentprofile/:id", element: <AgentProfileView /> },
+      { path: "commissionsetting", element: <CommissionSetting /> },
     ],
   },
   {
@@ -97,7 +120,10 @@ const router = createBrowserRouter([
       </CashAgentRoute>
     ),
 
-    children: [{ path: "", element: <CashAgentHome /> }],
+    children: [
+      { path: "", element: <CashAgentHome /> },
+      { path: "profile/:id", element: <CashAgentProfile /> },
+    ],
   },
   {
     path: "/becomeanagent",
@@ -135,18 +161,34 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/affiliate/sign",
+    path: "/affiliate/signup",
     element: <Sign />,
   },
 
   {
     path: "/affiliatesdashboard",
-    element: <AffiliatesLayout />,
-    children: [{ path: "", element: <AffiliatesHome /> }],
+    element: (
+      <AffiliateRoute>
+        <AffiliatesLayout />
+      </AffiliateRoute>
+    ),
+    children: [
+      { path: "", element: <AffiliatesHome /> },
+      { path: "profile/:id", element: <AffiliateProfile /> },
+      { path: "myaffiliatelinks/:id", element: <MyAffiliateLinks /> },
+    ],
   },
   {
     path: "/pages/:route",
     element: <Pages />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  {
+    path: "/depositlastpage",
+    element: <DepositLastPage />,
   },
 ]);
 

@@ -21,8 +21,9 @@ const Registration = () => {
                   Registration Form
                 </h3>
                 <p className="text-md font-medium text-white text-center  mt-2">
-                  To become a melbet99 partner, applicants must complete the
-                  registration form. Click "Register," fill it out accurately.
+                  To become a {import.meta.env.VITE_SITE_NAME} partner,
+                  applicants must complete the registration form. Click Register
+                  fill it out accurately.
                 </p>
               </div>
               <div className="w-52 h-48 bg-black shadow-customBoxGreenShadow border 1px solid border-customYellow rounded-[20px] flex flex-col justify-center items-center p-4">

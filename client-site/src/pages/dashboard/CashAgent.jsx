@@ -6,10 +6,12 @@ import {
   useUpdateAgentStatusMutation,
 } from "../../redux/features/allApis/usersApi/usersApi";
 import TablePagination from "../../components/dashboard/TablePagination";
-import { SyncLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
+import { BiLogInCircle } from "react-icons/bi";
 
 const CashAgent = () => {
   const { data: allAgentsData, isLoading, error } = useGetAgentsQuery();
+
   const [updateStatus] = useUpdateAgentStatusMutation();
   const [loadingStates, setLoadingStates] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +49,7 @@ const CashAgent = () => {
       {/* Header */}
       <div className="bg-[#222222] flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-2">
         <div className="flex flex-row items-start justify-between w-full mb-4 md:mb-0">
-          <h1 className="text-2xl text-white font-bold">Cash Agent</h1>
+          <h1 className="text-2xl text-white font-bold">Cash Agents</h1>
           <button className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-black py-2 px-4 rounded md:w-1/4 block md:hidden whitespace-nowrap">
             Add Agent
           </button>
@@ -114,10 +116,10 @@ const CashAgent = () => {
                   D-B
                 </th>
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                  A-U-C
+                  A-D-C
                 </th>
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
-                  A-D-C
+                  A-W-C
                 </th>
                 <th className="px-4 py-2 whitespace-nowrap border border-blue-600">
                   Balance
@@ -139,10 +141,14 @@ const CashAgent = () => {
                   } text-black`}
                 >
                   <td className="px-4 py-2 text-blue-500 hover:text-blue-600 whitespace-nowrap">
-                    <Link to="/dashboard/agent-profile">{agent?.fullName}</Link>
+                    <Link to={`/dashboard/agentprofile/${agent?._id}`}>
+                      {agent?.fullName}
+                    </Link>
                   </td>
-                  <td className="px-4 py-2 border border-blue-600">
-                    {agent?.login || "N/A"}
+                  <td className="px-4 py-2 border border-blue-600 text-blue-500 hover:text-blue-600">
+                    <Link to={`/dashboard/viewagentprofile/${agent?._id}`}>
+                      <BiLogInCircle className="cursor-pointer text-2xl" />
+                    </Link>
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
                     {agent?.W_B || "N/A"}
@@ -160,18 +166,18 @@ const CashAgent = () => {
                     {agent?.balance || "N/A"}
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
-                    <span
-                      className={`px-2 py-1 text-white size-20 rounded-2xl ${
-                        agent?.status?.toLowerCase() === "approve"
-                          ? "bg-green-500"
-                          : agent?.status?.toLowerCase() === "pending"
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                    >
-                      {loadingStates[agent?._id] ? (
-                        <SyncLoader size={4} color="#ffff" />
-                      ) : (
+                    {loadingStates[agent?._id] ? (
+                      <ClipLoader size={18} color="#000000" />
+                    ) : (
+                      <span
+                        className={`px-2 py-1 text-white size-20 rounded-2xl ${
+                          agent?.status?.toLowerCase() === "approve"
+                            ? "bg-green-500"
+                            : agent?.status?.toLowerCase() === "pending"
+                            ? "bg-yellow-500"
+                            : "bg-red-500"
+                        }`}
+                      >
                         <>
                           {agent?.status?.toLowerCase() === "approve"
                             ? "Approved"
@@ -179,8 +185,8 @@ const CashAgent = () => {
                             ? "Pending"
                             : "Rejected"}
                         </>
-                      )}
-                    </span>
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-2 border border-blue-600">
                     <select

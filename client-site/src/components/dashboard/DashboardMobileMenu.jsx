@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { IoIosArrowDown, IoIosArrowForward, IoMdMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
-import { FaRegCircle } from "react-icons/fa";
+import { FaRegCircle, FaRegUserCircle } from "react-icons/fa";
 import { useGetHomeControlsQuery } from "../../redux/features/allApis/homeControlApi/homeControlApi";
+import { logout } from "../../redux/slices/authSlice";
 
 const DashboardMobileMenu = ({ open, menuItems }) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
@@ -14,7 +15,9 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null); // Store the currently open submenu
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dashboardSidebarRef = useRef(null);
+  const dispatch = useDispatch();
   const { addToast } = useToasts();
   const navigate = useNavigate();
   const location = useLocation(); // Access current route
@@ -86,6 +89,20 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    addToast("Logout successful", {
+      appearance: "success",
+      autoDismiss: true,
+    });
+    navigate("/admin");
+  };
+
   return (
     <>
       <div>
@@ -102,6 +119,35 @@ const DashboardMobileMenu = ({ open, menuItems }) => {
               >
                 <IoMdMenu className="text-3xl sm:text-3xl" />
               </div>
+            </div>
+            <div className="text-white text-2xl flex justify-end items-center relative select-none">
+              <FaRegUserCircle
+                onClick={toggleDropdown}
+                className="cursor-pointer"
+              />
+              {isDropdownOpen && (
+                <div className="absolute top-8 right-0 mt-2 w-48 bg-blue-500 rounded-md shadow-lg z-10">
+                  <ul className="py-2">
+                    <li>
+                      <Link
+                        to={`/cashagent/profile/${user?._id}`}
+                        className="block px-4 py-2 text-sm text-white hover:bg-blue-200 hover:text-black"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-200 hover:text-black"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>

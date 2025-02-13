@@ -8,27 +8,36 @@ const { upload, deleteFile } = require("./utils");
 const path = require("path");
 
 const usersApi = require("./apis/usersApi/usersApi");
+const affiliatesApi = require("./apis/usersApi/affiliateApi");
 const depositsApi = require("./apis/depositsApi/depositsApi");
 const withdrawsApi = require("./apis/withdrawsApi/withdrawsApi");
 const homeControlApi = require("./apis/homeControlApi/homeControlApi");
 const promotionApi = require("./apis/promotionApi/promotionApi");
 const categoriesApi = require("./apis/categoriesApi/categoriesApi");
+const kycApi = require("./apis/kycApi/kycApi");
 const pagesApi = require("./apis/pagesApi/pagesApi");
+const paymentNumberApi = require("./apis/paymentNumberApi/paymentNumberApi");
+<<<<<<< HEAD
+const paymentMethodApi = require("./apis/paymentMethodApi/paymentMethodApi");
+=======
+const referCodeApi = require("./apis/referCodeApi/referCodeApi");
+const commissionApi = require("./apis/commissionApi/commissionApi");
+>>>>>>> e856533ab5a7494255778ad63f7e35dfdb05b828
 
 const corsConfig = {
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://melbet99.com",
-    "http://melbet99.com",
-    "https://www.melbet99.com",
-    "www.melbet99.com",
-    "melbet99.com",
-    "https://darazplay.oraclesoft.org",
-    "http://darazplay.oraclesoft.org",
-    "https://www.darazplay.oraclesoft.org",
-    "www.darazplay.oraclesoft.org",
-    "darazplay.oraclesoft.org",
+    "https://betby247.com",
+    "http://betby247.com",
+    "https://www.betby247.com",
+    "www.betby247.com",
+    "betby247.com",
+    // "https://darazplay.oracleapi.net",
+    // "http://darazplay.oracleapi.net",
+    // "https://www.darazplay.oracleapi.net",
+    // "www.darazplay.oracleapi.net",
+    // "darazplay.oracleapi.net",
     "*",
   ],
   credential: true,
@@ -99,10 +108,20 @@ async function run() {
     const homeControlsCollection = client
       .db("daraz")
       .collection("homeControls");
+    const kycCollection = client.db("daraz").collection("kyc");
+    const paymentNumberCollection = client
+      .db("daraz")
+      .collection("payment-numbers");
+    const paymentMethodCollection = client
+      .db("daraz")
+      .collection("payment-methods");
+    const referCodesCollection = client.db("daraz").collection("refer-links");
+    const commissionsCollection = client.db("daraz").collection("commissions");
     //collections end
 
     // APIs start
-    app.use("/users", usersApi(usersCollection));
+    app.use("/users", usersApi(usersCollection, homeControlsCollection));
+    app.use("/users", affiliatesApi(usersCollection, homeControlsCollection));
     app.use(
       "/deposits",
       depositsApi(depositsCollection, usersCollection, promotionCollection)
@@ -111,7 +130,12 @@ async function run() {
     app.use("/home-controls", homeControlApi(homeControlsCollection));
     app.use("/promotions", promotionApi(promotionCollection));
     app.use("/categories", categoriesApi(categoriesCollection));
+    app.use("/kyc", kycApi(kycCollection, homeControlsCollection));
     app.use("/pages", pagesApi(pagesCollection));
+    app.use("/paymentnumber", paymentNumberApi(paymentNumberCollection));
+    app.use("/paymentmethod", paymentMethodApi(paymentMethodCollection));
+    app.use("/refer-links", referCodeApi(referCodesCollection));
+    app.use("/commissions", commissionApi(commissionsCollection));
 
     // APIs end
 

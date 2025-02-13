@@ -9,18 +9,24 @@ import { IoClose } from "react-icons/io5";
 import { FaRegCircle, FaRegUserCircle } from "react-icons/fa";
 import { logout } from "../../redux/slices/authSlice";
 
-const CashAgentMobileMenu = ({ open, menuItems }) => {
+const CashAgentMobileMenu = ({
+  open,
+  menuItems,
+  dashboardLink,
+  logOutPath,
+}) => {
   const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const { user, token } = useSelector((state) => state.auth);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState(null); // Store the currently open submenu
+  const [openSubmenu, setOpenSubmenu] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const caSidebarRef = useRef(null);
   const { addToast } = useToasts();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation(); // Access current route
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -100,7 +106,8 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
       appearance: "success",
       autoDismiss: true,
     });
-    navigate("/becomeanagent");
+
+    navigate(logOutPath);
   };
 
   return (
@@ -120,6 +127,7 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
                 <IoMdMenu className="text-3xl sm:text-3xl" />
               </div>
             </div>
+
             <div className="text-white text-2xl flex justify-end items-center relative select-none">
               <FaRegUserCircle
                 onClick={toggleDropdown}
@@ -130,9 +138,9 @@ const CashAgentMobileMenu = ({ open, menuItems }) => {
                   <ul className="py-2">
                     <li>
                       <Link
-                        to="/profile"
+                        to={`${dashboardLink}/profile/${user?._id}`}
                         className="block px-4 py-2 text-sm text-white hover:bg-blue-200 hover:text-black"
-                        onClick={() => setIsDropdownOpen(false)} // Close dropdown on click
+                        onClick={() => setIsDropdownOpen(false)}
                       >
                         Profile
                       </Link>

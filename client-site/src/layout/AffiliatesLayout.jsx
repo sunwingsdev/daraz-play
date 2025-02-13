@@ -10,9 +10,12 @@ import { MdOutlineSupport } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { LiaBuysellads } from "react-icons/lia";
 import { LuGitPullRequestCreateArrow } from "react-icons/lu";
+import { useSelector } from "react-redux";
 
 const AffiliatesLayout = () => {
   const [open, setOpen] = useState(true);
+  const { user, token } = useSelector((state) => state.auth);
+
   const menuItems = [
     { name: "Home", icon: <IoMdHome />, path: "/affiliate", submenu: [] },
     {
@@ -28,9 +31,9 @@ const AffiliatesLayout = () => {
       submenu: [],
     },
     {
-      name: "My Affiliae Link",
+      name: "My Affiliae Links",
       icon: <FaAffiliatetheme />,
-      path: "",
+      path: `/affiliatesdashboard/myaffiliatelinks/${user?._id}`,
       submenu: [],
     },
     {
@@ -106,7 +109,12 @@ const AffiliatesLayout = () => {
           !open ? "md:pl-16" : "md:pl-64"
         }`}
       >
-        <CashAgentMobileMenu open={open} menuItems={menuItems} />
+        <CashAgentMobileMenu
+          open={open}
+          menuItems={menuItems}
+          dashboardLink="/affiliatesdashboard"
+          logOutPath="/affiliate"
+        />
         <div className="mt-[62px] md:mt-16 p-2">
           <Outlet />
         </div>

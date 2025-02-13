@@ -20,7 +20,12 @@ const baseApi = createApi({
     "homeControls",
     "promotions",
     "categories",
+    "kyc",
     "pages",
+    "paymentNumber",
+    "paymentMethod",
+    "refercodes",
+    "commission",
   ],
   endpoints: () => ({}),
 });

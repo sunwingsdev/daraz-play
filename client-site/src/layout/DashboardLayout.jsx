@@ -28,12 +28,23 @@ const DashboardLayout = () => {
     {
       name: "Cash Agent",
       icon: <PiCashRegister />,
-      path: "/dashboard/cashagent",
+      submenu: [
+        { name: "All Agents", path: "/dashboard/cashagent" },
+        { name: "KYC", path: "/dashboard/kyc" },
+        {
+          name: "Payment Requests",
+          path: "/dashboard/paymentmethodrequests",
+        },
+      ],
     },
     {
       name: "Affiliators",
       icon: <FaAffiliatetheme />,
-      path: "/dashboard/affiliators",
+
+      submenu: [
+        { name: "All Affiliates", path: "/dashboard/affiliators" },
+        { name: "All Affiliate Links", path: "/dashboard/allaffiliatelinks" },
+      ],
     },
     {
       name: "Games Control",
@@ -113,7 +124,7 @@ const DashboardLayout = () => {
       name: "Banking Deposit",
       icon: <BsPiggyBank />,
       submenu: [
-        { name: "Deposit Method" },
+        { name: "Deposit Method", path: "/dashboard/depositmethod" },
         { name: "Deposit History", path: "/dashboard/deposits" },
       ],
     },
@@ -137,6 +148,7 @@ const DashboardLayout = () => {
         { name: "Mailings" },
         { name: "Support" },
         { name: "Security" },
+        { name: "Commission", path: "/dashboard/commissionsetting" },
       ],
     },
     {
@@ -162,7 +174,7 @@ const DashboardLayout = () => {
         }`}
       >
         <DashboardMobileMenu open={open} menuItems={menuItems} />
-        <div className="mt-[62px] md:mt-8 p-2">
+        <div className="mt-[62px] md:mt-14 p-2">
           <Outlet />
         </div>
       </div>

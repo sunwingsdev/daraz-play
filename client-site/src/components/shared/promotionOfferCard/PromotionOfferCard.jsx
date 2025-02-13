@@ -3,13 +3,13 @@ import { FaTrash } from "react-icons/fa";
 const PromotionOfferCard = ({ offer, hidden, handleDeleteButtonClick }) => {
   const { image, title, subtitle } = offer;
   return (
-    <div className="menubarBgAct rounded-md relative">
+    <div className="bg-SidebarBg rounded-md relative">
       {hidden && (
         <div
           onClick={() => handleDeleteButtonClick(offer)}
-          className="absolute top-0 right-0 p-2 group rounded-full bg-red-600 hover:bg-white duration-200 cursor-pointer"
+          className="absolute top-0 right-0 p-2 group rounded-full bg-SidebarBg hover:bg-white duration-200 cursor-pointer"
         >
-          <FaTrash className="text-xl text-white group-hover:text-red-600 duration-200" />
+          <FaTrash className="text-xl text-white group-hover:text-SidebarBg duration-200" />
         </div>
       )}
       <img
@@ -17,7 +17,7 @@ const PromotionOfferCard = ({ offer, hidden, handleDeleteButtonClick }) => {
         src={`${import.meta.env.VITE_BASE_API_URL}${image}`}
         alt=""
       />
-      <div className={""}>
+      <div className={"bg-SidebarBg"}>
         <div className="pb-2 relative">
           <div className="border-dashed absolute -top-4 w-full h-4 border-t-4 border-[#8E8E8E]"></div>
           <div className="text-white border-s-4 border-[#FFE22B] px-4 my-3">
@@ -35,7 +35,7 @@ const PromotionOfferCard = ({ offer, hidden, handleDeleteButtonClick }) => {
                   {" "}
                   Apply Now{" "}
                 </button>
-                <button className="py-1.5 px-2 w-full loginButtonBgColor border rounded-md">
+                <button className="py-1.5 px-2 w-full bg-SidebarBg border rounded-md">
                   {" "}
                   Detail{" "}
                 </button>

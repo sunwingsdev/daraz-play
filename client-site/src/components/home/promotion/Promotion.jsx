@@ -22,7 +22,7 @@ const Promotion = () => {
 
   return (
     <div>
-      <div className="bg-[#4A4A4A] p-4">
+      <div className="bg-footerBg p-4">
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           {promotionCategories?.map((category) => (
             <PromotionCardMenu
