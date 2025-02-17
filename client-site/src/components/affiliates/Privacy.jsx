@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const Privacy = () => {
+  const location = useLocation();
+    useEffect(() => {
+      window.scrollTo({ top:0, behavior: "smooth" });
+    }, [location]);
   return (
     <div className=" bg-customGreenPrimary text-left p-30 w-full">
       <div className=" text-left flex flex-col gap-8">

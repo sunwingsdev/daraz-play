@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const Disconnection = () => {
+  const location = useLocation();
+    useEffect(() => {
+      window.scrollTo({ top:0, behavior: "smooth" });
+    }, [location]);
   return (
     <div className="hero bg-customGreenPrimary p-30 w-full">
       <div className="hero-content text-left flex flex-col gap-8">

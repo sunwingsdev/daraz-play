@@ -1,199 +1,45 @@
+import logo1 from '../../assets/free-Accounts.png';
+import logo2 from '../../assets/Fast-Payments.png';
+import logo3 from '../../assets/Live-Matrics.png';
+import logo4 from '../../assets/Promo-Materials.png';
+import logo5 from '../../assets/Extra-Bonuses.png';
+import logo6 from '../../assets/Personal-Manager.png';
+import logo7 from '../../assets/Fast-Approvals.png';
+import logo8 from '../../assets/Fair-Open.png';
+
+const features = [
+  { img: logo1, title: 'Free Account', desc: 'Easily create your free darazplay agent account independently and effortlessly.' },
+  { img: logo2, title: 'Fast Payments', desc: 'We guarantee timely payments and smooth, delay-free money transfers.' },
+  { img: logo3, title: 'Live Matrics', desc: 'Real-time campaign results with statistics updating every minute.' },
+  { img: logo4, title: 'Promo Materials', desc: 'Access unique promo materials and successful case studies from us.' },
+  { img: logo5, title: 'Extra Bonuses', desc: 'Earn extra rewards and incentives based on your performance.' },
+  { img: logo6, title: 'Personal Manager', desc: 'Our support team is here 24/7—feel free to ask anything.' },
+  { img: logo7, title: 'Fast Approvals', desc: 'Our team will contact you within 24 hours of submission.' },
+  { img: logo8, title: 'Fair & Open', desc: 'User-friendly software with clear tracking of daily downtime.' },
+];
+
 const Introduction = () => {
   return (
-    <div className="hero bg-backgroundImageRed  w-full ">
-      <div className="hero-content text-center">
+    <div className=" bg-backgroundImageRed w-full">
+      <div className=" text-center">
         <div className="max-w-full">
-          <h2 className="text-4xl  text-customYellowHeading  mb-10">
-            WHY DARAZPLAY AFFILIATE
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mr-10  gap-20 md:gap- lg:gap-10">
-            {/* First Row */}
-            <div
-              data-aos="zoom-in-up"
-              className=" bg-black text-xl shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className=" card-body   p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] text-[24px] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif  tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Free Account
+          <h2 className="text-4xl text-customYellowHeading mb-10">WHY DARAZPLAY AFFILIATE</h2>
+          <div className="grid grid-cols-2 relative md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2 justify-items-center py-3  lg:gap-4">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                data-aos="zoom-in"
+                className="bg-black text-xl shadow-lg w-36 md:w-40 lg:w-56 h-auto rounded-[20px] p-4"
+              >
+                <h3 className="text-sm lg:text-lg absolute left-0 top-2 font-semibold text-black bg-custom-gradient  rounded-r-[20px] p-2 shadow-xl text-left">
+                  {feature.title}
                 </h3>
-
-                <img
-                  className="max-w-full p-4 mt-0 h-auto"
-                  src="https://darazplaypartner.com/wp-content/uploads/2024/07/free-Accounts.png"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2">
-                    Easily create your free darazplay agent account <br />
-                    independently and <br />
-                    effortlessly.
-                  </p>
+                <div className='pt-10 lg:pt-8'>
+                <img className="max-w-full lg:mx-auto p-4" src={feature.img} alt={feature.title} />
+                <p className="text-left font-medium">{feature.desc}</p>
                 </div>
               </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2  flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] text-[24px] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif  tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Fast Payments
-                </h3>
-
-                <img
-                  className="max-w-full p-4  -mt-2.5 h-auto"
-                  src="https://darazplaypartner.com/wp-content/uploads/2024/07/Fast-Payments.png"
-                  alt="Casino"
-                />
-                <div className="text-left   poppins font-medium sans-serif">
-                  <p className="ml-2 ">
-                    We guarantee timely payments and smooth, <br />
-                    delay-free money transfers
-                    <br />
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Live Matrics
-                </h3>
-
-                <img
-                  className="max-w-full p-4 -mt-1.5 h-auto"
-                  src="	https://darazplaypartner.com/wp-content/uploads/2024/07/Live-Matrics.png"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2">
-                    Real-time campaign results <br />
-                    with statistics updating every minute. <br />
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Promo Materials
-                </h3>
-
-                <img
-                  className="max-w-full p-4 -mt-1.5 h-auto"
-                  src="	https://darazplaypartner.com/wp-content/uploads/2024/07/Promo-Materials.png
-"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2">
-                    Access unique promo materials and successful <br />
-                    case studies from us.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Extra Bonuses
-                </h3>
-
-                <img
-                  className="max-w-full p-4 -mt-1.5 h-auto"
-                  src="	https://darazplaypartner.com/wp-content/uploads/2024/07/Extra-Bonuses.png"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2">
-                    Easily create your free darazplay agent account
-                    <br />
-                    independently and effortlessly.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Personal Manager
-                </h3>
-
-                <img
-                  className="max-w-full p-4 -mt-1.5 h-auto"
-                  src="	https://darazplaypartner.com/wp-content/uploads/2024/07/Personal-Manager.png"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2 mr-12">
-                    Our support team is here <br />
-                    24/7—feel free to ask <br /> anything
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Fast Approvals
-                </h3>
-
-                <img
-                  className="max-w-full p-4 -mt-1.5 h-auto"
-                  src="https://darazplaypartner.com/wp-content/uploads/2024/07/Fast-Approvals.png"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2 mr-12">
-                    Our team will contact you <br /> within 24 hours of <br />{" "}
-                    submission.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-aos="zoom-in"
-              className=" bg-black shadow-customBoxGreenShadow w-36 md:w-40 lg:w-64 h-auto md:80 lg:80 rounded-[20px] "
-            >
-              <div className="card-body p-2 flex justify-center items-center">
-                <h3 className="-ml-2.5 mt-4 w-[78%] h-12 p-1 text-center mx-auto text-base font-semibold poppins sans-serif text-[24px] tracking-[1px]   border-solid rounded-r-[20px] bg-custom-gradient shadow-customHeadingShadow text-black flex justify-center items-center">
-                  Fair & Open
-                </h3>
-
-                <img
-                  className="max-w-full p-4 -mt-1.5 h-auto"
-                  src="	https://darazplaypartner.com/wp-content/uploads/2024/07/Fair-Open.png"
-                  alt="Casino"
-                />
-                <div className="text-left poppins font-medium sans-serif">
-                  <p className="ml-2 mr-12">
-                    User-friendly software with clear tracking of daily downtime
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
