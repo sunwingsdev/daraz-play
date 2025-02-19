@@ -25,94 +25,40 @@ const Introduction = () => {
           </h2>
 
           {/* Card Section */}
-          <div
-            data-aos="fade-up"
-            className=" flex justify-center items-center flex-col gap-4  lg:flex-row pl-0 md:pl-52 lg:pl-20"
-          >
-            <div className="relative">
-              <img
-                className="skew-x-[10deg] w-56 " // Skew effect applied
-                src={slogo}
-                alt="Commission Plan Banner"
-              />
-              <img
-                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
-                src={dlogo}
-                alt="Dollar Icon"
-              />
-              <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
-              >
-                Player Win/Loss
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                className="skew-x-[10deg] w-56 " // Skew effect applied
-                src={slogo}
-                alt="Commission Plan Banner"
-              />
-              <img
-                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
-                src={clogo}
-                alt="Dollar Icon"
-              />
-              <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
-              >
-                18% Operation Cost
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                className="skew-x-[10deg] w-56 " // Skew effect applied
-                src={slogo}
-                alt="Commission Plan Banner"
-              />
-              <img
-                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
-                src={blogo}
-                alt="Dollar Icon"
-              />
-              <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
-              >
-                Bonus/Promotions
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                className="skew-x-[10deg] w-56 " // Skew effect applied
-                src={slogo}
-                alt="Commission Plan Banner"
-              />
-              <img
-                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
-                src={flogo}
-                alt="Dollar Icon"
-              />
-              <div
-                className="absolute top-24 left-16 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
-              >
-                2% Payment Fee
-              </div>
-            </div>
-            <div className="relative">
-              <img
-                className="skew-x-[10deg] w-56 " // Skew effect applied
-                src={slogo}
-                alt="Commission Plan Banner"
-              />
-              <img
-                className="absolute top-12 left-20 w-14 h-12" // Positioning for the second image
-                src={tlogo}
-                alt="Dollar Icon"
-              />
-              <div
-                className="absolute top-24 left-10 pl-0 text-customGreenPrimary font-bold text-sm" // Positioning for the text
-              >
-                Affiliate Earns Upto <br /> 45% of Net Profit
-              </div>
+          <div className="flex justify-center items-center overflow-x-auto py-4">
+            <div className="flex flex-wrap justify-center gap-2  lg:flex-nowrap">
+              {[
+                { img: slogo, logo: dlogo, text: "Player Win/Loss" },
+                { img: slogo, logo: clogo, text: "18% Operation Cost" },
+                { img: slogo, logo: blogo, text: "Bonus/Promotions" },
+                { img: slogo, logo: flogo, text: "2% Payment Fee" },
+                {
+                  img: slogo,
+                  logo: tlogo,
+                  text: "Affiliate Earns Upto 45% of Net Profit",
+                },
+              ].map((item, index) => (
+                <div key={index} className="relative ">
+                  {/* Main Image */}
+                  <img
+                    className="w-56 mx-auto"
+                    src={item.img}
+                    alt="Commission Plan Banner"
+                  />
+
+                  {/* Logo Inside Image */}
+                  <img
+                    className="absolute top-2 left-1/2 -translate-x-1/2 right-1/2 m-auto w-20 lg:w-auto  h-auto"
+                    src={item.logo}
+                    alt="Icon"
+                  />
+
+                  {/* Text Inside Image */}
+                  <div className={`absolute bottom-10 lg:bottom-4 ${index ===4 ? 'lg:bottom-2 bottom-3':''} w-full  flex items-center  px-8 justify-center text-center text-customGreenPrimary font-bold text-xs`}>
+                    {item.text}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

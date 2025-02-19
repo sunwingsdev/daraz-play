@@ -15,7 +15,7 @@ const Join = () => {
               <img
                 src={mobileImage}
                 alt=""
-                className="w-full h-auto sm:w-64 md:w-64 lg:w-80"
+                className=" w-full lg:max-w-sm h-auto sm:w-64 md:w-64 "
               />
             </div>
             <div className="flex flex-col pl-4 lg:pl-0 items-center gap-8 Poppins, sans-serif">

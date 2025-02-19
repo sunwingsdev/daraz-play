@@ -6,14 +6,14 @@ import dlogo from "../../assets/Affiliates/footer_logo.png";
 const Contact = () => {
   return (
     <div>
-      <div className="h-auto pt-6  bg-backgroundImageRed w-auto">
+      <div className="h-auto pt-6   bg-backgroundImageRed w-auto">
         <div
           data-aos="zoom-in-up"
           className="flex-none md:flex-row  lg:flex  justify-center mb-12"
         >
-          <div className="flex flex-col items-center  space-y-10 md:space-y-4 lg:flex-row lg:space-y-0 space-x-0 md:space-x-6 lg:space-x-16">
+          <div className="grid lg:grid-cols-3  gap-y-2  justify-items-center   ">
             {/* First Section */}
-            <div className="w-72 md:w-10/12 lg:w-80 h-24 rounded-3xl bg-black skew-x-[-30deg] order-2 lg:order-none">
+            <div className="w-64 md:w-10/12 lg:w-80 h-24 rounded-3xl bg-black skew-x-[-30deg] order-2 lg:order-none">
               <h3 className="font-semibold text-[18px] text-4xl sans-serif poppins flex items-center justify-center">
                 <span className="transform skew-x-[30deg]">CONTACT US:</span>
               </h3>
@@ -40,7 +40,7 @@ const Contact = () => {
             </div>
 
             {/* Second Section */}
-            <div className="w-72 md:w-10/12 lg:w-80 h-24 rounded-3xl bg-black skew-x-[-30deg] order-3 lg:order-none">
+            <div className="w-64 md:w-10/12 lg:w-80 h-24 rounded-3xl bg-black skew-x-[-30deg] order-3 lg:order-none">
               <h3 className="font-semibold text-[18px] text-4xl sans-serif poppins flex items-center justify-center">
                 <span className="transform skew-x-[30deg]">FOLLOW US:</span>
               </h3>
