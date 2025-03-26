@@ -1,18 +1,25 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 
-const withdrawsApi = (withdrawsCollection) => {
+const withdrawsApi = (withdrawsCollection, usersCollection) => {
   const router = express.Router();
 
-  //   add a deposit
+  //   add a withdraw
   router.post("/", async (req, res) => {
     const withdrawInfo = req.body;
     withdrawInfo.status = "pending";
     withdrawInfo.createdAt = new Date();
+    // Decrement the user's balance
+
+    await usersCollection.updateOne(
+      { _id: new ObjectId(withdrawInfo.userId) },
+      { $inc: { balance: -withdrawInfo.amount } }
+    );
     const result = await withdrawsCollection.insertOne(withdrawInfo);
     res.send(result);
   });
 
-  //   get all deposits
+  //   get all withdraws
   router.get("/", async (req, res) => {
     try {
       const result = await withdrawsCollection
@@ -55,8 +62,8 @@ const withdrawsApi = (withdrawsCollection) => {
   router.patch("/status/:id", async (req, res) => {
     const { id } = req.params;
     const query = { _id: new ObjectId(id) };
-    const { status } = req.body;
-    const updatedDoc = { $set: { status } };
+    const { status, reason } = req.body;
+    const updatedDoc = { $set: { status, reason } };
     const result = await withdrawsCollection.updateOne(query, updatedDoc);
     res.send(result);
   });

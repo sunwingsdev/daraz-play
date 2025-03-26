@@ -19,24 +19,32 @@ import { Outlet } from "react-router-dom";
 const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
   const menuItems = [
-    { name: "Dashboard", icon: <IoMdHome />, path: "/dashboard", submenu: [] },
+    { name: "Dashboard", icon: <IoMdHome />, path: "/dashboard" },
     {
       name: "Users",
       icon: <FaUsers />,
       path: "/dashboard/all-user",
-      submenu: [],
     },
     {
       name: "Cash Agent",
       icon: <PiCashRegister />,
-      path: "/dashboard/agent-tree",
-      submenu: [],
+      submenu: [
+        { name: "All Agents", path: "/dashboard/cashagent" },
+        { name: "KYC", path: "/dashboard/kyc" },
+        {
+          name: "Payment Requests",
+          path: "/dashboard/paymentmethodrequests",
+        },
+      ],
     },
     {
       name: "Affiliators",
       icon: <FaAffiliatetheme />,
-      path: "/dashboard/affiliators",
-      submenu: [],
+
+      submenu: [
+        { name: "All Affiliates", path: "/dashboard/affiliators" },
+        { name: "All Affiliate Links", path: "/dashboard/allaffiliatelinks" },
+      ],
     },
     {
       name: "Games Control",
@@ -84,42 +92,39 @@ const DashboardLayout = () => {
       icon: <GiRibbonMedal />,
       submenu: [
         { name: "Happy Hours", path: "/dashboard/games" },
-        { name: "Deposit Bonuses", path: "/dashboard" },
-        { name: "Refer Bonuses", path: "/dashboard" },
-        { name: "Welcome Bonuses", path: "/dashboard" },
+        { name: "Deposit Bonuses" },
+        { name: "Refer Bonuses" },
+        { name: "Welcome Bonuses" },
       ],
     },
     {
       name: "Game History",
       icon: <SlGameController />,
       submenu: [
-        { name: "Play Stats", path: "/dashboard" },
-        { name: "Win Game Stats", path: "/dashboard" },
-        { name: "Loss Game Stats", path: "/dashboard" },
+        { name: "Play Stats" },
+        { name: "Win Game Stats" },
+        { name: "Loss Game Stats" },
       ],
     },
-    { name: "Tournament", icon: <BsShop />, path: "/dashboard", submenu: [] },
-    { name: "Jack Pot", icon: <BsShop />, path: "/dashboard", submenu: [] },
+    { name: "Tournament", icon: <BsShop /> },
+    { name: "Jack Pot", icon: <BsShop /> },
     {
       name: "Frontend",
       icon: <BsFront />,
       submenu: [
         { name: "Home Control", path: "/dashboard/home-control" },
-        { name: "Slider", path: "/dashboard/frontend-slider" },
         { name: "Promotions", path: "/dashboard/promotion-offer" },
-        { name: "Pages", path: "/dashboard" },
-        { name: "Notice", path: "/dashboard" },
-        { name: "About Us", path: "/dashboard" },
-        { name: "FAQ", path: "/dashboard" },
-        { name: "Sponsorship", path: "/dashboard" },
-        { name: "Brand Ambassador", path: "/dashboard" },
+        { name: "Pages", path: "/dashboard/manage-pages" },
+        { name: "FAQ" },
+        { name: "Sponsorship" },
+        { name: "Brand Ambassador" },
       ],
     },
     {
       name: "Banking Deposit",
       icon: <BsPiggyBank />,
       submenu: [
-        { name: "Deposit Method", path: "/dashboard" },
+        { name: "Deposit Method", path: "/dashboard/depositmethod" },
         { name: "Deposit History", path: "/dashboard/deposits" },
       ],
     },
@@ -127,7 +132,7 @@ const DashboardLayout = () => {
       name: "Banking Withdraw",
       icon: <BsBank />,
       submenu: [
-        { name: "Withdraw Method", path: "/dashboard" },
+        { name: "Withdraw Method" },
         { name: "Withdraw History", path: "/dashboard/withdraws" },
       ],
     },
@@ -135,26 +140,27 @@ const DashboardLayout = () => {
       name: "Settings",
       icon: <IoSettingsSharp />,
       submenu: [
-        { name: "Pincodes", path: "/dashboard" },
-        { name: "Activity Log", path: "/dashboard" },
-        { name: "Permissions", path: "/dashboard" },
-        { name: "Gateway API Keys", path: "/dashboard" },
-        { name: "SMS", path: "/dashboard" },
-        { name: "Mailings", path: "/dashboard" },
-        { name: "Support", path: "/dashboard" },
-        { name: "Security", path: "/dashboard" },
+        { name: "Pincodes" },
+        { name: "Activity Log" },
+        { name: "Permissions" },
+        { name: "Gateway API Keys" },
+        { name: "SMS" },
+        { name: "Mailings" },
+        { name: "Support" },
+        { name: "Security" },
+        { name: "Commission", path: "/dashboard/commissionsetting" },
       ],
     },
     {
       name: "Oracle Technology",
       icon: <IoLogoWechat />,
       submenu: [
-        { name: "Instant Support", path: "/dashboard" },
-        { name: "Normal Support", path: "/dashboard" },
-        { name: "Permissions", path: "/dashboard" },
-        { name: "Notice", path: "/dashboard" },
-        { name: "About Us", path: "/dashboard" },
-        { name: "Contact Us", path: "/dashboard" },
+        { name: "Instant Support" },
+        { name: "Normal Support" },
+        { name: "Permissions" },
+        { name: "Notice" },
+        { name: "About Us" },
+        { name: "Contact Us" },
       ],
     },
   ];
@@ -168,7 +174,7 @@ const DashboardLayout = () => {
         }`}
       >
         <DashboardMobileMenu open={open} menuItems={menuItems} />
-        <div className="mt-[62px] md:mt-16 p-2">
+        <div className="mt-[62px] md:mt-14 p-2">
           <Outlet />
         </div>
       </div>

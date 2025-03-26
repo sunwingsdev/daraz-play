@@ -1,12 +1,15 @@
 import { useState } from "react";
-import logo from "../../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { FaAngleDown, FaRegCircle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaAngleDown } from "react-icons/fa";
 import OppsModal from "../modal/OppsModal";
-import { IoMdHome } from "react-icons/io";
+import { useSelector } from "react-redux";
+import { useToasts } from "react-toast-notifications";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
-const SidebarMenu = ({ open, setOpen }) => {
+const SidebarMenu = ({ open, setOpen, menuItems }) => {
+  const { user, token } = useSelector((state) => state.auth);
+  const { data: homeControls, isLoading } = useGetHomeControlsQuery();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState({
     GamesControl: false,
@@ -19,520 +22,37 @@ const SidebarMenu = ({ open, setOpen }) => {
     BankingWithdrow: false, // Track submenu state for Games Control
     Settings: false, // Track submenu state for Games Control
   });
+  const { addToast } = useToasts();
+  const navigate = useNavigate();
 
-  const menuItems = [
-    {
-      name: "Home",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-home.png?v=1735554286625",
-      path: "/",
-      submenu: [],
-    },
-    {
-      name: "Hot Games",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
-      submenu: [
-        {
-          name: "9WICKETS",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "CRAZYTIME",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "AVIATOR",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SUPERACE",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "MONEY COMING",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "ANDAR BAHAR",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SEXY BACCARAT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "7UP7DOWN",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Sports",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-sport.png?v=1735554286625",
-      submenu: [
-        {
-          name: "9WICKETS",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SBO",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SABA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "CMD",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "BTI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "HORSE",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SV388",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "RWB",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "INSPORTS",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PINNACLE",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Slot",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-slot.png?v=1735554286625",
-      submenu: [
-        {
-          name: "JILI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "JDB",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "FASTSPIN",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PLAY8",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "REDTIGER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "CQ9",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "FC",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PP",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "NETENT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "JOKER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PNG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "NEXTSPIN",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "RICH88",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "WORLDMATCH",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "YELLOWBAT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Crash",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-crash.png?v=1735554286625",
-      submenu: [
-        {
-          name: "AVIATOR",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "JILI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KM",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PP",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Casino",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-casino.png?v=1735554286625",
-      submenu: [
-        {
-          name: "EVO",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SEXY",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PP",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "HOTROAD",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "DG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Table",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-table.png?v=1735554286625",
-      submenu: [
-        {
-          name: "JILI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KM",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "RICH88",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SPRIBE",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "WORLDMATCH",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "CQ9",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PNG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "BPOKER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "MONOPOLY",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Lottery",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-lottery.png?v=1735554286625",
-      submenu: [
-        {
-          name: "JILI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KM",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "JOKER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "YELLOWBAT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SABA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "MONOPOLY",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Fishing",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-fish.png?v=1735554286625",
-      submenu: [
-        {
-          name: "JILI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KM",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "JOKER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "YELLOWBAT",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SABA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "MONOPOLY",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Arcade",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-arcade.png?v=1735554286625",
-      submenu: [
-        {
-          name: "JILI",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KM",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "RICH88",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "SPRIBE",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "WORLDMATCH",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "KA",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "CQ9",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "PNG",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "BPOKER",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "MONOPOLY",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-    {
-      name: "Promotions",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-promotion.png?v=1735554286625",
-      path: "/promotions",
-    },
-    {
-      name: "Download",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-download.png?v=1735554286625",
-      path: "/download",
-    },
-    {
-      name: "Contact Us",
-      icon: "https://img.k516g.com/kg/h5/assets/images/icon-set/theme-icon/icon-talk.png?v=1735554286625",
-      submenu: [
-        {
-          name: "Telegram Support",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "Live Chat",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "Messenger",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-        {
-          name: "Email",
-          icon: <IoMdHome />,
-          path: "#",
-        },
-      ],
-    },
-  ];
-  //   const logoHomeControl = homeControls?.find(
-  //       (control) => control.category === "logo" && control.isSelected === true
-  //      );
+  const logo = homeControls?.find(
+    (control) => control.category === "logo" && control.isSelected
+  );
+
+  const handleMenuClick = (submenu) => {
+    if (!user && !token) {
+      addToast("Please login to access this page", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+    if (submenu?.demo) {
+      navigate(submenu.demo);
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   // Toggle submenu visibility
   const toggleSubmenu = (menu) => {
-    setSubmenuOpen((prevState) => ({
-      ...prevState,
-      [menu]: !prevState[menu],
-    }));
+    setSubmenuOpen((prevState) => {
+      const updatedState = {};
+      for (let key in prevState) {
+        updatedState[key] = false;
+      }
+      updatedState[menu] = !prevState[menu];
+      return updatedState;
+    });
   };
 
   // Handle toggle sidebar visibility
@@ -541,9 +61,9 @@ const SidebarMenu = ({ open, setOpen }) => {
   };
 
   // Open modal
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
+  // const handleModalOpen = () => {
+  //   setIsModalOpen(true);
+  // };
 
   // Close modal
   const handleModalClose = () => {
@@ -557,30 +77,27 @@ const SidebarMenu = ({ open, setOpen }) => {
         } hidden md:block duration-300 h-screen fixed`}
       >
         {/* Start Top collapse */}
-        <div className={`bg-zinc-800 py-3 ${!open && "py-5"}`}>
+        <div className={`bg-SideBarTopBg py-3 h-full ${!open && "py-5"}`}>
           <div className="flex gap-x-3 items-center justify-center">
             <div className={`flex gap-1 ${!open && "hidden"}`}>
               <Link
                 to={"/"}
-                className="flex items-center gap-1 px-2 py-0.5 rounded-lg"
+                className="flex items-center gap-1 px-2 rounded-lg"
               >
-                {/* {logoHomeControl?.image ? (
+                {isLoading ? (
+                  <div className="w-32 h-10 bg-gray-300 animate-pulse rounded"></div>
+                ) : (
                   <img
-                    className="w-40"
-                    src={`${import.meta.env.VITE_BASE_API_URL}${
-                      logoHomeControl?.image
-                    }`}
+                    className="w-32"
+                    src={`${import.meta.env.VITE_BASE_API_URL}${logo?.image}`}
                     alt="Logo"
                   />
-                ) : (
-                  <div className="h-10"></div>
-                )} */}
-                <img className="w-40" src={logo} alt="Logo" />
+                )}
               </Link>
             </div>
             <div>
               <IoIosArrowBack
-                className={`m-auto text-center w-10 h-7 p-1 bg-yellow-400 hover:bg-yellow-500 rounded-full cursor-pointer ${
+                className={`m-auto text-center w-10 h-7 p-1 bg-sideBerTopBtnBg text-white rounded-full cursor-pointer ${
                   !open && "rotate-180"
                 } `}
                 onClick={handleToggleSidebar}
@@ -593,7 +110,7 @@ const SidebarMenu = ({ open, setOpen }) => {
 
       {/* Start Menu bar */}
       <div
-        className={`bg-[#222222] overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
+        className={`bg-SidebarBg overflow-y-auto fixed mt-[62px] hidden md:block pb-16 ${
           open ? "w-64" : "w-16"
         } text-sm text-white duration-300 font-semibold h-full scrollbar-hide`}
       >
@@ -601,11 +118,11 @@ const SidebarMenu = ({ open, setOpen }) => {
         {menuItems?.map((item, index) => (
           <div key={index}>
             <Link
-              onClick={!item?.path && !item?.submenu && handleModalOpen}
-              to={item?.path || "#"}
+              onClick={!item?.path && !item?.submenu && handleMenuClick}
+              to={item?.path}
             >
               <div
-                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-red-600 duration-300 ${
+                className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-sideBerTopBtnBg duration-300 ${
                   open ? "justify-between" : "justify-center"
                 }
                 }`}
@@ -613,7 +130,11 @@ const SidebarMenu = ({ open, setOpen }) => {
               >
                 {/* Only show icon for menu items with submenus */}
                 <div className="flex flex-row items-center gap-2">
-                  <img className="w-8" src={item?.icon} alt="" />
+                  <img
+                    className="w-8 text-black bg-white rounded-full"
+                    src={item?.icon}
+                    alt=""
+                  />
                   <p className={`${!open && "hidden"}`}>{item?.name}</p>
                 </div>
                 {/* Show arrow for submenu toggle */}
@@ -624,19 +145,29 @@ const SidebarMenu = ({ open, setOpen }) => {
             </Link>
 
             {/* Only show submenu when "Games Control" is clicked */}
-            {item?.submenu && submenuOpen[item?.name] && open && (
-              <div className="pl-8 text-white text-sm font-semibold bg-black duration-300">
+            {item?.submenu && submenuOpen[item?.name] && (
+              <div
+                className={`text-white text-sm font-semibold ${
+                  open
+                    ? "bg-menuHoverActiveColor pl-8"
+                    : "bg-black hover:bg-sideBerTopBtnBg"
+                } duration-300`}
+              >
                 {item?.submenu?.map((subItem, subIndex) => (
                   <Link
-                    onClick={
-                      !subItem.path && !subItem.submenu && handleModalOpen
+                    onClick={() =>
+                      !subItem.path &&
+                      !subItem.submenu &&
+                      handleMenuClick(subItem)
                     }
                     key={subIndex}
-                    to={subItem?.path}
-                    className="py-2.5 flex gap-2"
+                    to={subItem?.demo ? subItem.demo : subItem?.path}
+                    className={`py-2.5 flex gap-2 ${
+                      !open && "flex items-center justify-center"
+                    }`}
                   >
-                    <FaRegCircle size={22} className="text-yellow-300" />
-                    {subItem?.name}
+                    <img className="w-5 h-5" src={subItem?.icon} alt="" />
+                    {open && <span>{subItem?.name}</span>}
                   </Link>
                 ))}
               </div>

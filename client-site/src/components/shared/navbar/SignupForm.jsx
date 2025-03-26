@@ -5,7 +5,7 @@ import { FaSync } from "react-icons/fa";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useAddUserMutation } from "../../../redux/features/allApis/usersApi/usersApi";
 import { useToasts } from "react-toast-notifications";
-const SignupForm = () => {
+const SignupForm = ({ onClose, refCode }) => {
   const [addUser, { isLoading }] = useAddUserMutation();
   const {
     register,
@@ -66,6 +66,7 @@ const SignupForm = () => {
         handleRefresh();
         reset();
         setPhone("");
+        onClose();
       }
     } else {
       console.log("Verification code does not match.");
@@ -75,8 +76,28 @@ const SignupForm = () => {
   return (
     <div className="px-4 py-2">
       <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
+        {/* Full Name */}
         <div className="space-y-1">
-          <label className="text-white text-sm" htmlFor="name">
+          <label className="text-white text-sm" htmlFor="fullName">
+            Full Name
+          </label>
+          <input
+            {...register("fullName", {
+              required: "Full Name is required",
+            })}
+            name="fullName"
+            type="text"
+            placeholder="Your Full Name"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
+          />
+          {errors.fullName && (
+            <p className="text-red-600 text-sm">{errors.fullName.message}</p>
+          )}
+        </div>
+
+        {/* User name */}
+        <div className="space-y-1">
+          <label className="text-white text-sm" htmlFor="username">
             Username
           </label>
           <input
@@ -89,14 +110,36 @@ const SignupForm = () => {
               },
               pattern: { value: /^[a-zA-Z0-9]+$/, message: "Invalid format" },
             })}
+            name="username"
             type="text"
-            placeholder="4-15 char, allow number"
-            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+            placeholder="4-15 char and number"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
           {errors.username && (
             <p className="text-red-600 text-sm">{errors.username.message}</p>
           )}
         </div>
+
+        {/* Email */}
+        <div className="space-y-1 relative">
+          <label className="text-white text-sm" htmlFor="email">
+            Email
+          </label>
+          <input
+            {...register("email", {
+              required: "Email is required",
+            })}
+            type="email"
+            placeholder="Your Email Address"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
+          />
+
+          {errors.email && (
+            <p className="text-red-600 text-sm">{errors.email.message}</p>
+          )}
+        </div>
+
+        {/* Password */}
         <div className="space-y-1 relative">
           <label className="text-white text-sm" htmlFor="password">
             Password
@@ -112,7 +155,7 @@ const SignupForm = () => {
             })}
             type={showPassword ? "text" : "password"}
             placeholder="6-20 Characters and Numbers"
-            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-1 ring-[#767575] hover:ring-red-600"
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
           />
           <button
             type="button"
@@ -125,11 +168,13 @@ const SignupForm = () => {
             <p className="text-red-600 text-sm">{errors.password.message}</p>
           )}
         </div>
+
+        {/* Phone Number */}
         <div className="space-y-1 relative w-full">
           <label className="text-white text-sm" htmlFor="phone">
             Phone Number
           </label>
-          <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
+          <div className="flex items-center bg-[#363636] text-white ring-2 ring-[#767575] hover:ring-SidebarBg rounded-md">
             <div className="flex items-center px-3 border-r border-[#767575]">
               <img
                 src="https://flagcdn.com/w40/bd.png"
@@ -158,11 +203,27 @@ const SignupForm = () => {
             <p className="text-red-600 text-sm">{errors.phone.message}</p>
           )}
         </div>
+
+        {/* Refer Code */}
+        <div className="space-y-1 relative">
+          <label className="text-white text-sm" htmlFor="refercode">
+            Refer Code <span className="text-xs italic">(optional)</span>
+          </label>
+          <input
+            {...register("refercode")}
+            type="text"
+            placeholder="Type Refer Code"
+            value={refCode ? refCode : ""}
+            className="text-white bg-[#363636] border-none outline-none w-full py-1.5 px-4 rounded-md ring-2 ring-[#767575] hover:ring-SidebarBg"
+          />
+        </div>
+
+        {/* Verification Code */}
         <div className="space-y-1 w-full">
           <label className="text-white text-sm" htmlFor="verificationCode">
             Verification Code
           </label>
-          <div className="flex items-center bg-[#363636] text-white ring-1 ring-[#767575] hover:ring-red-600 rounded-md">
+          <div className="flex items-center bg-[#363636] text-white ring-2 ring-[#767575] hover:ring-SidebarBg rounded-md">
             <div className="w-1/2">
               <input
                 {...register("verificationCode", {
@@ -179,7 +240,7 @@ const SignupForm = () => {
               <button
                 type="button"
                 onClick={handleRefresh}
-                className="hover:text-red-600"
+                className="hover:text-SidebarBg"
               >
                 <FaSync size={18} />
               </button>
@@ -191,20 +252,21 @@ const SignupForm = () => {
             </p>
           )}
         </div>
+
         <button
           className={`p-1.5 w-full text-lg ${
             isCodeMatched || isLoading
-              ? "text-white bg-red-600 hover:bg-red-800"
+              ? "text-white bg-SidebarBg hover:bg-SideBarTopBg"
               : "text-gray-500 bg-gray-300 cursor-not-allowed"
           } duration-300 rounded-md`}
           type="submit"
           disabled={!isCodeMatched || isLoading}
         >
-          {isLoading ? "..." : "Signup"}
+          {isLoading ? "..." : "SIGN UP"}
         </button>
-        <p className="mt-2 px-4 text-xs text-center text-[#aaa9a9]">
+        <p className="mt-2 px-4 text-sm text-center text-[#aaa9a9]">
           Already have an account?
-          <span className="text-red-600 font-semibold"> Login</span>
+          <span className="text-SidebarBg font-semibold"> Login</span>
         </p>
       </form>
     </div>

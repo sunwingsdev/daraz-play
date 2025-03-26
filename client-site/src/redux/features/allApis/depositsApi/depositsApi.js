@@ -18,11 +18,18 @@ const depositsApi = baseApi.injectEndpoints({
       providesTags: ["deposits"],
     }),
 
+    // get single deposit by id
+    getDepositById: builder.query({
+      query: (id) => `/deposits/single-deposit/${id}`,
+      providesTags: ["deposits"],
+    }),
+
     // update status
     updateDepositStatus: builder.mutation({
-      query: (id) => ({
+      query: ({ id, data }) => ({
         url: `/deposits/status/${id}`,
         method: "PATCH",
+        body: data,
       }),
       invalidatesTags: ["deposits"],
     }),
@@ -32,5 +39,6 @@ const depositsApi = baseApi.injectEndpoints({
 export const {
   useAddDepositMutation,
   useGetDepositsQuery,
+  useGetDepositByIdQuery,
   useUpdateDepositStatusMutation,
 } = depositsApi;

@@ -1,5 +1,5 @@
-import { logout } from "../../redux/slices/authSlice";
-import { useState } from "react";
+import { logout, setSingleUser } from "../../redux/slices/authSlice";
+import { useEffect, useState } from "react";
 import { BsClipboardHeart } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { FaEye, FaEyeSlash, FaUsers, FaWhatsapp } from "react-icons/fa";
@@ -13,13 +13,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import OppsModal from "../shared/modal/OppsModal";
 import { useToasts } from "react-toast-notifications";
+import myAccount from "../../assets/myAccount.png";
+import { useLazyGetUserByIdQuery } from "../../redux/features/allApis/usersApi/usersApi";
+import { TfiReload } from "react-icons/tfi";
 
 const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
   const navigate = useNavigate();
   return (
-    <div className="bg-[#333333] rounded-md py-2 space-y-2">
-      <h2 className="border-s-8 border-[#14805e] px-2 ms-2">{heading}</h2>
-      <div className="w-full border-t border-gray-600"></div>
+    <div className="bg-white text-SidebarBg font-semibold rounded-md py-2 space-y-2">
+      <h2 className="border-s-8 border-SidebarBg px-2 ms-2">{heading}</h2>
+      <div className="w-full border-t border-SidebarBg"></div>
       <div
         className={`flex items-center px-2 ${
           contents.length === 4
@@ -29,7 +32,7 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
             : "justify-center gap-24"
         }`}
       >
-        {contents?.map(({ icon: Icon, title, route, state }) =>
+        {contents?.map(({ icon: Icon, title, route, state, onClick }) =>
           route ? (
             <Link
               // state={{ method: state }}
@@ -42,26 +45,22 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
-              <div className="rounded-full bg-[#4a4a4a] p-1.5">
+              <div className="rounded-full bg-gray-200 text-black p-1.5">
                 <Icon className="text-xl" />
               </div>
-              <p className="font-light text-xs sm:text-sm text-center">
-                {title}
-              </p>
+              <p className="text-xs sm:text-sm text-center">{title}</p>
             </Link>
           ) : (
             <div
-              onClick={handleModalOpen}
+              onClick={onClick || handleModalOpen}
               key={title}
               className="flex flex-col items-center justify-center gap-1.5"
             >
-              <div className="rounded-full bg-[#4a4a4a] p-1.5">
+              <div className="rounded-full bg-gray-200 text-black p-1.5">
                 {" "}
                 <Icon className="text-xl" />
               </div>
-              <p className="font-light text-xs sm:text-sm text-center">
-                {title}
-              </p>
+              <p className="text-xs sm:text-sm text-center">{title}</p>
             </div>
           )
         )}
@@ -70,10 +69,12 @@ const Card = ({ contents, heading, handleModalOpen, closeModal }) => {
   );
 };
 
-const AccountDetailsMobile = ({ setDrawerOpen }) => {
-  const { user } = useSelector((state) => state.auth);
+const AccountDetailsMobile = ({ setDrawerOpen, openDeposit, openWithdraw }) => {
+  const { user, singleUser } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
   const [isWalletOpen, setIsWalletOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [getSingleUser] = useLazyGetUserByIdQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { addToast } = useToasts();
@@ -89,6 +90,28 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
     navigate("/");
   };
 
+  useEffect(() => {
+    if (!user) return;
+    getSingleUser(user?._id).then(({ data }) => {
+      dispatch(setSingleUser(data));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const reloadBalance = () => {
+    if (!user) return;
+
+    setLoading(true);
+
+    getSingleUser(user?._id)
+      .then(({ data }) => {
+        dispatch(setSingleUser(data));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
@@ -101,14 +124,18 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
     {
       icon: PiWallet,
       title: "Deposit",
-      route: "/profile/deposit",
-      state: "deposit",
+      onClick: () => {
+        openDeposit();
+        setDrawerOpen(false);
+      },
     },
     {
       icon: PiHandWithdraw,
       title: "Withdraw",
-      route: "/profile/deposit",
-      state: "withdraw",
+      onClick: () => {
+        openWithdraw();
+        setDrawerOpen(false);
+      },
     },
   ];
   const historyContents = [
@@ -130,21 +157,17 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center bg-black justify-center z-50 font-normal overflow-y-auto">
+      <div className="fixed inset-0 flex items-center bg-footerBg justify-center z-50 font-normal overflow-y-auto">
         {/* Drawer Content */}
         <div className="w-full h-full rounded-t-2xl shadow-lg flex flex-col">
           <button
             onClick={() => setDrawerOpen(false)}
-            className="self-end text-white bg-black absolute ps-10 pe-2 pb-8 rounded-bl-full text-2xl z-50"
+            className="self-end text-footerTextColor bg-gray-300 font-bold absolute ps-10 pe-2 pb-8 rounded-bl-full text-2xl z-50"
           >
             ✕
           </button>
           <div className="">
-            <img
-              className="-mt-8"
-              src="https://img.b112j.com/bj/h5/assets/images/member-header-bg.png?v=1732693526219"
-              alt=""
-            />
+            <img className="-mt-8" src={myAccount} alt="" />
             <div className="px-3 absolute -mt-32 space-y-4 w-full">
               <div className="flex items-center justify-between">
                 <div className="w-1/6 m-auto">
@@ -155,8 +178,10 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                   />
                 </div>
                 <div className="w-5/6 space-y-2">
-                  <p className="text-xl">{user?.user.fullName}</p>
-                  <div className="bg-[#333333] flex items-center justify-center gap-2 px-3 py-2 text-[10px] rounded-full w-fit">
+                  <p className="text-xl font-bold text-white">
+                    User Id : {user?.username}
+                  </p>
+                  <div className="bg-white font-semibold text-black flex items-center justify-center gap-2 px-3 py-2 text-[10px] rounded-full w-fit">
                     <p>
                       {" "}
                       VIP Points (VP){" "}
@@ -168,8 +193,8 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#333333] px-3 py-7 rounded-md flex items-center justify-between">
-                <p className="inline-flex items-center gap-3 text-[#7dbfaa] text-sm">
+              <div className="bg-SidebarBg text-white px-3 py-7 rounded-md flex items-center justify-between">
+                <p className="inline-flex items-center gap-3 text-sm">
                   Main Wallet{" "}
                   {isWalletOpen ? (
                     <FaEyeSlash
@@ -184,7 +209,17 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                   )}
                 </p>
                 <p className="text-xl text-yellow-300">
-                  ৳ <span className="ms-2">{isWalletOpen ? 0 : "***"}</span>
+                  <span
+                    onClick={reloadBalance}
+                    className="ms-2 inline-flex items-center gap-2"
+                  >
+                    <TfiReload
+                      className={`mr-2 ${
+                        loading ? "animate-spin" : ""
+                      } transition duration-300`}
+                    />
+                    ৳ {isWalletOpen ? singleUser?.balance || 0 : "***"}
+                  </span>
                 </p>
               </div>
 
@@ -213,11 +248,11 @@ const AccountDetailsMobile = ({ setDrawerOpen }) => {
                 heading="Contact Us"
                 closeModal={() => setDrawerOpen(false)}
               />
-              <div className="bg-[#333333] py-3 rounded-md flex items-center justify-center">
-                <p
-                  onClick={handleLogout}
-                  className="inline-flex items-center justify-center gap-3 text-sm"
-                >
+              <div
+                onClick={handleLogout}
+                className="bg-white hover:bg-SidebarBg duration-300 text-black py-3 rounded-md flex items-center justify-center"
+              >
+                <p className="inline-flex items-center justify-center gap-3 text-sm">
                   <IoIosLogOut className="text-2xl" />
                   Log Out
                 </p>

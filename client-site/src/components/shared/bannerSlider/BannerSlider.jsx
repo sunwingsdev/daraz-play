@@ -4,17 +4,20 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import sliderImage_1 from "../../../assets/sliderImg-1.jpg";
-import sliderImage_2 from "../../../assets/sliderImg-2.jpg";
-import sliderImage_3 from "../../../assets/sliderImg-3.jpg";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const BannerSlider = () => {
+  const { data: homeControls } = useGetHomeControlsQuery();
   // Create refs for navigation buttons
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  const sliders = homeControls?.filter(
+    (control) => control.category === "slider" && control.isSelected
+  );
+
   return (
-    <div className="banner-slider relative md:px-4 md:pt-4 bg-zinc-800">
+    <div className="banner-slider relative md:px-4 md:pt-4 bg-footerBg">
       <Swiper
         slidesPerView={1}
         spaceBetween={1}
@@ -40,36 +43,18 @@ const BannerSlider = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <div className="h-auto">
-            <img
-              className="w-full object-cover h-28 sm:h-44 md:h-52 lg:h-60 xl:h-72 2xl:h-auto"
-              src={sliderImage_1}
-              alt=""
-            />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-auto">
-            <img
-              className="w-full object-cover h-28 sm:h-44 md:h-52 lg:h-60 xl:h-72 2xl:h-auto"
-              src={sliderImage_2}
-              alt=""
-            />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-auto">
-            <img
-              className="w-full object-cover h-28 sm:h-44 md:h-52 lg:h-60 xl:h-72 2xl:h-auto"
-              src={sliderImage_3}
-              alt=""
-            />
-          </div>
-        </SwiperSlide>
+        {sliders?.map((slider) => (
+          <SwiperSlide key={slider?._id}>
+            <div className="h-auto">
+              <img
+                className="w-full object-cover h-28 sm:h-44 md:h-52 lg:h-60 xl:h-72 2xl:h-auto"
+                src={`${import.meta.env.VITE_BASE_API_URL}${slider?.image}`}
+                alt=""
+              />
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
-
-      {/* Custom navigation buttons with react-icons */}
       <div
         ref={nextRef}
         className=" absolute top-1/2 transform -translate-y-1/2 right-2 text-xl sm:text-2xl text-white z-10"

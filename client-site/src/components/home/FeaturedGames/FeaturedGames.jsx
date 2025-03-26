@@ -3,12 +3,17 @@ import GameCard from "../../shared/gameCard/GameCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
+import { useGetHomeControlsQuery } from "../../../redux/features/allApis/homeControlApi/homeControlApi";
 
 const FeaturedGames = () => {
+  const { data: homeControls } = useGetHomeControlsQuery();
+  const featuredHomeControls = homeControls?.filter(
+    (control) => control.category === "featured-game"
+  );
   return (
     <div>
       <div className="pt-4">
-        <p className="text-white text-base font-semibold mb-3 pl-2 border-l-4 border-l-red-600">
+        <p className="text-footerTextColor text-base font-semibold mb-3 pl-2 border-l-4 border-l-footerTextColor">
           Featured Games
         </p>
       </div>
@@ -44,78 +49,17 @@ const FeaturedGames = () => {
         }}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-027.png"
-            }
-            title={"Super Ace"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-029.png"
-            }
-            title={"Money Coming"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-031.png"
-            }
-            title={"Boxing King"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-076.png"
-            }
-            title={"Fortune Gems 2"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-014.png"
-            }
-            title={"Crazy777"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-043.png"
-            }
-            title={"Fortune Gems"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-102.png"
-            }
-            title={"Super Ace Deluxe"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-042.png"
-            }
-            title={"Golden Empire"}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <GameCard
-            imageUrl={
-              "https://img.d4040p.com/upload/game/AWCMJILI/JILI-SLOT-049.png"
-            }
-            title={"Alibaba"}
-          />
-        </SwiperSlide>
+        {featuredHomeControls?.map((featured) => (
+          <SwiperSlide key={featured?._id}>
+            <GameCard
+              imageUrl={`${import.meta.env.VITE_BASE_API_URL}${
+                featured?.image
+              }`}
+              title={featured?.title}
+              link={featured?.link}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
